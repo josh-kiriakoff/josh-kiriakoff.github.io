@@ -1,0 +1,981 @@
+/* ============================================================
+   josh-blog — terminal-themed personal site
+   Single-column variant. Everything lives inside the terminal.
+   ============================================================ */
+
+/* ============================================================
+   Self-hosted JetBrains Mono — four weights, all woff2.
+   Loaded from /fonts/. font-display: swap so first paint
+   uses the system monospace fallback while the file streams.
+   ============================================================ */
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/JetBrainsMono-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/JetBrainsMono-Italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/JetBrainsMono-SemiBold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/JetBrainsMono-Bold.woff2") format("woff2");
+}
+
+/* ============================================================
+   Tokens
+   ============================================================ */
+:root {
+  /* surfaces */
+  --bg-page:        #1b1c25;
+  --bg-window:      rgba(40, 42, 54, 0.96);   /* #282a36 @ 0.90 — translucent so the Kali dragon barely bleeds through */
+  --bg-chrome:      rgba(33, 34, 44, 0.96);   /* #21222c @ 0.90 — matched to --bg-window */
+  --bg-codeblock:   #1c1d27;
+  --bg-callout:     #21222c;
+  --bg-selection:   #3a3d52;
+
+  /* text */
+  --fg:             #f6f6ee;
+  --fg-soft:        #c8c8c0;
+  --fg-mute:        #8a93b3;   /* bumped from #6b7596 for AA contrast on small text */
+  --fg-bright:      #ffffff;
+
+  /* accents (Sigma / YAML — sigma-blue dominant, mint identity, emerald target) */
+  --accent:         #4ADE80;
+  --accent-h2:      #7DD3FC;   /* Tailwind sky-300 — softer blue for article-body h2/h3 */
+  --accent-hover:   #7DD3FC;
+  --accent-blue:    #38BDF8;
+  --accent-target:  #A7F3D0;
+  --accent-cyan:    #88E6F3;
+  --accent-purple:  #C4B5FD;
+  --accent-yellow:  #FACC15;
+  --accent-code:    #FCD34D;   /* Tailwind amber-300 — inline <code> body, warm muted yellow */
+  --accent-red:     #ff5f5f;
+
+  /* borders */
+  --rule:           #3d3f54;
+
+  /* type */
+  --mono: "JetBrains Mono", "IBM Plex Mono", "Fira Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+
+/* ============================================================
+   Reset / base
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg-page);
+  color: var(--fg);
+  font-family: var(--mono);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+
+  /* fade in on every page load — pairs with the `clear` outgoing transition */
+  animation: page-fade-in 220ms ease-out;
+}
+
+/* Faint Kali dragon wallpaper — fixed to the viewport so it doesn't
+   scroll, very low opacity so it reads as ambient texture rather than
+   content. Sits behind .window in paint order; the window's own
+   background covers it where the terminal overlaps. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    url("../img/kali-wallpaper.webp") center center / cover no-repeat;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+@keyframes page-fade-in {
+  from { opacity: 0.5; }
+  to   { opacity: 1; }
+}
+
+/* applied by terminal.js right before navigation */
+body.fading-out {
+  opacity: 0;
+  transition: opacity 100ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body { animation: none; }
+  body.fading-out { transition: none; }
+}
+
+::selection { background: var(--bg-selection); color: var(--fg-bright); }
+
+/* ============================================================
+   Accessibility utilities
+   ============================================================ */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0,0,0,0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 999;
+  background: var(--accent);
+  color: var(--bg-page);
+  padding: 8px 14px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  left: 8px;
+  top: 8px;
+  outline: 2px solid var(--accent-hover);
+  outline-offset: 2px;
+}
+
+.shell-error { color: var(--accent-red); }
+
+a { color: var(--accent); text-decoration: none; transition: color .15s ease; }
+a:hover, a:focus-visible { color: var(--accent-hover); }
+a:focus-visible { outline: 1px dashed var(--accent); outline-offset: 2px; }
+
+/* ============================================================
+   Window chrome
+   ============================================================ */
+.window {
+  max-width: 64rem;
+  margin: 2rem auto;
+  background: var(--bg-window);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 18px 48px rgba(0,0,0,.5);
+  position: relative;
+}
+
+/* subtle CRT scanlines */
+.window::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,.055) 0 1px,
+    transparent       1px 2px
+  );
+  pointer-events: none;
+  z-index: 5;
+}
+
+.chrome {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--bg-chrome);
+  border-bottom: 1px solid var(--rule);
+}
+
+.lights { display: flex; gap: 8px; }
+.lights span {
+  width: 12px; height: 12px; border-radius: 50%;
+  display: inline-block; box-shadow: 0 0 0 1px rgba(0,0,0,.25) inset;
+}
+.lights .l-close    { background: var(--accent-red); }
+.lights .l-min      { background: var(--accent-yellow); }
+/* macOS-style green stays hardcoded — window-chrome traffic lights are
+   a recognizable UI convention and shouldn't track the page accent. */
+.lights .l-max      { background: #4be883; }
+
+.chrome-title {
+  flex: 1; text-align: center;
+  color: var(--fg-mute);
+  font-size: 13px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* primary nav */
+.tabs {
+  display: flex; flex-wrap: wrap;
+  gap: 0 22px;
+  padding: 12px 22px;
+  background: var(--bg-window);
+  border-bottom: 1px solid var(--rule);
+}
+.tabs a {
+  color: var(--fg-soft);
+  font-size: 14px;
+}
+.tabs a::before { content: "$ "; color: var(--fg-mute); }
+.tabs a:hover   { color: var(--fg-bright); }
+.tabs a.active  { color: var(--accent-blue); font-weight: 600; }
+
+/* admin tab sits at the right edge of the nav, with a root-prompt
+   "# " glyph instead of "$ " — wink to anyone who knows the difference.
+   margin-left:auto on a flex child pushes it to the end of the line. */
+.tabs a.right         { margin-left: auto; }
+.tabs a.right::before { content: "# "; color: var(--fg-mute); }
+
+/* ============================================================
+   Body — single column, everything inside the terminal
+   ============================================================ */
+.body {
+  padding: 26px 32px;
+  min-height: 55vh;
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.footer {
+  display: flex; justify-content: space-between; flex-wrap: wrap;
+  gap: 4px 18px;
+  padding: 12px 22px;
+  border-top: 1px solid var(--rule);
+  color: var(--fg-mute);
+  font-size: 13px;
+}
+.footer a { color: var(--fg-soft); }
+.footer a:hover { color: var(--fg-bright); }
+
+/* ============================================================
+   Shell / prompt
+   ============================================================ */
+.shell { font-size: 14px; line-height: 1.55; }
+
+/* Spacing lives ABOVE the prompt, never below it.
+   Each .block contains a .line followed by an .output. The gap between
+   command sequences is one blank line — owned entirely by .line's top
+   margin. Only the very first .line in the shell session is flush to
+   the top; every subsequent prompt gets the gap, so spacing stays
+   consistent regardless of whether the previous block ends in <p>,
+   <ol>, <pre>, or anything else. */
+.line  { margin: 1.5em 0 0; }
+.shell > .block:first-child > .line { margin-top: 0; }
+
+.ps1 { font-weight: 700; margin-right: .5em; }
+.ps1 .user { color: var(--accent); }
+.ps1 .sep  { color: var(--fg); }
+.ps1 .dir  { color: var(--accent-blue); }
+
+.cmd { color: var(--fg); }
+
+/* Output sits flush against its prompt (no top margin) and owns no
+   bottom cushion either — the gap to the next prompt is owned solely
+   by the next .line's margin-top. Child elements with default block
+   margins (<p>, <ol>, <pre>, <h1>, ...) get their first-/last-child
+   margins zeroed so they don't leak spacing into the layout. */
+.output { color: var(--fg-soft); margin: 0; }
+.output > *:first-child { margin-top: 0; }
+.output > *:last-child  { margin-bottom: 0; }
+.output > p { margin: 0; }
+.output > p + p { margin-top: 1rem; }   /* paragraph breathing inside a single output */
+
+/* blinking block cursor */
+.caret {
+  display: inline-block;
+  width: .55em; height: 1.2em;
+  background: var(--fg);
+  vertical-align: text-bottom;
+  animation: caret-blink 1s steps(1) infinite;
+}
+@keyframes caret-blink { 50% { opacity: 0; } }
+
+/* file/path argument inside a typed command — split from .cmd by terminal.js
+   when a block carries data-target. Lives next to .cmd in the prompt line. */
+.target { color: var(--accent-target); }
+
+/* ============================================================
+   `cat ~/links.txt` style output — aligned key → value rows
+   ============================================================ */
+.linktable {
+  background: transparent;
+  border: none; padding: 0;
+  margin: .15rem 0 .25rem;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--fg-soft);
+  white-space: pre;
+  overflow-x: auto;
+}
+.linktable .k { color: var(--accent-blue); }        /* key (label) */
+.linktable .v { color: var(--fg); }                  /* value */
+.linktable a  { color: var(--fg); }
+.linktable a:hover { color: var(--accent-hover); text-decoration: underline; }
+.linktable .ext::after { content: " ↗"; color: var(--fg-mute); }
+
+/* ============================================================
+   readme listing (homepage `cat ~/recent.md`)
+   Flush with the prompt above, no extra margin — same shell font-size
+   as every other output, so it reads as one continuous terminal stream.
+   ============================================================ */
+.readme       { margin: 0; }
+.readme .row  { margin-bottom: 1em; }
+.readme .row:last-child { margin-bottom: 0; }
+.readme .ttl  {
+  color: var(--accent-blue);
+  font-weight: 600;
+}
+.readme .ttl:hover { color: var(--accent-hover); }
+.readme .date { color: var(--fg-mute); margin-left: .3rem; }
+.readme .desc { color: var(--fg-soft); display: block; }
+
+/* ============================================================
+   `ls -la` block
+   ============================================================ */
+.ls {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  color: var(--fg-soft);
+  overflow-x: auto;
+  white-space: pre;
+}
+.ls .d { color: var(--accent-blue); font-weight: 700; }
+.ls .s { color: var(--accent-cyan); font-weight: 600; }     /* symlink */
+.ls a  { color: var(--fg); }
+.ls a.s { color: var(--accent-cyan); font-weight: 600; }
+.ls a:hover { color: var(--accent-hover); text-decoration: underline; }
+.ls .ext-target { color: var(--fg-mute); }                  /* "-> huntress.com/..." */
+.ls .stat { color: var(--fg-mute); font-style: italic; }
+.ls .section { color: var(--accent); font-weight: 600; }    /* "[ internal ]" / "[ external ]" headers */
+.ls .meta { color: var(--fg-mute); }                        /* trailing date / supplementary info */
+.ls .role { color: var(--accent-blue); font-weight: 600; }   /* role / degree titles (about page) */
+
+/* ============================================================
+   `tree` block
+   ============================================================ */
+.tree {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0 0 .25rem;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--fg-soft);
+  white-space: pre;
+  overflow: visible;            /* override base `pre { overflow-x: auto }` */
+}
+.tree a   { color: var(--fg); }
+.tree a:hover { color: var(--accent-hover); text-decoration: underline; }
+.tree a.d { color: var(--accent-blue); font-weight: 600; }
+.tree a.d:hover { color: var(--accent-hover); }
+.tree .d  { color: var(--accent-blue); font-weight: 600; }
+.tree .cm { color: var(--fg-mute); }
+.tree .stat { color: var(--fg-mute); font-style: italic; }
+
+/* External-link tooltip:
+   When .ext-target lives INSIDE an <a class="s"> (blog/external listing),
+   the URL is hidden by default and revealed as a positioned tooltip on
+   hover/focus. Absolute positioning keeps it out of flow so the date
+   column stays aligned with sibling rows.
+   When .ext-target is a SIBLING of <a class="s"> (homepage ~/.links/),
+   none of these rules match and the URL renders inline as before. */
+.tree a.s { position: relative; }
+.tree a.s > .ext-target {
+  position: absolute;
+  left: 0;
+  top: calc(100% + .35em);
+  /* Wrap rather than run past the window edge. `.window` is overflow:hidden,
+     so a long slug on a narrow screen would be silently clipped instead of
+     readable. Short URLs still shrink-to-fit on one line, so this leaves the
+     desktop appearance alone. */
+  white-space: normal;
+  width: max-content;              /* `anywhere` here would collapse it to min-content */
+  overflow-wrap: break-word;
+  max-width: calc(100vw - 9rem);
+  background: var(--bg-codeblock);
+  color: var(--fg-soft);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 2px 8px;
+  font-size: 12.5px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .12s ease;
+  z-index: 5;
+}
+.tree a.s > .ext-target::before {
+  content: "↗ ";
+  color: var(--fg-mute);
+}
+.tree a.s:hover > .ext-target,
+.tree a.s:focus-visible > .ext-target {
+  opacity: 1;
+}
+
+/* ============================================================
+   Cert rows
+   ============================================================ */
+.cert-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 4px 14px;
+  padding: 14px 0;
+  border-bottom: 1px dashed var(--rule);
+}
+.cert-row:last-child { border-bottom: none; }
+.cert-row .cert-title {
+  color: var(--accent-blue);
+  font-weight: 600;
+}
+.cert-row .cert-title:hover { color: var(--accent-hover); }
+.cert-row .cert-issuer {
+  color: var(--fg-soft);
+  font-size: 14px;
+}
+.cert-row .cert-date {
+  color: var(--fg-mute);
+  font-size: 13px;
+  white-space: nowrap;
+}
+.cert-row .cert-meta {
+  color: var(--fg-mute);
+  font-size: 12.5px;
+  grid-column: 1 / -1;
+}
+.cert-row .cert-meta code { font-size: 12px; }
+
+/* ============================================================
+   Headings & prose
+   ============================================================ */
+h1, h2, h3, h4, h5, h6 {
+  margin: 1.6rem 0 .5rem;
+  color: var(--accent);
+  font-weight: 600;
+  line-height: 1.3;
+}
+h1 { font-size: 1.55rem; }
+h2 { font-size: 1.3rem; }
+h3 { font-size: 1.13rem; }
+h4, h5, h6 { font-size: 1rem; }
+h1:first-child { margin-top: 0; }
+
+h1::before, h2::before, h3::before,
+h4::before, h5::before, h6::before { color: var(--fg-mute); }
+h1::before { content: "# "; }
+h2::before { content: "## "; }
+h3::before { content: "### "; }
+h4::before { content: "#### "; }
+h5::before { content: "##### "; }
+h6::before { content: "###### "; }
+
+/* anchor permalinks injected by terminal.js on article headings */
+.article-body h2,
+.article-body h3 { scroll-margin-top: 1rem; }
+.anchor-link {
+  margin-left: .45rem;
+  color: var(--fg-mute);
+  font-weight: 400;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity .15s, color .15s;
+}
+.article-body h1:hover .anchor-link,
+.article-body h2:hover .anchor-link,
+.article-body h3:hover .anchor-link,
+.anchor-link:focus-visible { opacity: 1; }
+.anchor-link:hover { color: var(--accent); }
+
+p { margin: 0 0 1.4rem; }
+
+ul, ol { margin: 0 0 1.4rem; padding-left: 1.4rem; }
+ul li::marker { color: var(--fg-mute); content: "› "; }
+ol li::marker { color: var(--fg-mute); }
+
+blockquote {
+  margin: 0 0 1.4rem 1.4rem;
+  color: var(--fg-soft);
+  position: relative;
+}
+blockquote::before {
+  content: ">";
+  position: absolute; left: -1.4rem;
+  color: var(--fg-mute);
+}
+
+strong, b { color: var(--fg-bright); font-weight: 600; }
+em, i     { color: var(--fg); }
+
+hr {
+  border: 0;
+  text-align: center;
+  margin: 1.5rem 0;
+}
+hr::after { content: "— — —"; color: var(--fg-mute); letter-spacing: .4em; }
+
+/* code */
+code, kbd, samp {
+  background: var(--bg-codeblock);
+  color: var(--accent-code);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: .95em;
+  font-family: var(--mono);
+}
+
+pre {
+  background: var(--bg-codeblock);
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  padding: 1rem 1.1rem;
+  margin: 0 0 1.4rem;
+  overflow-x: auto;
+  font-size: 13.5px;
+  line-height: 1.55;
+  white-space: pre;
+}
+pre code { background: transparent; color: var(--fg); padding: 0; border-radius: 0; }
+
+/* YAML rendering on /about/ — terminal-style (no codeblock chrome) */
+pre.yaml {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.65;
+  tab-size: 2;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* copy-to-clipboard button injected by terminal.js on every .article-body pre.
+   terminal.js wraps each <pre> in .code-wrap and puts the button in the wrapper,
+   never inside the <pre> itself. The <pre> is the scroll container, and an
+   absolutely positioned child of a scroll container scrolls away with the
+   content — the button would slide out of the corner the moment a reader
+   scrolled a wide command line sideways. Positioning against the wrapper keeps
+   it pinned to the visible top-right corner at any scroll offset. */
+.code-wrap { position: relative; margin: 0 0 1.4rem; }
+/* Wrapper owns the block spacing. Needs to outrank the later
+   `.article-body pre { margin: 0 0 1.4rem }`, which still applies when JS is
+   off and no wrapper exists. */
+.article-body .code-wrap > pre { margin: 0; }
+.copy-btn {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  background: var(--bg-window);
+  color: var(--fg-mute);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity .15s, color .15s, border-color .15s;
+}
+.code-wrap:hover .copy-btn,
+.copy-btn:focus-visible { opacity: 1; }
+.copy-btn:hover { color: var(--accent); border-color: var(--accent); }
+.copy-btn.is-copied { color: var(--accent); border-color: var(--accent); opacity: 1; }
+
+/* simple syntax accents inside <pre><code> via spans */
+.tok-c   { color: var(--fg-mute); font-style: italic; }   /* comment */
+.tok-k   { color: var(--accent-blue); }                    /* keyword */
+.tok-s   { color: var(--accent-target); }                  /* string */
+.tok-fn  { color: var(--accent-blue); }                    /* function */
+.tok-n   { color: var(--accent-purple); }                  /* number / value */
+.tok-y   { color: var(--accent-blue); }                    /* yaml key */
+.tok-punct  { color: var(--fg-mute); }                       /* :, -, |, .. in YAML */
+.tok-entity { color: var(--accent); }                        /* employer + institution callouts in YAML */
+
+/* tables */
+table { border-spacing: 0; margin: 0 0 1.4rem; overflow-wrap: anywhere; }
+th, td { padding: 6px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { color: var(--fg-bright); text-align: left; }
+th:first-child, td:first-child { padding-left: 0; }
+
+/* IOC tables with short first-column tokens (IPs, domains): keep the
+   first column wide enough that a token like 158[.]94[.]209[.]33 sits
+   on one line. The parent `table { overflow-wrap: anywhere }` rule
+   inherits down to <code> children, so we override on both the cell
+   and the <code> child to actually win the cascade. */
+table.iocs-short td:first-child,
+table.iocs-short td:first-child code {
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+/* ============================================================
+   Images, figures, screenshots
+   ============================================================ */
+img { max-width: 100%; height: auto; display: block; }
+
+.article-body img,
+.article-body figure {
+  margin: 0 0 1.4rem;
+}
+
+.article-body img {
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+}
+
+.article-body figure {
+  padding: 0;
+}
+.article-body figure img {
+  width: 100%;
+}
+.article-body figcaption {
+  color: var(--fg-mute);
+  font-size: 13px;
+  margin-top: .5rem;
+  padding-left: .8rem;
+  border-left: 2px solid var(--rule);
+  font-style: italic;
+}
+
+/* terminal-window screenshot wrapper — mimics the page chrome */
+.article-body .screenshot {
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  overflow: hidden;
+  background: var(--bg-codeblock);
+  margin: 0 0 1.4rem;
+}
+.article-body .screenshot img {
+  display: block;
+  width: 100%;
+  border: none;
+  border-radius: 0;
+  margin: 0;
+}
+.article-body .screenshot + figcaption { margin-top: -.9rem; }
+
+/* side-by-side image grid */
+.article-body .gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+  margin: 0 0 1.4rem;
+}
+.article-body .gallery figure { margin: 0; }
+.article-body .gallery img    { width: 100%; }
+
+/* ============================================================
+   Post / listing rows
+   ============================================================ */
+.post-row {
+  padding: 16px 0;
+  border-bottom: 1px dashed var(--rule);
+}
+.post-row:last-child { border-bottom: none; }
+
+.post-row-head {
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  gap: 4px 14px; margin-bottom: 4px;
+}
+.post-row-date { color: var(--fg-mute); font-size: 13px; white-space: nowrap; }
+.post-row-title { color: var(--accent-blue); font-weight: 600; }
+.post-row-title:hover { color: var(--accent-hover); }
+.post-row-desc { color: var(--fg-soft); font-size: 14px; margin: 0; }
+
+/* ============================================================
+   Article body inside an .output (used on /blog/<slug>/ and
+   /detections/<slug>/ — the `cat` types, then the article
+   appears in one go).
+   ============================================================ */
+.article-body { color: var(--fg); font-size: 15px; line-height: 1.65; }
+.article-body > p,
+.article-body p { margin: 0 0 1.3rem; }
+.article-body h1 { margin: 0 0 .5rem; }
+.article-body h2 { margin: 1.8rem 0 .5rem; }
+.article-body h3 { margin: 1.4rem 0 .35rem; }
+.article-body h1 { color: var(--accent-blue); }
+.article-body h2,
+.article-body h3 { color: var(--accent-h2); }
+.article-body ul,
+.article-body ol { margin: 0 0 1.3rem; padding-left: 1.4rem; }
+.article-body pre { margin: 0 0 1.4rem; }
+.article-body hr  { margin: 1.5rem 0; }
+
+/* ============================================================
+   Detection-writeup specific blocks
+   (hypothesis · ATT&CK refs · sigma rule · etc.)
+   ============================================================ */
+.callout {
+  border-left: 3px solid var(--accent);
+  background: var(--bg-callout);
+  padding: 10px 14px;
+  margin: 0 0 1.4rem;
+  border-radius: 0 5px 5px 0;
+  color: var(--fg-soft);
+  font-size: 14px;
+}
+.callout strong { color: var(--accent); }
+.callout p:last-child { margin-bottom: 0; }
+
+.callout.hypothesis { border-left-color: var(--accent-blue); }
+.callout.hypothesis strong { color: var(--accent-blue); }
+.callout.rule       { border-left-color: var(--accent-purple); }
+.callout.rule strong { color: var(--accent-purple); }
+.callout.fp         { border-left-color: var(--accent-yellow); }
+.callout.fp strong  { color: var(--accent-yellow); }
+
+/* tag chips for ATT&CK techniques etc. */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin: .25rem 0 1.4rem; }
+.chips .chip {
+  font-size: 12px;
+  color: var(--fg-soft);
+  padding: 2px 8px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: rgba(255,255,255,.02);
+  font-family: var(--mono);
+}
+
+/* breadcrumb / back-link at bottom of post pages */
+.back-link {
+  color: var(--fg-mute);
+  font-size: 13px;
+  margin-top: 1.5rem;
+}
+.back-link a { color: var(--fg-soft); }
+.back-link a:hover { color: var(--fg-bright); }
+
+/* ============================================================
+   Mobile
+   ============================================================ */
+@media (max-width: 52rem) {
+  .window      { margin: 0; border-radius: 0; border-left: 0; border-right: 0; min-height: 100vh; }
+  .body        { padding: 18px; }
+  .chrome-title { font-size: 12px; }
+  .tabs        { padding: 10px 16px; gap: 0 16px; }
+  .tabs a      { font-size: 13px; }
+}
+
+/* ============================================================
+   MOTD — homepage login banner above the first prompt.
+   Lives inside the .shell but is NOT a .block, so the typewriter
+   runner never touches it. Lines are populated randomly by an
+   inline script in index.html.
+   ============================================================ */
+.shell .motd {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0 0 .25rem;
+  color: var(--fg-mute);
+  font-size: 14px;
+  line-height: 1.55;
+  white-space: pre;
+  overflow-x: auto;
+}
+.shell .motd [data-motd-date] { color: var(--fg-soft); }
+
+/* ============================================================
+   Admin honeypot — bare login form on /admin/. Submitting anything
+   reveals a gif. Page is intentionally undiscovered: not linked
+   from anywhere, not in sitemap.xml, not in robots.txt.
+   ============================================================ */
+.admin-panel { max-width: 26rem; margin: 1rem auto; }
+
+.admin-banner {
+  padding: 12px 14px;
+  margin-bottom: 1.5rem;
+  background: rgba(255, 95, 95, .08);
+  border: 1px solid var(--accent-red);
+  border-radius: 4px;
+  text-align: center;
+}
+.admin-banner .admin-title { color: var(--accent-red); font-weight: 700; font-size: 14px; letter-spacing: .06em; }
+.admin-banner .admin-sub   { color: var(--fg-mute); font-size: 12.5px; margin-top: 2px; }
+
+.admin-form { display: flex; flex-direction: column; gap: 12px; margin: 0; }
+.admin-form[hidden] { display: none; }   /* author rule beats UA [hidden]; restore it */
+.admin-form label { display: flex; flex-direction: column; gap: 4px; }
+.admin-form label > span {
+  color: var(--fg-mute);
+  font-size: 12.5px;
+  letter-spacing: .04em;
+}
+.admin-form input {
+  background: var(--bg-codeblock);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  color: var(--fg);
+  font-family: var(--mono);
+  font-size: 14px;
+  padding: 8px 10px;
+}
+.admin-form input:focus { outline: none; border-color: var(--accent); }
+
+.admin-btn {
+  margin-top: 6px;
+  background: var(--accent);
+  color: var(--bg-page);
+  border: 1px solid var(--accent);
+  border-radius: 3px;
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 9px 14px;
+  cursor: pointer;
+}
+.admin-btn:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+.admin-btn:focus-visible { outline: 2px dashed var(--accent); outline-offset: 2px; }
+
+.admin-footer {
+  margin-top: 1.5rem;
+  color: var(--fg-mute);
+  font-size: 12px;
+  text-align: center;
+}
+.admin-footer code {
+  background: transparent;
+  color: var(--fg-mute);
+  padding: 0;
+  font-size: 12px;
+}
+
+.admin-result { text-align: center; }
+.admin-denied {
+  color: var(--accent-red);
+  font-weight: 700;
+  letter-spacing: .14em;
+  font-size: 18px;
+  margin-bottom: 1rem;
+}
+.admin-result img {
+  max-width: 100%;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  margin: 0 auto 1rem;
+}
+.admin-wink {
+  color: var(--fg-mute);
+  font-style: italic;
+  font-size: 13px;
+  margin: 0;
+}
+.admin-wink a { color: var(--accent); font-style: normal; }
+
+/* ============================================================
+   Window controls — the traffic lights become real buttons at
+   boot (terminal.js swaps the decorative spans; noscript keeps
+   plain dots). States: .is-min collapses the window to its
+   title bar, .is-max fills the viewport, body.win-closed hides
+   the window behind an ssh-style reconnect line.
+   ============================================================ */
+.lights button {
+  width: 12px; height: 12px; border-radius: 50%;
+  display: inline-block;
+  border: 0; padding: 0;
+  cursor: pointer;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.25) inset;
+}
+.lights button:hover { filter: brightness(1.35); }
+.lights button:focus-visible {
+  outline: 1px dashed var(--fg-mute);
+  outline-offset: 2px;
+}
+
+.window { transition: opacity .18s ease, transform .18s ease; }
+.window.is-closing { opacity: 0; transform: scale(.985); }
+
+.window.is-min .tabs,
+.window.is-min .body,
+.window.is-min .footer { display: none; }
+
+.window.is-max {
+  max-width: none;
+  margin: 0;
+  border-radius: 0;
+  border-left: 0;
+  border-right: 0;
+  min-height: 100vh;
+}
+
+body.win-closed .window { display: none; }
+
+.reconnect {
+  position: fixed; inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+body.win-closed .reconnect { display: flex; }
+.reconnect-inner {
+  font-size: 14px;
+  color: var(--fg-soft);
+  text-align: center;
+}
+.reconnect-btn {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 6px 14px;
+  background: none;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  color: var(--accent);
+  font: inherit;
+  cursor: pointer;
+  transition: border-color .15s ease, color .15s ease;
+}
+.reconnect-btn:hover { border-color: var(--accent); color: var(--accent-hover); }
+.reconnect-btn:focus-visible { outline: 1px dashed var(--accent); outline-offset: 2px; }
+
+/* ============================================================
+   Interactive prompt — visually-hidden input feeding the live
+   command line. 16px font stops iOS zooming on focus.
+   ============================================================ */
+.live-line { position: relative; }
+.live-cmd  { white-space: pre; }
+.shell .cmd { white-space: pre-wrap; }
+.term-input {
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 1px; height: 1px;
+  opacity: 0;
+  border: 0; padding: 0;
+  font-size: 16px;
+  background: transparent;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .window { transition: none; }
+}

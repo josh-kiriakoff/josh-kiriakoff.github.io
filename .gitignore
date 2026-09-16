@@ -1,0 +1,18 @@
+# Internal maintenance docs — never deployed, never committed.
+# See docs/README.md: "These docs are internal. They must never be deployed."
+docs/
+
+# Author working notes — contain the redaction mapping table
+# (real client identifiers). Must never reach a public repo.
+AUTHOR-NOTES.md
+**/AUTHOR-NOTES.md
+
+# Pre-redaction originals and backups of figures
+*.bak
+*.orig
+*UNREDACTED*
+*-original.*
+
+# OS cruft
+.DS_Store
+Thumbs.db

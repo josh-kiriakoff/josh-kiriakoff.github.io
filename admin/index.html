@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#1b1c25" />
+  <title>admin &middot; sign in</title>
+  <meta name="description" content="Restricted." />
+
+  <link rel="icon" type="image/svg+xml" href="../img/favicon.svg" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <a href="#main" class="skip-link">skip to content</a>
+
+  <div class="window">
+
+    <header class="chrome">
+      <div class="lights" aria-hidden="true">
+        <span class="l-close"></span>
+        <span class="l-min"></span>
+        <span class="l-max"></span>
+      </div>
+      <div class="chrome-title">josh@kiriakoff:~/admin</div>
+    </header>
+
+    <nav class="tabs" aria-label="primary">
+      <a href="../">josh.kiriakoff</a>
+      <a href="../about/">about</a>
+      <a href="../blog/">blog</a>
+      <a href="../detections/">detections</a>
+      <a href="./" class="right active">admin</a>
+    </nav>
+
+    <div class="body" id="main">
+      <h1 class="sr-only">Admin sign-in</h1>
+
+      <div class="admin-panel">
+
+        <div class="admin-banner" role="alert">
+          <div class="admin-title">RESTRICTED AREA</div>
+          <div class="admin-sub">authorised personnel only</div>
+        </div>
+
+        <form class="admin-form" id="admin-form" autocomplete="off" novalidate>
+          <label>
+            <span>username</span>
+            <input type="text" name="username" autocomplete="off" spellcheck="false" />
+          </label>
+          <label>
+            <span>password</span>
+            <input type="password" name="password" autocomplete="off" />
+          </label>
+          <button type="submit" class="admin-btn">sign in</button>
+        </form>
+
+        <div class="admin-footer">
+          session: <code id="admin-session">&hellip;</code>
+        </div>
+
+        <div class="admin-result" id="admin-result" hidden aria-live="polite">
+          <div class="admin-denied">ACCESS DENIED</div>
+          <img src="../img/the-office-no.gif" alt="" />
+          <p class="admin-wink">nice try. <a href="../">back to /home/josh &rarr;</a></p>
+        </div>
+
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span>&copy; <a href="../">Josh Kiriakoff</a> &middot; <span data-year>2026</span></span>
+    </footer>
+
+  </div>
+
+  <script>
+    /* /admin gag — fake login form. Any submit (even empty fields)
+       hides the form and reveals the gif. No actual authentication,
+       no network call, no clipboard. Linked from the right side of
+       every nav; excluded from sitemap.xml + robots.txt to keep
+       crawlers off it. */
+    (function () {
+      var hex = '0123456789abcdef';
+      function gen(n) {
+        var s = '';
+        for (var i = 0; i < n; i++) s += hex[Math.floor(Math.random() * 16)];
+        return s;
+      }
+      var sess = gen(8) + '-' + gen(4) + '-' + gen(4) + '-' + gen(4) + '-' + gen(12);
+      var sEl = document.getElementById('admin-session');
+      if (sEl) sEl.textContent = sess;
+
+      var yr = new Date().getFullYear();
+      document.querySelectorAll('[data-year]').forEach(function (el) {
+        el.textContent = yr;
+      });
+
+      var form   = document.getElementById('admin-form');
+      var result = document.getElementById('admin-result');
+      var meta   = document.querySelector('.admin-footer');
+      if (form && result) {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          form.hidden = true;
+          if (meta) meta.hidden = true;
+          result.hidden = false;
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>

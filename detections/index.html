@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Josh Kiriakoff" />
+  <meta name="theme-color" content="#1b1c25" />
+  <title>detections — josh.kiriakoff</title>
+  <meta name="description" content="Hypothesis-driven hunts that conclude with a Sigma detection rule. Windows-focused." />
+  <link rel="canonical" href="https://josh-kiriakoff.github.io/detections/" />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="josh.kiriakoff" />
+  <meta property="og:title" content="detections — josh.kiriakoff" />
+  <meta property="og:description" content="Hypothesis-driven hunts that conclude with a Sigma detection rule. Windows-focused." />
+  <meta property="og:url" content="https://josh-kiriakoff.github.io/detections/" />
+  <meta property="og:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="detections — josh.kiriakoff" />
+  <meta name="twitter:description" content="Hypothesis-driven hunts that conclude with a Sigma detection rule." />
+  <meta name="twitter:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="../img/favicon.svg" />
+  <link rel="stylesheet" href="../css/style.css" />
+
+  <!-- Feeds -->
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — blog" href="../feed-blog.xml" />
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — detections" href="../feed-detections.xml" />
+</head>
+<body>
+
+  <a href="#main" class="skip-link">skip to content</a>
+
+  <div class="window">
+
+    <header class="chrome">
+      <div class="lights" aria-hidden="true">
+        <span class="l-close"></span>
+        <span class="l-min"></span>
+        <span class="l-max"></span>
+      </div>
+      <div class="chrome-title">josh@kiriakoff:~/detections</div>
+    </header>
+
+    <nav class="tabs" aria-label="primary">
+      <a href="../">josh.kiriakoff</a>
+      <a href="../about/">about</a>
+      <a href="../blog/">blog</a>
+      <a href="./" class="active">detections</a>
+      <a href="../admin/" class="right">admin</a>
+    </nav>
+
+    <div class="body" id="main">
+      <h1 class="sr-only">detections — Josh Kiriakoff</h1>
+      <section class="shell" id="shell" aria-label="terminal session">
+
+        <div class="block" id="b-1" data-cmd="cat " data-target="./README.md" data-after="b-2">
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="cmd">cat </span><span class="target">./README.md</span>
+          </div>
+          <div class="output" hidden>
+            <p>
+              Each entry in this section is one artefact, written end-to-end as a single
+              document: a falsifiable <strong>hypothesis</strong>, the <strong>ES|QL hunt</strong>
+              I ran against it, the <strong>findings</strong> and <strong>discriminators</strong>
+              that fell out, and the resulting <strong>Sigma rule</strong>.
+            </p>
+
+            <p>The structure each writeup follows:</p>
+            <ol>
+              <li><strong>Hypothesis</strong> — one sentence, falsifiable.</li>
+              <li><strong>Context</strong> — TTPs, MITRE ATT&amp;CK technique IDs, why this matters.</li>
+              <li><strong>Hunt</strong> — runnable ES|QL against the canonical Huntress Process Insights schema.</li>
+              <li><strong>Findings &amp; discriminators</strong> — fields that separate signal from noise.</li>
+              <li><strong>Sigma rule</strong> — the detector the hunt produced.</li>
+              <li><strong>False positives</strong> — known FPs, scoping notes.</li>
+              <li><strong>References</strong>.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="block" id="b-2" data-cmd="ls " data-target="." data-after="b-3" hidden>
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="cmd">ls </span><span class="target">.</span>
+          </div>
+          <div class="output" hidden>
+<pre class="ls">  <a href="./example/">example.md</a>                          <span class="meta"><time datetime="2026-05">May 2026</time></span></pre>
+          </div>
+        </div>
+
+        <div class="block" id="b-3" hidden>
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="caret"></span>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <footer class="footer">
+      <span>© <a href="../">Josh Kiriakoff</a> · <span data-year>2026</span></span>
+    </footer>
+
+  </div>
+
+  <noscript>
+    <style>
+      [hidden]      { display: revert !important; }
+      .caret        { display: none !important; }
+      .anchor-link,
+      .copy-btn     { display: none !important; }
+    </style>
+  </noscript>
+
+  <script src="../js/terminal.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Josh Kiriakoff" />
+  <meta name="theme-color" content="#1b1c25" />
+  <meta name="robots" content="noindex" />
+  <title>404 — josh.kiriakoff</title>
+  <meta name="description" content="That path doesn't exist." />
+  <link rel="canonical" href="https://josh-kiriakoff.github.io/404.html" />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="josh.kiriakoff" />
+  <meta property="og:title" content="404 — josh.kiriakoff" />
+  <meta property="og:description" content="That path doesn't exist." />
+  <meta property="og:url" content="https://josh-kiriakoff.github.io/404.html" />
+  <meta property="og:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="404 — josh.kiriakoff" />
+  <meta name="twitter:description" content="That path doesn't exist." />
+  <meta name="twitter:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="./img/favicon.svg" />
+  <link rel="stylesheet" href="./css/style.css" />
+
+  <!-- Feeds -->
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — blog" href="./feed-blog.xml" />
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — detections" href="./feed-detections.xml" />
+</head>
+<body>
+
+  <a href="#main" class="skip-link">skip to content</a>
+
+  <div class="window">
+
+    <header class="chrome">
+      <div class="lights" aria-hidden="true">
+        <span class="l-close"></span>
+        <span class="l-min"></span>
+        <span class="l-max"></span>
+      </div>
+      <div class="chrome-title">josh@kiriakoff:~</div>
+    </header>
+
+    <nav class="tabs" aria-label="primary">
+      <a href="./">josh.kiriakoff</a>
+      <a href="./about/">about</a>
+      <a href="./blog/">blog</a>
+      <a href="./detections/">detections</a>
+      <a href="./admin/" class="right">admin</a>
+    </nav>
+
+    <div class="body" id="main">
+      <h1 class="sr-only">404 — not found</h1>
+      <section class="shell" id="shell" aria-label="terminal session">
+
+        <div class="block" id="b-1" data-cmd="cd " data-target="/the-page-you-wanted" data-after="b-2">
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~</span><span class="sep">$</span></span><span class="cmd">cd </span><span class="target">/the-page-you-wanted</span>
+          </div>
+          <div class="output" hidden>
+            <p class="shell-error">bash: cd: <span id="err-path">/the-page-you-wanted</span>: No such file or directory</p>
+          </div>
+        </div>
+
+        <div class="block" id="b-2" data-cmd="tree -L 1 " data-target="~/" data-after="b-3" hidden>
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~</span><span class="sep">$</span></span><span class="cmd">tree -L 1 </span><span class="target">~/</span>
+          </div>
+          <div class="output" hidden>
+<pre class="tree"><span class="d">/home/josh</span>
+├── <a class="d" href="./about/">about/</a>          <span class="cm"># bio · education · experience · skills</span>
+├── <a class="d" href="./blog/">blog/</a>           <span class="cm"># essays &amp; external bylines</span>
+├── <a class="d" href="./detections/">detections/</a>     <span class="cm"># hypothesis-driven hunts → sigma rules</span>
+└── <a class="d" href="./">home</a>            <span class="cm"># start over</span></pre>
+          </div>
+        </div>
+
+        <div class="block" id="b-3" hidden>
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~</span><span class="sep">$</span></span><span class="caret"></span>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <footer class="footer">
+      <span>© <a href="./">Josh Kiriakoff</a> · <span data-year>2026</span></span>
+    </footer>
+
+  </div>
+
+  <noscript>
+    <style>
+      [hidden]      { display: revert !important; }
+      .caret        { display: none !important; }
+      .anchor-link,
+      .copy-btn     { display: none !important; }
+    </style>
+  </noscript>
+
+  <script>
+    /* 404 — fill the requested path into the typed `cd` command and the
+       error line. window.location.pathname is whatever the visitor tried;
+       production hosts (Netlify, CF Pages, GitHub Pages) serve /404.html
+       for any unmatched URL while the bar still shows the requested path.
+       Direct hits on /404.html fall back to a generic placeholder.
+       Inline (not deferred) so this runs before terminal.js boots and
+       starts the typewriter on the now-correct data-cmd / data-target. */
+    (function () {
+      var path = window.location.pathname;
+      if (path === '/404' || path.endsWith('/404.html')) path = '/the-page-you-wanted';
+
+      var b1 = document.getElementById('b-1');
+      if (b1) {
+        b1.dataset.cmd    = 'cd ';
+        b1.dataset.target = path;
+        var cmd = b1.querySelector('.cmd');
+        var tgt = b1.querySelector('.target');
+        if (cmd) cmd.textContent = 'cd ';
+        if (tgt) tgt.textContent = path;
+      }
+
+      var errPath = document.getElementById('err-path');
+      if (errPath) errPath.textContent = path;
+    })();
+  </script>
+  <script src="./js/terminal.js" defer></script>
+</body>
+</html>

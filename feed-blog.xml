@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>josh.kiriakoff — blog</title>
+  <subtitle>Essays and external bylines from a SOC analyst.</subtitle>
+  <link href="https://josh-kiriakoff.github.io/blog/" rel="alternate" type="text/html"/>
+  <link href="https://josh-kiriakoff.github.io/feed-blog.xml" rel="self" type="application/atom+xml"/>
+  <id>https://josh-kiriakoff.github.io/blog/</id>
+  <updated>2026-08-14T00:00:00Z</updated>
+  <author>
+    <name>Josh Kiriakoff</name>
+    <email>kiriakoffj@gmail.com</email>
+    <uri>https://josh-kiriakoff.github.io/</uri>
+  </author>
+
+  <entry>
+    <title>A domain controller, a SonicWall, and no malware at all</title>
+    <link href="https://josh-kiriakoff.github.io/blog/dc-sslvpn-hok/"/>
+    <id>https://josh-kiriakoff.github.io/blog/dc-sslvpn-hok/</id>
+    <updated>2026-08-14T00:00:00Z</updated>
+    <published>2026-08-14T00:00:00Z</published>
+    <summary>Two days of hands-on-keyboard on a law firm's domain controller, carried out with two stolen passwords and nothing but built-in Windows tooling. WinRM-driven reconfiguration from a copy-pasted playbook with a typo in it, Kerberoasting the built-in Administrator, a DPAPI domain backup key read off the box, and persistence built entirely out of the firm's own SonicWall SSL-VPN config. Plus the six-group Domain Admins elevation that looked like total compromise and turned out to be the environment's own just-in-time tooling.</summary>
+    <category term="internal"/>
+  </entry>
+
+  <entry>
+    <title>Fake Claude Install Guide Leads to MacSync Stealer and RAT: What We Pulled From the Attacker's Servers</title>
+    <link href="https://www.huntress.com/blog/macsync-stealer-rat-reverse-engineering" rel="alternate"/>
+    <id>https://www.huntress.com/blog/macsync-stealer-rat-reverse-engineering</id>
+    <updated>2026-07-29T00:00:00Z</updated>
+    <published>2026-07-29T00:00:00Z</published>
+    <summary>Reverse engineering MacSync, a six-stage macOS kill chain delivered through malvertised fake Claude installation guides: a Base64 zsh loader, a background daemon function, a 46KB AppleScript stealer, a universal Mach-O RAT beaconing over WebSocket TLS, a signed screen-capture helper, and trojanised Ledger and Trezor wallet apps that phish recovery phrases. Pulled from the attacker's own servers, along with the delivery tier, operator panel, and seed-phrase drop domains.</summary>
+    <category term="external"/>
+  </entry>
+
+  <entry>
+    <title>The Devil, Eight Million Emails, and a Whole Lot of Milk</title>
+    <link href="https://www.huntress.com/blog/terminal-server-phishing-stager-exposed" rel="alternate"/>
+    <id>https://www.huntress.com/blog/terminal-server-phishing-stager-exposed</id>
+    <updated>2026-06-01T00:00:00Z</updated>
+    <published>2026-06-01T00:00:00Z</published>
+    <summary>A partner onboarded to Huntress mid-compromise. Within hours we caught an external actor on an internet-facing terminal server running Gammadyne Mailer, broadcasting a Boots UK phishing campaign from 8.9 million addresses to a payload hosted on a compromised Bolivian government website.</summary>
+    <category term="external"/>
+  </entry>
+
+  <entry>
+    <title>Let's ClickFix some errors</title>
+    <link href="https://josh-kiriakoff.github.io/blog/clickfix-donut-chain/"/>
+    <id>https://josh-kiriakoff.github.io/blog/clickfix-donut-chain/</id>
+    <updated>2026-05-26T00:00:00Z</updated>
+    <published>2026-05-26T00:00:00Z</published>
+    <summary>Walking a Donut + ChromeElevator infostealer chain that started with a single Run-dialog paste. RunMRU, svchost injection, an open payload directory, and a recompiled @xaitax PoC.</summary>
+    <category term="internal"/>
+  </entry>
+
+  <entry>
+    <title>Komari Red: The Monitoring Tool with a Built-in Reverse Shell</title>
+    <link href="https://www.huntress.com/blog/komari-c2-agent-abuse" rel="alternate"/>
+    <id>https://www.huntress.com/blog/komari-c2-agent-abuse</id>
+    <updated>2026-05-01T00:00:00Z</updated>
+    <published>2026-05-01T00:00:00Z</published>
+    <summary>An RMM-disguised attack with a SYSTEM-level reverse shell built into the default install.</summary>
+    <category term="external"/>
+  </entry>
+
+  <entry>
+    <title>Threat Advisory: Uptick in Bomgar RMM Exploitation</title>
+    <link href="https://www.huntress.com/blog/uptick-bomgar-exploitation" rel="alternate"/>
+    <id>https://www.huntress.com/blog/uptick-bomgar-exploitation</id>
+    <updated>2026-04-17T00:00:00Z</updated>
+    <published>2026-04-17T00:00:00Z</published>
+    <summary>Threat advisory on attackers exploiting CVE-2026-1731 in Bomgar RMM to deploy LockBit ransomware, create rogue admin accounts, and pivot into MSP customer environments.</summary>
+    <category term="contributions"/>
+  </entry>
+
+  <entry>
+    <title>Supply Chain Compromise of axios npm Package</title>
+    <link href="https://www.huntress.com/blog/supply-chain-compromise-axios-npm-package" rel="alternate"/>
+    <id>https://www.huntress.com/blog/supply-chain-compromise-axios-npm-package</id>
+    <updated>2026-03-31T00:00:00Z</updated>
+    <published>2026-03-31T00:00:00Z</published>
+    <summary>A compromised maintainer account published backdoored axios versions 1.14.1 and 0.30.4, delivering cross-platform RATs to at least 135 endpoints in the three hours before npm pulled the packages.</summary>
+    <category term="contributions"/>
+  </entry>
+</feed>

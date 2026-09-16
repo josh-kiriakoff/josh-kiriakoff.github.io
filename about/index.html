@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Josh Kiriakoff" />
+  <meta name="theme-color" content="#1b1c25" />
+  <title>about — josh.kiriakoff</title>
+  <meta name="description" content="About Joshua Kiriakoff — SOC Analyst at Huntress. Bio, employment history, education, and certifications." />
+  <link rel="canonical" href="https://josh-kiriakoff.github.io/about/" />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="profile" />
+  <meta property="og:site_name" content="josh.kiriakoff" />
+  <meta property="og:title" content="about — josh.kiriakoff" />
+  <meta property="og:description" content="About Joshua Kiriakoff — SOC Analyst at Huntress. Bio, employment history, education, and certifications." />
+  <meta property="og:url" content="https://josh-kiriakoff.github.io/about/" />
+  <meta property="og:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+  <meta property="profile:first_name" content="Josh" />
+  <meta property="profile:last_name" content="Kiriakoff" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="about — josh.kiriakoff" />
+  <meta name="twitter:description" content="About Joshua Kiriakoff — SOC Analyst at Huntress. Bio, employment history, education, and certifications." />
+  <meta name="twitter:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="../img/favicon.svg" />
+  <link rel="stylesheet" href="../css/style.css" />
+
+  <!-- Feeds -->
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — blog" href="../feed-blog.xml" />
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — detections" href="../feed-detections.xml" />
+</head>
+<body>
+
+  <a href="#main" class="skip-link">skip to content</a>
+
+  <div class="window">
+
+    <header class="chrome">
+      <div class="lights" aria-hidden="true">
+        <span class="l-close"></span>
+        <span class="l-min"></span>
+        <span class="l-max"></span>
+      </div>
+      <div class="chrome-title">josh@kiriakoff:~/about</div>
+    </header>
+
+    <nav class="tabs" aria-label="primary">
+      <a href="../">josh.kiriakoff</a>
+      <a href="./" class="active">about</a>
+      <a href="../blog/">blog</a>
+      <a href="../detections/">detections</a>
+      <a href="../admin/" class="right">admin</a>
+    </nav>
+
+    <div class="body" id="main">
+      <h1 class="sr-only">about — Josh Kiriakoff</h1>
+      <section class="shell" id="shell" aria-label="terminal session">
+
+        <div class="block" id="b-1" data-cmd="cat " data-target="./win_susp_net_user_add_quiet.yml" data-after="b-2">
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/about</span><span class="sep">$</span></span><span class="cmd">cat </span><span class="target">./win_susp_net_user_add_quiet.yml</span>
+          </div>
+          <div class="output" hidden>
+<pre class="yaml"><span class="tok-y">title</span><span class="tok-punct">:</span> <span class="tok-s">Who is this man?</span>
+<span class="tok-y">id</span><span class="tok-punct">:</span> <span class="tok-n">7c9e1a3b-4d52-4f8a-9c1e-2b6d8f3a5e10</span>
+<span class="tok-y">status</span><span class="tok-punct">:</span> <span class="tok-s">stable</span>
+<span class="tok-y">description</span><span class="tok-punct">:</span> <span class="tok-punct">|</span>
+<span class="tok-s">  Josh is a SOC Analyst at Huntress, based in Perth, Western Australia. He manages the Managed EDR and Managed SIEM alert queues for a global partner base and carries each investigation end to end, covering triage, scoping, forensic analysis, malware analysis, remediation guidance, and the client-ready report. Signals are assessed through process ancestry and command-line analysis and mapped to the MITRE ATT&amp;CK framework, with reporting held to an evidence-based standard where every conclusion is supported by observable artifacts rather than tool verdicts.
+
+  Evidence rarely arrives intact. Threat actors clear Security and System logs on the way through, partners often run without key audit policies enabled, and acquired artifacts can be corrupt or incomplete. There is no centralised logging to fall back on across partner environments, so investigations pivot from data source to data source until the activity is proven. Where 4624 logon events are gone from a wiped endpoint, 4776 credential validation events on the domain controller still establish the authentication. Where a binary has been deleted, Prefetch and AmCache still establish execution. Exported event logs are triaged with Chainsaw because running detection logic across raw EVTX at volume answers questions that manual review cannot reach in incident timeframes, and registry hives are parsed with RegRipper and Registry Explorer for persistence, execution evidence, and security control tampering that survives log destruction. Parsing workflows are scripted in PowerShell and Python so results remain reproducible and defensible.
+
+  Much of the casework involves hands-on-keyboard intrusions where the central problem is separating attacker activity from legitimate administration. ClickFix chains are traced from the fake verification page to the payload the victim was talked into executing. Remote management tools are assessed to establish whether the client's IT or an intruder deployed them, and living-off-the-land abuse of native binaries such as certutil, bitsadmin, rundll32, and wmic is judged against what an administrator on that host would plausibly run. Attacker tunnelling through Cloudflared, ngrok, Chisel, OpenSSH reverse tunnels, and Visual Studio Code tunnels is prioritised because it survives credential resets and any remediation that stops short of the channel itself. Credential access through LSASS dumping, NTDS.DIT theft from Volume Shadow Copies, and Kerberoasting is traced into lateral movement over Impacket tooling, WMI, SMB, and RDP, and attributed back to the originating host, account, and attack window. Ransomware precursors including shadow copy deletion, event log clearing, Defender tampering, and data staged for exfiltration through archiving utilities and Rclone are escalated ahead of encryption. Recurring tradecraft feeds detection coverage, and Akira intrusions repeatedly staging Active Directory enumeration output to C:\ProgramData\Adusers.txt are a classic example.
+
+  Findings are verified before they are reported. ES|QL queries establish full scope across every host in a tenant, confirming where a binary landed, which accounts touched which machines, and whether persistence exists anywhere else in the environment. Attacker infrastructure is enriched through VirusTotal, URLScan, Shodan, Censys, and passive DNS, pivoting from a single indicator to related samples, certificates, and historical resolutions, and commercial VPN or proxy exit infrastructure is distinguished from attacker-controlled hosts so that severity and attribution remain accurate. Reports separate observation from conclusion and document the disconfirming evidence that was searched for and not found.
+
+  Malware analysis is conducted in an isolated, snapshot-based lab built on a custom-adapted FLARE-VM image, with tooling extended to match each sample class. Deep-dive analysis targets the ransomware and infostealer families surfaced by his own investigations. Samples are detonated with full memory, disk, and network capture and diffed against a clean baseline. Memory forensics in Volatility 3 recovers process parentage, injected code regions, and network artifacts, which are validated against captured traffic to confirm command-and-control endpoints and beaconing behaviour. Static analysis is performed in Ghidra and Detect It Easy, and CyberChef supports deobfuscation of staged loaders, encoded PowerShell, and layered base64 and gzip payloads.
+
+  Periods of low queue volume are directed toward detection engineering. Hypothesis-driven threat hunts translate threat intelligence and observed TTPs into ES|QL queries against partner telemetry, surfacing detection gaps where attacker behaviour is not yet covered. New rules are authored in Sigma and progress through a defined lifecycle. Each rule is tested against production telemetry for effectiveness and scope containment, deployed at low severity where it provides supporting context to live investigations, and promoted to a high-severity detection once fidelity and false positive rate are proven. Detections already in production are held to the same standard, and rules that underperform or generate excessive false positive volume are identified through Elastic analysis and tuned or demoted appropriately.
+
+  An offensive security background underpins the defensive work. Josh holds the eWPT and eJPT penetration testing certifications from INE and maintains an active interest in red teaming, with hands-on tooling experience including Burp Suite, Mimikatz, Cobalt Strike, EvilGinx, and Nmap built through red team and purple team engagements at Deloitte. That perspective feeds directly into threat hunting and detection engineering, because understanding how a technique is executed makes clear what telemetry it must generate and where detection logic can be evaded. It also sharpens pivots in active investigations, where recognising attacker tooling and anticipating the operator's next step narrows the search before further evidence lands.
+
+  Before Huntress, Josh spent 2023 to 2025 at Deloitte in Perth. As a SOC Analyst he monitored enterprise environments across Microsoft Sentinel, Defender XDR, CrowdStrike Falcon, Carbon Black, Splunk, and Elastic, correlated alert data against MITRE ATT&amp;CK, and developed and tuned detection rules, dashboards, and alerts in collaboration with engineering teams, improving SOC visibility and reducing false positives. He conducted threat hunting that improved alert fidelity and reduced mean time to detect and respond, worked to strict SLAs on established ticketing and incident management platforms, executed purple team exercises simulating adversarial TTPs to validate detection logic and close visibility gaps, and facilitated tabletop simulations and on-the-job training for junior analysts. As a Graduate Cyber Security Analyst he orchestrated red team operations, conducted OT security assessments under ISO/IEC 27001, NIST 800-82, and ISA/IEC 62443 for critical infrastructure clients, provided GRC consulting across NIST CSF, Essential Eight, AESCSF, and CPS 234, provisioned Splunk infrastructure, and took first place in Deloitte's national Vac Hack CTF. Earlier, as an independent web application penetration tester, he delivered three disclosed vulnerability reports to separate organisations, with one classified as a P2 by an ASX-50 entity, testing in accordance with the OWASP Web Security Testing Guide and exploiting vulnerability classes spanning SQL injection, cross-site scripting, request smuggling, file upload filter bypasses, and local and remote file inclusion. A technical support foundation at Empired (Capgemini) across Azure Active Directory, Citrix, and Cisco networking preceded the move into security. Employment history, degrees, and certifications are itemised below.</span>
+<span class="tok-y">author</span><span class="tok-punct">:</span> <span class="tok-s">Joshua Kiriakoff</span>
+<span class="tok-y">date</span><span class="tok-punct">:</span> <span class="tok-n">2021/02/22</span>
+<span class="tok-y">modified</span><span class="tok-punct">:</span> <span class="tok-n" data-modified-date>2026/07/16</span>
+<span class="tok-y">references</span><span class="tok-punct">:</span>
+  <span class="tok-punct">-</span> <a class="tok-s" href="https://www.linkedin.com/in/joshuakiriakoff/" rel="me noopener noreferrer" target="_blank">https://www.linkedin.com/in/joshuakiriakoff/</a>
+  <span class="tok-punct">-</span> <a class="tok-s" href="mailto:kiriakoffj@gmail.com" rel="me">mailto:kiriakoffj@gmail.com</a>
+  <span class="tok-punct">-</span> <a class="tok-s" href="../files/josh-kiriakoff-resume.pdf" download="Joshua-Kiriakoff-Resume.pdf">~/files/josh-kiriakoff-resume.pdf</a>
+<span class="tok-y">tags</span><span class="tok-punct">:</span>
+  <span class="tok-punct">-</span> <span class="tok-s">career.cybersecurity</span>
+
+<span class="tok-y">detection</span><span class="tok-punct">:</span>
+  <span class="tok-y">current</span><span class="tok-punct">:</span>
+    <span class="tok-y">employer</span><span class="tok-punct">:</span> <span class="tok-entity">Huntress</span>
+    <span class="tok-y">role</span><span class="tok-punct">:</span>     <span class="tok-s">SOC Analyst</span>
+    <span class="tok-y">location</span><span class="tok-punct">:</span> <span class="tok-s">Perth, WA (hybrid)</span>
+    <span class="tok-y">since</span><span class="tok-punct">:</span>    <span class="tok-n">2025-09</span> <span class="tok-n" data-role-duration data-since="2025-09">(11m)</span>
+  <span class="tok-y">condition</span><span class="tok-punct">:</span> <span class="tok-s">current</span>
+
+<span class="tok-y">history</span><span class="tok-punct">:</span>
+  <span class="tok-punct">-</span> <span class="tok-y">employer</span><span class="tok-punct">:</span> <span class="tok-entity">Deloitte</span>
+    <span class="tok-y">roles</span><span class="tok-punct">:</span>
+      <span class="tok-punct">-</span> <span class="tok-y">role</span><span class="tok-punct">:</span>   <span class="tok-s">SOC Analyst</span>
+        <span class="tok-y">period</span><span class="tok-punct">:</span> <span class="tok-n">2024-11 .. 2025-09 (11m)</span>
+      <span class="tok-punct">-</span> <span class="tok-y">role</span><span class="tok-punct">:</span>   <span class="tok-s">Graduate Cyber Security Analyst</span>
+        <span class="tok-y">period</span><span class="tok-punct">:</span> <span class="tok-n">2024-01 .. 2024-11 (11m)</span>
+      <span class="tok-punct">-</span> <span class="tok-y">role</span><span class="tok-punct">:</span>   <span class="tok-s">Undergraduate Cyber Security Analyst</span>
+        <span class="tok-y">period</span><span class="tok-punct">:</span> <span class="tok-n">2023-07 .. 2024-01 (7m)</span>
+
+  <span class="tok-punct">-</span> <span class="tok-y">employer</span><span class="tok-punct">:</span> <span class="tok-entity">Supercheap Auto</span>
+    <span class="tok-y">role</span><span class="tok-punct">:</span>     <span class="tok-s">Retail Supervisor</span>
+    <span class="tok-y">period</span><span class="tok-punct">:</span>   <span class="tok-n">2020-09 .. 2023-08 (3yr)</span>
+
+  <span class="tok-punct">-</span> <span class="tok-y">employer</span><span class="tok-punct">:</span> <span class="tok-entity">Deloitte</span>
+    <span class="tok-y">role</span><span class="tok-punct">:</span>     <span class="tok-s">Cyber Vacationer</span>
+    <span class="tok-y">period</span><span class="tok-punct">:</span>   <span class="tok-n">2023-01 .. 2023-02 (2m)</span>
+
+  <span class="tok-punct">-</span> <span class="tok-y">employer</span><span class="tok-punct">:</span> <span class="tok-entity">Self-Employed</span>
+    <span class="tok-y">role</span><span class="tok-punct">:</span>     <span class="tok-s">Bug Bounty Hunter / Web App Pen Tester</span>
+    <span class="tok-y">period</span><span class="tok-punct">:</span>   <span class="tok-n">2022-05 .. 2023-01 (9m)</span>
+    <span class="tok-y">reports</span><span class="tok-punct">:</span>  <span class="tok-s">3 disclosed</span>
+
+  <span class="tok-punct">-</span> <span class="tok-y">employer</span><span class="tok-punct">:</span> <span class="tok-entity">Empired (Capgemini)</span>
+    <span class="tok-y">role</span><span class="tok-punct">:</span>     <span class="tok-s">Technical Support Engineer</span>
+    <span class="tok-y">period</span><span class="tok-punct">:</span>   <span class="tok-n">2022-01 .. 2022-11 (11m)</span>
+
+<span class="tok-y">education</span><span class="tok-punct">:</span>
+  <span class="tok-y">degrees</span><span class="tok-punct">:</span>
+    <span class="tok-punct">-</span> <span class="tok-y">degree</span><span class="tok-punct">:</span>      <span class="tok-s">Master of Cyber Security</span>
+      <span class="tok-y">institution</span><span class="tok-punct">:</span> <span class="tok-entity">Edith Cowan University</span>
+      <span class="tok-y">period</span><span class="tok-punct">:</span>      <span class="tok-n">2024 .. 2025</span>
+    <span class="tok-punct">-</span> <span class="tok-y">degree</span><span class="tok-punct">:</span>      <span class="tok-s">Bachelor of Science (Cyber Security)</span>
+      <span class="tok-y">institution</span><span class="tok-punct">:</span> <span class="tok-entity">Edith Cowan University</span>
+      <span class="tok-y">period</span><span class="tok-punct">:</span>      <span class="tok-n">2021 .. 2023</span>
+  <span class="tok-y">certifications</span><span class="tok-punct">:</span>
+    <span class="tok-punct">-</span> <span class="tok-y">HTB</span><span class="tok-punct">:</span>       <span class="tok-s">CDSA (Certified Defensive Security Analyst, in progress)</span>
+    <span class="tok-punct">-</span> <span class="tok-y">INE</span><span class="tok-punct">:</span>       <span class="tok-s">eWPT (Web App Penetration Tester)</span>
+    <span class="tok-punct">-</span> <span class="tok-y">INE</span><span class="tok-punct">:</span>       <span class="tok-s">eJPT (Junior Penetration Tester)</span>
+    <span class="tok-punct">-</span> <span class="tok-y">CISA</span><span class="tok-punct">:</span>      <span class="tok-s">401v (ICS Cyber Security Analysis &amp; Evaluation)</span>
+    <span class="tok-punct">-</span> <span class="tok-y">CISA</span><span class="tok-punct">:</span>      <span class="tok-s">301v (ICS Cyber Security)</span>
+    <span class="tok-punct">-</span> <span class="tok-y">CISA</span><span class="tok-punct">:</span>      <span class="tok-s">210w (Cyber Security for ICS)</span>
+    <span class="tok-punct">-</span> <span class="tok-y">CISA</span><span class="tok-punct">:</span>      <span class="tok-s">100w (Operational Security for Control Systems)</span>
+    <span class="tok-punct">-</span> <span class="tok-y">Dragos</span><span class="tok-punct">:</span>    <span class="tok-s">DPCU (Dragos Platform Certified User)</span>
+    <span class="tok-punct">-</span> <span class="tok-y">TrustWave</span><span class="tok-punct">:</span> <span class="tok-s">FIRE (Fundamentals of Incident Response)</span>
+    <span class="tok-punct">-</span> <span class="tok-y">Huntress</span><span class="tok-punct">:</span>  <span class="tok-s">Immersive Labs (tailored defensive courses, continuous)</span>
+
+<span class="tok-y">falsepositives</span><span class="tok-punct">:</span>
+  <span class="tok-punct">-</span> <span class="tok-s">none documented</span>
+
+<span class="tok-y">level</span><span class="tok-punct">:</span> <span class="tok-s">high</span></pre>
+          </div>
+        </div>
+
+        <div class="block" id="b-2" hidden>
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/about</span><span class="sep">$</span></span><span class="caret"></span>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <footer class="footer">
+      <span>© <a href="../">Josh Kiriakoff</a> · <span data-year>2026</span></span>
+    </footer>
+
+  </div>
+
+  <noscript>
+    <style>
+      [hidden]      { display: revert !important; }
+      .caret        { display: none !important; }
+      .anchor-link,
+      .copy-btn     { display: none !important; }
+    </style>
+  </noscript>
+
+  <script src="../js/terminal.js" defer></script>
+</body>
+</html>

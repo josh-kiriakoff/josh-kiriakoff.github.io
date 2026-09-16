@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Josh Kiriakoff" />
+  <meta name="theme-color" content="#1b1c25" />
+  <title>josh.kiriakoff — threat hunting &amp; detection engineering</title>
+  <meta name="description" content="Joshua Kiriakoff — SOC Analyst at Huntress. EDR and SIEM triage, malware analysis, detection engineering, and threat hunting across a global partner base." />
+  <link rel="canonical" href="https://josh-kiriakoff.github.io/" />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="josh.kiriakoff" />
+  <meta property="og:title" content="josh.kiriakoff — threat hunting &amp; detection engineering" />
+  <meta property="og:description" content="SOC Analyst at Huntress. EDR and SIEM triage, malware analysis, detection engineering, and threat hunting across a global partner base." />
+  <meta property="og:url" content="https://josh-kiriakoff.github.io/" />
+  <meta property="og:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="josh.kiriakoff — threat hunting &amp; detection engineering" />
+  <meta name="twitter:description" content="SOC Analyst at Huntress. EDR and SIEM triage, malware analysis, detection engineering, and threat hunting across a global partner base." />
+  <meta name="twitter:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="./img/favicon.svg" />
+  <link rel="stylesheet" href="./css/style.css" />
+
+  <!-- Feeds -->
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — blog" href="./feed-blog.xml" />
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — detections" href="./feed-detections.xml" />
+</head>
+<body>
+
+  <a href="#main" class="skip-link">skip to content</a>
+
+  <div class="window">
+
+    <header class="chrome">
+      <div class="lights" aria-hidden="true">
+        <span class="l-close"></span>
+        <span class="l-min"></span>
+        <span class="l-max"></span>
+      </div>
+      <div class="chrome-title">josh@kiriakoff:~</div>
+    </header>
+
+    <nav class="tabs" aria-label="primary">
+      <a href="./" class="active">josh.kiriakoff</a>
+      <a href="./about/">about</a>
+      <a href="./blog/">blog</a>
+      <a href="./detections/">detections</a>
+      <a href="./admin/" class="right">admin</a>
+    </nav>
+
+    <div class="body" id="main">
+      <h1 class="sr-only">josh.kiriakoff — home</h1>
+      <section class="shell" id="shell" aria-label="terminal session">
+
+<pre class="motd" aria-label="message of the day">Last login: <span data-motd-date>Tue May 26 10:32:29 2026</span> on tty1</pre>
+
+        <div class="block" id="b-1" data-cmd="whoami" data-after="b-2">
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~</span><span class="sep">$</span></span><span class="cmd">whoami</span>
+          </div>
+          <div class="output" hidden>
+            <p>Joshua Kiriakoff is a SOC Analyst at Huntress, based in Perth, Western Australia. He manages the Managed EDR and Managed SIEM alert queues for a global partner base and carries each investigation end to end, from the initial signal through scoping, forensic analysis, remediation guidance, and the client-ready report. Signals are triaged through process ancestry and command-line analysis, scoped across every host in a tenant with ES|QL queries in Elastic, mapped to the MITRE ATT&amp;CK framework, and enriched with open-source intelligence on attacker infrastructure.</p>
+            <p>Much of the casework involves hands-on-keyboard intrusions where the central problem is separating attacker activity from legitimate administration. ClickFix chains and rogue remote management tools are investigated as initial access, and attacker tunnelling over Cloudflared, ngrok, Chisel, and OpenSSH reverse tunnels is prioritised because it survives credential resets. Credential access against LSASS and NTDS.DIT is traced into attributed lateral movement over Impacket tooling, WMI, SMB, and RDP, and ransomware precursors such as shadow copy deletion, event log clearing, and Defender tampering are escalated ahead of encryption. Recurring tradecraft feeds detection coverage, and Akira intrusions repeatedly staging Active Directory enumeration output to C:\ProgramData\Adusers.txt are a classic example.</p>
+            <p>He performs deep-dive malware analysis of the ransomware and infostealer families encountered in his investigations, operating an isolated lab built on a custom-adapted FLARE-VM image. Analysis pairs Volatility 3 memory forensics and Ghidra static analysis with CyberChef deobfuscation of staged loaders and encoded payloads. Host artifacts carry investigations where telemetry ends and attackers have cleared logs, with Windows event logs parsed through Chainsaw, registry hives through RegRipper and Registry Explorer, and Prefetch and AmCache establishing execution after binaries are deleted.</p>
+            <p>During periods of low queue volume he conducts hypothesis-driven threat hunting in ES|QL, surfacing detection gaps where attacker behaviour is not yet covered. New detection logic is authored in Sigma and progresses through a structured lifecycle, tested for effectiveness and scope containment, deployed at low severity to support live investigations, and promoted to high-severity production detections as fidelity and false positive rates are proven. Detections already in production are held to the same standard and are tuned or demoted when they underperform or generate excessive false positive volume.</p>
+            <p>His prior experience includes SOC operations at Deloitte across Microsoft Sentinel, Defender XDR, CrowdStrike Falcon, Carbon Black, Splunk, and Elastic, alongside purple team exercises and OT/ICS security assessments. As an independent penetration tester he delivered three disclosed web application vulnerability reports to separate organisations, with one classified as a P2 by an ASX-50 entity.</p>
+          </div>
+        </div>
+
+        <div class="block" id="b-2" data-cmd="tree -L 1 " data-target="~/" data-after="b-3" hidden>
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~</span><span class="sep">$</span></span><span class="cmd">tree -L 1 </span><span class="target">~/</span>
+          </div>
+          <div class="output" hidden>
+<pre class="tree"><span class="d">/home/josh</span>
+├── <a class="d" href="./about/">about/</a>          <span class="cm"># bio, education, experience, skills</span>
+├── <a class="d" href="./blog/">blog/</a>           <span class="cm"># essays, bylines &amp; contributions</span>
+└── <a class="d" href="./detections/">detections/</a>     <span class="cm"># hypothesis-driven hunts → sigma rules</span></pre>
+          </div>
+        </div>
+
+        <div class="block" id="b-3" data-cmd="tree " data-target="~/.links/" data-after="b-4" hidden>
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~</span><span class="sep">$</span></span><span class="cmd">tree </span><span class="target">~/.links/</span>
+          </div>
+          <div class="output" hidden>
+<pre class="tree"><span class="d">~/.links/</span>
+├── <a class="s" href="https://www.linkedin.com/in/joshuakiriakoff" rel="me noopener noreferrer" target="_blank">linkedin</a>        <span class="ext-target"># linkedin.com/in/joshuakiriakoff</span>
+├── <a class="s" href="mailto:kiriakoffj@gmail.com" rel="me">email</a>           <span class="ext-target"># kiriakoffj@gmail.com</span>
+└── <a class="s" href="./files/josh-kiriakoff-resume.pdf" download="Joshua-Kiriakoff-Resume.pdf">resume.pdf</a>      <span class="ext-target"># pdf download</span></pre>
+          </div>
+        </div>
+
+        <div class="block" id="b-4" data-cmd="cat " data-target="~/recent.md" data-after="b-5" hidden>
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~</span><span class="sep">$</span></span><span class="cmd">cat </span><span class="target">~/recent.md</span>
+          </div>
+          <div class="output readme" hidden>
+
+            <div class="row">
+              <a class="ttl" href="./blog/dc-sslvpn-hok/">A domain controller, a SonicWall, and no malware at all</a>
+              <span class="date">(<time datetime="2026-08">Aug 2026</time>)</span>
+              <span class="desc">Twenty hours hands-on-keyboard on a law firm's DC with two stolen passwords and zero malware. A DPAPI backup key, persistence built from the firm's own SSL-VPN config, and the Domain Admins elevation that turned out to be their own JIT tooling.</span>
+            </div>
+
+            <div class="row">
+              <a class="ttl" href="https://www.huntress.com/blog/macsync-stealer-rat-reverse-engineering" rel="noopener noreferrer" target="_blank">Fake Claude Install Guide Leads to MacSync Stealer and RAT: What We Pulled From the Attacker's Servers ↗</a>
+              <span class="date">(<time datetime="2026-07">Jul 2026</time> · huntress.com)</span>
+              <span class="desc">A malvertised fake Claude install guide fronts a six-stage macOS chain - zsh loader, AppleScript stealer, Mach-O RAT, and trojanised Ledger and Trezor apps that phish recovery phrases.</span>
+            </div>
+
+            <div class="row">
+              <a class="ttl" href="https://www.huntress.com/blog/terminal-server-phishing-stager-exposed" rel="noopener noreferrer" target="_blank">The Devil, Eight Million Emails, and a Whole Lot of Milk ↗</a>
+              <span class="date">(<time datetime="2026-06">Jun 2026</time> · huntress.com)</span>
+              <span class="desc">A partner onboarded mid-compromise. An external actor turned an internet-facing terminal server into a Boots UK phishing cannon, pointed at a hacked Bolivian government site. Twenty-five endpoints isolated in twelve minutes.</span>
+            </div>
+
+            <div class="row">
+              <a class="ttl" href="./blog/clickfix-donut-chain/">Let's ClickFix some errors</a>
+              <span class="date">(<time datetime="2026-05">May 2026</time>)</span>
+              <span class="desc">From a Run-dialog paste to App-Bound Encryption bypass. Raw IPs, an open directory, and a recompiled @xaitax PoC.</span>
+            </div>
+
+            <div class="row">
+              <a class="ttl" href="https://www.huntress.com/blog/komari-c2-agent-abuse" rel="noopener noreferrer" target="_blank">Komari Red: The Monitoring Tool with a Built-in Reverse Shell ↗</a>
+              <span class="date">(<time datetime="2026-05">May 2026</time> · huntress.com)</span>
+              <span class="desc">Writeup on an RMM-disguised attack with a SYSTEM-level reverse shell built into the default install.</span>
+            </div>
+
+            <div class="row">
+              <a class="ttl" href="./detections/example/">Detection example — rundll32 with no DLL argument</a>
+              <span class="date">(<time datetime="2026-05">May 2026</time>)</span>
+              <span class="desc">Sample writeup showing the format: hypothesis → ES|QL hunt → discriminators → resulting Sigma rule.</span>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="block" id="b-5" hidden>
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~</span><span class="sep">$</span></span><span class="caret"></span>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <footer class="footer">
+      <span>© <a href="./">Josh Kiriakoff</a> · <span data-year>2026</span></span>
+    </footer>
+
+  </div>
+
+  <noscript>
+    <style>
+      [hidden]      { display: revert !important; }
+      .caret        { display: none !important; }
+      .anchor-link,
+      .copy-btn     { display: none !important; }
+    </style>
+  </noscript>
+
+  <script>
+    /* MOTD populator — fills [data-motd-date] with a recent random
+       timestamp so the "Last login" line feels alive. Runs at parse
+       time; terminal.js doesn't touch the .motd element. */
+    (function () {
+      var days   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      function pad(n) { return n < 10 ? '0' + n : String(n); }
+
+      var d = new Date();
+      var dateStr = days[d.getDay()] + ' ' + months[d.getMonth()] + ' ' +
+        d.getDate() + ' ' +
+        pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds()) + ' ' +
+        d.getFullYear();
+      var el = document.querySelector('[data-motd-date]');
+      if (el) el.textContent = dateStr;
+    })();
+  </script>
+  <script src="./js/terminal.js" defer></script>
+</body>
+</html>
