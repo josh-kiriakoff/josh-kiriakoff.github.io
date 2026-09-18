@@ -92,7 +92,6 @@
             <p>Match the deprecated <code>netsh firewall set service</code> form enabling a remote exception.</p>
 
 <pre><code><span class="tok-c">// hypothesis: deprecated netsh firewall context enabling remote access.</span>
-<span class="tok-c">// schema:     Huntress Process Insights - process_events</span>
 
 <span class="tok-k">FROM</span> logs-edr-process_events
 | <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.name) == <span class="tok-s">&quot;netsh.exe&quot;</span>

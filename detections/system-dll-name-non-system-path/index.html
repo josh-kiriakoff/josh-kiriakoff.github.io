@@ -92,7 +92,6 @@
             <p>Match a common system DLL name loading from outside system and vendor paths.</p>
 
 <pre><code><span class="tok-c">// hypothesis: a system DLL name loading from a non-system directory.</span>
-<span class="tok-c">// schema:     Huntress Process Insights - library_events (module load)</span>
 
 <span class="tok-k">FROM</span> logs-edr-library_events
 | <span class="tok-k">WHERE</span> <span class="tok-fn">ENDS_WITH</span>(<span class="tok-fn">TO_LOWER</span>(dll.path), <span class="tok-s">&quot;\\version.dll&quot;</span>)

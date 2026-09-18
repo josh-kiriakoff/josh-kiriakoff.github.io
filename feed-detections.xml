@@ -182,15 +182,4 @@
     <category term="attack.defense_evasion"/>
     <category term="attack.t1036.003"/>
   </entry>
-  <entry>
-    <title>Rundll32 Invoked Without A Module Argument</title>
-    <link href="https://josh-kiriakoff.github.io/detections/example/"/>
-    <id>urn:uuid:b76d1cd8-15e3-4d50-a9fc-3fa5e1aef496</id>
-    <updated>2026-05-25T00:00:00Z</updated>
-    <published>2026-05-25T00:00:00Z</published>
-    <summary>Sample writeup: hypothesis-driven hunt for rundll32 invoked without a target module, concluding with a Sigma rule.</summary>
-    <category term="attack.t1218.011"/>
-    <category term="attack.defense_evasion"/>
-    <category term="lolbin"/>
-  </entry>
 </feed>

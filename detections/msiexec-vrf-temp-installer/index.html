@@ -90,7 +90,6 @@
             <p>Match <code>msiexec</code> installing silently from a <code>~vrf</code> temp file.</p>
 
 <pre><code><span class="tok-c">// hypothesis: silent msiexec install of a ~vrf temp MSI.</span>
-<span class="tok-c">// schema:     Huntress Process Insights - process_events</span>
 
 <span class="tok-k">FROM</span> logs-edr-process_events
 | <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.name) == <span class="tok-s">&quot;msiexec.exe&quot;</span>

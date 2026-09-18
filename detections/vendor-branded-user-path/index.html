@@ -90,7 +90,6 @@
             <p>Match a vendor-branded process running from a user path outside the vendor's real directories.</p>
 
 <pre><code><span class="tok-c">// hypothesis: vendor-branded PE running from a user-writable path.</span>
-<span class="tok-c">// schema:     Huntress Process Insights - process_events</span>
 
 <span class="tok-k">FROM</span> logs-edr-process_events
 | <span class="tok-k">WHERE</span> process.pe.company <span class="tok-k">IN</span> (<span class="tok-s">&quot;Microsoft Corporation&quot;</span>, <span class="tok-s">&quot;Google LLC&quot;</span>, <span class="tok-s">&quot;Mozilla Corporation&quot;</span>)

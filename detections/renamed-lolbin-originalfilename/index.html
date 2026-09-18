@@ -88,7 +88,6 @@
             <p>Match a LOLBIN OriginalFileName that disagrees with the on-disk image name.</p>
 
 <pre><code><span class="tok-c">// hypothesis: a LOLBIN OriginalFileName not matching the on-disk name.</span>
-<span class="tok-c">// schema:     Huntress Process Insights - process_events</span>
 
 <span class="tok-k">FROM</span> logs-edr-process_events
 | <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.pe.original_file_name) <span class="tok-k">IN</span> (<span class="tok-s">&quot;powershell.exe&quot;</span>, <span class="tok-s">&quot;cmd.exe&quot;</span>, <span class="tok-s">&quot;reg.exe&quot;</span>, <span class="tok-s">&quot;rundll32.exe&quot;</span>, <span class="tok-s">&quot;mshta.exe&quot;</span>, <span class="tok-s">&quot;certutil.exe&quot;</span>, <span class="tok-s">&quot;wmic.exe&quot;</span>)

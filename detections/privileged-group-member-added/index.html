@@ -90,7 +90,6 @@
             <p>Match a member added to a watched privileged group by a human account.</p>
 
 <pre><code><span class="tok-c">// hypothesis: a human account adding a member to a watched privileged group.</span>
-<span class="tok-c">// schema:     Windows Security event log (4728 / 4732 / 4756)</span>
 
 <span class="tok-k">FROM</span> logs-windows-security
 | <span class="tok-k">WHERE</span> event.code <span class="tok-k">IN</span> (<span class="tok-n">4728</span>, <span class="tok-n">4732</span>, <span class="tok-n">4756</span>)

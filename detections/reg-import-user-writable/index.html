@@ -90,7 +90,6 @@
             <p>Match <code>reg.exe import</code> where the path sits in a user-writable directory.</p>
 
 <pre><code><span class="tok-c">// hypothesis: reg.exe import of a .reg file from a user-writable path.</span>
-<span class="tok-c">// schema:     Huntress Process Insights - process_events</span>
 
 <span class="tok-k">FROM</span> logs-edr-process_events
 | <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.name) == <span class="tok-s">&quot;reg.exe&quot;</span>

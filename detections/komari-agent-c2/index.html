@@ -91,7 +91,6 @@
             <p>Match the Komari agent by name, by its C2 and install markers, or parenting a shell.</p>
 
 <pre><code><span class="tok-c">// hypothesis: Komari agent execution or operator command lineage.</span>
-<span class="tok-c">// schema:     Huntress Process Insights - process_events</span>
 
 <span class="tok-k">FROM</span> logs-edr-process_events
 | <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.name) == <span class="tok-s">&quot;komari-agent.exe&quot;</span>

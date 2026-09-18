@@ -94,7 +94,6 @@
             <p>Match the implant path, the masquerade naming, or the screen-capture grant markers.</p>
 
 <pre><code><span class="tok-c">// hypothesis: MacSync residual host artefacts on macOS.</span>
-<span class="tok-c">// schema:     Huntress Process Insights - process_events (macOS)</span>
 
 <span class="tok-k">FROM</span> logs-edr-process_events
 | <span class="tok-k">WHERE</span> host.os.type == <span class="tok-s">&quot;macos&quot;</span>

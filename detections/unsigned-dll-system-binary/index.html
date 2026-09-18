@@ -92,7 +92,6 @@
             <p>Match a System32 or SysWOW64 binary loading an unsigned DLL from a user-writable path.</p>
 
 <pre><code><span class="tok-c">// hypothesis: signed system binary loading an unsigned DLL from a user path.</span>
-<span class="tok-c">// schema:     Huntress Process Insights - library_events (module load)</span>
 
 <span class="tok-k">FROM</span> logs-edr-library_events
 | <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.executable) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*\\windows\\system32\\*&quot;</span>
