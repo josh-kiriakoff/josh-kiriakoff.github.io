@@ -1,8 +1,64 @@
 {
-  "updated": "2026-09-18T03:37:20Z",
-  "checked": "2026-09-18T03:37:20Z",
+  "updated": "2026-09-18T23:20:40Z",
+  "checked": "2026-09-18T23:20:40Z",
   "failed": [],
   "items": [
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "Linux Kernel Improper Check for Unusual or Exceptional Conditions Vulnerability (CVE-2025-39682)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-39682",
+      "date": "2026-09-18",
+      "summary": "Linux Kernel contains an improper check for unusual or exceptional conditions vulnerability in the TLS receive path which allows a zero-length record retrieved from the rx_list to bypass the intended recvmsg()…"
+    },
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "Linux Kernel Out-of-Bounds Write Vulnerability (CVE-2026-53266)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53266",
+      "date": "2026-09-18",
+      "summary": "Linux Kernel contains an out-of-bounds write vulnerability in the ebtables SNAT target which allows an ARP sender hardware address rewrite to write directly into a nonlinear socket-buffer fragment backed by a…"
+    },
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "HTTP QUERY Method: The Grey Zone Between GET And POST.",
+      "url": "https://isc.sans.edu/diary/rss/33352",
+      "date": "2026-09-18",
+      "summary": "In June 2026 the IETF published RFC 10008[1], defining a new HTTP method: \"QUERY\". The HTTP protocol faced already by changes (HTTP/2, HTTP/2) but it's the first new standard HTTP verb since \"PATCH\" in 2010!"
+    },
+    {
+      "source": "unit42",
+      "label": "unit 42",
+      "title": "A Vault with a Heap-View: The Uncomfortable Space Between AgentCore Harness and Identity",
+      "url": "https://unit42.paloaltonetworks.com/securing-aws-agentcore-harness-credentials/",
+      "date": "2026-09-18",
+      "summary": "Analysis of how default configurations in AWS AgentCore Harness allow prompt injection to exfiltrate credentials, and key steps to secure your agents."
+    },
+    {
+      "source": "elastic",
+      "label": "elastic labs",
+      "title": "One SOC, 100 projects: running centralized alert triage on Elastic Security Serverless",
+      "url": "https://www.elastic.co/security-labs/blog/centralized-alert-triage-cross-project-search",
+      "date": "2026-09-18",
+      "summary": "We linked one Elastic Security project to 100 others and ran the full prebuilt detection catalog from the origin, with all the ingest landing in the linked projects. It held up, and where it deliberately does not reach…"
+    },
+    {
+      "source": "sentinel",
+      "label": "sentinellabs",
+      "title": "Don’t Call Us, We’ll Call Your APIs | TraderTraitor Backdoors Resurface on Victim With No Crypto Ties",
+      "url": "https://www.sentinelone.com/labs/dont-call-us-well-call-your-apis-tradertraitor-backdoors-resurface-on-victim-with-no-crypto-ties/",
+      "date": "2026-09-18",
+      "summary": "North Korean operators built a foothold on a DevOps engineer's Mac in a campaign whose job interview lures deliver malware via Terraform lock files."
+    },
+    {
+      "source": "acscadv",
+      "label": "acsc advisory",
+      "title": "North Korean \"WaterPlum,\" commonly referred to as “Contagious Interview,” cyber actor group targeting IT professionals",
+      "url": "https://www.cyber.gov.au/about-us/view-all-content/alerts-and-advisories/north-korean-waterplum-commonly-referred-to-as-contagious-interview-cyber-actor-group-targeting-it-professionals",
+      "date": "2026-09-18",
+      "summary": "A joint cyber security advisory on North Korean threat actors targeting IT professionals through fake jobs, malware, and cryptocurrency theft."
+    },
     {
       "source": "isc",
       "label": "sans isc",
@@ -44,60 +100,12 @@
       "summary": "The defining development of the period came not from attackers but from the AI labs themselves, whose models broke out of controlled evaluations and reached real systems. In the wild, the criminal and state use of AI…"
     },
     {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "Acronis Backup Incorrect Default Permissions Vulnerability (CVE-2026-87886)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-87886",
-      "date": "2026-09-16",
-      "summary": "Acronis Backup plugin for cPanel & WHM and extension for Plesk contains an incorrect default permissions vulnerability that could allow for privilege escalation."
-    },
-    {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "Cisco Identity Services Engine Incorrect Use of Privileged APIs Vulnerability (CVE-2026-76460)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-76460",
-      "date": "2026-09-16",
-      "summary": "Cisco Identity Services Engine (ISE) and Cisco ISE Passive Identity Connector (ISE-PIC) contain an incorrect use of privileged APIs vulnerability that could allow an unauthenticated, remote attacker to gain unauthorized…"
-    },
-    {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "Scans Targeting Hospitality Applications",
-      "url": "https://isc.sans.edu/diary/rss/33344",
-      "date": "2026-09-16",
-      "summary": "Earlier today, I noted an odd request showing up in our \"First Seen\" report:"
-    },
-    {
-      "source": "unit42",
-      "label": "unit 42",
-      "title": "Atomic macOS (AMOS) Stealer Activity",
-      "url": "https://unit42.paloaltonetworks.com/atomic-macos-amos-stealer-activity/",
-      "date": "2026-09-16",
-      "summary": "Modern macOS malware uses deceptive setup guides to steal credentials and sensitive user data. Learn how to identify and block these threats."
-    },
-    {
       "source": "sentinel",
       "label": "sentinellabs",
       "title": "Agents at Large | Tracing Illicit OpenAI Agent Activity on Hugging Face",
       "url": "https://www.sentinelone.com/labs/agents-at-large-tracing-illicit-openai-agent-activity-on-hugging-face/",
       "date": "2026-09-16",
       "summary": "Two Hugging Face accounts reveal that OpenAI's agents staged relay code, internal probes and ChatGPT account registration beyond the published timeline."
-    },
-    {
-      "source": "elastic",
-      "label": "elastic labs",
-      "title": "The extension you never installed: KREMLIN forges Chrome's own integrity checks to steal banking sessions",
-      "url": "https://www.elastic.co/security-labs/threat-command/malicious-browser-extension-kremlin-banking-malware",
-      "date": "2026-09-14",
-      "summary": "Elastic Security Labs tracked this malicious browser extension across seven campaigns and 15 months, through Brazilian bank lures and the Ethereum smart contracts that hold its C2 configuration."
-    },
-    {
-      "source": "checkpoint",
-      "label": "check point",
-      "title": "14th September – Threat Intelligence Report",
-      "url": "https://research.checkpoint.com/2026/14th-september-threat-intelligence-report/",
-      "date": "2026-09-14",
-      "summary": "IDScan.net, a US identity verification provider, has disclosed a data breach after detecting unauthorized access on September 1. Exposed data included names and government identification numbers, while a criminal…"
     },
     {
       "source": "msti",
@@ -130,14 +138,6 @@
       "url": "https://cloud.google.com/blog/topics/threat-intelligence/from-prompting-to-autonomy-the-evolution-of-adversarial-ai/",
       "date": "2026-09-08",
       "summary": "Since the release of our May 2026 report detailing adversarial misuse of artificial intelligence (AI), Google Threat Intelligence Group (GTIG) has observed forward leaning adversaries transition from basic prompting to…"
-    },
-    {
-      "source": "acscadv",
-      "label": "acsc advisory",
-      "title": "Digital camouflage: crypters make malware undetectable",
-      "url": "https://www.cyber.gov.au/about-us/view-all-content/alerts-and-advisories/digital-camouflage-crypters-make-malware-undetectable",
-      "date": "2026-09-07",
-      "summary": "Cybercriminals are increasingly using crypters to disguise malware and make it harder for antivirus software to detect."
     },
     {
       "source": "cisa",
