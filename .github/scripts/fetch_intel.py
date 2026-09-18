@@ -464,7 +464,7 @@ def choose(per_source: list[list[dict]], total: int = TOTAL) -> list[dict]:
 
 # ---------------------------------------------------------------- rendering
 
-def render(items: list[dict], updated: str, failed: list[str]) -> str:
+def render(items: list[dict], checked: str, failed: list[str]) -> str:
     attr = html.escape                                  # attribute values: also escape quotes
     text = lambda value: html.escape(value, quote=False)  # text nodes: & < > only
     rows: list[str] = []
@@ -478,7 +478,8 @@ def render(items: list[dict], updated: str, failed: list[str]) -> str:
             row.append(f'              <span class="desc">{text(item["summary"])}</span>')
         row.append("            </div>")
         rows.append("\n".join(row))
-    note = f"updated {updated[:10]}"
+    stamp = checked[:16].replace("T", " ") + " UTC"
+    note = f"updated daily · last refresh {stamp}"
     if failed:
         note += " · unavailable on last check: " + ", ".join(LABELS.get(f, f) for f in failed)
     rows.append(f'            <span class="updated">{text(note)}</span>')
@@ -518,7 +519,7 @@ def last_commit_age_days() -> float | None:
 
 
 def write_outputs(state: dict, page: str, dry_run: bool) -> None:
-    new_page = inject(page, render(state["items"], state["updated"], state["failed"]))
+    new_page = inject(page, render(state["items"], state["checked"], state["failed"]))
     if dry_run:
         print(json.dumps(state, indent=2, ensure_ascii=False))
         return

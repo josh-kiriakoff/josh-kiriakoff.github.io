@@ -150,7 +150,8 @@ class Rendering(unittest.TestCase):
         item = {"source": "talos", "label": "talos", "title": '<script>alert(1)</script>',
                 "url": 'https://blog.talosintelligence.com/a/?q="><img src=x>', "date": "2026-09-17",
                 "summary": "a & b <b>c</b>"}
-        out = fi.render([item], "2026-09-18T00:00:00Z", ["kev"])
+        out = fi.render([item], "2026-09-18T03:41:00Z", ["kev"])
+        self.assertIn("updated daily · last refresh 2026-09-18 03:41 UTC", out)
         self.assertNotIn("<script>", out)
         self.assertIn("&lt;script&gt;", out)
         self.assertIn("&quot;&gt;&lt;img", out)
