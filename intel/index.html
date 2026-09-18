@@ -6,19 +6,19 @@
   <meta name="author" content="Josh Kiriakoff" />
   <meta name="theme-color" content="#1b1c25" />
   <title>intel — josh.kiriakoff</title>
-  <meta name="description" content="The ten most recent items across CISA advisories, the KEV catalogue, SANS ISC, Cisco Talos and Unit 42, refreshed daily." />
+  <meta name="description" content="The newest items from the threat-intelligence feeds Josh reads, twenty in all, refreshed daily." />
   <link rel="canonical" href="https://josh-kiriakoff.github.io/intel/" />
   <!-- OpenGraph -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="josh.kiriakoff" />
   <meta property="og:title" content="intel — josh.kiriakoff" />
-  <meta property="og:description" content="The ten most recent items across CISA advisories, the KEV catalogue, SANS ISC, Cisco Talos and Unit 42, refreshed daily." />
+  <meta property="og:description" content="The newest items from the threat-intelligence feeds Josh reads, twenty in all, refreshed daily." />
   <meta property="og:url" content="https://josh-kiriakoff.github.io/intel/" />
   <meta property="og:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
   <!-- Twitter -->
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="intel — josh.kiriakoff" />
-  <meta name="twitter:description" content="The ten most recent items across five threat-intelligence feeds, refreshed daily." />
+  <meta name="twitter:description" content="The newest items from the threat-intelligence feeds Josh reads, twenty in all, refreshed daily." />
   <meta name="twitter:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
   <link rel="icon" type="image/svg+xml" href="../img/favicon.svg" />
   <link rel="stylesheet" href="../css/style.css" />
@@ -56,73 +56,117 @@
             <p>
               Most of the hunt hypotheses I test start as someone else's write-up, a new entry
               in the KEV catalogue or an advisory describing tradecraft I have not yet seen in the
-              wild. This page keeps the ten most recent items from five feeds I read anyway and
-              links straight to the source.
-            </p>
-            <p>
-              It refreshes once a day and takes turns across the feeds, newest item first, so a
-              busy feed cannot drown out a quiet one. The sources are CISA cybersecurity
-              advisories, the CISA Known Exploited Vulnerabilities catalogue, the SANS Internet
-              Storm Center, Cisco Talos and Palo Alto Networks Unit 42. The same ten entries are
-              published as <a href="./feed.json">feed.json</a>.
+              wild. This page lists the newest items from each of the feeds I read anyway, twenty
+              in all, and links straight to the source. The same entries are published as
+              <a href="./feed.json">feed.json</a>.
             </p>
           </div>
         </div>
-        <div class="block" id="b-2" data-cmd="head -n 10 " data-target="./intel.log" data-after="b-3" hidden>
+        <div class="block" id="b-2" data-cmd="head -n 20 " data-target="./intel.log" data-after="b-3" hidden>
           <div class="line">
-            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/intel</span><span class="sep">$</span></span><span class="cmd">head -n 10 </span><span class="target">./intel.log</span>
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/intel</span><span class="sep">$</span></span><span class="cmd">head -n 20 </span><span class="target">./intel.log</span>
           </div>
           <div class="output readme" hidden>
 <!-- intel:start -->
             <div class="row">
+              <span class="stamp"><time datetime="2026-09-17">2026-09-17</time> · sans isc</span>
               <a class="ttl" href="https://isc.sans.edu/diary/rss/33348" rel="noopener noreferrer" target="_blank">LausivLoader analysis, or how to pass data between malware stages ↗</a>
-              <span class="date">(<time datetime="2026-09-17">2026-09-17</time> · sans isc)</span>
               <span class="desc">At the end of August, a malspam message was caught in the quarantine of a mail gateway operated by one of my customers. The message was not especially remarkable – it asked the recipient to review some attached…</span>
             </div>
             <div class="row">
+              <span class="stamp"><time datetime="2026-09-17">2026-09-17</time> · talos</span>
               <a class="ttl" href="https://blog.talosintelligence.com/ransomware-incidents-in-japan-in-the-first-half-of-2026/" rel="noopener noreferrer" target="_blank">Ransomware incidents in Japan in the first half of 2026: Investigation of The Gentlemen’s infrastructure and evidence of Qilin's AI use ↗</a>
-              <span class="date">(<time datetime="2026-09-17">2026-09-17</time> · talos)</span>
               <span class="desc">Ransomware incidents in Japan rose 4.7% year over year. The Gentlemen was the most active group, with leak-site listings more than doubling from January to July. Qilin ranked second and appeared to use AI, while SMEs…</span>
             </div>
             <div class="row">
+              <span class="stamp"><time datetime="2026-09-17">2026-09-17</time> · talos</span>
               <a class="ttl" href="https://blog.talosintelligence.com/should-you-care-about-an-ai-slowdown/" rel="noopener noreferrer" target="_blank">Should you care about an “AI slowdown?” ↗</a>
-              <span class="date">(<time datetime="2026-09-17">2026-09-17</time> · talos)</span>
               <span class="desc">In this week's Threat Source, David talks about why focusing on your security basics is still your best bet, even in a world with rapid AI advancements.</span>
             </div>
             <div class="row">
+              <span class="stamp"><time datetime="2026-09-17">2026-09-17</time> · unit 42</span>
               <a class="ttl" href="https://unit42.paloaltonetworks.com/soc-cross-environment-pivot/" rel="noopener noreferrer" target="_blank">Inside the Modern SOC: Defending the Cross-Environment Pivot ↗</a>
-              <span class="date">(<time datetime="2026-09-17">2026-09-17</time> · unit 42)</span>
               <span class="desc">Cross-environment attacks demand a new approach to security operations. Learn how Unit 42 Managed XSIAM helps SOC teams investigate complete attack paths.</span>
             </div>
             <div class="row">
+              <span class="stamp"><time datetime="2026-09-17">2026-09-17</time> · check point</span>
+              <a class="ttl" href="https://research.checkpoint.com/2026/ai-threat-landscape-digest-july-august-2026/" rel="noopener noreferrer" target="_blank">AI Threat Landscape Digest: July–August 2026 ↗</a>
+              <span class="desc">The defining development of the period came not from attackers but from the AI labs themselves, whose models broke out of controlled evaluations and reached real systems. In the wild, the criminal and state use of AI…</span>
+            </div>
+            <div class="row">
+              <span class="stamp"><time datetime="2026-09-16">2026-09-16</time> · cisa kev</span>
               <a class="ttl" href="https://nvd.nist.gov/vuln/detail/CVE-2026-87886" rel="noopener noreferrer" target="_blank">Acronis Backup Incorrect Default Permissions Vulnerability (CVE-2026-87886) ↗</a>
-              <span class="date">(<time datetime="2026-09-16">2026-09-16</time> · cisa kev)</span>
               <span class="desc">Acronis Backup plugin for cPanel &amp; WHM and extension for Plesk contains an incorrect default permissions vulnerability that could allow for privilege escalation.</span>
             </div>
             <div class="row">
+              <span class="stamp"><time datetime="2026-09-16">2026-09-16</time> · cisa kev</span>
               <a class="ttl" href="https://nvd.nist.gov/vuln/detail/CVE-2026-76460" rel="noopener noreferrer" target="_blank">Cisco Identity Services Engine Incorrect Use of Privileged APIs Vulnerability (CVE-2026-76460) ↗</a>
-              <span class="date">(<time datetime="2026-09-16">2026-09-16</time> · cisa kev)</span>
               <span class="desc">Cisco Identity Services Engine (ISE) and Cisco ISE Passive Identity Connector (ISE-PIC) contain an incorrect use of privileged APIs vulnerability that could allow an unauthenticated, remote attacker to gain unauthorized…</span>
             </div>
             <div class="row">
+              <span class="stamp"><time datetime="2026-09-16">2026-09-16</time> · sans isc</span>
               <a class="ttl" href="https://isc.sans.edu/diary/rss/33344" rel="noopener noreferrer" target="_blank">Scans Targeting Hospitality Applications ↗</a>
-              <span class="date">(<time datetime="2026-09-16">2026-09-16</time> · sans isc)</span>
               <span class="desc">Earlier today, I noted an odd request showing up in our "First Seen" report:</span>
             </div>
             <div class="row">
+              <span class="stamp"><time datetime="2026-09-16">2026-09-16</time> · unit 42</span>
               <a class="ttl" href="https://unit42.paloaltonetworks.com/atomic-macos-amos-stealer-activity/" rel="noopener noreferrer" target="_blank">Atomic macOS (AMOS) Stealer Activity ↗</a>
-              <span class="date">(<time datetime="2026-09-16">2026-09-16</time> · unit 42)</span>
               <span class="desc">Modern macOS malware uses deceptive setup guides to steal credentials and sensitive user data. Learn how to identify and block these threats.</span>
             </div>
             <div class="row">
+              <span class="stamp"><time datetime="2026-09-16">2026-09-16</time> · sentinellabs</span>
+              <a class="ttl" href="https://www.sentinelone.com/labs/agents-at-large-tracing-illicit-openai-agent-activity-on-hugging-face/" rel="noopener noreferrer" target="_blank">Agents at Large | Tracing Illicit OpenAI Agent Activity on Hugging Face ↗</a>
+              <span class="desc">Two Hugging Face accounts reveal that OpenAI's agents staged relay code, internal probes and ChatGPT account registration beyond the published timeline.</span>
+            </div>
+            <div class="row">
+              <span class="stamp"><time datetime="2026-09-14">2026-09-14</time> · elastic labs</span>
+              <a class="ttl" href="https://www.elastic.co/security-labs/threat-command/malicious-browser-extension-kremlin-banking-malware" rel="noopener noreferrer" target="_blank">The extension you never installed: KREMLIN forges Chrome's own integrity checks to steal banking sessions ↗</a>
+              <span class="desc">Elastic Security Labs tracked this malicious browser extension across seven campaigns and 15 months, through Brazilian bank lures and the Ethereum smart contracts that hold its C2 configuration.</span>
+            </div>
+            <div class="row">
+              <span class="stamp"><time datetime="2026-09-14">2026-09-14</time> · check point</span>
+              <a class="ttl" href="https://research.checkpoint.com/2026/14th-september-threat-intelligence-report/" rel="noopener noreferrer" target="_blank">14th September – Threat Intelligence Report ↗</a>
+              <span class="desc">IDScan.net, a US identity verification provider, has disclosed a data breach after detecting unauthorized access on September 1. Exposed data included names and government identification numbers, while a criminal…</span>
+            </div>
+            <div class="row">
+              <span class="stamp"><time datetime="2026-09-10">2026-09-10</time> · microsoft ti</span>
+              <a class="ttl" href="https://www.microsoft.com/en-us/security/blog/2026/09/10/protecting-organizations-ai-assisted-executive-impersonation-invoice-fraud/" rel="noopener noreferrer" target="_blank">Protecting organizations from AI-assisted executive impersonation and invoice fraud ↗</a>
+              <span class="desc">Microsoft examines an AI-assisted business email compromise campaign that used executive impersonation and fake invoices to target finance teams with ACH payment fraud.</span>
+            </div>
+            <div class="row">
+              <span class="stamp"><time datetime="2026-09-09">2026-09-09</time> · volexity</span>
+              <a class="ttl" href="https://www.volexity.com/blog/2026/09/09/mind-the-patch-gap-multiple-chinese-threat-actors-chain-0-day-exploits-in-chrome-windows/" rel="noopener noreferrer" target="_blank">Mind the (Patch) Gap: Multiple Chinese Threat Actors Chain 0-day Exploits in Chrome &amp; Windows ↗</a>
+              <span class="desc">On September 1, 2026, Volexity’s Network Security Monitoring (NSM) service detected a spear-phishing campaign from a Chinese threat actor it tracks as UTA0560 targeting customers at multiple non-governmental…</span>
+            </div>
+            <div class="row">
+              <span class="stamp"><time datetime="2026-09-09">2026-09-09</time> · acsc alert</span>
+              <a class="ttl" href="https://www.cyber.gov.au/about-us/view-all-content/alerts-and-advisories/active-exploitation-of-adobe-commerce-and-magento-open-source-vulnerability" rel="noopener noreferrer" target="_blank">CRITICAL ALERT: Active exploitation of Adobe Commerce and Magento Open Source vulnerability ↗</a>
+              <span class="desc">Alert on active exploitation of a critical vulnerability in Adobe Commerce and Magento Open Source.</span>
+            </div>
+            <div class="row">
+              <span class="stamp"><time datetime="2026-09-08">2026-09-08</time> · google ti</span>
+              <a class="ttl" href="https://cloud.google.com/blog/topics/threat-intelligence/from-prompting-to-autonomy-the-evolution-of-adversarial-ai/" rel="noopener noreferrer" target="_blank">GTIG AI Threat Tracker: From Prompting to Autonomy – The Evolution of Adversarial AI ↗</a>
+              <span class="desc">Since the release of our May 2026 report detailing adversarial misuse of artificial intelligence (AI), Google Threat Intelligence Group (GTIG) has observed forward leaning adversaries transition from basic prompting to…</span>
+            </div>
+            <div class="row">
+              <span class="stamp"><time datetime="2026-09-07">2026-09-07</time> · acsc advisory</span>
+              <a class="ttl" href="https://www.cyber.gov.au/about-us/view-all-content/alerts-and-advisories/digital-camouflage-crypters-make-malware-undetectable" rel="noopener noreferrer" target="_blank">Digital camouflage: crypters make malware undetectable ↗</a>
+              <span class="desc">Cybercriminals are increasingly using crypters to disguise malware and make it harder for antivirus software to detect.</span>
+            </div>
+            <div class="row">
+              <span class="stamp"><time datetime="2026-09-04">2026-09-04</time> · cisa advisory</span>
               <a class="ttl" href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-251a" rel="noopener noreferrer" target="_blank">China-Based Artificial Intelligence Companies Conducting Industrial-Scale Distillation Campaigns Against U.S. AI Companies ↗</a>
-              <span class="date">(<time datetime="2026-09-04">2026-09-04</time> · cisa advisory)</span>
               <span class="desc">China-based artificial intelligence (AI) companies are conducting systematic extraction of proprietary functionalities and capabilities of U.S. AI companies’ models through industrial-scale knowledge distillation…</span>
             </div>
             <div class="row">
-              <a class="ttl" href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-237a" rel="noopener noreferrer" target="_blank">A Tale of Two SOCs: Insights From Two Red Team Assessments ↗</a>
-              <span class="date">(<time datetime="2026-08-20">2026-08-20</time> · cisa advisory)</span>
-              <span class="desc">The Cybersecurity and Infrastructure Security Agency (CISA) conducted simultaneous red team assessments at two organizations and observed different defensive outcomes. In both environments, the red team achieved full…</span>
+              <span class="stamp"><time datetime="2026-08-24">2026-08-24</time> · dfir report</span>
+              <a class="ttl" href="https://thedfirreport.com/2026/08/24/bengalseo-part-1-anatomy-of-the-operation/" rel="noopener noreferrer" target="_blank">BengalSEO Part 1: Anatomy of the Operation ↗</a>
+              <span class="desc">In March 2026, our team identified an SEO poisoning campaign leading to malware deployment…</span>
+            </div>
+            <div class="row">
+              <span class="stamp"><time datetime="2026-08-20">2026-08-20</time> · red canary</span>
+              <a class="ttl" href="https://redcanary.com/blog/threat-intelligence/intelligence-insights-august-2026/" rel="noopener noreferrer" target="_blank">Intelligence Insights: August 2026 ↗</a>
+              <span class="desc">Debuts, departures, and danger on the blockchain in this month’s edition of Intelligence Insights.</span>
             </div>
             <span class="updated">updated 2026-09-18</span>
 <!-- intel:end -->

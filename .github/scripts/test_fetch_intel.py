@@ -30,33 +30,34 @@ def record(source, n, date):
 
 
 class Selection(unittest.TestCase):
-    def test_two_per_source_then_newest_first(self):
+    def test_takes_turns_then_newest_first(self):
         per_source = []
         for offset, src in enumerate(fi.SOURCES):
             per_source.append([
                 record(src["id"], n, (dt.date(2026, 9, 17) - dt.timedelta(days=n * 7 + offset)).isoformat())
-                for n in range(5)
+                for n in range(fi.TOTAL)
             ])
         picked = fi.choose(per_source)
-        self.assertEqual(len(picked), 10)
+        self.assertEqual(len(picked), fi.TOTAL)
         counts = {}
         for item in picked:
             counts[item["source"]] = counts.get(item["source"], 0) + 1
-        self.assertEqual(set(counts.values()), {2})
+        self.assertEqual(set(counts), {src["id"] for src in fi.SOURCES})
+        self.assertLessEqual(max(counts.values()) - min(counts.values()), 1)
         dates = [item["date"] for item in picked]
         self.assertEqual(dates, sorted(dates, reverse=True))
 
     def test_short_source_frees_slots_for_others(self):
-        per_source = [[record("cisa", 0, "2026-01-01")]] + [
-            [record(src["id"], n, f"2026-09-{10 + n:02d}") for n in range(6)] for src in fi.SOURCES[1:]
+        per_source = [[record(fi.SOURCES[0]["id"], 0, "2026-01-01")]] + [
+            [record(src["id"], n, f"2026-09-{1 + n:02d}") for n in range(fi.TOTAL)] for src in fi.SOURCES[1:]
         ]
         picked = fi.choose(per_source)
-        self.assertEqual(len(picked), 10)
-        self.assertEqual(sum(1 for item in picked if item["source"] == "cisa"), 1)
-        self.assertEqual(picked[-1]["source"], "cisa")
+        self.assertEqual(len(picked), fi.TOTAL)
+        self.assertEqual(sum(1 for item in picked if item["source"] == fi.SOURCES[0]["id"]), 1)
+        self.assertEqual(picked[-1]["source"], fi.SOURCES[0]["id"])
 
-    def test_fewer_than_ten_when_everything_is_short(self):
-        picked = fi.choose([[record("kev", 0, "2026-09-01")], [], [], [], []])
+    def test_fewer_when_everything_is_short(self):
+        picked = fi.choose([[record("kev", 0, "2026-09-01")]] + [[] for _ in fi.SOURCES[1:]])
         self.assertEqual(len(picked), 1)
 
 
@@ -93,11 +94,29 @@ class Parsing(unittest.TestCase):
         title, _ = fi.tidy("isc", "LausivLoader analysis, or how to pass data between malware stages, (Thu, Sep 17th)", "")
         self.assertEqual(title, "LausivLoader analysis, or how to pass data between malware stages")
 
-    def test_cisa_and_wordpress_cleanup(self):
-        _, summary = fi.tidy("cisa", "t", "Advisory at a Glance Title X Original Publication May 1 Executive Summary Real text here.")
-        self.assertEqual(summary, "Real text here.")
-        _, summary = fi.tidy("unit42", "t", "Real text. The post Real text appeared first on Unit 42.")
-        self.assertEqual(summary, "Real text.")
+    def test_boilerplate_is_stripped(self):
+        cases = {
+            "Advisory at a Glance Title X Original Publication May 1 Executive Summary Real text here.": "Real text here.",
+            "Real text. The post Real text appeared first on Unit 42.": "Real text.",
+            "Real text. The post Real text appeared first on The DFIR Report .": "Real text.",
+            "Key Takeaways The DFIR Report Offerings Check out our Products here. Want a demo? Get in Touch "
+            "Contact us today for pricing or a demo! Case Summary In March 2026 we found a campaign […] "
+            "The post X appeared first on The DFIR Report .": "In March 2026 we found a campaign…",
+            "For the latest discoveries in cyber research for the week of 14th Setpember, please download our "
+            "Threat Intelligence Bulletin. TOP ATTACKS AND BREACHES IDScan.net disclosed a breach.": "IDScan.net disclosed a breach.",
+            "Executive Summary Since May 2026 GTIG has observed things.": "Since May 2026 GTIG has observed things.",
+            "Introduction Beginning in 2024 Mandiant investigated.": "Beginning in 2024 Mandiant investigated.",
+            "Summarising the year is hard.": "Summarising the year is hard.",
+        }
+        for raw, expected in cases.items():
+            _, summary = fi.tidy("talos", "t", raw)
+            self.assertEqual(summary, expected, raw)
+
+    def test_truncate_does_not_double_the_ellipsis(self):
+        text = ("word " * 60).strip() + "…"
+        cut = fi.truncate(text, 50)
+        self.assertTrue(cut.endswith("…"))
+        self.assertFalse(cut.endswith("……"))
 
     def test_kev_newest_first_links_nvd_and_flags_ransomware(self):
         data = kev([
@@ -150,24 +169,32 @@ class Rendering(unittest.TestCase):
 
 class Gathering(unittest.TestCase):
     def test_failed_source_keeps_previous_items(self):
-        good = {
-            fi.SOURCES[0]["url"]: rss([("CSA", "https://www.cisa.gov/a", "Fri, 04 Sep 2026 12:00:00 EDT", "s")]),
-            fi.SOURCES[1]["url"]: kev([{"cveID": "CVE-2026-0001", "vulnerabilityName": "N", "dateAdded": "2026-09-16", "shortDescription": "d"}]),
-            fi.SOURCES[2]["url"]: rss([("Diary, (Thu, Sep 17th)", "https://isc.sans.edu/diary/rss/1", "Thu, 17 Sep 2026 15:06:44 GMT", "s")]),
-            fi.SOURCES[4]["url"]: rss([("U", "https://unit42.paloaltonetworks.com/u/", "Thu, 17 Sep 2026 22:00:33 +0000", "s")]),
-        }
+        good = {}
+        for src in fi.SOURCES:
+            if src["id"] == "talos":
+                continue  # this one will fail to fetch
+            if src["kind"] == "kev":
+                good[src["url"]] = kev([{"cveID": "CVE-2026-0001", "vulnerabilityName": "N", "dateAdded": "2026-09-16",
+                                          "shortDescription": "d"}])
+            else:
+                title = "Diary, (Thu, Sep 17th)" if src["id"] == "isc" else f"{src['id']} post"
+                good[src["url"]] = rss([(title, f"https://{src['hosts'][0]}/post/", "Thu, 17 Sep 2026 15:06:44 GMT", "s")])
 
         def fetcher(url):
             if url not in good:
                 raise OSError("connection refused")
             return good[url]
 
+        ids = [src["id"] for src in fi.SOURCES]
         previous = [record("talos", 1, "2026-09-10"), record("talos", 2, "2026-09-03"), record("kev", 9, "2026-01-01")]
         per_source, failed = fi.gather(fetcher, previous)
         self.assertEqual(failed, ["talos"])
-        self.assertEqual([r["title"] for r in per_source[3]], ["talos 1", "talos 2"])
-        self.assertEqual([r["title"] for r in per_source[1]], ["N (CVE-2026-0001)"])
-        self.assertEqual(per_source[2][0]["title"], "Diary")
+        self.assertEqual([r["title"] for r in per_source[ids.index("talos")]], ["talos 1", "talos 2"])
+        self.assertEqual([r["title"] for r in per_source[ids.index("kev")]], ["N (CVE-2026-0001)"])
+        self.assertEqual(per_source[ids.index("isc")][0]["title"], "Diary")
+        for src, records in zip(fi.SOURCES, per_source):
+            if src["id"] not in ("talos", "kev", "isc"):
+                self.assertEqual(records[0]["title"], f"{src['id']} post", src["id"])
 
 
 if __name__ == "__main__":

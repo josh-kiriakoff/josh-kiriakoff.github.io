@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Refresh the intel page.
 
-Fetches five public threat-intelligence feeds, keeps the ten newest items
-across them (sources take turns, so no single feed fills the list) and writes
+Fetches public threat-intelligence feeds, keeps the newest items across them
+(TOTAL in all; sources take turns, so no single feed fills the list) and writes
 the result to intel/feed.json and into intel/index.html between the
 intel:start and intel:end markers. Standard library only.
 
@@ -31,12 +31,13 @@ STATE = ROOT / "intel" / "feed.json"
 START = "<!-- intel:start -->"
 END = "<!-- intel:end -->"
 
-TOTAL = 10
+TOTAL = 20
 SNIPPET_CHARS = 220
-MAX_BYTES = 8 * 1024 * 1024
+MAX_BYTES = 16 * 1024 * 1024
 TIMEOUT_SECONDS = 20
 HEARTBEAT_DAYS = 30
-USER_AGENT = "josh-kiriakoff.github.io intel fetcher (+https://josh-kiriakoff.github.io/intel/)"
+# No URL in the agent string: at least one feed host drops connections when it sees one.
+USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) josh-kiriakoff intel-feed (rss reader)"
 
 NS = {
     "content": "http://purl.org/rss/1.0/modules/content/",
@@ -80,6 +81,76 @@ SOURCES = [
         "url": "https://unit42.paloaltonetworks.com/feed/",
         "hosts": ("unit42.paloaltonetworks.com",),
     },
+    {
+        "id": "elastic",
+        "label": "elastic labs",
+        "kind": "rss",
+        "url": "https://www.elastic.co/security-labs/rss/feed.xml",
+        "hosts": ("elastic.co",),
+    },
+    {
+        "id": "dfir",
+        "label": "dfir report",
+        "kind": "rss",
+        "url": "https://thedfirreport.com/feed/",
+        "hosts": ("thedfirreport.com",),
+    },
+    {
+        "id": "gti",
+        "label": "google ti",
+        "kind": "rss",
+        "url": "https://cloudblog.withgoogle.com/topics/threat-intelligence/rss/",
+        "hosts": ("cloud.google.com",),
+    },
+    {
+        "id": "msti",
+        "label": "microsoft ti",
+        "kind": "rss",
+        "url": "https://www.microsoft.com/en-us/security/blog/topic/threat-intelligence/feed/",
+        "hosts": ("microsoft.com",),
+    },
+    {
+        "id": "checkpoint",
+        "label": "check point",
+        "kind": "rss",
+        "url": "https://research.checkpoint.com/feed/",
+        "hosts": ("research.checkpoint.com",),
+    },
+    {
+        "id": "redcanary",
+        "label": "red canary",
+        "kind": "rss",
+        "url": "https://redcanary.com/blog/feed/",
+        "hosts": ("redcanary.com",),
+    },
+    {
+        "id": "sentinel",
+        "label": "sentinellabs",
+        "kind": "rss",
+        "url": "https://www.sentinelone.com/labs/feed/",
+        "hosts": ("sentinelone.com",),
+    },
+    {
+        "id": "volexity",
+        "label": "volexity",
+        "kind": "rss",
+        "url": "https://www.volexity.com/feed/",
+        "hosts": ("volexity.com",),
+    },
+    {
+        "id": "acsc",
+        "label": "acsc alert",
+        "kind": "rss",
+        "url": "https://www.cyber.gov.au/rss/alerts",
+        "hosts": ("cyber.gov.au",),
+    },
+    {
+        "id": "acscadv",
+        "label": "acsc advisory",
+        "kind": "rss",
+        "url": "https://www.cyber.gov.au/rss/advisories",
+        "hosts": ("cyber.gov.au",),
+    },
 ]
 SOURCE_ORDER = {src["id"]: n for n, src in enumerate(SOURCES)}
 LABELS = {src["id"]: src["label"] for src in SOURCES}
@@ -96,8 +167,18 @@ ISC_STORMCAST = "ISC Stormcast"
 ISC_SUFFIX = re.compile(
     r",?\s*\((?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),\s*[A-Za-z]{3}\s+\d{1,2}(?:st|nd|rd|th)?\)\s*$"
 )
-CISA_LEAD = re.compile(r"^(?:Advisory at a Glance.*?Executive Summary|Executive Summary|Summary)\s*", re.I)
+# Boilerplate that feeds put in front of, or after, the actual excerpt.
+LEAD_HEADING = re.compile(
+    r"^(?:Advisory at a Glance.*?Executive Summary|Executive Summary|Key Takeaways|Case Summary|Introduction|Overview|Summary)\s+",
+    re.I,
+)
+PROMO = re.compile(
+    r"The DFIR Report Offerings.*?Contact us today for pricing or a demo!\s*"
+    r"|^For the latest discoveries in cyber research.*?Bulletin\.\s*(?:TOP ATTACKS AND BREACHES\s*)?",
+    re.I,
+)
 WORDPRESS_TAIL = re.compile(r"\s*The post .*? appeared first on .*?\.\s*$")
+EXCERPT_MARK = re.compile(r"\s*\[(?:…|\.\.\.)\]\s*$")
 
 
 def log(message: str) -> None:
@@ -185,7 +266,7 @@ def clean_text(value: str | None) -> str:
 def truncate(text: str, limit: int = SNIPPET_CHARS) -> str:
     if len(text) <= limit:
         return text
-    cut = text[:limit].rsplit(" ", 1)[0].rstrip(" ,;:.")
+    cut = text[:limit].rsplit(" ", 1)[0].rstrip(" ,;:.…")
     return cut + "…"
 
 
@@ -278,11 +359,14 @@ def tidy(source_id: str, title: str, summary: str) -> tuple[str, str] | None:
         if title.startswith(ISC_STORMCAST):
             return None
         title = ISC_SUFFIX.sub("", title).strip()
-    elif source_id == "cisa":
-        summary = CISA_LEAD.sub("", summary)
-    elif source_id == "unit42":
-        summary = WORDPRESS_TAIL.sub("", summary)
-    return title, summary
+    summary = WORDPRESS_TAIL.sub("", summary)
+    summary = EXCERPT_MARK.sub("…", summary)
+    for _ in range(4):  # headings and promo blocks can be stacked
+        stripped = LEAD_HEADING.sub("", PROMO.sub("", summary))
+        if stripped == summary:
+            break
+        summary = stripped
+    return title, summary.strip()
 
 
 def link_ok(url: str, hosts: tuple[str, ...]) -> bool:
@@ -345,13 +429,34 @@ def gather(fetcher, previous_items: list[dict]) -> tuple[list[list[dict]], list[
 
 
 def choose(per_source: list[list[dict]], total: int = TOTAL) -> list[dict]:
-    """Take turns across sources, newest first, then order the picks by date."""
+    """Every source's newest item first, so quiet feeds always appear. Remaining
+    slots go to the newest leftovers overall, allowing one more item per source
+    each pass, so a busy feed cannot flood the list. Picks are then shown by date."""
     queues = [list(items) for items in per_source]
     picked: list[dict] = []
-    while len(picked) < total and any(queues):
-        for queue in queues:
-            if queue and len(picked) < total:
-                picked.append(queue.pop(0))
+    counts: dict[str, int] = {}
+    for queue in queues:
+        if queue and len(picked) < total:
+            item = queue.pop(0)
+            picked.append(item)
+            counts[item["source"]] = 1
+    leftovers = [item for queue in queues for item in queue]
+    leftovers.sort(key=lambda item: (SOURCE_ORDER.get(item["source"], 99), item["title"]))
+    leftovers.sort(key=lambda item: item["date"], reverse=True)
+    cap = 1
+    while len(picked) < total and leftovers:
+        cap += 1
+        taken: list[dict] = []
+        for item in leftovers:
+            if len(picked) + len(taken) >= total:
+                break
+            if counts.get(item["source"], 0) < cap:
+                taken.append(item)
+                counts[item["source"]] = counts.get(item["source"], 0) + 1
+        if not taken:
+            break
+        picked.extend(taken)
+        leftovers = [item for item in leftovers if item not in taken]
     picked.sort(key=lambda item: (SOURCE_ORDER.get(item["source"], 99), item["title"]))
     picked.sort(key=lambda item: item["date"], reverse=True)
     return picked
@@ -366,8 +471,8 @@ def render(items: list[dict], updated: str, failed: list[str]) -> str:
     for item in items:
         row = [
             '            <div class="row">',
+            f'              <span class="stamp"><time datetime="{attr(item["date"])}">{text(item["date"])}</time> · {text(item["label"])}</span>',
             f'              <a class="ttl" href="{attr(item["url"])}" rel="noopener noreferrer" target="_blank">{text(item["title"])} ↗</a>',
-            f'              <span class="date">(<time datetime="{attr(item["date"])}">{text(item["date"])}</time> · {text(item["label"])})</span>',
         ]
         if item.get("summary"):
             row.append(f'              <span class="desc">{text(item["summary"])}</span>')

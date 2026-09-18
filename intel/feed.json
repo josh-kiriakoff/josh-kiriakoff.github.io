@@ -1,6 +1,6 @@
 {
-  "updated": "2026-09-18T03:07:30Z",
-  "checked": "2026-09-18T03:10:52Z",
+  "updated": "2026-09-18T03:37:20Z",
+  "checked": "2026-09-18T03:37:20Z",
   "failed": [],
   "items": [
     {
@@ -36,6 +36,14 @@
       "summary": "Cross-environment attacks demand a new approach to security operations. Learn how Unit 42 Managed XSIAM helps SOC teams investigate complete attack paths."
     },
     {
+      "source": "checkpoint",
+      "label": "check point",
+      "title": "AI Threat Landscape Digest: July–August 2026",
+      "url": "https://research.checkpoint.com/2026/ai-threat-landscape-digest-july-august-2026/",
+      "date": "2026-09-17",
+      "summary": "The defining development of the period came not from attackers but from the AI labs themselves, whose models broke out of controlled evaluations and reached real systems. In the wild, the criminal and state use of AI…"
+    },
+    {
       "source": "kev",
       "label": "cisa kev",
       "title": "Acronis Backup Incorrect Default Permissions Vulnerability (CVE-2026-87886)",
@@ -68,6 +76,70 @@
       "summary": "Modern macOS malware uses deceptive setup guides to steal credentials and sensitive user data. Learn how to identify and block these threats."
     },
     {
+      "source": "sentinel",
+      "label": "sentinellabs",
+      "title": "Agents at Large | Tracing Illicit OpenAI Agent Activity on Hugging Face",
+      "url": "https://www.sentinelone.com/labs/agents-at-large-tracing-illicit-openai-agent-activity-on-hugging-face/",
+      "date": "2026-09-16",
+      "summary": "Two Hugging Face accounts reveal that OpenAI's agents staged relay code, internal probes and ChatGPT account registration beyond the published timeline."
+    },
+    {
+      "source": "elastic",
+      "label": "elastic labs",
+      "title": "The extension you never installed: KREMLIN forges Chrome's own integrity checks to steal banking sessions",
+      "url": "https://www.elastic.co/security-labs/threat-command/malicious-browser-extension-kremlin-banking-malware",
+      "date": "2026-09-14",
+      "summary": "Elastic Security Labs tracked this malicious browser extension across seven campaigns and 15 months, through Brazilian bank lures and the Ethereum smart contracts that hold its C2 configuration."
+    },
+    {
+      "source": "checkpoint",
+      "label": "check point",
+      "title": "14th September – Threat Intelligence Report",
+      "url": "https://research.checkpoint.com/2026/14th-september-threat-intelligence-report/",
+      "date": "2026-09-14",
+      "summary": "IDScan.net, a US identity verification provider, has disclosed a data breach after detecting unauthorized access on September 1. Exposed data included names and government identification numbers, while a criminal…"
+    },
+    {
+      "source": "msti",
+      "label": "microsoft ti",
+      "title": "Protecting organizations from AI-assisted executive impersonation and invoice fraud",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/09/10/protecting-organizations-ai-assisted-executive-impersonation-invoice-fraud/",
+      "date": "2026-09-10",
+      "summary": "Microsoft examines an AI-assisted business email compromise campaign that used executive impersonation and fake invoices to target finance teams with ACH payment fraud."
+    },
+    {
+      "source": "volexity",
+      "label": "volexity",
+      "title": "Mind the (Patch) Gap: Multiple Chinese Threat Actors Chain 0-day Exploits in Chrome & Windows",
+      "url": "https://www.volexity.com/blog/2026/09/09/mind-the-patch-gap-multiple-chinese-threat-actors-chain-0-day-exploits-in-chrome-windows/",
+      "date": "2026-09-09",
+      "summary": "On September 1, 2026, Volexity’s Network Security Monitoring (NSM) service detected a spear-phishing campaign from a Chinese threat actor it tracks as UTA0560 targeting customers at multiple non-governmental…"
+    },
+    {
+      "source": "acsc",
+      "label": "acsc alert",
+      "title": "CRITICAL ALERT: Active exploitation of Adobe Commerce and Magento Open Source vulnerability",
+      "url": "https://www.cyber.gov.au/about-us/view-all-content/alerts-and-advisories/active-exploitation-of-adobe-commerce-and-magento-open-source-vulnerability",
+      "date": "2026-09-09",
+      "summary": "Alert on active exploitation of a critical vulnerability in Adobe Commerce and Magento Open Source."
+    },
+    {
+      "source": "gti",
+      "label": "google ti",
+      "title": "GTIG AI Threat Tracker: From Prompting to Autonomy – The Evolution of Adversarial AI",
+      "url": "https://cloud.google.com/blog/topics/threat-intelligence/from-prompting-to-autonomy-the-evolution-of-adversarial-ai/",
+      "date": "2026-09-08",
+      "summary": "Since the release of our May 2026 report detailing adversarial misuse of artificial intelligence (AI), Google Threat Intelligence Group (GTIG) has observed forward leaning adversaries transition from basic prompting to…"
+    },
+    {
+      "source": "acscadv",
+      "label": "acsc advisory",
+      "title": "Digital camouflage: crypters make malware undetectable",
+      "url": "https://www.cyber.gov.au/about-us/view-all-content/alerts-and-advisories/digital-camouflage-crypters-make-malware-undetectable",
+      "date": "2026-09-07",
+      "summary": "Cybercriminals are increasingly using crypters to disguise malware and make it harder for antivirus software to detect."
+    },
+    {
       "source": "cisa",
       "label": "cisa advisory",
       "title": "China-Based Artificial Intelligence Companies Conducting Industrial-Scale Distillation Campaigns Against U.S. AI Companies",
@@ -76,12 +148,20 @@
       "summary": "China-based artificial intelligence (AI) companies are conducting systematic extraction of proprietary functionalities and capabilities of U.S. AI companies’ models through industrial-scale knowledge distillation…"
     },
     {
-      "source": "cisa",
-      "label": "cisa advisory",
-      "title": "A Tale of Two SOCs: Insights From Two Red Team Assessments",
-      "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-237a",
+      "source": "dfir",
+      "label": "dfir report",
+      "title": "BengalSEO Part 1: Anatomy of the Operation",
+      "url": "https://thedfirreport.com/2026/08/24/bengalseo-part-1-anatomy-of-the-operation/",
+      "date": "2026-08-24",
+      "summary": "In March 2026, our team identified an SEO poisoning campaign leading to malware deployment…"
+    },
+    {
+      "source": "redcanary",
+      "label": "red canary",
+      "title": "Intelligence Insights: August 2026",
+      "url": "https://redcanary.com/blog/threat-intelligence/intelligence-insights-august-2026/",
       "date": "2026-08-20",
-      "summary": "The Cybersecurity and Infrastructure Security Agency (CISA) conducted simultaneous red team assessments at two organizations and observed different defensive outcomes. In both environments, the red team achieved full…"
+      "summary": "Debuts, departures, and danger on the blockchain in this month’s edition of Intelligence Insights."
     }
   ]
 }
