@@ -1,0 +1,87 @@
+{
+  "updated": "2026-09-18T03:07:30Z",
+  "checked": "2026-09-18T03:07:30Z",
+  "failed": [],
+  "items": [
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "LausivLoader analysis, or how to pass data between malware stages",
+      "url": "https://isc.sans.edu/diary/rss/33348",
+      "date": "2026-09-17",
+      "summary": "At the end of August, a malspam message was caught in the quarantine of a mail gateway operated by one of my customers. The message was not especially remarkable – it asked the recipient to review some attached…"
+    },
+    {
+      "source": "talos",
+      "label": "talos",
+      "title": "Ransomware incidents in Japan in the first half of 2026: Investigation of The Gentlemen’s infrastructure and evidence of Qilin's AI use",
+      "url": "https://blog.talosintelligence.com/ransomware-incidents-in-japan-in-the-first-half-of-2026/",
+      "date": "2026-09-17",
+      "summary": "Ransomware incidents in Japan rose 4.7% year over year. The Gentlemen was the most active group, with leak-site listings more than doubling from January to July. Qilin ranked second and appeared to use AI, while SMEs…"
+    },
+    {
+      "source": "talos",
+      "label": "talos",
+      "title": "Should you care about an “AI slowdown?”",
+      "url": "https://blog.talosintelligence.com/should-you-care-about-an-ai-slowdown/",
+      "date": "2026-09-17",
+      "summary": "In this week's Threat Source, David talks about why focusing on your security basics is still your best bet, even in a world with rapid AI advancements."
+    },
+    {
+      "source": "unit42",
+      "label": "unit 42",
+      "title": "Inside the Modern SOC: Defending the Cross-Environment Pivot",
+      "url": "https://unit42.paloaltonetworks.com/soc-cross-environment-pivot/",
+      "date": "2026-09-17",
+      "summary": "Cross-environment attacks demand a new approach to security operations. Learn how Unit 42 Managed XSIAM helps SOC teams investigate complete attack paths."
+    },
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "Acronis Backup Incorrect Default Permissions Vulnerability (CVE-2026-87886)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-87886",
+      "date": "2026-09-16",
+      "summary": "Acronis Backup plugin for cPanel & WHM and extension for Plesk contains an incorrect default permissions vulnerability that could allow for privilege escalation."
+    },
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "Cisco Identity Services Engine Incorrect Use of Privileged APIs Vulnerability (CVE-2026-76460)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-76460",
+      "date": "2026-09-16",
+      "summary": "Cisco Identity Services Engine (ISE) and Cisco ISE Passive Identity Connector (ISE-PIC) contain an incorrect use of privileged APIs vulnerability that could allow an unauthenticated, remote attacker to gain unauthorized…"
+    },
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "Scans Targeting Hospitality Applications",
+      "url": "https://isc.sans.edu/diary/rss/33344",
+      "date": "2026-09-16",
+      "summary": "Earlier today, I noted an odd request showing up in our \"First Seen\" report:"
+    },
+    {
+      "source": "unit42",
+      "label": "unit 42",
+      "title": "Atomic macOS (AMOS) Stealer Activity",
+      "url": "https://unit42.paloaltonetworks.com/atomic-macos-amos-stealer-activity/",
+      "date": "2026-09-16",
+      "summary": "Modern macOS malware uses deceptive setup guides to steal credentials and sensitive user data. Learn how to identify and block these threats."
+    },
+    {
+      "source": "cisa",
+      "label": "cisa advisory",
+      "title": "China-Based Artificial Intelligence Companies Conducting Industrial-Scale Distillation Campaigns Against U.S. AI Companies",
+      "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-251a",
+      "date": "2026-09-04",
+      "summary": "China-based artificial intelligence (AI) companies are conducting systematic extraction of proprietary functionalities and capabilities of U.S. AI companies’ models through industrial-scale knowledge distillation…"
+    },
+    {
+      "source": "cisa",
+      "label": "cisa advisory",
+      "title": "A Tale of Two SOCs: Insights From Two Red Team Assessments",
+      "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-237a",
+      "date": "2026-08-20",
+      "summary": "The Cybersecurity and Infrastructure Security Agency (CISA) conducted simultaneous red team assessments at two organizations and observed different defensive outcomes. In both environments, the red team achieved full…"
+    }
+  ]
+}

@@ -349,6 +349,7 @@ a:focus-visible { outline: 1px dashed var(--accent); outline-offset: 2px; }
 .readme .ttl:hover { color: var(--accent-hover); }
 .readme .date { color: var(--fg-mute); margin-left: .3rem; }
 .readme .desc { color: var(--fg-soft); display: block; }
+.readme .updated { color: var(--fg-mute); display: block; margin-top: 1em; font-style: italic; }
 
 /* ============================================================
    `ls -la` block

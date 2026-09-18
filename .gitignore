@@ -16,3 +16,7 @@ AUTHOR-NOTES.md
 # OS cruft
 .DS_Store
 Thumbs.db
+
+# Python bytecode from running the intel fetcher tests locally
+__pycache__/
+*.pyc

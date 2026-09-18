@@ -457,12 +457,13 @@
   /* One VFS node per real page. `entries` mirror what the page
      trees advertise; `hidden` only shows under `ls -a`. */
   const VFS = {
-    '~':                           { entries: ['about/', 'blog/', 'detections/', 'recent.md'], hidden: ['.links/', 'admin/'] },
+    '~':                           { entries: ['about/', 'blog/', 'detections/', 'intel/', 'recent.md'], hidden: ['.links/', 'admin/'] },
     '~/about':                     { entries: ['win_susp_net_user_add_quiet.yml'], hidden: [] },
     '~/blog':                      { entries: ['clickfix-donut-chain/', 'README.md', 'DISCLAIMER'], hidden: [] },
     '~/blog/clickfix-donut-chain': { entries: ['lets-clickfix-some-errors.md'], hidden: [] },
     '~/detections':                { entries: ['example/', 'README.md'], hidden: [] },
     '~/detections/example':        { entries: ['example.md'], hidden: [] },
+    '~/intel':                     { entries: ['README.md', 'intel.log', 'feed.json'], hidden: [] },
     '~/admin':                     { entries: [], hidden: [] },
   };
 

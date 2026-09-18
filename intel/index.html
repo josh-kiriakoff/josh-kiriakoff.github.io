@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Josh Kiriakoff" />
+  <meta name="theme-color" content="#1b1c25" />
+  <title>intel — josh.kiriakoff</title>
+  <meta name="description" content="The ten most recent items across CISA advisories, the KEV catalogue, SANS ISC, Cisco Talos and Unit 42, refreshed daily." />
+  <link rel="canonical" href="https://josh-kiriakoff.github.io/intel/" />
+  <!-- OpenGraph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="josh.kiriakoff" />
+  <meta property="og:title" content="intel — josh.kiriakoff" />
+  <meta property="og:description" content="The ten most recent items across CISA advisories, the KEV catalogue, SANS ISC, Cisco Talos and Unit 42, refreshed daily." />
+  <meta property="og:url" content="https://josh-kiriakoff.github.io/intel/" />
+  <meta property="og:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="intel — josh.kiriakoff" />
+  <meta name="twitter:description" content="The ten most recent items across five threat-intelligence feeds, refreshed daily." />
+  <meta name="twitter:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+  <link rel="icon" type="image/svg+xml" href="../img/favicon.svg" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <!-- Feeds -->
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — blog" href="../feed-blog.xml" />
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — detections" href="../feed-detections.xml" />
+</head>
+<body>
+  <a href="#main" class="skip-link">skip to content</a>
+  <div class="window">
+    <header class="chrome">
+      <div class="lights" aria-hidden="true">
+        <span class="l-close"></span>
+        <span class="l-min"></span>
+        <span class="l-max"></span>
+      </div>
+      <div class="chrome-title">josh@kiriakoff:~/intel</div>
+    </header>
+    <nav class="tabs" aria-label="primary">
+      <a href="../">josh.kiriakoff</a>
+      <a href="../about/">about</a>
+      <a href="../blog/">blog</a>
+      <a href="../detections/">detections</a>
+      <a href="./" class="active">intel</a>
+      <a href="../admin/" class="right">admin</a>
+    </nav>
+    <div class="body" id="main">
+      <h1 class="sr-only">intel — Josh Kiriakoff</h1>
+      <section class="shell" id="shell" aria-label="terminal session">
+        <div class="block" id="b-1" data-cmd="cat " data-target="./README.md" data-after="b-2">
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/intel</span><span class="sep">$</span></span><span class="cmd">cat </span><span class="target">./README.md</span>
+          </div>
+          <div class="output" hidden>
+            <p>
+              Most of the hunt hypotheses I test start as someone else's write-up, a new entry
+              in the KEV catalogue or an advisory describing tradecraft I have not yet seen in the
+              wild. This page keeps the ten most recent items from five feeds I read anyway and
+              links straight to the source.
+            </p>
+            <p>
+              It refreshes once a day and takes turns across the feeds, newest item first, so a
+              busy feed cannot drown out a quiet one. The sources are CISA cybersecurity
+              advisories, the CISA Known Exploited Vulnerabilities catalogue, the SANS Internet
+              Storm Center, Cisco Talos and Palo Alto Networks Unit 42. The same ten entries are
+              published as <a href="./feed.json">feed.json</a>.
+            </p>
+          </div>
+        </div>
+        <div class="block" id="b-2" data-cmd="head -n 10 " data-target="./intel.log" data-after="b-3" hidden>
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/intel</span><span class="sep">$</span></span><span class="cmd">head -n 10 </span><span class="target">./intel.log</span>
+          </div>
+          <div class="output readme" hidden>
+<!-- intel:start -->
+            <div class="row">
+              <a class="ttl" href="https://isc.sans.edu/diary/rss/33348" rel="noopener noreferrer" target="_blank">LausivLoader analysis, or how to pass data between malware stages ↗</a>
+              <span class="date">(<time datetime="2026-09-17">2026-09-17</time> · sans isc)</span>
+              <span class="desc">At the end of August, a malspam message was caught in the quarantine of a mail gateway operated by one of my customers. The message was not especially remarkable – it asked the recipient to review some attached…</span>
+            </div>
+            <div class="row">
+              <a class="ttl" href="https://blog.talosintelligence.com/ransomware-incidents-in-japan-in-the-first-half-of-2026/" rel="noopener noreferrer" target="_blank">Ransomware incidents in Japan in the first half of 2026: Investigation of The Gentlemen’s infrastructure and evidence of Qilin's AI use ↗</a>
+              <span class="date">(<time datetime="2026-09-17">2026-09-17</time> · talos)</span>
+              <span class="desc">Ransomware incidents in Japan rose 4.7% year over year. The Gentlemen was the most active group, with leak-site listings more than doubling from January to July. Qilin ranked second and appeared to use AI, while SMEs…</span>
+            </div>
+            <div class="row">
+              <a class="ttl" href="https://blog.talosintelligence.com/should-you-care-about-an-ai-slowdown/" rel="noopener noreferrer" target="_blank">Should you care about an “AI slowdown?” ↗</a>
+              <span class="date">(<time datetime="2026-09-17">2026-09-17</time> · talos)</span>
+              <span class="desc">In this week's Threat Source, David talks about why focusing on your security basics is still your best bet, even in a world with rapid AI advancements.</span>
+            </div>
+            <div class="row">
+              <a class="ttl" href="https://unit42.paloaltonetworks.com/soc-cross-environment-pivot/" rel="noopener noreferrer" target="_blank">Inside the Modern SOC: Defending the Cross-Environment Pivot ↗</a>
+              <span class="date">(<time datetime="2026-09-17">2026-09-17</time> · unit 42)</span>
+              <span class="desc">Cross-environment attacks demand a new approach to security operations. Learn how Unit 42 Managed XSIAM helps SOC teams investigate complete attack paths.</span>
+            </div>
+            <div class="row">
+              <a class="ttl" href="https://nvd.nist.gov/vuln/detail/CVE-2026-87886" rel="noopener noreferrer" target="_blank">Acronis Backup Incorrect Default Permissions Vulnerability (CVE-2026-87886) ↗</a>
+              <span class="date">(<time datetime="2026-09-16">2026-09-16</time> · cisa kev)</span>
+              <span class="desc">Acronis Backup plugin for cPanel &amp; WHM and extension for Plesk contains an incorrect default permissions vulnerability that could allow for privilege escalation.</span>
+            </div>
+            <div class="row">
+              <a class="ttl" href="https://nvd.nist.gov/vuln/detail/CVE-2026-76460" rel="noopener noreferrer" target="_blank">Cisco Identity Services Engine Incorrect Use of Privileged APIs Vulnerability (CVE-2026-76460) ↗</a>
+              <span class="date">(<time datetime="2026-09-16">2026-09-16</time> · cisa kev)</span>
+              <span class="desc">Cisco Identity Services Engine (ISE) and Cisco ISE Passive Identity Connector (ISE-PIC) contain an incorrect use of privileged APIs vulnerability that could allow an unauthenticated, remote attacker to gain unauthorized…</span>
+            </div>
+            <div class="row">
+              <a class="ttl" href="https://isc.sans.edu/diary/rss/33344" rel="noopener noreferrer" target="_blank">Scans Targeting Hospitality Applications ↗</a>
+              <span class="date">(<time datetime="2026-09-16">2026-09-16</time> · sans isc)</span>
+              <span class="desc">Earlier today, I noted an odd request showing up in our "First Seen" report:</span>
+            </div>
+            <div class="row">
+              <a class="ttl" href="https://unit42.paloaltonetworks.com/atomic-macos-amos-stealer-activity/" rel="noopener noreferrer" target="_blank">Atomic macOS (AMOS) Stealer Activity ↗</a>
+              <span class="date">(<time datetime="2026-09-16">2026-09-16</time> · unit 42)</span>
+              <span class="desc">Modern macOS malware uses deceptive setup guides to steal credentials and sensitive user data. Learn how to identify and block these threats.</span>
+            </div>
+            <div class="row">
+              <a class="ttl" href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-251a" rel="noopener noreferrer" target="_blank">China-Based Artificial Intelligence Companies Conducting Industrial-Scale Distillation Campaigns Against U.S. AI Companies ↗</a>
+              <span class="date">(<time datetime="2026-09-04">2026-09-04</time> · cisa advisory)</span>
+              <span class="desc">China-based artificial intelligence (AI) companies are conducting systematic extraction of proprietary functionalities and capabilities of U.S. AI companies’ models through industrial-scale knowledge distillation…</span>
+            </div>
+            <div class="row">
+              <a class="ttl" href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-237a" rel="noopener noreferrer" target="_blank">A Tale of Two SOCs: Insights From Two Red Team Assessments ↗</a>
+              <span class="date">(<time datetime="2026-08-20">2026-08-20</time> · cisa advisory)</span>
+              <span class="desc">The Cybersecurity and Infrastructure Security Agency (CISA) conducted simultaneous red team assessments at two organizations and observed different defensive outcomes. In both environments, the red team achieved full…</span>
+            </div>
+            <span class="updated">updated 2026-09-18</span>
+<!-- intel:end -->
+          </div>
+        </div>
+        <div class="block" id="b-3" hidden>
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/intel</span><span class="sep">$</span></span><span class="caret"></span>
+          </div>
+        </div>
+      </section>
+    </div>
+    <footer class="footer">
+      <span>© <a href="../">Josh Kiriakoff</a> · <span data-year>2026</span></span>
+    </footer>
+  </div>
+  <noscript>
+    <style>
+      [hidden]      { display: revert !important; }
+      .caret        { display: none !important; }
+      .anchor-link,
+      .copy-btn     { display: none !important; }
+    </style>
+  </noscript>
+  <script src="../js/terminal.js" defer></script>
+</body>
+</html>
