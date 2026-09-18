@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Josh Kiriakoff" />
+  <meta name="theme-color" content="#1b1c25" />
+  <title>legacy netsh firewall context enabling remote access · josh.kiriakoff</title>
+  <meta name="description" content="Microsoft deprecated the netsh firewall context in Windows Vista in favour of netsh advfirewall" />
+  <link rel="canonical" href="https://josh-kiriakoff.github.io/detections/netsh-legacy-firewall-remote/" />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="josh.kiriakoff" />
+  <meta property="og:title" content="legacy netsh firewall context enabling remote access" />
+  <meta property="og:description" content="Microsoft deprecated the netsh firewall context in Windows Vista in favour of netsh advfirewall" />
+  <meta property="og:url" content="https://josh-kiriakoff.github.io/detections/netsh-legacy-firewall-remote/" />
+  <meta property="og:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+  <meta property="article:author" content="Josh Kiriakoff" />
+  <meta property="article:published_time" content="2026-08-27" />
+  <meta property="article:section" content="detections" />
+  <meta property="article:tag" content="attack.defense_evasion" />
+  <meta property="article:tag" content="attack.lateral_movement" />
+  <meta property="article:tag" content="attack.t1562.004" />
+  <meta property="article:tag" content="attack.t1021.001" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="legacy netsh firewall context enabling remote access" />
+  <meta name="twitter:description" content="Microsoft deprecated the netsh firewall context in Windows Vista in favour of netsh advfirewall" />
+  <meta name="twitter:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg" />
+  <link rel="stylesheet" href="../../css/style.css" />
+
+  <!-- Feeds -->
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — blog" href="../../feed-blog.xml" />
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — detections" href="../../feed-detections.xml" />
+</head>
+<body>
+
+  <a href="#main" class="skip-link">skip to content</a>
+
+  <div class="window">
+
+    <header class="chrome">
+      <div class="lights" aria-hidden="true">
+        <span class="l-close"></span>
+        <span class="l-min"></span>
+        <span class="l-max"></span>
+      </div>
+      <div class="chrome-title">josh@kiriakoff:~/detections/netsh-legacy-firewall-remote.md</div>
+    </header>
+
+    <nav class="tabs" aria-label="primary">
+      <a href="../../">josh.kiriakoff</a>
+      <a href="../../about/">about</a>
+      <a href="../../blog/">blog</a>
+      <a href="../" class="active">detections</a>
+      <a href="../../intel/">intel</a>
+      <a href="../../admin/" class="right">admin</a>
+    </nav>
+
+    <div class="body" id="main">
+      <section class="shell" id="shell" aria-label="terminal session">
+
+        <div class="block" id="b-1" data-cmd="cat " data-target="./netsh-legacy-firewall-remote.md" data-after="b-2">
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="cmd">cat </span><span class="target">./netsh-legacy-firewall-remote.md</span>
+          </div>
+
+          <div class="output article-body" hidden>
+
+            <h1>legacy netsh firewall context enabling remote access</h1>
+
+            <div class="chips" aria-label="MITRE ATT&amp;CK">
+              <span class="chip">ATT&amp;CK · T1562.004 (Disable or Modify Firewall)</span>
+              <span class="chip">ATT&amp;CK · T1021.001 (RDP)</span>
+              <span class="chip">Tactic · Defense Evasion</span>
+              <span class="chip">Tactic · Lateral Movement</span>
+            </div>
+
+            <div class="callout hypothesis">
+              <strong>Hypothesis.</strong>
+              Microsoft deprecated the <code>netsh firewall</code> context in Windows Vista in favour of <code>netsh advfirewall</code>. Its appearance in a modern intrusion, enabling the <code>remoteadmin</code> or <code>remotedesktop</code> exception, is a copy-forward hardening script rather than current administrative practice.
+            </div>
+
+            <h2>context</h2>
+            <p>The deprecated syntax is the signal. An operator reusing a years-old playbook keeps whatever worked the first time, and the old <code>set service</code> form still works. A current administrator reaches for <code>advfirewall</code>. The gap between the two is what this rule reads.</p>
+            <p>It is scoped tightly on purpose. It fires on the legacy service-enable form opening remote administration or remote desktop, and it does not overlap rules for <code>advfirewall</code> or for turning the firewall off outright. I watched netsh flip a firewall exception during the domain controller case linked below.</p>
+
+            <h2>hunt</h2>
+            <p>Match the deprecated <code>netsh firewall set service</code> form enabling a remote exception.</p>
+
+<pre><code><span class="tok-c">// hypothesis: deprecated netsh firewall context enabling remote access.</span>
+<span class="tok-c">// schema:     Huntress Process Insights - process_events</span>
+
+<span class="tok-k">FROM</span> logs-edr-process_events
+| <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.name) == <span class="tok-s">&quot;netsh.exe&quot;</span>
+| <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.command_line) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*firewall*&quot;</span>
+     <span class="tok-k">AND</span> <span class="tok-fn">TO_LOWER</span>(process.command_line) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*set service*&quot;</span>
+| <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.command_line) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*remoteadmin*&quot;</span>
+     <span class="tok-k">OR</span> <span class="tok-fn">TO_LOWER</span>(process.command_line) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*remotedesktop*&quot;</span>
+| <span class="tok-k">KEEP</span> host.name, process.parent.name, process.command_line
+| <span class="tok-k">SORT</span> @timestamp <span class="tok-k">DESC</span>
+| <span class="tok-k">LIMIT</span> <span class="tok-n">100</span></code></pre>
+
+            <h2>findings &amp; discriminators</h2>
+            <ul>
+              <li><strong>The legacy context is the tell.</strong> Modern management uses advfirewall. The Vista-era form surviving into a 2026 intrusion is the operator carrying an old script forward.</li>
+              <li><strong>Verify the host and operator.</strong> A genuinely ancient deployment image can still carry this syntax, so confirm who ran it and what else happened in the session.</li>
+            </ul>
+
+            <h2>resulting sigma rule</h2>
+
+            <div class="callout rule">
+              <strong>Rule.</strong> Detects use of the DEPRECATED &quot;netsh firewall set service&quot; context to enable the remote administration or remote desktop firewall exceptions (remoteadmin / remotedesktop). Rated <em>high</em>.
+            </div>
+
+<pre><code><span class="tok-y">title:</span> <span class="tok-s">Legacy Netsh Firewall Context Enabling Remote Administration or RDP</span>
+<span class="tok-y">id:</span> <span class="tok-s">c9070b2f-24ff-42a2-98e4-64c4e85b20ed</span>
+<span class="tok-y">status:</span> <span class="tok-s">experimental</span>
+<span class="tok-y">description:</span> <span class="tok-s">|</span>
+<span class="tok-s">  Detects use of the DEPRECATED &quot;netsh firewall set service&quot; context to enable</span>
+<span class="tok-s">  the remote administration or remote desktop firewall exceptions</span>
+<span class="tok-s">  (remoteadmin / remotedesktop). Microsoft deprecated the netsh firewall</span>
+<span class="tok-s">  context in Windows Vista in favour of netsh advfirewall, so its appearance in</span>
+<span class="tok-s">  a modern intrusion signals a copy-forward hardening script rather than</span>
+<span class="tok-s">  current administrative practice. This rule is scoped to the legacy</span>
+<span class="tok-s">  service-enable syntax and does not overlap detections for advfirewall or for</span>
+<span class="tok-s">  disabling the firewall outright.</span>
+<span class="tok-y">references:</span>
+  - <span class="tok-s">https://josh-kiriakoff.github.io/blog/dc-sslvpn-hok/</span>
+  - <span class="tok-s">https://attack.mitre.org/techniques/T1562/004/</span>
+  - <span class="tok-s">https://attack.mitre.org/techniques/T1021/001/</span>
+<span class="tok-y">author:</span> <span class="tok-s">Josh Kiriakoff</span>
+<span class="tok-y">date:</span>        <span class="tok-s">2026/08/27</span>
+<span class="tok-y">tags:</span>
+  - <span class="tok-s">attack.defense_evasion</span>
+  - <span class="tok-s">attack.lateral_movement</span>
+  - <span class="tok-s">attack.t1562.004</span>
+  - <span class="tok-s">attack.t1021.001</span>
+<span class="tok-y">logsource:</span>
+  <span class="tok-y">category:</span> <span class="tok-s">process_creation</span>
+  <span class="tok-y">product:</span> <span class="tok-s">windows</span>
+<span class="tok-y">detection:</span>
+  <span class="tok-y">selection_netsh:</span>
+    - <span class="tok-s">Image|endswith: &#x27;\netsh.exe&#x27;</span>
+    - <span class="tok-s">OriginalFileName: &#x27;netsh.exe&#x27;</span>
+  <span class="tok-y">selection_legacy_ctx:</span>
+    <span class="tok-y">CommandLine|contains|all:</span>
+      - <span class="tok-s">&#x27;firewall&#x27;</span>
+      - <span class="tok-s">&#x27;set service&#x27;</span>
+  <span class="tok-y">selection_remote:</span>
+    <span class="tok-y">CommandLine|contains:</span>
+      - <span class="tok-s">&#x27;remoteadmin&#x27;</span>
+      - <span class="tok-s">&#x27;remotedesktop&#x27;</span>
+  <span class="tok-y">selection_enable:</span>
+    <span class="tok-y">CommandLine|contains:</span> <span class="tok-s">&#x27;enable&#x27;</span>
+  <span class="tok-y">condition:</span> <span class="tok-s">selection_netsh and selection_legacy_ctx and selection_remote and selection_enable</span>
+<span class="tok-y">fields:</span>
+  - <span class="tok-s">CommandLine</span>
+  - <span class="tok-s">ParentImage</span>
+<span class="tok-y">falsepositives:</span>
+  - <span class="tok-s">Very old deployment scripts or images that still carry Vista-era netsh syntax. The legacy context is the signal; verify the host and the operator.</span>
+<span class="tok-y">level:</span> <span class="tok-s">high</span></code></pre>
+
+            <h2>false positives, scoping notes</h2>
+            <div class="callout fp">
+              <strong>Known FPs.</strong> Very old deployment scripts or images occasionally still carry Vista-era netsh syntax. The legacy context is the signal, so verify the host and the account.
+            </div>
+
+            <h2>references</h2>
+            <ul>
+              <li><a href="https://josh-kiriakoff.github.io/blog/dc-sslvpn-hok/" rel="noopener noreferrer" target="_blank">related writeup · dc sslvpn hok</a></li>
+              <li><a href="https://attack.mitre.org/techniques/T1562/004/" rel="noopener noreferrer" target="_blank">MITRE ATT&amp;CK · T1562.004</a></li>
+              <li><a href="https://attack.mitre.org/techniques/T1021/001/" rel="noopener noreferrer" target="_blank">MITRE ATT&amp;CK · T1021.001</a></li>
+            </ul>
+
+            <p class="back-link">← <a href="../">back to detections</a> &nbsp; · &nbsp; <a href="../../">home</a></p>
+
+          </div>
+        </div>
+
+        <div class="block" id="b-2" hidden>
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="caret"></span>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <footer class="footer">
+      <span>© <a href="../../">Josh Kiriakoff</a> · <span data-year>2026</span></span>
+    </footer>
+
+  </div>
+
+  <noscript>
+    <style>
+      [hidden]      { display: revert !important; }
+      .caret        { display: none !important; }
+      .anchor-link,
+      .copy-btn     { display: none !important; }
+    </style>
+  </noscript>
+
+  <script src="../../js/terminal.js" defer></script>
+</body>
+</html>

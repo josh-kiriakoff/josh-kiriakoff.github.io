@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Josh Kiriakoff" />
+  <meta name="theme-color" content="#1b1c25" />
+  <title>reg.exe importing a .reg file from a user-writable directory · josh.kiriakoff</title>
+  <meta name="description" content="A single reg import applies an arbitrary number of keys in one action" />
+  <link rel="canonical" href="https://josh-kiriakoff.github.io/detections/reg-import-user-writable/" />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="josh.kiriakoff" />
+  <meta property="og:title" content="reg.exe importing a .reg file from a user-writable directory" />
+  <meta property="og:description" content="A single reg import applies an arbitrary number of keys in one action" />
+  <meta property="og:url" content="https://josh-kiriakoff.github.io/detections/reg-import-user-writable/" />
+  <meta property="og:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+  <meta property="article:author" content="Josh Kiriakoff" />
+  <meta property="article:published_time" content="2026-04-14" />
+  <meta property="article:section" content="detections" />
+  <meta property="article:tag" content="attack.defense_evasion" />
+  <meta property="article:tag" content="attack.persistence" />
+  <meta property="article:tag" content="attack.t1112" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="reg.exe importing a .reg file from a user-writable directory" />
+  <meta name="twitter:description" content="A single reg import applies an arbitrary number of keys in one action" />
+  <meta name="twitter:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg" />
+  <link rel="stylesheet" href="../../css/style.css" />
+
+  <!-- Feeds -->
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — blog" href="../../feed-blog.xml" />
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — detections" href="../../feed-detections.xml" />
+</head>
+<body>
+
+  <a href="#main" class="skip-link">skip to content</a>
+
+  <div class="window">
+
+    <header class="chrome">
+      <div class="lights" aria-hidden="true">
+        <span class="l-close"></span>
+        <span class="l-min"></span>
+        <span class="l-max"></span>
+      </div>
+      <div class="chrome-title">josh@kiriakoff:~/detections/reg-import-user-writable.md</div>
+    </header>
+
+    <nav class="tabs" aria-label="primary">
+      <a href="../../">josh.kiriakoff</a>
+      <a href="../../about/">about</a>
+      <a href="../../blog/">blog</a>
+      <a href="../" class="active">detections</a>
+      <a href="../../intel/">intel</a>
+      <a href="../../admin/" class="right">admin</a>
+    </nav>
+
+    <div class="body" id="main">
+      <section class="shell" id="shell" aria-label="terminal session">
+
+        <div class="block" id="b-1" data-cmd="cat " data-target="./reg-import-user-writable.md" data-after="b-2">
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="cmd">cat </span><span class="target">./reg-import-user-writable.md</span>
+          </div>
+
+          <div class="output article-body" hidden>
+
+            <h1>reg.exe importing a .reg file from a user-writable directory</h1>
+
+            <div class="chips" aria-label="MITRE ATT&amp;CK">
+              <span class="chip">ATT&amp;CK · T1112 (Modify Registry)</span>
+              <span class="chip">ATT&amp;CK · T1547.001 (Run Keys)</span>
+              <span class="chip">Tactic · Persistence</span>
+            </div>
+
+            <div class="callout hypothesis">
+              <strong>Hypothesis.</strong>
+              A single <code>reg import</code> applies an arbitrary number of keys in one action. Point it at a <code>.reg</code> file in a user-writable directory and an operator can plant persistence, evasion toggles, and COM hijacks in one shot, while producing far less per-value telemetry than editing each key by hand.
+            </div>
+
+            <h2>context</h2>
+            <p>The bulk import is the point. Editing the registry key by key leaves a trail an analyst can follow value by value. Importing a prepared <code>.reg</code> file collapses all of that into one process event, and the interesting content lives in a file rather than on the command line.</p>
+            <p>The location narrows it fast. A legitimate import usually restores a saved backup from a known path. An import from AppData, user temp, Downloads, Public, or ProgramData, in the middle of other activity, is the shape that matters.</p>
+
+            <h2>hunt</h2>
+            <p>Match <code>reg.exe import</code> where the path sits in a user-writable directory.</p>
+
+<pre><code><span class="tok-c">// hypothesis: reg.exe import of a .reg file from a user-writable path.</span>
+<span class="tok-c">// schema:     Huntress Process Insights - process_events</span>
+
+<span class="tok-k">FROM</span> logs-edr-process_events
+| <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.name) == <span class="tok-s">&quot;reg.exe&quot;</span>
+| <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.command_line) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;* import *&quot;</span>
+| <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.command_line) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*\\appdata\\*&quot;</span>
+     <span class="tok-k">OR</span> <span class="tok-fn">TO_LOWER</span>(process.command_line) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*\\temp\\*&quot;</span>
+     <span class="tok-k">OR</span> <span class="tok-fn">TO_LOWER</span>(process.command_line) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*\\downloads\\*&quot;</span>
+| <span class="tok-k">KEEP</span> host.name, user.name, process.parent.name, process.command_line
+| <span class="tok-k">SORT</span> @timestamp <span class="tok-k">DESC</span>
+| <span class="tok-k">LIMIT</span> <span class="tok-n">100</span></code></pre>
+
+            <h2>findings &amp; discriminators</h2>
+            <ul>
+              <li><strong>The path is the discriminator.</strong> System-managed imports come from system paths. A user-writable source directory is what separates an attacker's staged file from a restore.</li>
+              <li><strong>Pull the .reg contents.</strong> The command line only shows the import. The keys it applied are in the file, so recover it before you rule the hit in or out.</li>
+            </ul>
+
+            <h2>resulting sigma rule</h2>
+
+            <div class="callout rule">
+              <strong>Rule.</strong> Detects reg.exe performing an &quot;import&quot; of a .reg file located in a user-writable directory (AppData, user Temp, Windows Temp, Downloads, Public, or ProgramData). Rated <em>medium</em>.
+            </div>
+
+<pre><code><span class="tok-y">title:</span> <span class="tok-s">Reg.exe Importing a .reg File From a User-Writable Directory</span>
+<span class="tok-y">id:</span> <span class="tok-s">e3b6c7a3-d342-44aa-9ac3-c0d566cf3810</span>
+<span class="tok-y">status:</span> <span class="tok-s">experimental</span>
+<span class="tok-y">description:</span> <span class="tok-s">|</span>
+<span class="tok-s">  Detects reg.exe performing an &quot;import&quot; of a .reg file located in a</span>
+<span class="tok-s">  user-writable directory (AppData, user Temp, Windows Temp, Downloads, Public,</span>
+<span class="tok-s">  or ProgramData). A bulk import applies an arbitrary number of keys and values</span>
+<span class="tok-s">  in a single action, letting an actor drop persistence, defense-evasion</span>
+<span class="tok-s">  toggles, or COM hijacks in one shot while producing far less per-value</span>
+<span class="tok-s">  registry telemetry than editing each key individually.</span>
+<span class="tok-y">references:</span>
+  - <span class="tok-s">https://attack.mitre.org/techniques/T1112/</span>
+  - <span class="tok-s">https://attack.mitre.org/techniques/T1547/001/</span>
+<span class="tok-y">author:</span> <span class="tok-s">Josh Kiriakoff</span>
+<span class="tok-y">date:</span>        <span class="tok-s">2026/04/14</span>
+<span class="tok-y">tags:</span>
+  - <span class="tok-s">attack.defense_evasion</span>
+  - <span class="tok-s">attack.persistence</span>
+  - <span class="tok-s">attack.t1112</span>
+<span class="tok-y">logsource:</span>
+  <span class="tok-y">category:</span> <span class="tok-s">process_creation</span>
+  <span class="tok-y">product:</span> <span class="tok-s">windows</span>
+<span class="tok-y">detection:</span>
+  <span class="tok-y">selection_reg:</span>
+    - <span class="tok-s">Image|endswith: &#x27;\reg.exe&#x27;</span>
+    - <span class="tok-s">OriginalFileName: &#x27;reg.exe&#x27;</span>
+  <span class="tok-y">selection_import:</span>
+    <span class="tok-y">CommandLine|contains:</span> <span class="tok-s">&#x27; import &#x27;</span>
+  <span class="tok-y">selection_userpath:</span>
+    <span class="tok-y">CommandLine|contains:</span>
+      - <span class="tok-s">&#x27;\AppData\&#x27;</span>
+      - <span class="tok-s">&#x27;\Users\Public\&#x27;</span>
+      - <span class="tok-s">&#x27;\Windows\Temp\&#x27;</span>
+      - <span class="tok-s">&#x27;\Downloads\&#x27;</span>
+      - <span class="tok-s">&#x27;\ProgramData\&#x27;</span>
+      - <span class="tok-s">&#x27;\Temp\&#x27;</span>
+  <span class="tok-y">condition:</span> <span class="tok-s">selection_reg and selection_import and selection_userpath</span>
+<span class="tok-y">fields:</span>
+  - <span class="tok-s">CommandLine</span>
+  - <span class="tok-s">ParentImage</span>
+  - <span class="tok-s">User</span>
+<span class="tok-y">falsepositives:</span>
+  - <span class="tok-s">An administrator restoring a saved registry backup from a temp folder. Confirm the .reg contents and the surrounding activity.</span>
+<span class="tok-y">level:</span> <span class="tok-s">medium</span></code></pre>
+
+            <h2>false positives, scoping notes</h2>
+            <div class="callout fp">
+              <strong>Known FPs.</strong> An administrator restoring a saved registry backup from a temp folder will fire this. Confirm the file contents and the surrounding session.
+            </div>
+
+            <h2>references</h2>
+            <ul>
+              <li><a href="https://attack.mitre.org/techniques/T1112/" rel="noopener noreferrer" target="_blank">MITRE ATT&amp;CK · T1112</a></li>
+              <li><a href="https://attack.mitre.org/techniques/T1547/001/" rel="noopener noreferrer" target="_blank">MITRE ATT&amp;CK · T1547.001</a></li>
+            </ul>
+
+            <p class="back-link">← <a href="../">back to detections</a> &nbsp; · &nbsp; <a href="../../">home</a></p>
+
+          </div>
+        </div>
+
+        <div class="block" id="b-2" hidden>
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="caret"></span>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <footer class="footer">
+      <span>© <a href="../../">Josh Kiriakoff</a> · <span data-year>2026</span></span>
+    </footer>
+
+  </div>
+
+  <noscript>
+    <style>
+      [hidden]      { display: revert !important; }
+      .caret        { display: none !important; }
+      .anchor-link,
+      .copy-btn     { display: none !important; }
+    </style>
+  </noscript>
+
+  <script src="../../js/terminal.js" defer></script>
+</body>
+</html>

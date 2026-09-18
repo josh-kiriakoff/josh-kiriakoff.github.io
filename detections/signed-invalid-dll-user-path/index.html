@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Josh Kiriakoff" />
+  <meta name="theme-color" content="#1b1c25" />
+  <title>signed-but-invalid DLL loaded from a user path · josh.kiriakoff</title>
+  <meta name="description" content="A DLL that carries an Authenticode signature whose status does not validate, expired, revoked, or a broken chain, loading from a user-writable path is the fingerprint of a tampered" />
+  <link rel="canonical" href="https://josh-kiriakoff.github.io/detections/signed-invalid-dll-user-path/" />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="josh.kiriakoff" />
+  <meta property="og:title" content="signed-but-invalid DLL loaded from a user path" />
+  <meta property="og:description" content="A DLL that carries an Authenticode signature whose status does not validate, expired, revoked, or a broken chain, loading from a user-writable path is the fingerprint of a tampered" />
+  <meta property="og:url" content="https://josh-kiriakoff.github.io/detections/signed-invalid-dll-user-path/" />
+  <meta property="og:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+  <meta property="article:author" content="Josh Kiriakoff" />
+  <meta property="article:published_time" content="2026-08-05" />
+  <meta property="article:section" content="detections" />
+  <meta property="article:tag" content="attack.defense_evasion" />
+  <meta property="article:tag" content="attack.t1574.002" />
+  <meta property="article:tag" content="attack.t1036.001" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="signed-but-invalid DLL loaded from a user path" />
+  <meta name="twitter:description" content="A DLL that carries an Authenticode signature whose status does not validate, expired, revoked, or a broken chain, loading from a user-writable path is the fingerprint of a tampered" />
+  <meta name="twitter:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg" />
+  <link rel="stylesheet" href="../../css/style.css" />
+
+  <!-- Feeds -->
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — blog" href="../../feed-blog.xml" />
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — detections" href="../../feed-detections.xml" />
+</head>
+<body>
+
+  <a href="#main" class="skip-link">skip to content</a>
+
+  <div class="window">
+
+    <header class="chrome">
+      <div class="lights" aria-hidden="true">
+        <span class="l-close"></span>
+        <span class="l-min"></span>
+        <span class="l-max"></span>
+      </div>
+      <div class="chrome-title">josh@kiriakoff:~/detections/signed-invalid-dll-user-path.md</div>
+    </header>
+
+    <nav class="tabs" aria-label="primary">
+      <a href="../../">josh.kiriakoff</a>
+      <a href="../../about/">about</a>
+      <a href="../../blog/">blog</a>
+      <a href="../" class="active">detections</a>
+      <a href="../../intel/">intel</a>
+      <a href="../../admin/" class="right">admin</a>
+    </nav>
+
+    <div class="body" id="main">
+      <section class="shell" id="shell" aria-label="terminal session">
+
+        <div class="block" id="b-1" data-cmd="cat " data-target="./signed-invalid-dll-user-path.md" data-after="b-2">
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="cmd">cat </span><span class="target">./signed-invalid-dll-user-path.md</span>
+          </div>
+
+          <div class="output article-body" hidden>
+
+            <h1>signed-but-invalid DLL loaded from a user path</h1>
+
+            <div class="chips" aria-label="MITRE ATT&amp;CK">
+              <span class="chip">ATT&amp;CK · T1574.002 (DLL Side-Loading)</span>
+              <span class="chip">ATT&amp;CK · T1036.001 (Invalid Code Signature)</span>
+              <span class="chip">Tactic · Defense Evasion</span>
+            </div>
+
+            <div class="callout hypothesis">
+              <strong>Hypothesis.</strong>
+              A DLL that carries an Authenticode signature whose status does not validate, expired, revoked, or a broken chain, loading from a user-writable path is the fingerprint of a tampered or re-signed module. An operator patched a signed DLL, or stapled a stale certificate to a payload to satisfy allow-listing that only checks a signature is present rather than valid.
+            </div>
+
+            <h2>context</h2>
+            <p>The gap this rule targets is a specific weak control. Some allow-lists ask only whether a signature exists, not whether it verifies. A present-but-invalid signature is exactly what you get when someone edits a signed binary after the fact, because the edit breaks the hash the signature covers.</p>
+            <p>Pairing the invalid status with a user-writable source path keeps it honest. A legitimately expired vendor certificate on old software can produce a non-valid status too, so the load location does the separating.</p>
+
+            <h2>hunt</h2>
+            <p>Match a signed DLL whose signature is not valid loading from a user path.</p>
+
+<pre><code><span class="tok-c">// hypothesis: signed-but-invalid DLL loading from a user path.</span>
+<span class="tok-c">// schema:     Huntress Process Insights - library_events (module load)</span>
+
+<span class="tok-k">FROM</span> logs-edr-library_events
+| <span class="tok-k">WHERE</span> dll.code_signature.signed == true
+| <span class="tok-k">WHERE</span> dll.code_signature.status != <span class="tok-s">&quot;valid&quot;</span>
+| <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(dll.path) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*\\users\\*&quot;</span>
+     <span class="tok-k">OR</span> <span class="tok-fn">TO_LOWER</span>(dll.path) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*\\appdata\\*&quot;</span>
+     <span class="tok-k">OR</span> <span class="tok-fn">TO_LOWER</span>(dll.path) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*\\temp\\*&quot;</span>
+| <span class="tok-k">KEEP</span> host.name, process.executable, dll.path, dll.code_signature.status
+| <span class="tok-k">SORT</span> @timestamp <span class="tok-k">DESC</span>
+| <span class="tok-k">LIMIT</span> <span class="tok-n">100</span></code></pre>
+
+            <h2>findings &amp; discriminators</h2>
+            <ul>
+              <li><strong>Present but invalid is the point.</strong> A broken or revoked signature on a module means the file changed after signing, or the certificate was borrowed.</li>
+              <li><strong>Location keeps it clean.</strong> Old vendor software with an expired certificate is the main benign case, so the user-writable path is what separates it from tampering.</li>
+            </ul>
+
+            <h2>resulting sigma rule</h2>
+
+            <div class="callout rule">
+              <strong>Rule.</strong> Detects a DLL that carries an Authenticode signature whose status is NOT valid (expired, revoked, or a broken chain) being loaded from a user-writable directory. Rated <em>medium</em>.
+            </div>
+
+<pre><code><span class="tok-y">title:</span> <span class="tok-s">Signed-but-Invalid DLL Loaded From a User-Writable Path</span>
+<span class="tok-y">id:</span> <span class="tok-s">2c4db9a4-ce9e-4e68-b910-69428f95f956</span>
+<span class="tok-y">status:</span> <span class="tok-s">experimental</span>
+<span class="tok-y">description:</span> <span class="tok-s">|</span>
+<span class="tok-s">  Detects a DLL that carries an Authenticode signature whose status is NOT valid</span>
+<span class="tok-s">  (expired, revoked, or a broken chain) being loaded from a user-writable</span>
+<span class="tok-s">  directory. A signature that is present but does not validate is the fingerprint</span>
+<span class="tok-s">  of a tampered or re-signed module - an actor patching a signed DLL, or stapling</span>
+<span class="tok-s">  a stale or stolen certificate to a payload to blend in with allow-listing that</span>
+<span class="tok-s">  only checks for the presence of a signature rather than its validity.</span>
+<span class="tok-y">references:</span>
+  - <span class="tok-s">https://attack.mitre.org/techniques/T1574/002/</span>
+  - <span class="tok-s">https://attack.mitre.org/techniques/T1036/001/</span>
+<span class="tok-y">author:</span> <span class="tok-s">Josh Kiriakoff</span>
+<span class="tok-y">date:</span>        <span class="tok-s">2026/08/05</span>
+<span class="tok-y">tags:</span>
+  - <span class="tok-s">attack.defense_evasion</span>
+  - <span class="tok-s">attack.t1574.002</span>
+  - <span class="tok-s">attack.t1036.001</span>
+<span class="tok-y">logsource:</span>
+  <span class="tok-y">category:</span> <span class="tok-s">image_load</span>
+  <span class="tok-y">product:</span> <span class="tok-s">windows</span>
+<span class="tok-y">detection:</span>
+  <span class="tok-y">selection_signed:</span>
+    <span class="tok-y">Signed:</span> <span class="tok-s">&#x27;true&#x27;</span>
+  <span class="tok-y">selection_path:</span>
+    <span class="tok-y">ImageLoaded|contains:</span>
+      - <span class="tok-s">&#x27;\Users\&#x27;</span>
+      - <span class="tok-s">&#x27;\AppData\&#x27;</span>
+      - <span class="tok-s">&#x27;\Temp\&#x27;</span>
+      - <span class="tok-s">&#x27;\ProgramData\&#x27;</span>
+      - <span class="tok-s">&#x27;\Public\&#x27;</span>
+      - <span class="tok-s">&#x27;\Downloads\&#x27;</span>
+  <span class="tok-y">filter_valid:</span>
+    <span class="tok-y">SignatureStatus:</span> <span class="tok-s">&#x27;Valid&#x27;</span>
+  <span class="tok-y">condition:</span> <span class="tok-s">selection_signed and selection_path and not filter_valid</span>
+<span class="tok-y">fields:</span>
+  - <span class="tok-s">Image</span>
+  - <span class="tok-s">ImageLoaded</span>
+  - <span class="tok-s">SignatureStatus</span>
+<span class="tok-y">falsepositives:</span>
+  - <span class="tok-s">Legitimately expired vendor certificates on older software occasionally produce a non-valid status. Confirm the signer and whether the DLL was modified after signing.</span>
+<span class="tok-y">level:</span> <span class="tok-s">medium</span></code></pre>
+
+            <h2>false positives, scoping notes</h2>
+            <div class="callout fp">
+              <strong>Known FPs.</strong> Legitimately expired vendor certificates on older software can produce a non-valid status. Confirm the signer and whether the DLL was modified after signing.
+            </div>
+
+            <h2>references</h2>
+            <ul>
+              <li><a href="https://attack.mitre.org/techniques/T1574/002/" rel="noopener noreferrer" target="_blank">MITRE ATT&amp;CK · T1574.002</a></li>
+              <li><a href="https://attack.mitre.org/techniques/T1036/001/" rel="noopener noreferrer" target="_blank">MITRE ATT&amp;CK · T1036.001</a></li>
+            </ul>
+
+            <p class="back-link">← <a href="../">back to detections</a> &nbsp; · &nbsp; <a href="../../">home</a></p>
+
+          </div>
+        </div>
+
+        <div class="block" id="b-2" hidden>
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="caret"></span>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <footer class="footer">
+      <span>© <a href="../../">Josh Kiriakoff</a> · <span data-year>2026</span></span>
+    </footer>
+
+  </div>
+
+  <noscript>
+    <style>
+      [hidden]      { display: revert !important; }
+      .caret        { display: none !important; }
+      .anchor-link,
+      .copy-btn     { display: none !important; }
+    </style>
+  </noscript>
+
+  <script src="../../js/terminal.js" defer></script>
+</body>
+</html>

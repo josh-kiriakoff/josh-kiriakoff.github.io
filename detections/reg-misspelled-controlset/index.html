@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Josh Kiriakoff" />
+  <meta name="theme-color" content="#1b1c25" />
+  <title>reg.exe writing to a misspelled ControlSet hive path · josh.kiriakoff</title>
+  <meta name="description" content="Windows reads its live configuration from CurrentControlSet and the numbered ControlSet001 to ControlSet003 hives, and nowhere else" />
+  <link rel="canonical" href="https://josh-kiriakoff.github.io/detections/reg-misspelled-controlset/" />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="josh.kiriakoff" />
+  <meta property="og:title" content="reg.exe writing to a misspelled ControlSet hive path" />
+  <meta property="og:description" content="Windows reads its live configuration from CurrentControlSet and the numbered ControlSet001 to ControlSet003 hives, and nowhere else" />
+  <meta property="og:url" content="https://josh-kiriakoff.github.io/detections/reg-misspelled-controlset/" />
+  <meta property="og:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+  <meta property="article:author" content="Josh Kiriakoff" />
+  <meta property="article:published_time" content="2026-08-19" />
+  <meta property="article:section" content="detections" />
+  <meta property="article:tag" content="attack.defense_evasion" />
+  <meta property="article:tag" content="attack.persistence" />
+  <meta property="article:tag" content="attack.t1112" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="reg.exe writing to a misspelled ControlSet hive path" />
+  <meta name="twitter:description" content="Windows reads its live configuration from CurrentControlSet and the numbered ControlSet001 to ControlSet003 hives, and nowhere else" />
+  <meta name="twitter:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg" />
+  <link rel="stylesheet" href="../../css/style.css" />
+
+  <!-- Feeds -->
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — blog" href="../../feed-blog.xml" />
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — detections" href="../../feed-detections.xml" />
+</head>
+<body>
+
+  <a href="#main" class="skip-link">skip to content</a>
+
+  <div class="window">
+
+    <header class="chrome">
+      <div class="lights" aria-hidden="true">
+        <span class="l-close"></span>
+        <span class="l-min"></span>
+        <span class="l-max"></span>
+      </div>
+      <div class="chrome-title">josh@kiriakoff:~/detections/reg-misspelled-controlset.md</div>
+    </header>
+
+    <nav class="tabs" aria-label="primary">
+      <a href="../../">josh.kiriakoff</a>
+      <a href="../../about/">about</a>
+      <a href="../../blog/">blog</a>
+      <a href="../" class="active">detections</a>
+      <a href="../../intel/">intel</a>
+      <a href="../../admin/" class="right">admin</a>
+    </nav>
+
+    <div class="body" id="main">
+      <section class="shell" id="shell" aria-label="terminal session">
+
+        <div class="block" id="b-1" data-cmd="cat " data-target="./reg-misspelled-controlset.md" data-after="b-2">
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="cmd">cat </span><span class="target">./reg-misspelled-controlset.md</span>
+          </div>
+
+          <div class="output article-body" hidden>
+
+            <h1>reg.exe writing to a misspelled ControlSet hive path</h1>
+
+            <div class="chips" aria-label="MITRE ATT&amp;CK">
+              <span class="chip">ATT&amp;CK · T1112 (Modify Registry)</span>
+              <span class="chip">Tactic · Defense Evasion</span>
+              <span class="chip">Tactic · Persistence</span>
+            </div>
+
+            <div class="callout hypothesis">
+              <strong>Hypothesis.</strong>
+              Windows reads its live configuration from <code>CurrentControlSet</code> and the numbered <code>ControlSet001</code> to <code>ControlSet003</code> hives, and nowhere else. A <code>reg add</code> against a misspelled variant such as <code>CurentControlSet</code> writes a dead key that nothing will ever read, so any such write is a fat-fingered administrator or, far more often, a typo baked into an attacker's copy-paste hardening script.
+            </div>
+
+            <h2>context</h2>
+            <p><code>reg.exe</code> is a signed Microsoft binary, so the interesting signal is never the tool. It is the argument. Hands-on operators carry a block of registry commands from host to host to loosen a machine before they settle in, turning on RDP, dropping <code>fDenyTSConnections</code>, relaxing a policy. When that block contains a misspelling, the misspelling travels with it verbatim.</p>
+            <p>That makes the typo a better pivot than any correctly spelled command beside it. The valid commands blend into normal administration. The dead key does not. I pulled this apart in a case where the only tooling on a domain controller was Windows itself, linked below.</p>
+
+            <h2>hunt</h2>
+            <p>Match <code>reg.exe</code> whose command line carries one of the known misspellings. The list below is a sample, the rule carries the full set.</p>
+
+<pre><code><span class="tok-c">// hypothesis: reg.exe writing to a misspelled *ControlSet* path.</span>
+<span class="tok-c">// schema:     Huntress Process Insights - process_events</span>
+
+<span class="tok-k">FROM</span> logs-edr-process_events
+| <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.name) == <span class="tok-s">&quot;reg.exe&quot;</span>
+| <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.command_line) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*curentcontrolset*&quot;</span>
+     <span class="tok-k">OR</span> <span class="tok-fn">TO_LOWER</span>(process.command_line) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*currrentcontrolset*&quot;</span>
+     <span class="tok-k">OR</span> <span class="tok-fn">TO_LOWER</span>(process.command_line) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*currentcontolset*&quot;</span>
+| <span class="tok-k">KEEP</span> host.name, user.name, process.parent.name, process.command_line
+| <span class="tok-k">SORT</span> @timestamp <span class="tok-k">DESC</span>
+| <span class="tok-k">LIMIT</span> <span class="tok-n">100</span></code></pre>
+
+            <h2>findings &amp; discriminators</h2>
+            <ul>
+              <li><strong>Zero legitimate producers.</strong> No installer or admin tool writes to a misspelled hive on purpose. Read every hit as operator error inside a script that meant to harden the host.</li>
+              <li><strong>The parent tells you the rest.</strong> A misspelled <code>reg add</code> parented by a remote session host or a shell dropped mid-intrusion is the shape worth chasing, not a lone typo in an interactive prompt.</li>
+            </ul>
+
+            <h2>resulting sigma rule</h2>
+
+            <div class="callout rule">
+              <strong>Rule.</strong> Detects reg.exe writing to or importing a MISSPELLED CurrentControlSet / ControlSet registry path such as &quot;CurentControlSet&quot; (one r short). Rated <em>high</em>.
+            </div>
+
+<pre><code><span class="tok-y">title:</span> <span class="tok-s">Registry Modification Referencing a Misspelled ControlSet Hive Path</span>
+<span class="tok-y">id:</span> <span class="tok-s">bc362ab0-474b-45ea-bdea-c4df2956b240</span>
+<span class="tok-y">status:</span> <span class="tok-s">experimental</span>
+<span class="tok-y">description:</span> <span class="tok-s">|</span>
+<span class="tok-s">  Detects reg.exe writing to or importing a MISSPELLED CurrentControlSet /</span>
+<span class="tok-s">  ControlSet registry path such as &quot;CurentControlSet&quot; (one r short). Windows</span>
+<span class="tok-s">  only reads the canonical CurrentControlSet and ControlSet001..003 hives, so a</span>
+<span class="tok-s">  reg add against a misspelled variant silently creates a dead junk key that</span>
+<span class="tok-s">  nothing will ever read. The value is that the misspelling is baked into an</span>
+<span class="tok-s">  actor&#x27;s copy-paste hardening playbook and survives verbatim across every</span>
+<span class="tok-s">  victim, which makes it a far more stable pivot than any of the correctly</span>
+<span class="tok-s">  spelled commands that run alongside it.</span>
+<span class="tok-y">references:</span>
+  - <span class="tok-s">https://josh-kiriakoff.github.io/blog/dc-sslvpn-hok/</span>
+  - <span class="tok-s">https://attack.mitre.org/techniques/T1112/</span>
+<span class="tok-y">author:</span> <span class="tok-s">Josh Kiriakoff</span>
+<span class="tok-y">date:</span>        <span class="tok-s">2026/08/19</span>
+<span class="tok-y">tags:</span>
+  - <span class="tok-s">attack.defense_evasion</span>
+  - <span class="tok-s">attack.persistence</span>
+  - <span class="tok-s">attack.t1112</span>
+<span class="tok-y">logsource:</span>
+  <span class="tok-y">category:</span> <span class="tok-s">process_creation</span>
+  <span class="tok-y">product:</span> <span class="tok-s">windows</span>
+<span class="tok-y">detection:</span>
+  <span class="tok-y">selection_reg:</span>
+    - <span class="tok-s">Image|endswith: &#x27;\reg.exe&#x27;</span>
+    - <span class="tok-s">OriginalFileName: &#x27;reg.exe&#x27;</span>
+  <span class="tok-y">selection_typo:</span>
+    <span class="tok-y">CommandLine|contains:</span>
+      - <span class="tok-s">&#x27;CurentControlSet&#x27;</span>
+      - <span class="tok-s">&#x27;CurrrentControlSet&#x27;</span>
+      - <span class="tok-s">&#x27;CurentControleSet&#x27;</span>
+      - <span class="tok-s">&#x27;CurrentContolSet&#x27;</span>
+      - <span class="tok-s">&#x27;CurrentControSet&#x27;</span>
+      - <span class="tok-s">&#x27;CurrrentControlset&#x27;</span>
+  <span class="tok-y">condition:</span> <span class="tok-s">selection_reg and selection_typo</span>
+<span class="tok-y">fields:</span>
+  - <span class="tok-s">CommandLine</span>
+  - <span class="tok-s">ParentImage</span>
+  - <span class="tok-s">User</span>
+<span class="tok-y">falsepositives:</span>
+  - <span class="tok-s">None expected. A misspelled ControlSet path has no legitimate producer; treat any hit as operator error inside a malicious script until proven otherwise.</span>
+<span class="tok-y">level:</span> <span class="tok-s">high</span></code></pre>
+
+            <h2>false positives, scoping notes</h2>
+            <div class="callout fp">
+              <strong>Known FPs.</strong> None expected. A misspelled ControlSet path has no legitimate producer, so treat any hit as a malicious or broken script until the surrounding activity says otherwise.
+            </div>
+
+            <h2>references</h2>
+            <ul>
+              <li><a href="https://josh-kiriakoff.github.io/blog/dc-sslvpn-hok/" rel="noopener noreferrer" target="_blank">related writeup · dc sslvpn hok</a></li>
+              <li><a href="https://attack.mitre.org/techniques/T1112/" rel="noopener noreferrer" target="_blank">MITRE ATT&amp;CK · T1112</a></li>
+            </ul>
+
+            <p class="back-link">← <a href="../">back to detections</a> &nbsp; · &nbsp; <a href="../../">home</a></p>
+
+          </div>
+        </div>
+
+        <div class="block" id="b-2" hidden>
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="caret"></span>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <footer class="footer">
+      <span>© <a href="../../">Josh Kiriakoff</a> · <span data-year>2026</span></span>
+    </footer>
+
+  </div>
+
+  <noscript>
+    <style>
+      [hidden]      { display: revert !important; }
+      .caret        { display: none !important; }
+      .anchor-link,
+      .copy-btn     { display: none !important; }
+    </style>
+  </noscript>
+
+  <script src="../../js/terminal.js" defer></script>
+</body>
+</html>

@@ -5,13 +5,183 @@
   <link href="https://josh-kiriakoff.github.io/detections/" rel="alternate" type="text/html"/>
   <link href="https://josh-kiriakoff.github.io/feed-detections.xml" rel="self" type="application/atom+xml"/>
   <id>https://josh-kiriakoff.github.io/detections/</id>
-  <updated>2026-05-25T00:00:00Z</updated>
+  <updated>2026-09-10T00:00:00Z</updated>
   <author>
     <name>Josh Kiriakoff</name>
     <email>kiriakoffj@gmail.com</email>
     <uri>https://josh-kiriakoff.github.io/</uri>
   </author>
 
+  <entry>
+    <title>shadow copy eviction via vssadmin resize</title>
+    <link href="https://josh-kiriakoff.github.io/detections/vssadmin-resize-shadowstorage/"/>
+    <id>urn:uuid:3fff6287-8208-452a-9993-53ccc1df6684</id>
+    <updated>2026-09-10T00:00:00Z</updated>
+    <published>2026-09-10T00:00:00Z</published>
+    <summary>Shrinking the shadow-copy storage association to a small maximum size silently evicts existing Volume Shadow Copies without ever issuing a delete</summary>
+    <category term="attack.impact"/>
+    <category term="attack.t1490"/>
+  </entry>
+  <entry>
+    <title>member added to a rarely-audited privileged group</title>
+    <link href="https://josh-kiriakoff.github.io/detections/privileged-group-member-added/"/>
+    <id>urn:uuid:a81bb18f-3f7c-415e-829d-c8724a7e17c1</id>
+    <updated>2026-09-02T00:00:00Z</updated>
+    <published>2026-09-02T00:00:00Z</published>
+    <summary>Everyone alerts on additions to Domain Admins</summary>
+    <category term="attack.persistence"/>
+    <category term="attack.privilege_escalation"/>
+    <category term="attack.t1098"/>
+  </entry>
+  <entry>
+    <title>legacy netsh firewall context enabling remote access</title>
+    <link href="https://josh-kiriakoff.github.io/detections/netsh-legacy-firewall-remote/"/>
+    <id>urn:uuid:c9070b2f-24ff-42a2-98e4-64c4e85b20ed</id>
+    <updated>2026-08-27T00:00:00Z</updated>
+    <published>2026-08-27T00:00:00Z</published>
+    <summary>Microsoft deprecated the netsh firewall context in Windows Vista in favour of netsh advfirewall</summary>
+    <category term="attack.defense_evasion"/>
+    <category term="attack.lateral_movement"/>
+    <category term="attack.t1562.004"/>
+    <category term="attack.t1021.001"/>
+  </entry>
+  <entry>
+    <title>reg.exe writing to a misspelled ControlSet hive path</title>
+    <link href="https://josh-kiriakoff.github.io/detections/reg-misspelled-controlset/"/>
+    <id>urn:uuid:bc362ab0-474b-45ea-bdea-c4df2956b240</id>
+    <updated>2026-08-19T00:00:00Z</updated>
+    <published>2026-08-19T00:00:00Z</published>
+    <summary>Windows reads its live configuration from CurrentControlSet and the numbered ControlSet001 to ControlSet003 hives, and nowhere else</summary>
+    <category term="attack.defense_evasion"/>
+    <category term="attack.persistence"/>
+    <category term="attack.t1112"/>
+  </entry>
+  <entry>
+    <title>signed-but-invalid DLL loaded from a user path</title>
+    <link href="https://josh-kiriakoff.github.io/detections/signed-invalid-dll-user-path/"/>
+    <id>urn:uuid:2c4db9a4-ce9e-4e68-b910-69428f95f956</id>
+    <updated>2026-08-05T00:00:00Z</updated>
+    <published>2026-08-05T00:00:00Z</published>
+    <summary>A DLL that carries an Authenticode signature whose status does not validate, expired, revoked, or a broken chain, loading from a user-writable path is the fingerprint of a tampered</summary>
+    <category term="attack.defense_evasion"/>
+    <category term="attack.t1574.002"/>
+    <category term="attack.t1036.001"/>
+  </entry>
+  <entry>
+    <title>MacSync implant and screen-capture helper on macOS</title>
+    <link href="https://josh-kiriakoff.github.io/detections/macsync-implant-macos/"/>
+    <id>urn:uuid:0247f717-7759-4933-b357-a12f3d7e7ce2</id>
+    <updated>2026-07-20T00:00:00Z</updated>
+    <published>2026-07-20T00:00:00Z</published>
+    <summary>The MacSync stealer leaves two host artefacts that name-based rules miss, a persistent Mach-O implant staged as ~/.local/com.apple.&amp;amp;lt;hex&amp;amp;gt;.hcpi, and an ad-hoc-signed helper tha</summary>
+    <category term="attack.persistence"/>
+    <category term="attack.defense_evasion"/>
+    <category term="attack.collection"/>
+    <category term="attack.t1113"/>
+    <category term="attack.t1036.005"/>
+    <category term="attack.t1543.001"/>
+  </entry>
+  <entry>
+    <title>system DLL name loaded from a non-system directory</title>
+    <link href="https://josh-kiriakoff.github.io/detections/system-dll-name-non-system-path/"/>
+    <id>urn:uuid:dd44758d-5e30-4677-bca1-ff0902f79c50</id>
+    <updated>2026-07-15T00:00:00Z</updated>
+    <published>2026-07-15T00:00:00Z</published>
+    <summary>Side-loading kits plant a look-alike copy of a frequently imported system DLL, such as version.dll or dbghelp.dll, next to a signed executable so the planted copy resolves first</summary>
+    <category term="attack.defense_evasion"/>
+    <category term="attack.persistence"/>
+    <category term="attack.t1574.002"/>
+    <category term="attack.t1036.005"/>
+  </entry>
+  <entry>
+    <title>unsigned DLL loaded by a system binary from a user path</title>
+    <link href="https://josh-kiriakoff.github.io/detections/unsigned-dll-system-binary/"/>
+    <id>urn:uuid:2fd5ecdb-1f4a-4754-aa4d-c7c1b563f44c</id>
+    <updated>2026-07-08T00:00:00Z</updated>
+    <published>2026-07-08T00:00:00Z</published>
+    <summary>A trusted binary in System32 or SysWOW64 should resolve its imports from system and vendor directories</summary>
+    <category term="attack.defense_evasion"/>
+    <category term="attack.persistence"/>
+    <category term="attack.privilege_escalation"/>
+    <category term="attack.t1574.002"/>
+  </entry>
+  <entry>
+    <title>cipher.exe wiping free disk space</title>
+    <link href="https://josh-kiriakoff.github.io/detections/cipher-wipe-free-space/"/>
+    <id>urn:uuid:2e64d13c-234f-460f-939c-931576a65769</id>
+    <updated>2026-06-23T00:00:00Z</updated>
+    <published>2026-06-23T00:00:00Z</published>
+    <summary>cipher.exe /w overwrites the free space on a volume so previously deleted file content can no longer be carved back</summary>
+    <category term="attack.defense_evasion"/>
+    <category term="attack.impact"/>
+    <category term="attack.t1070.004"/>
+  </entry>
+  <entry>
+    <title>Komari monitoring agent used as a C2 implant</title>
+    <link href="https://josh-kiriakoff.github.io/detections/komari-agent-c2/"/>
+    <id>urn:uuid:3d3c444c-5ce1-497d-85ce-088c100de13e</id>
+    <updated>2026-06-09T00:00:00Z</updated>
+    <published>2026-06-09T00:00:00Z</published>
+    <summary>Komari is an open-source monitoring agent with a reverse shell built into the default install, which makes it an all-in-one C2 implant an operator can deploy in one step</summary>
+    <category term="attack.command_and_control"/>
+    <category term="attack.execution"/>
+    <category term="attack.t1219"/>
+    <category term="attack.t1071.001"/>
+  </entry>
+  <entry>
+    <title>silent MSI install of a temp ~vrf installer</title>
+    <link href="https://josh-kiriakoff.github.io/detections/msiexec-vrf-temp-installer/"/>
+    <id>urn:uuid:e9d7a958-963d-423a-a6c7-82a03bd31087</id>
+    <updated>2026-05-31T00:00:00Z</updated>
+    <published>2026-05-31T00:00:00Z</published>
+    <summary>A stealer or loader chain that stages a follow-on MSI into the user temp directory names it something like ~vrf&amp;amp;lt;GetTickCount&amp;amp;gt;.msi and installs it with no UI</summary>
+    <category term="attack.defense_evasion"/>
+    <category term="attack.execution"/>
+    <category term="attack.t1218.007"/>
+  </entry>
+  <entry>
+    <title>Kerberos ticket cache purge via klist</title>
+    <link href="https://josh-kiriakoff.github.io/detections/klist-ticket-cache-purge/"/>
+    <id>urn:uuid:7bcdfaba-1cfa-49c8-bf50-e07a0f3d291c</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <published>2026-05-12T00:00:00Z</published>
+    <summary>klist purge flushes the current logon session&amp;#x27;s cached Kerberos tickets</summary>
+    <category term="attack.defense_evasion"/>
+    <category term="attack.credential_access"/>
+    <category term="attack.t1070.006"/>
+  </entry>
+  <entry>
+    <title>vendor-branded executable running from a user path</title>
+    <link href="https://josh-kiriakoff.github.io/detections/vendor-branded-user-path/"/>
+    <id>urn:uuid:613f46db-a4d9-4c4a-a564-d0bd872fc96d</id>
+    <updated>2026-04-28T00:00:00Z</updated>
+    <published>2026-04-28T00:00:00Z</published>
+    <summary>A process whose PE metadata claims a major vendor, Microsoft, Google, or Mozilla, while the binary runs from a user-writable path outside that vendor&amp;#x27;s real install and update loca</summary>
+    <category term="attack.defense_evasion"/>
+    <category term="attack.t1036.005"/>
+    <category term="attack.t1036.001"/>
+  </entry>
+  <entry>
+    <title>reg.exe importing a .reg file from a user-writable directory</title>
+    <link href="https://josh-kiriakoff.github.io/detections/reg-import-user-writable/"/>
+    <id>urn:uuid:e3b6c7a3-d342-44aa-9ac3-c0d566cf3810</id>
+    <updated>2026-04-14T00:00:00Z</updated>
+    <published>2026-04-14T00:00:00Z</published>
+    <summary>A single reg import applies an arbitrary number of keys in one action</summary>
+    <category term="attack.defense_evasion"/>
+    <category term="attack.persistence"/>
+    <category term="attack.t1112"/>
+  </entry>
+  <entry>
+    <title>renamed LOLBIN caught by an OriginalFileName mismatch</title>
+    <link href="https://josh-kiriakoff.github.io/detections/renamed-lolbin-originalfilename/"/>
+    <id>urn:uuid:b7fc2789-0ba4-494c-b92b-b287f12a07a1</id>
+    <updated>2026-03-24T00:00:00Z</updated>
+    <published>2026-03-24T00:00:00Z</published>
+    <summary>A process whose embedded PE OriginalFileName is a well-known living-off-the-land binary while its on-disk name is something else is the classic rename used to slip a LOLBIN past na</summary>
+    <category term="attack.defense_evasion"/>
+    <category term="attack.t1036.003"/>
+  </entry>
   <entry>
     <title>Rundll32 Invoked Without A Module Argument</title>
     <link href="https://josh-kiriakoff.github.io/detections/example/"/>

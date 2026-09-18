@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Josh Kiriakoff" />
+  <meta name="theme-color" content="#1b1c25" />
+  <title>vendor-branded executable running from a user path · josh.kiriakoff</title>
+  <meta name="description" content="A process whose PE metadata claims a major vendor, Microsoft, Google, or Mozilla, while the binary runs from a user-writable path outside that vendor&#x27;s real install and update loca" />
+  <link rel="canonical" href="https://josh-kiriakoff.github.io/detections/vendor-branded-user-path/" />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="josh.kiriakoff" />
+  <meta property="og:title" content="vendor-branded executable running from a user path" />
+  <meta property="og:description" content="A process whose PE metadata claims a major vendor, Microsoft, Google, or Mozilla, while the binary runs from a user-writable path outside that vendor&#x27;s real install and update loca" />
+  <meta property="og:url" content="https://josh-kiriakoff.github.io/detections/vendor-branded-user-path/" />
+  <meta property="og:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+  <meta property="article:author" content="Josh Kiriakoff" />
+  <meta property="article:published_time" content="2026-04-28" />
+  <meta property="article:section" content="detections" />
+  <meta property="article:tag" content="attack.defense_evasion" />
+  <meta property="article:tag" content="attack.t1036.005" />
+  <meta property="article:tag" content="attack.t1036.001" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="vendor-branded executable running from a user path" />
+  <meta name="twitter:description" content="A process whose PE metadata claims a major vendor, Microsoft, Google, or Mozilla, while the binary runs from a user-writable path outside that vendor&#x27;s real install and update loca" />
+  <meta name="twitter:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg" />
+  <link rel="stylesheet" href="../../css/style.css" />
+
+  <!-- Feeds -->
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — blog" href="../../feed-blog.xml" />
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — detections" href="../../feed-detections.xml" />
+</head>
+<body>
+
+  <a href="#main" class="skip-link">skip to content</a>
+
+  <div class="window">
+
+    <header class="chrome">
+      <div class="lights" aria-hidden="true">
+        <span class="l-close"></span>
+        <span class="l-min"></span>
+        <span class="l-max"></span>
+      </div>
+      <div class="chrome-title">josh@kiriakoff:~/detections/vendor-branded-user-path.md</div>
+    </header>
+
+    <nav class="tabs" aria-label="primary">
+      <a href="../../">josh.kiriakoff</a>
+      <a href="../../about/">about</a>
+      <a href="../../blog/">blog</a>
+      <a href="../" class="active">detections</a>
+      <a href="../../intel/">intel</a>
+      <a href="../../admin/" class="right">admin</a>
+    </nav>
+
+    <div class="body" id="main">
+      <section class="shell" id="shell" aria-label="terminal session">
+
+        <div class="block" id="b-1" data-cmd="cat " data-target="./vendor-branded-user-path.md" data-after="b-2">
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="cmd">cat </span><span class="target">./vendor-branded-user-path.md</span>
+          </div>
+
+          <div class="output article-body" hidden>
+
+            <h1>vendor-branded executable running from a user path</h1>
+
+            <div class="chips" aria-label="MITRE ATT&amp;CK">
+              <span class="chip">ATT&amp;CK · T1036.005 (Match Legitimate Name)</span>
+              <span class="chip">ATT&amp;CK · T1036.001 (Invalid Code Signature)</span>
+              <span class="chip">Tactic · Defense Evasion</span>
+            </div>
+
+            <div class="callout hypothesis">
+              <strong>Hypothesis.</strong>
+              A process whose PE metadata claims a major vendor, Microsoft, Google, or Mozilla, while the binary runs from a user-writable path outside that vendor's real install and update locations is a masquerade. Copying a vendor's version resources onto a payload is a cheap way to survive a glance and some allow-lists.
+            </div>
+
+            <h2>context</h2>
+            <p>The mismatch is the signal. A binary that says it is Microsoft has no business running from a user temp folder, because Microsoft ships to Program Files, the component store, and a known set of updater paths. The claimed publisher and the execution path disagree, and that disagreement is hard to fake away.</p>
+            <p>The rule allow-lists the real vendor directories, the Edge and Chrome updaters, OneDrive, Teams, the package cache, and the like, so what remains is a vendor name running from somewhere the vendor never installs.</p>
+
+            <h2>hunt</h2>
+            <p>Match a vendor-branded process running from a user path outside the vendor's real directories.</p>
+
+<pre><code><span class="tok-c">// hypothesis: vendor-branded PE running from a user-writable path.</span>
+<span class="tok-c">// schema:     Huntress Process Insights - process_events</span>
+
+<span class="tok-k">FROM</span> logs-edr-process_events
+| <span class="tok-k">WHERE</span> process.pe.company <span class="tok-k">IN</span> (<span class="tok-s">&quot;Microsoft Corporation&quot;</span>, <span class="tok-s">&quot;Google LLC&quot;</span>, <span class="tok-s">&quot;Mozilla Corporation&quot;</span>)
+| <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.executable) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*\\appdata\\*&quot;</span>
+     <span class="tok-k">OR</span> <span class="tok-fn">TO_LOWER</span>(process.executable) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*\\temp\\*&quot;</span>
+     <span class="tok-k">OR</span> <span class="tok-fn">TO_LOWER</span>(process.executable) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*\\downloads\\*&quot;</span>
+| <span class="tok-k">WHERE</span> <span class="tok-k">NOT</span> <span class="tok-fn">TO_LOWER</span>(process.executable) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*\\microsoft onedrive\\*&quot;</span>
+     <span class="tok-k">AND</span> <span class="tok-k">NOT</span> <span class="tok-fn">TO_LOWER</span>(process.executable) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*\\google\\update\\*&quot;</span>
+| <span class="tok-k">KEEP</span> host.name, process.executable, process.pe.company, process.command_line
+| <span class="tok-k">SORT</span> @timestamp <span class="tok-k">DESC</span>
+| <span class="tok-k">LIMIT</span> <span class="tok-n">100</span></code></pre>
+
+            <h2>findings &amp; discriminators</h2>
+            <ul>
+              <li><strong>The publisher and the path disagree.</strong> A Microsoft-branded binary in a user temp folder is claiming a trust its location contradicts.</li>
+              <li><strong>Extend the allow-list to the environment.</strong> Some updaters stage vendor-signed binaries in temp or ProgramData, so add the known ones as they surface.</li>
+            </ul>
+
+            <h2>resulting sigma rule</h2>
+
+            <div class="callout rule">
+              <strong>Rule.</strong> Detects a process whose embedded PE metadata claims a major software vendor (Microsoft, Google, or Mozilla) while the binary runs from a user-writable directory outside that vendor&#x27;s real install and update locations. Rated <em>medium</em>.
+            </div>
+
+<pre><code><span class="tok-y">title:</span> <span class="tok-s">Vendor-Branded Executable Running From a User-Writable Path</span>
+<span class="tok-y">id:</span> <span class="tok-s">613f46db-a4d9-4c4a-a564-d0bd872fc96d</span>
+<span class="tok-y">status:</span> <span class="tok-s">experimental</span>
+<span class="tok-y">description:</span> <span class="tok-s">|</span>
+<span class="tok-s">  Detects a process whose embedded PE metadata claims a major software vendor</span>
+<span class="tok-s">  (Microsoft, Google, or Mozilla) while the binary runs from a user-writable</span>
+<span class="tok-s">  directory outside that vendor&#x27;s real install and update locations. Copying a</span>
+<span class="tok-s">  vendor&#x27;s version resources onto a payload, or naming a binary after a trusted</span>
+<span class="tok-s">  product, is a cheap way to survive an analyst&#x27;s glance and some allow-lists.</span>
+<span class="tok-s">  The mismatch between the claimed publisher and the execution path is the</span>
+<span class="tok-s">  signal.</span>
+<span class="tok-y">references:</span>
+  - <span class="tok-s">https://attack.mitre.org/techniques/T1036/005/</span>
+  - <span class="tok-s">https://attack.mitre.org/techniques/T1036/001/</span>
+<span class="tok-y">author:</span> <span class="tok-s">Josh Kiriakoff</span>
+<span class="tok-y">date:</span>        <span class="tok-s">2026/04/28</span>
+<span class="tok-y">tags:</span>
+  - <span class="tok-s">attack.defense_evasion</span>
+  - <span class="tok-s">attack.t1036.005</span>
+  - <span class="tok-s">attack.t1036.001</span>
+<span class="tok-y">logsource:</span>
+  <span class="tok-y">category:</span> <span class="tok-s">process_creation</span>
+  <span class="tok-y">product:</span> <span class="tok-s">windows</span>
+<span class="tok-y">detection:</span>
+  <span class="tok-y">selection_vendor:</span>
+    <span class="tok-y">Company:</span>
+      - <span class="tok-s">&#x27;Microsoft Corporation&#x27;</span>
+      - <span class="tok-s">&#x27;Google LLC&#x27;</span>
+      - <span class="tok-s">&#x27;Mozilla Corporation&#x27;</span>
+  <span class="tok-y">selection_userpath:</span>
+    <span class="tok-y">Image|contains:</span>
+      - <span class="tok-s">&#x27;\AppData\&#x27;</span>
+      - <span class="tok-s">&#x27;\Users\Public\&#x27;</span>
+      - <span class="tok-s">&#x27;\Windows\Temp\&#x27;</span>
+      - <span class="tok-s">&#x27;\Downloads\&#x27;</span>
+      - <span class="tok-s">&#x27;\ProgramData\&#x27;</span>
+      - <span class="tok-s">&#x27;\Temp\&#x27;</span>
+  <span class="tok-y">filter_legit_vendor_dirs:</span>
+    <span class="tok-y">Image|contains:</span>
+      - <span class="tok-s">&#x27;\Microsoft\EdgeUpdate\&#x27;</span>
+      - <span class="tok-s">&#x27;\Microsoft\EdgeWebView\&#x27;</span>
+      - <span class="tok-s">&#x27;\Microsoft OneDrive\&#x27;</span>
+      - <span class="tok-s">&#x27;\Microsoft\Teams\&#x27;</span>
+      - <span class="tok-s">&#x27;\Microsoft\WindowsApps\&#x27;</span>
+      - <span class="tok-s">&#x27;\WindowsApps\&#x27;</span>
+      - <span class="tok-s">&#x27;\Package Cache\&#x27;</span>
+      - <span class="tok-s">&#x27;\Google\Update\&#x27;</span>
+      - <span class="tok-s">&#x27;\Google\Chrome\&#x27;</span>
+      - <span class="tok-s">&#x27;\Mozilla\&#x27;</span>
+      - <span class="tok-s">&#x27;\Mozilla Firefox\&#x27;</span>
+  <span class="tok-y">condition:</span> <span class="tok-s">selection_vendor and selection_userpath and not filter_legit_vendor_dirs</span>
+<span class="tok-y">fields:</span>
+  - <span class="tok-s">Image</span>
+  - <span class="tok-s">Company</span>
+  - <span class="tok-s">CommandLine</span>
+  - <span class="tok-s">ParentImage</span>
+<span class="tok-y">falsepositives:</span>
+  - <span class="tok-s">Some legitimate installers and auto-updaters stage vendor-signed binaries in temp or ProgramData. Extend the allow-list with the environment&#x27;s known updater paths as they surface.</span>
+<span class="tok-y">level:</span> <span class="tok-s">medium</span></code></pre>
+
+            <h2>false positives, scoping notes</h2>
+            <div class="callout fp">
+              <strong>Known FPs.</strong> Some legitimate installers and auto-updaters stage vendor-signed binaries in temp or ProgramData. Extend the allow-list with the environment's known updater paths.
+            </div>
+
+            <h2>references</h2>
+            <ul>
+              <li><a href="https://attack.mitre.org/techniques/T1036/005/" rel="noopener noreferrer" target="_blank">MITRE ATT&amp;CK · T1036.005</a></li>
+              <li><a href="https://attack.mitre.org/techniques/T1036/001/" rel="noopener noreferrer" target="_blank">MITRE ATT&amp;CK · T1036.001</a></li>
+            </ul>
+
+            <p class="back-link">← <a href="../">back to detections</a> &nbsp; · &nbsp; <a href="../../">home</a></p>
+
+          </div>
+        </div>
+
+        <div class="block" id="b-2" hidden>
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="caret"></span>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <footer class="footer">
+      <span>© <a href="../../">Josh Kiriakoff</a> · <span data-year>2026</span></span>
+    </footer>
+
+  </div>
+
+  <noscript>
+    <style>
+      [hidden]      { display: revert !important; }
+      .caret        { display: none !important; }
+      .anchor-link,
+      .copy-btn     { display: none !important; }
+    </style>
+  </noscript>
+
+  <script src="../../js/terminal.js" defer></script>
+</body>
+</html>

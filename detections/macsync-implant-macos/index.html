@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Josh Kiriakoff" />
+  <meta name="theme-color" content="#1b1c25" />
+  <title>MacSync implant and screen-capture helper on macOS · josh.kiriakoff</title>
+  <meta name="description" content="The MacSync stealer leaves two host artefacts that name-based rules miss, a persistent Mach-O implant staged as ~/.local/com.apple.&amp;lt;hex&amp;gt;.hcpi, and an ad-hoc-signed helper tha" />
+  <link rel="canonical" href="https://josh-kiriakoff.github.io/detections/macsync-implant-macos/" />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="josh.kiriakoff" />
+  <meta property="og:title" content="MacSync implant and screen-capture helper on macOS" />
+  <meta property="og:description" content="The MacSync stealer leaves two host artefacts that name-based rules miss, a persistent Mach-O implant staged as ~/.local/com.apple.&amp;lt;hex&amp;gt;.hcpi, and an ad-hoc-signed helper tha" />
+  <meta property="og:url" content="https://josh-kiriakoff.github.io/detections/macsync-implant-macos/" />
+  <meta property="og:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+  <meta property="article:author" content="Josh Kiriakoff" />
+  <meta property="article:published_time" content="2026-07-20" />
+  <meta property="article:section" content="detections" />
+  <meta property="article:tag" content="attack.persistence" />
+  <meta property="article:tag" content="attack.defense_evasion" />
+  <meta property="article:tag" content="attack.collection" />
+  <meta property="article:tag" content="attack.t1113" />
+  <meta property="article:tag" content="attack.t1036.005" />
+  <meta property="article:tag" content="attack.t1543.001" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="MacSync implant and screen-capture helper on macOS" />
+  <meta name="twitter:description" content="The MacSync stealer leaves two host artefacts that name-based rules miss, a persistent Mach-O implant staged as ~/.local/com.apple.&amp;lt;hex&amp;gt;.hcpi, and an ad-hoc-signed helper tha" />
+  <meta name="twitter:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg" />
+  <link rel="stylesheet" href="../../css/style.css" />
+
+  <!-- Feeds -->
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — blog" href="../../feed-blog.xml" />
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — detections" href="../../feed-detections.xml" />
+</head>
+<body>
+
+  <a href="#main" class="skip-link">skip to content</a>
+
+  <div class="window">
+
+    <header class="chrome">
+      <div class="lights" aria-hidden="true">
+        <span class="l-close"></span>
+        <span class="l-min"></span>
+        <span class="l-max"></span>
+      </div>
+      <div class="chrome-title">josh@kiriakoff:~/detections/macsync-implant-macos.md</div>
+    </header>
+
+    <nav class="tabs" aria-label="primary">
+      <a href="../../">josh.kiriakoff</a>
+      <a href="../../about/">about</a>
+      <a href="../../blog/">blog</a>
+      <a href="../" class="active">detections</a>
+      <a href="../../intel/">intel</a>
+      <a href="../../admin/" class="right">admin</a>
+    </nav>
+
+    <div class="body" id="main">
+      <section class="shell" id="shell" aria-label="terminal session">
+
+        <div class="block" id="b-1" data-cmd="cat " data-target="./macsync-implant-macos.md" data-after="b-2">
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="cmd">cat </span><span class="target">./macsync-implant-macos.md</span>
+          </div>
+
+          <div class="output article-body" hidden>
+
+            <h1>MacSync implant and screen-capture helper on macOS</h1>
+
+            <div class="chips" aria-label="MITRE ATT&amp;CK">
+              <span class="chip">ATT&amp;CK · T1113 (Screen Capture)</span>
+              <span class="chip">ATT&amp;CK · T1036.005 (Match Legitimate Name)</span>
+              <span class="chip">ATT&amp;CK · T1543.001 (Launch Agent)</span>
+              <span class="chip">Tactic · Persistence</span>
+            </div>
+
+            <div class="callout hypothesis">
+              <strong>Hypothesis.</strong>
+              The MacSync stealer leaves two host artefacts that name-based rules miss, a persistent Mach-O implant staged as <code>~/.local/com.apple.&lt;hex&gt;.hcpi</code>, and an ad-hoc-signed helper that drives the screen-recording grant. Apple ships nothing to <code>~/.local</code>, so a <code>com.apple</code>-named binary there is a masquerade.
+            </div>
+
+            <h2>context</h2>
+            <p>This rule is deliberately narrow. The vendor that published the MacSync research already carries broad coverage for it, so this cut is scoped to the few host artefacts that sat outside that coverage. The implant path is the first, because a real Apple component never lands in <code>~/.local</code>.</p>
+            <p>The second is the screen-capture helper. It calls <code>CGRequestScreenCaptureAccess</code> to drive the TCC screen-recording grant and drops the <code>.com.apple.tcc.prompted</code> and <code>.com.apple.tcc.result</code> marker files. Validate it against vendor MacSync coverage before deploying so you do not double-alert.</p>
+
+            <h2>hunt</h2>
+            <p>Match the implant path, the masquerade naming, or the screen-capture grant markers.</p>
+
+<pre><code><span class="tok-c">// hypothesis: MacSync residual host artefacts on macOS.</span>
+<span class="tok-c">// schema:     Huntress Process Insights - process_events (macOS)</span>
+
+<span class="tok-k">FROM</span> logs-edr-process_events
+| <span class="tok-k">WHERE</span> host.os.type == <span class="tok-s">&quot;macos&quot;</span>
+| <span class="tok-k">WHERE</span> process.command_line <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*/.local/com.apple.*&quot;</span>
+     <span class="tok-k">OR</span> process.command_line <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*.hcpi*&quot;</span>
+     <span class="tok-k">OR</span> process.command_line <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*CGRequestScreenCaptureAccess*&quot;</span>
+     <span class="tok-k">OR</span> process.command_line <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*.com.apple.tcc.result*&quot;</span>
+| <span class="tok-k">KEEP</span> host.name, process.parent.name, process.command_line
+| <span class="tok-k">SORT</span> @timestamp <span class="tok-k">DESC</span>
+| <span class="tok-k">LIMIT</span> <span class="tok-n">100</span></code></pre>
+
+            <h2>findings &amp; discriminators</h2>
+            <ul>
+              <li><strong>The path is the masquerade.</strong> The <code>com.apple</code> name paired with <code>~/.local</code> is the giveaway, because a genuine Apple component never sits there.</li>
+              <li><strong>Check vendor coverage first.</strong> This rule is scoped to fill a gap, so confirm it against existing MacSync detections to avoid duplicate alerting.</li>
+            </ul>
+
+            <h2>resulting sigma rule</h2>
+
+            <div class="callout rule">
+              <strong>Rule.</strong> Detects the residual host artifacts of the MacSync stealer / RAT that are not already covered by vendor detections: the persistent Mach-O implant staged as ~/.local/com.apple.&lt;hex&gt;.hcpi (Apple ships nothing to ~/.local, so a com.apple-named binary there is a masquerade), and the ad-hoc-signed screen-capture helper that drives the TCC screen-recording grant (CGRequestScreenCaptureAccess and the /tmp/.com.apple.tcc.prompted and .com.apple.tcc.result marker files). Rated <em>high</em>.
+            </div>
+
+<pre><code><span class="tok-y">title:</span> <span class="tok-s">MacSync Stealer Implant and Screen-Capture Helper Masquerade (macOS)</span>
+<span class="tok-y">id:</span> <span class="tok-s">0247f717-7759-4933-b357-a12f3d7e7ce2</span>
+<span class="tok-y">status:</span> <span class="tok-s">experimental</span>
+<span class="tok-y">description:</span> <span class="tok-s">|</span>
+<span class="tok-s">  Detects the residual host artifacts of the MacSync stealer / RAT that are not</span>
+<span class="tok-s">  already covered by vendor detections: the persistent Mach-O implant staged as</span>
+<span class="tok-s">  ~/.local/com.apple.&lt;hex&gt;.hcpi (Apple ships nothing to ~/.local, so a</span>
+<span class="tok-s">  com.apple-named binary there is a masquerade), and the ad-hoc-signed</span>
+<span class="tok-s">  screen-capture helper that drives the TCC screen-recording grant</span>
+<span class="tok-s">  (CGRequestScreenCaptureAccess and the /tmp/.com.apple.tcc.prompted and</span>
+<span class="tok-s">  .com.apple.tcc.result marker files).</span>
+<span class="tok-y">references:</span>
+  - <span class="tok-s">https://www.huntress.com/blog/macsync-stealer-rat-reverse-engineering</span>
+  - <span class="tok-s">https://attack.mitre.org/techniques/T1113/</span>
+  - <span class="tok-s">https://attack.mitre.org/techniques/T1036/005/</span>
+  - <span class="tok-s">https://attack.mitre.org/techniques/T1543/001/</span>
+<span class="tok-y">author:</span> <span class="tok-s">Josh Kiriakoff</span>
+<span class="tok-y">date:</span>        <span class="tok-s">2026/07/20</span>
+<span class="tok-y">tags:</span>
+  - <span class="tok-s">attack.persistence</span>
+  - <span class="tok-s">attack.defense_evasion</span>
+  - <span class="tok-s">attack.collection</span>
+  - <span class="tok-s">attack.t1113</span>
+  - <span class="tok-s">attack.t1036.005</span>
+  - <span class="tok-s">attack.t1543.001</span>
+<span class="tok-y">logsource:</span>
+  <span class="tok-y">category:</span> <span class="tok-s">process_creation</span>
+  <span class="tok-y">product:</span> <span class="tok-s">macos</span>
+<span class="tok-y">detection:</span>
+  <span class="tok-y">selection_implant:</span>
+    <span class="tok-y">CommandLine|contains:</span> <span class="tok-s">&#x27;.hcpi&#x27;</span>
+  <span class="tok-y">selection_masq_path:</span>
+    <span class="tok-y">CommandLine|contains:</span> <span class="tok-s">&#x27;/.local/com.apple.&#x27;</span>
+  <span class="tok-y">selection_capture_helper:</span>
+    <span class="tok-y">CommandLine|contains:</span> <span class="tok-s">&#x27;CGRequestScreenCaptureAccess&#x27;</span>
+  <span class="tok-y">selection_tcc_marker:</span>
+    <span class="tok-y">CommandLine|contains:</span>
+      - <span class="tok-s">&#x27;.com.apple.tcc.prompted&#x27;</span>
+      - <span class="tok-s">&#x27;.com.apple.tcc.result&#x27;</span>
+  <span class="tok-y">condition:</span> <span class="tok-s">selection_implant or selection_masq_path or selection_capture_helper or selection_tcc_marker</span>
+<span class="tok-y">fields:</span>
+  - <span class="tok-s">CommandLine</span>
+  - <span class="tok-s">ParentImage</span>
+  - <span class="tok-s">Image</span>
+<span class="tok-y">falsepositives:</span>
+  - <span class="tok-s">The com.apple naming and ~/.local path are the masquerade; a genuine Apple component never lands there. Validate against vendor MacSync coverage before deploying to avoid duplicate alerting.</span>
+<span class="tok-y">level:</span> <span class="tok-s">high</span></code></pre>
+
+            <h2>false positives, scoping notes</h2>
+            <div class="callout fp">
+              <strong>Known FPs.</strong> The com.apple naming under ~/.local is the masquerade itself, so a genuine Apple component never trips it. Validate against vendor MacSync coverage before deploying.
+            </div>
+
+            <h2>references</h2>
+            <ul>
+              <li><a href="https://www.huntress.com/blog/macsync-stealer-rat-reverse-engineering" rel="noopener noreferrer" target="_blank">Huntress research · macsync stealer rat reverse engineering</a></li>
+              <li><a href="https://attack.mitre.org/techniques/T1113/" rel="noopener noreferrer" target="_blank">MITRE ATT&amp;CK · T1113</a></li>
+              <li><a href="https://attack.mitre.org/techniques/T1036/005/" rel="noopener noreferrer" target="_blank">MITRE ATT&amp;CK · T1036.005</a></li>
+              <li><a href="https://attack.mitre.org/techniques/T1543/001/" rel="noopener noreferrer" target="_blank">MITRE ATT&amp;CK · T1543.001</a></li>
+            </ul>
+
+            <p class="back-link">← <a href="../">back to detections</a> &nbsp; · &nbsp; <a href="../../">home</a></p>
+
+          </div>
+        </div>
+
+        <div class="block" id="b-2" hidden>
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="caret"></span>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <footer class="footer">
+      <span>© <a href="../../">Josh Kiriakoff</a> · <span data-year>2026</span></span>
+    </footer>
+
+  </div>
+
+  <noscript>
+    <style>
+      [hidden]      { display: revert !important; }
+      .caret        { display: none !important; }
+      .anchor-link,
+      .copy-btn     { display: none !important; }
+    </style>
+  </noscript>
+
+  <script src="../../js/terminal.js" defer></script>
+</body>
+</html>

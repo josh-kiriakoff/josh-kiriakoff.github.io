@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Josh Kiriakoff" />
+  <meta name="theme-color" content="#1b1c25" />
+  <title>unsigned DLL loaded by a system binary from a user path · josh.kiriakoff</title>
+  <meta name="description" content="A trusted binary in System32 or SysWOW64 should resolve its imports from system and vendor directories" />
+  <link rel="canonical" href="https://josh-kiriakoff.github.io/detections/unsigned-dll-system-binary/" />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="josh.kiriakoff" />
+  <meta property="og:title" content="unsigned DLL loaded by a system binary from a user path" />
+  <meta property="og:description" content="A trusted binary in System32 or SysWOW64 should resolve its imports from system and vendor directories" />
+  <meta property="og:url" content="https://josh-kiriakoff.github.io/detections/unsigned-dll-system-binary/" />
+  <meta property="og:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+  <meta property="article:author" content="Josh Kiriakoff" />
+  <meta property="article:published_time" content="2026-07-08" />
+  <meta property="article:section" content="detections" />
+  <meta property="article:tag" content="attack.defense_evasion" />
+  <meta property="article:tag" content="attack.persistence" />
+  <meta property="article:tag" content="attack.privilege_escalation" />
+  <meta property="article:tag" content="attack.t1574.002" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="unsigned DLL loaded by a system binary from a user path" />
+  <meta name="twitter:description" content="A trusted binary in System32 or SysWOW64 should resolve its imports from system and vendor directories" />
+  <meta name="twitter:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg" />
+  <link rel="stylesheet" href="../../css/style.css" />
+
+  <!-- Feeds -->
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — blog" href="../../feed-blog.xml" />
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — detections" href="../../feed-detections.xml" />
+</head>
+<body>
+
+  <a href="#main" class="skip-link">skip to content</a>
+
+  <div class="window">
+
+    <header class="chrome">
+      <div class="lights" aria-hidden="true">
+        <span class="l-close"></span>
+        <span class="l-min"></span>
+        <span class="l-max"></span>
+      </div>
+      <div class="chrome-title">josh@kiriakoff:~/detections/unsigned-dll-system-binary.md</div>
+    </header>
+
+    <nav class="tabs" aria-label="primary">
+      <a href="../../">josh.kiriakoff</a>
+      <a href="../../about/">about</a>
+      <a href="../../blog/">blog</a>
+      <a href="../" class="active">detections</a>
+      <a href="../../intel/">intel</a>
+      <a href="../../admin/" class="right">admin</a>
+    </nav>
+
+    <div class="body" id="main">
+      <section class="shell" id="shell" aria-label="terminal session">
+
+        <div class="block" id="b-1" data-cmd="cat " data-target="./unsigned-dll-system-binary.md" data-after="b-2">
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="cmd">cat </span><span class="target">./unsigned-dll-system-binary.md</span>
+          </div>
+
+          <div class="output article-body" hidden>
+
+            <h1>unsigned DLL loaded by a system binary from a user path</h1>
+
+            <div class="chips" aria-label="MITRE ATT&amp;CK">
+              <span class="chip">ATT&amp;CK · T1574.002 (DLL Side-Loading)</span>
+              <span class="chip">ATT&amp;CK · T1574.001 (DLL Search Order Hijacking)</span>
+              <span class="chip">Tactic · Persistence</span>
+              <span class="chip">Tactic · Privilege Escalation</span>
+            </div>
+
+            <div class="callout hypothesis">
+              <strong>Hypothesis.</strong>
+              A trusted binary in <code>System32</code> or <code>SysWOW64</code> should resolve its imports from system and vendor directories. An unsigned module pulled in from a user-writable path is a strong search-order hijack or side-load signal, where the planted DLL runs under the identity of the signed host process.
+            </div>
+
+            <h2>context</h2>
+            <p>The identity transfer is the payoff. Plant a DLL a signed system binary will load and your code inherits that binary's trust, its path, and often its privilege. Search-order hijacking and side-loading both rely on the loader reaching a directory the attacker can write to before it reaches the real one.</p>
+            <p>The two conditions together are what make the hit strong. A system binary as the loader, and an unsigned module coming from a user path. Either alone is common. Both at once is not.</p>
+
+            <h2>hunt</h2>
+            <p>Match a System32 or SysWOW64 binary loading an unsigned DLL from a user-writable path.</p>
+
+<pre><code><span class="tok-c">// hypothesis: signed system binary loading an unsigned DLL from a user path.</span>
+<span class="tok-c">// schema:     Huntress Process Insights - library_events (module load)</span>
+
+<span class="tok-k">FROM</span> logs-edr-library_events
+| <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.executable) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*\\windows\\system32\\*&quot;</span>
+     <span class="tok-k">OR</span> <span class="tok-fn">TO_LOWER</span>(process.executable) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*\\windows\\syswow64\\*&quot;</span>
+| <span class="tok-k">WHERE</span> dll.code_signature.signed == false
+| <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(dll.path) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*\\users\\*&quot;</span>
+     <span class="tok-k">OR</span> <span class="tok-fn">TO_LOWER</span>(dll.path) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*\\appdata\\*&quot;</span>
+     <span class="tok-k">OR</span> <span class="tok-fn">TO_LOWER</span>(dll.path) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*\\temp\\*&quot;</span>
+| <span class="tok-k">KEEP</span> host.name, process.executable, dll.path
+| <span class="tok-k">SORT</span> @timestamp <span class="tok-k">DESC</span>
+| <span class="tok-k">LIMIT</span> <span class="tok-n">100</span></code></pre>
+
+            <h2>findings &amp; discriminators</h2>
+            <ul>
+              <li><strong>Both conditions carry the weight.</strong> The loader being a system binary and the module being unsigned from a user path is the pair that matters. Neither half alone is worth an alert.</li>
+              <li><strong>Baseline the loader.</strong> A little in-house software drops unsigned helpers into ProgramData or AppData, so learn the normal loaders before you widen the rule.</li>
+            </ul>
+
+            <h2>resulting sigma rule</h2>
+
+            <div class="callout rule">
+              <strong>Rule.</strong> Detects a binary in System32 or SysWOW64 loading an UNSIGNED DLL from a user-writable directory (Users, AppData, Temp, ProgramData, Public, Downloads). Rated <em>high</em>.
+            </div>
+
+<pre><code><span class="tok-y">title:</span> <span class="tok-s">Unsigned DLL Loaded by a System Binary From a User-Writable Path</span>
+<span class="tok-y">id:</span> <span class="tok-s">2fd5ecdb-1f4a-4754-aa4d-c7c1b563f44c</span>
+<span class="tok-y">status:</span> <span class="tok-s">experimental</span>
+<span class="tok-y">description:</span> <span class="tok-s">|</span>
+<span class="tok-s">  Detects a binary in System32 or SysWOW64 loading an UNSIGNED DLL from a</span>
+<span class="tok-s">  user-writable directory (Users, AppData, Temp, ProgramData, Public,</span>
+<span class="tok-s">  Downloads). Trusted, signed OS binaries should resolve their imports from</span>
+<span class="tok-s">  system and vendor directories, so an unsigned module pulled in from a user</span>
+<span class="tok-s">  path is a strong DLL search-order hijack / side-loading signal, where the</span>
+<span class="tok-s">  planted DLL executes under the identity of the signed host process.</span>
+<span class="tok-y">references:</span>
+  - <span class="tok-s">https://attack.mitre.org/techniques/T1574/002/</span>
+  - <span class="tok-s">https://attack.mitre.org/techniques/T1574/001/</span>
+<span class="tok-y">author:</span> <span class="tok-s">Josh Kiriakoff</span>
+<span class="tok-y">date:</span>        <span class="tok-s">2026/07/08</span>
+<span class="tok-y">tags:</span>
+  - <span class="tok-s">attack.defense_evasion</span>
+  - <span class="tok-s">attack.persistence</span>
+  - <span class="tok-s">attack.privilege_escalation</span>
+  - <span class="tok-s">attack.t1574.002</span>
+<span class="tok-y">logsource:</span>
+  <span class="tok-y">category:</span> <span class="tok-s">image_load</span>
+  <span class="tok-y">product:</span> <span class="tok-s">windows</span>
+<span class="tok-y">detection:</span>
+  <span class="tok-y">selection_loader:</span>
+    <span class="tok-y">Image|contains:</span>
+      - <span class="tok-s">&#x27;\Windows\System32\&#x27;</span>
+      - <span class="tok-s">&#x27;\Windows\SysWOW64\&#x27;</span>
+  <span class="tok-y">selection_dll_path:</span>
+    <span class="tok-y">ImageLoaded|contains:</span>
+      - <span class="tok-s">&#x27;\Users\&#x27;</span>
+      - <span class="tok-s">&#x27;\AppData\&#x27;</span>
+      - <span class="tok-s">&#x27;\Temp\&#x27;</span>
+      - <span class="tok-s">&#x27;\ProgramData\&#x27;</span>
+      - <span class="tok-s">&#x27;\Public\&#x27;</span>
+      - <span class="tok-s">&#x27;\Downloads\&#x27;</span>
+  <span class="tok-y">selection_unsigned:</span>
+    <span class="tok-y">Signed:</span> <span class="tok-s">&#x27;false&#x27;</span>
+  <span class="tok-y">condition:</span> <span class="tok-s">selection_loader and selection_dll_path and selection_unsigned</span>
+<span class="tok-y">fields:</span>
+  - <span class="tok-s">Image</span>
+  - <span class="tok-s">ImageLoaded</span>
+  - <span class="tok-s">Signed</span>
+<span class="tok-y">falsepositives:</span>
+  - <span class="tok-s">Some in-house or niche software drops unsigned helper DLLs into ProgramData or AppData. Baseline the loading binary and the DLL before alerting broadly.</span>
+<span class="tok-y">level:</span> <span class="tok-s">high</span></code></pre>
+
+            <h2>false positives, scoping notes</h2>
+            <div class="callout fp">
+              <strong>Known FPs.</strong> Some in-house or niche software drops unsigned helper DLLs into ProgramData or AppData. Baseline the loading binary and the DLL before alerting broadly.
+            </div>
+
+            <h2>references</h2>
+            <ul>
+              <li><a href="https://attack.mitre.org/techniques/T1574/002/" rel="noopener noreferrer" target="_blank">MITRE ATT&amp;CK · T1574.002</a></li>
+              <li><a href="https://attack.mitre.org/techniques/T1574/001/" rel="noopener noreferrer" target="_blank">MITRE ATT&amp;CK · T1574.001</a></li>
+            </ul>
+
+            <p class="back-link">← <a href="../">back to detections</a> &nbsp; · &nbsp; <a href="../../">home</a></p>
+
+          </div>
+        </div>
+
+        <div class="block" id="b-2" hidden>
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="caret"></span>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <footer class="footer">
+      <span>© <a href="../../">Josh Kiriakoff</a> · <span data-year>2026</span></span>
+    </footer>
+
+  </div>
+
+  <noscript>
+    <style>
+      [hidden]      { display: revert !important; }
+      .caret        { display: none !important; }
+      .anchor-link,
+      .copy-btn     { display: none !important; }
+    </style>
+  </noscript>
+
+  <script src="../../js/terminal.js" defer></script>
+</body>
+</html>

@@ -64,17 +64,27 @@
           </div>
           <div class="output" hidden>
             <p>
-              Each entry in this section is one artefact, written end-to-end as a single
-              document: a falsifiable <strong>hypothesis</strong>, the <strong>ES|QL hunt</strong>
-              I ran against it, the <strong>findings</strong> and <strong>discriminators</strong>
-              that fell out, and the resulting <strong>Sigma rule</strong>.
+              A note on what is in here. I cannot publish the detections I write for my
+              employer, or any rule I have worked on as part of that job, so none of them
+              appear on this page. Everything below is separate work. These are generic,
+              host-focused detections I have built from public threat intelligence, my own
+              research, and tradecraft I have seen described or run into myself, and they
+              stand apart from my employer's coverage. Where a rule grew out of one of my
+              own writeups I have linked it.
+            </p>
+
+            <p>
+              Each entry is one artefact, written end-to-end as a single document: a
+              falsifiable <strong>hypothesis</strong>, the <strong>ES|QL hunt</strong> that
+              expresses it, the <strong>findings</strong> and <strong>discriminators</strong>
+              that separate signal from noise, and the resulting <strong>Sigma rule</strong>.
             </p>
 
             <p>The structure each writeup follows:</p>
             <ol>
               <li><strong>Hypothesis</strong> — one sentence, falsifiable.</li>
               <li><strong>Context</strong> — TTPs, MITRE ATT&amp;CK technique IDs, why this matters.</li>
-              <li><strong>Hunt</strong> — runnable ES|QL against the canonical Huntress Process Insights schema.</li>
+              <li><strong>Hunt</strong> — runnable ES|QL against the canonical telemetry schema, over process, module-load, or Windows event data as the rule needs.</li>
               <li><strong>Findings &amp; discriminators</strong> — fields that separate signal from noise.</li>
               <li><strong>Sigma rule</strong> — the detector the hunt produced.</li>
               <li><strong>False positives</strong> — known FPs, scoping notes.</li>
@@ -88,7 +98,22 @@
             <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="cmd">ls </span><span class="target">.</span>
           </div>
           <div class="output" hidden>
-<pre class="ls">  <a href="./example/">example.md</a>                          <span class="meta"><time datetime="2026-05">May 2026</time></span></pre>
+<pre class="ls">  <a href="./vssadmin-resize-shadowstorage/">vssadmin-resize-shadowstorage.md</a>    <span class="meta"><time datetime="2026-09">Sep 2026</time></span>
+  <a href="./privileged-group-member-added/">privileged-group-member-added.md</a>    <span class="meta"><time datetime="2026-09">Sep 2026</time></span>
+  <a href="./netsh-legacy-firewall-remote/">netsh-legacy-firewall-remote.md</a>     <span class="meta"><time datetime="2026-08">Aug 2026</time></span>
+  <a href="./reg-misspelled-controlset/">reg-misspelled-controlset.md</a>        <span class="meta"><time datetime="2026-08">Aug 2026</time></span>
+  <a href="./signed-invalid-dll-user-path/">signed-invalid-dll-user-path.md</a>     <span class="meta"><time datetime="2026-08">Aug 2026</time></span>
+  <a href="./macsync-implant-macos/">macsync-implant-macos.md</a>            <span class="meta"><time datetime="2026-07">Jul 2026</time></span>
+  <a href="./system-dll-name-non-system-path/">system-dll-name-non-system-path.md</a>  <span class="meta"><time datetime="2026-07">Jul 2026</time></span>
+  <a href="./unsigned-dll-system-binary/">unsigned-dll-system-binary.md</a>       <span class="meta"><time datetime="2026-07">Jul 2026</time></span>
+  <a href="./cipher-wipe-free-space/">cipher-wipe-free-space.md</a>           <span class="meta"><time datetime="2026-06">Jun 2026</time></span>
+  <a href="./komari-agent-c2/">komari-agent-c2.md</a>                  <span class="meta"><time datetime="2026-06">Jun 2026</time></span>
+  <a href="./msiexec-vrf-temp-installer/">msiexec-vrf-temp-installer.md</a>       <span class="meta"><time datetime="2026-05">May 2026</time></span>
+  <a href="./example/">example.md</a>                          <span class="meta"><time datetime="2026-05">May 2026</time></span>
+  <a href="./klist-ticket-cache-purge/">klist-ticket-cache-purge.md</a>         <span class="meta"><time datetime="2026-05">May 2026</time></span>
+  <a href="./vendor-branded-user-path/">vendor-branded-user-path.md</a>         <span class="meta"><time datetime="2026-04">Apr 2026</time></span>
+  <a href="./reg-import-user-writable/">reg-import-user-writable.md</a>         <span class="meta"><time datetime="2026-04">Apr 2026</time></span>
+  <a href="./renamed-lolbin-originalfilename/">renamed-lolbin-originalfilename.md</a>  <span class="meta"><time datetime="2026-03">Mar 2026</time></span></pre>
           </div>
         </div>
 

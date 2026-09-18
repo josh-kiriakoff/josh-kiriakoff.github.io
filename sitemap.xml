@@ -26,7 +26,7 @@
   </url>
   <url>
     <loc>https://josh-kiriakoff.github.io/detections/</loc>
-    <lastmod>2026-05-25</lastmod>
+    <lastmod>2026-09-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -45,6 +45,96 @@
   <url>
     <loc>https://josh-kiriakoff.github.io/detections/example/</loc>
     <lastmod>2026-05-25</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://josh-kiriakoff.github.io/detections/2026-08-19/</loc>
+    <lastmod>reg-misspelled-controlset</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://josh-kiriakoff.github.io/detections/2026-05-31/</loc>
+    <lastmod>msiexec-vrf-temp-installer</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://josh-kiriakoff.github.io/detections/2026-04-14/</loc>
+    <lastmod>reg-import-user-writable</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://josh-kiriakoff.github.io/detections/2026-08-27/</loc>
+    <lastmod>netsh-legacy-firewall-remote</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://josh-kiriakoff.github.io/detections/2026-06-23/</loc>
+    <lastmod>cipher-wipe-free-space</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://josh-kiriakoff.github.io/detections/2026-06-09/</loc>
+    <lastmod>komari-agent-c2</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://josh-kiriakoff.github.io/detections/2026-07-20/</loc>
+    <lastmod>macsync-implant-macos</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://josh-kiriakoff.github.io/detections/2026-07-08/</loc>
+    <lastmod>unsigned-dll-system-binary</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://josh-kiriakoff.github.io/detections/2026-07-15/</loc>
+    <lastmod>system-dll-name-non-system-path</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://josh-kiriakoff.github.io/detections/2026-08-05/</loc>
+    <lastmod>signed-invalid-dll-user-path</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://josh-kiriakoff.github.io/detections/2026-04-28/</loc>
+    <lastmod>vendor-branded-user-path</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://josh-kiriakoff.github.io/detections/2026-03-24/</loc>
+    <lastmod>renamed-lolbin-originalfilename</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://josh-kiriakoff.github.io/detections/2026-05-12/</loc>
+    <lastmod>klist-ticket-cache-purge</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://josh-kiriakoff.github.io/detections/2026-09-10/</loc>
+    <lastmod>vssadmin-resize-shadowstorage</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://josh-kiriakoff.github.io/detections/2026-09-02/</loc>
+    <lastmod>privileged-group-member-added</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>

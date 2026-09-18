@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Josh Kiriakoff" />
+  <meta name="theme-color" content="#1b1c25" />
+  <title>Kerberos ticket cache purge via klist · josh.kiriakoff</title>
+  <meta name="description" content="klist purge flushes the current logon session&#x27;s cached Kerberos tickets" />
+  <link rel="canonical" href="https://josh-kiriakoff.github.io/detections/klist-ticket-cache-purge/" />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="josh.kiriakoff" />
+  <meta property="og:title" content="Kerberos ticket cache purge via klist" />
+  <meta property="og:description" content="klist purge flushes the current logon session&#x27;s cached Kerberos tickets" />
+  <meta property="og:url" content="https://josh-kiriakoff.github.io/detections/klist-ticket-cache-purge/" />
+  <meta property="og:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+  <meta property="article:author" content="Josh Kiriakoff" />
+  <meta property="article:published_time" content="2026-05-12" />
+  <meta property="article:section" content="detections" />
+  <meta property="article:tag" content="attack.defense_evasion" />
+  <meta property="article:tag" content="attack.credential_access" />
+  <meta property="article:tag" content="attack.t1070.006" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Kerberos ticket cache purge via klist" />
+  <meta name="twitter:description" content="klist purge flushes the current logon session&#x27;s cached Kerberos tickets" />
+  <meta name="twitter:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg" />
+  <link rel="stylesheet" href="../../css/style.css" />
+
+  <!-- Feeds -->
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — blog" href="../../feed-blog.xml" />
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — detections" href="../../feed-detections.xml" />
+</head>
+<body>
+
+  <a href="#main" class="skip-link">skip to content</a>
+
+  <div class="window">
+
+    <header class="chrome">
+      <div class="lights" aria-hidden="true">
+        <span class="l-close"></span>
+        <span class="l-min"></span>
+        <span class="l-max"></span>
+      </div>
+      <div class="chrome-title">josh@kiriakoff:~/detections/klist-ticket-cache-purge.md</div>
+    </header>
+
+    <nav class="tabs" aria-label="primary">
+      <a href="../../">josh.kiriakoff</a>
+      <a href="../../about/">about</a>
+      <a href="../../blog/">blog</a>
+      <a href="../" class="active">detections</a>
+      <a href="../../intel/">intel</a>
+      <a href="../../admin/" class="right">admin</a>
+    </nav>
+
+    <div class="body" id="main">
+      <section class="shell" id="shell" aria-label="terminal session">
+
+        <div class="block" id="b-1" data-cmd="cat " data-target="./klist-ticket-cache-purge.md" data-after="b-2">
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="cmd">cat </span><span class="target">./klist-ticket-cache-purge.md</span>
+          </div>
+
+          <div class="output article-body" hidden>
+
+            <h1>Kerberos ticket cache purge via klist</h1>
+
+            <div class="chips" aria-label="MITRE ATT&amp;CK">
+              <span class="chip">ATT&amp;CK · T1070.006 (Timestomp / Indicator Removal)</span>
+              <span class="chip">Tactic · Credential Access</span>
+              <span class="chip">Tactic · Defense Evasion</span>
+            </div>
+
+            <div class="callout hypothesis">
+              <strong>Hypothesis.</strong>
+              <code>klist purge</code> flushes the current logon session's cached Kerberos tickets. Operators purge the cache to drop a stolen or forged ticket cleanly, to force fresh ticket requests after manipulating privileges, or to remove evidence of pass-the-ticket activity. Interactive purges are uncommon in normal operation.
+            </div>
+
+            <h2>context</h2>
+            <p>The purge sits next to ticket abuse. On its own it is a maintenance command, but in an intrusion it is usually the step that clears the deck, either dropping a ticket that was injected or wiping the traces of one that was used. That is why it reads better in context than in isolation.</p>
+            <p>It is a signed, built-in tool, so nothing about the binary is suspicious. The verb and the company it keeps are the signal.</p>
+
+            <h2>hunt</h2>
+            <p>Match <code>klist</code> run with the purge verb.</p>
+
+<pre><code><span class="tok-c">// hypothesis: klist purge of the Kerberos ticket cache.</span>
+<span class="tok-c">// schema:     Huntress Process Insights - process_events</span>
+
+<span class="tok-k">FROM</span> logs-edr-process_events
+| <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.name) == <span class="tok-s">&quot;klist.exe&quot;</span>
+| <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.command_line) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*purge*&quot;</span>
+| <span class="tok-k">KEEP</span> host.name, user.name, process.parent.name, process.command_line
+| <span class="tok-k">SORT</span> @timestamp <span class="tok-k">DESC</span>
+| <span class="tok-k">LIMIT</span> <span class="tok-n">100</span></code></pre>
+
+            <h2>findings &amp; discriminators</h2>
+            <ul>
+              <li><strong>Context makes the call.</strong> A purge beside privilege changes or ticket manipulation in the same session is the pass-the-ticket cleanup, not troubleshooting.</li>
+              <li><strong>Watch the session.</strong> Correlate with adjacent logon and ticket-request activity to tell an operator apart from a help-desk fix.</li>
+            </ul>
+
+            <h2>resulting sigma rule</h2>
+
+            <div class="callout rule">
+              <strong>Rule.</strong> Detects klist.exe run with the &quot;purge&quot; verb, which flushes the current logon session&#x27;s cached Kerberos tickets. Rated <em>medium</em>.
+            </div>
+
+<pre><code><span class="tok-y">title:</span> <span class="tok-s">Kerberos Ticket Cache Purge via Klist</span>
+<span class="tok-y">id:</span> <span class="tok-s">7bcdfaba-1cfa-49c8-bf50-e07a0f3d291c</span>
+<span class="tok-y">status:</span> <span class="tok-s">experimental</span>
+<span class="tok-y">description:</span> <span class="tok-s">|</span>
+<span class="tok-s">  Detects klist.exe run with the &quot;purge&quot; verb, which flushes the current logon</span>
+<span class="tok-s">  session&#x27;s cached Kerberos tickets. Attackers purge the cache to drop a stolen</span>
+<span class="tok-s">  or forged ticket cleanly, to force fresh ticket requests after manipulating</span>
+<span class="tok-s">  privileges, or to remove evidence of pass-the-ticket activity. Interactive</span>
+<span class="tok-s">  ticket-cache purges are uncommon in normal operation.</span>
+<span class="tok-y">references:</span>
+  - <span class="tok-s">https://attack.mitre.org/techniques/T1070/006/</span>
+  - <span class="tok-s">https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/klist</span>
+<span class="tok-y">author:</span> <span class="tok-s">Josh Kiriakoff</span>
+<span class="tok-y">date:</span>        <span class="tok-s">2026/05/12</span>
+<span class="tok-y">tags:</span>
+  - <span class="tok-s">attack.defense_evasion</span>
+  - <span class="tok-s">attack.credential_access</span>
+  - <span class="tok-s">attack.t1070.006</span>
+<span class="tok-y">logsource:</span>
+  <span class="tok-y">category:</span> <span class="tok-s">process_creation</span>
+  <span class="tok-y">product:</span> <span class="tok-s">windows</span>
+<span class="tok-y">detection:</span>
+  <span class="tok-y">selection_klist:</span>
+    - <span class="tok-s">Image|endswith: &#x27;\klist.exe&#x27;</span>
+    - <span class="tok-s">OriginalFileName: &#x27;klist.exe&#x27;</span>
+  <span class="tok-y">selection_purge:</span>
+    <span class="tok-y">CommandLine|contains:</span> <span class="tok-s">&#x27;purge&#x27;</span>
+  <span class="tok-y">condition:</span> <span class="tok-s">selection_klist and selection_purge</span>
+<span class="tok-y">fields:</span>
+  - <span class="tok-s">CommandLine</span>
+  - <span class="tok-s">ParentImage</span>
+  - <span class="tok-s">User</span>
+<span class="tok-y">falsepositives:</span>
+  - <span class="tok-s">Occasional administrative or help-desk Kerberos troubleshooting. Correlate with adjacent ticket-manipulation or privilege changes in the same session.</span>
+<span class="tok-y">level:</span> <span class="tok-s">medium</span></code></pre>
+
+            <h2>false positives, scoping notes</h2>
+            <div class="callout fp">
+              <strong>Known FPs.</strong> Occasional administrative or help-desk Kerberos troubleshooting will fire this. Correlate with adjacent ticket-manipulation or privilege changes.
+            </div>
+
+            <h2>references</h2>
+            <ul>
+              <li><a href="https://attack.mitre.org/techniques/T1070/006/" rel="noopener noreferrer" target="_blank">MITRE ATT&amp;CK · T1070.006</a></li>
+              <li><a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/klist" rel="noopener noreferrer" target="_blank">Microsoft Learn · klist</a></li>
+            </ul>
+
+            <p class="back-link">← <a href="../">back to detections</a> &nbsp; · &nbsp; <a href="../../">home</a></p>
+
+          </div>
+        </div>
+
+        <div class="block" id="b-2" hidden>
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="caret"></span>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <footer class="footer">
+      <span>© <a href="../../">Josh Kiriakoff</a> · <span data-year>2026</span></span>
+    </footer>
+
+  </div>
+
+  <noscript>
+    <style>
+      [hidden]      { display: revert !important; }
+      .caret        { display: none !important; }
+      .anchor-link,
+      .copy-btn     { display: none !important; }
+    </style>
+  </noscript>
+
+  <script src="../../js/terminal.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Josh Kiriakoff" />
+  <meta name="theme-color" content="#1b1c25" />
+  <title>silent MSI install of a temp ~vrf installer · josh.kiriakoff</title>
+  <meta name="description" content="A stealer or loader chain that stages a follow-on MSI into the user temp directory names it something like ~vrf&amp;lt;GetTickCount&amp;gt;.msi and installs it with no UI" />
+  <link rel="canonical" href="https://josh-kiriakoff.github.io/detections/msiexec-vrf-temp-installer/" />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="josh.kiriakoff" />
+  <meta property="og:title" content="silent MSI install of a temp ~vrf installer" />
+  <meta property="og:description" content="A stealer or loader chain that stages a follow-on MSI into the user temp directory names it something like ~vrf&amp;lt;GetTickCount&amp;gt;.msi and installs it with no UI" />
+  <meta property="og:url" content="https://josh-kiriakoff.github.io/detections/msiexec-vrf-temp-installer/" />
+  <meta property="og:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+  <meta property="article:author" content="Josh Kiriakoff" />
+  <meta property="article:published_time" content="2026-05-31" />
+  <meta property="article:section" content="detections" />
+  <meta property="article:tag" content="attack.defense_evasion" />
+  <meta property="article:tag" content="attack.execution" />
+  <meta property="article:tag" content="attack.t1218.007" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="silent MSI install of a temp ~vrf installer" />
+  <meta name="twitter:description" content="A stealer or loader chain that stages a follow-on MSI into the user temp directory names it something like ~vrf&amp;lt;GetTickCount&amp;gt;.msi and installs it with no UI" />
+  <meta name="twitter:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg" />
+  <link rel="stylesheet" href="../../css/style.css" />
+
+  <!-- Feeds -->
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — blog" href="../../feed-blog.xml" />
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — detections" href="../../feed-detections.xml" />
+</head>
+<body>
+
+  <a href="#main" class="skip-link">skip to content</a>
+
+  <div class="window">
+
+    <header class="chrome">
+      <div class="lights" aria-hidden="true">
+        <span class="l-close"></span>
+        <span class="l-min"></span>
+        <span class="l-max"></span>
+      </div>
+      <div class="chrome-title">josh@kiriakoff:~/detections/msiexec-vrf-temp-installer.md</div>
+    </header>
+
+    <nav class="tabs" aria-label="primary">
+      <a href="../../">josh.kiriakoff</a>
+      <a href="../../about/">about</a>
+      <a href="../../blog/">blog</a>
+      <a href="../" class="active">detections</a>
+      <a href="../../intel/">intel</a>
+      <a href="../../admin/" class="right">admin</a>
+    </nav>
+
+    <div class="body" id="main">
+      <section class="shell" id="shell" aria-label="terminal session">
+
+        <div class="block" id="b-1" data-cmd="cat " data-target="./msiexec-vrf-temp-installer.md" data-after="b-2">
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="cmd">cat </span><span class="target">./msiexec-vrf-temp-installer.md</span>
+          </div>
+
+          <div class="output article-body" hidden>
+
+            <h1>silent MSI install of a temp ~vrf installer</h1>
+
+            <div class="chips" aria-label="MITRE ATT&amp;CK">
+              <span class="chip">ATT&amp;CK · T1218.007 (Msiexec)</span>
+              <span class="chip">Tactic · Defense Evasion</span>
+              <span class="chip">Tactic · Execution</span>
+            </div>
+
+            <div class="callout hypothesis">
+              <strong>Hypothesis.</strong>
+              A stealer or loader chain that stages a follow-on MSI into the user temp directory names it something like <code>~vrf&lt;GetTickCount&gt;.msi</code> and installs it with no UI. A <code>msiexec</code> install that is silent, points at a <code>~vrf</code> file, and runs from a user path is worth surfacing on its own.
+            </div>
+
+            <h2>context</h2>
+            <p><code>msiexec.exe</code> is signed and runs constantly, so a bare install is nothing. The tell is the combination. The <code>~vrf</code> prefix with a numeric tail is the output of <code>GetTickCount</code>, unique per run, and the file lands in temp rather than a real install location.</p>
+            <p>These MSIs frequently carry a PowerShell CustomAction that runs <code>iex</code> against a remote URL, which turns the installer into a reinfection trigger rather than a one-off. I met this pattern in the ClickFix chain linked below, where the delivery did the work and every stage after it leaned on signed, built-in tools.</p>
+
+            <h2>hunt</h2>
+            <p>Match <code>msiexec</code> installing silently from a <code>~vrf</code> temp file.</p>
+
+<pre><code><span class="tok-c">// hypothesis: silent msiexec install of a ~vrf temp MSI.</span>
+<span class="tok-c">// schema:     Huntress Process Insights - process_events</span>
+
+<span class="tok-k">FROM</span> logs-edr-process_events
+| <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.name) == <span class="tok-s">&quot;msiexec.exe&quot;</span>
+| <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.command_line) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*~vrf*&quot;</span>
+     <span class="tok-k">AND</span> <span class="tok-fn">TO_LOWER</span>(process.command_line) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*.msi*&quot;</span>
+| <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.command_line) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*/qn*&quot;</span>
+     <span class="tok-k">OR</span> <span class="tok-fn">TO_LOWER</span>(process.command_line) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*/quiet*&quot;</span>
+| <span class="tok-k">KEEP</span> host.name, process.parent.name, process.command_line
+| <span class="tok-k">SORT</span> @timestamp <span class="tok-k">DESC</span>
+| <span class="tok-k">LIMIT</span> <span class="tok-n">100</span></code></pre>
+
+            <h2>findings &amp; discriminators</h2>
+            <ul>
+              <li><strong>The three parts together are the signal.</strong> Silent, <code>~vrf</code>, and a temp path each occur alone in benign installs. Requiring all three drops the noise to near nothing.</li>
+              <li><strong>Read the parent and the installing account.</strong> A browser child or a script host parenting this install is the reinfection shape. A vendor updater doing it is the rare false positive.</li>
+            </ul>
+
+            <h2>resulting sigma rule</h2>
+
+            <div class="callout rule">
+              <strong>Rule.</strong> Detects msiexec.exe silently installing (/qn or /quiet) an MSI whose file name carries the &quot;~vrf&quot; prefix. Rated <em>high</em>.
+            </div>
+
+<pre><code><span class="tok-y">title:</span> <span class="tok-s">Silent MSI Install of a Temp &quot;~vrf&quot; Installer via Msiexec</span>
+<span class="tok-y">id:</span> <span class="tok-s">e9d7a958-963d-423a-a6c7-82a03bd31087</span>
+<span class="tok-y">status:</span> <span class="tok-s">experimental</span>
+<span class="tok-y">description:</span> <span class="tok-s">|</span>
+<span class="tok-s">  Detects msiexec.exe silently installing (/qn or /quiet) an MSI whose file</span>
+<span class="tok-s">  name carries the &quot;~vrf&quot; prefix. Stealer and loader chains stage a follow-on</span>
+<span class="tok-s">  MSI into the user temp directory under a name like ~vrf&lt;GetTickCount&gt;.msi</span>
+<span class="tok-s">  (the numeric tail is GetTickCount output, unique per run) and install it</span>
+<span class="tok-s">  without UI. The MSI frequently carries a PowerShell CustomAction that runs</span>
+<span class="tok-s">  iex against a remote URL, turning the installer into a reinfection trigger.</span>
+<span class="tok-y">references:</span>
+  - <span class="tok-s">https://josh-kiriakoff.github.io/blog/clickfix-donut-chain/</span>
+  - <span class="tok-s">https://attack.mitre.org/techniques/T1218/007/</span>
+  - <span class="tok-s">https://lolbas-project.github.io/lolbas/Binaries/Msiexec/</span>
+<span class="tok-y">author:</span> <span class="tok-s">Josh Kiriakoff</span>
+<span class="tok-y">date:</span>        <span class="tok-s">2026/05/31</span>
+<span class="tok-y">tags:</span>
+  - <span class="tok-s">attack.defense_evasion</span>
+  - <span class="tok-s">attack.execution</span>
+  - <span class="tok-s">attack.t1218.007</span>
+<span class="tok-y">logsource:</span>
+  <span class="tok-y">category:</span> <span class="tok-s">process_creation</span>
+  <span class="tok-y">product:</span> <span class="tok-s">windows</span>
+<span class="tok-y">detection:</span>
+  <span class="tok-y">selection_msiexec:</span>
+    - <span class="tok-s">Image|endswith: &#x27;\msiexec.exe&#x27;</span>
+    - <span class="tok-s">OriginalFileName: &#x27;msiexec.exe&#x27;</span>
+  <span class="tok-y">selection_vrf:</span>
+    <span class="tok-y">CommandLine|contains|all:</span>
+      - <span class="tok-s">&#x27;~vrf&#x27;</span>
+      - <span class="tok-s">&#x27;.msi&#x27;</span>
+  <span class="tok-y">selection_silent:</span>
+    <span class="tok-y">CommandLine|contains:</span>
+      - <span class="tok-s">&#x27;/qn&#x27;</span>
+      - <span class="tok-s">&#x27;/quiet&#x27;</span>
+  <span class="tok-y">condition:</span> <span class="tok-s">selection_msiexec and selection_vrf and selection_silent</span>
+<span class="tok-y">fields:</span>
+  - <span class="tok-s">CommandLine</span>
+  - <span class="tok-s">ParentImage</span>
+<span class="tok-y">falsepositives:</span>
+  - <span class="tok-s">A small number of installer frameworks write verification MSIs to temp. Confirm the parent process and the installing account before dismissing.</span>
+<span class="tok-y">level:</span> <span class="tok-s">high</span></code></pre>
+
+            <h2>false positives, scoping notes</h2>
+            <div class="callout fp">
+              <strong>Known FPs.</strong> A small number of installer frameworks write verification MSIs to temp. Confirm the parent process and the installing account before dismissing a hit.
+            </div>
+
+            <h2>references</h2>
+            <ul>
+              <li><a href="https://josh-kiriakoff.github.io/blog/clickfix-donut-chain/" rel="noopener noreferrer" target="_blank">related writeup · clickfix donut chain</a></li>
+              <li><a href="https://attack.mitre.org/techniques/T1218/007/" rel="noopener noreferrer" target="_blank">MITRE ATT&amp;CK · T1218.007</a></li>
+              <li><a href="https://lolbas-project.github.io/lolbas/Binaries/Msiexec/" rel="noopener noreferrer" target="_blank">LOLBAS · Msiexec</a></li>
+            </ul>
+
+            <p class="back-link">← <a href="../">back to detections</a> &nbsp; · &nbsp; <a href="../../">home</a></p>
+
+          </div>
+        </div>
+
+        <div class="block" id="b-2" hidden>
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="caret"></span>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <footer class="footer">
+      <span>© <a href="../../">Josh Kiriakoff</a> · <span data-year>2026</span></span>
+    </footer>
+
+  </div>
+
+  <noscript>
+    <style>
+      [hidden]      { display: revert !important; }
+      .caret        { display: none !important; }
+      .anchor-link,
+      .copy-btn     { display: none !important; }
+    </style>
+  </noscript>
+
+  <script src="../../js/terminal.js" defer></script>
+</body>
+</html>

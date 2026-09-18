@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Josh Kiriakoff" />
+  <meta name="theme-color" content="#1b1c25" />
+  <title>Komari monitoring agent used as a C2 implant · josh.kiriakoff</title>
+  <meta name="description" content="Komari is an open-source monitoring agent with a reverse shell built into the default install, which makes it an all-in-one C2 implant an operator can deploy in one step" />
+  <link rel="canonical" href="https://josh-kiriakoff.github.io/detections/komari-agent-c2/" />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="josh.kiriakoff" />
+  <meta property="og:title" content="Komari monitoring agent used as a C2 implant" />
+  <meta property="og:description" content="Komari is an open-source monitoring agent with a reverse shell built into the default install, which makes it an all-in-one C2 implant an operator can deploy in one step" />
+  <meta property="og:url" content="https://josh-kiriakoff.github.io/detections/komari-agent-c2/" />
+  <meta property="og:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+  <meta property="article:author" content="Josh Kiriakoff" />
+  <meta property="article:published_time" content="2026-06-09" />
+  <meta property="article:section" content="detections" />
+  <meta property="article:tag" content="attack.command_and_control" />
+  <meta property="article:tag" content="attack.execution" />
+  <meta property="article:tag" content="attack.t1219" />
+  <meta property="article:tag" content="attack.t1071.001" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Komari monitoring agent used as a C2 implant" />
+  <meta name="twitter:description" content="Komari is an open-source monitoring agent with a reverse shell built into the default install, which makes it an all-in-one C2 implant an operator can deploy in one step" />
+  <meta name="twitter:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg" />
+  <link rel="stylesheet" href="../../css/style.css" />
+
+  <!-- Feeds -->
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — blog" href="../../feed-blog.xml" />
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — detections" href="../../feed-detections.xml" />
+</head>
+<body>
+
+  <a href="#main" class="skip-link">skip to content</a>
+
+  <div class="window">
+
+    <header class="chrome">
+      <div class="lights" aria-hidden="true">
+        <span class="l-close"></span>
+        <span class="l-min"></span>
+        <span class="l-max"></span>
+      </div>
+      <div class="chrome-title">josh@kiriakoff:~/detections/komari-agent-c2.md</div>
+    </header>
+
+    <nav class="tabs" aria-label="primary">
+      <a href="../../">josh.kiriakoff</a>
+      <a href="../../about/">about</a>
+      <a href="../../blog/">blog</a>
+      <a href="../" class="active">detections</a>
+      <a href="../../intel/">intel</a>
+      <a href="../../admin/" class="right">admin</a>
+    </nav>
+
+    <div class="body" id="main">
+      <section class="shell" id="shell" aria-label="terminal session">
+
+        <div class="block" id="b-1" data-cmd="cat " data-target="./komari-agent-c2.md" data-after="b-2">
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="cmd">cat </span><span class="target">./komari-agent-c2.md</span>
+          </div>
+
+          <div class="output article-body" hidden>
+
+            <h1>Komari monitoring agent used as a C2 implant</h1>
+
+            <div class="chips" aria-label="MITRE ATT&amp;CK">
+              <span class="chip">ATT&amp;CK · T1219 (Remote Access Software)</span>
+              <span class="chip">ATT&amp;CK · T1071.001 (Web Protocols)</span>
+              <span class="chip">Tactic · Command and Control</span>
+            </div>
+
+            <div class="callout hypothesis">
+              <strong>Hypothesis.</strong>
+              Komari is an open-source monitoring agent with a reverse shell built into the default install, which makes it an all-in-one C2 implant an operator can deploy in one step. The agent binary, its install and API markers, and the agent parenting a shell are each worth surfacing.
+            </div>
+
+            <h2>context</h2>
+            <p>The reverse shell ships in the box. That is what turns a monitoring tool into an implant, because an operator gets host telemetry and a command channel from the same install with nothing extra to drop. The distinctive markers are the <code>komari-agent</code> name, the <code>komari-monitor</code> GitHub install path, the report and <code>uploadBasicInfo</code> API endpoints, and the <code>--ignore-unsafe-cert</code> flag that accepts a self-signed C2 certificate.</p>
+            <p>The on-host giveaway is lineage. The agent spawning <code>cmd</code> or <code>powershell</code> is an operator running commands through it, not passive monitoring. This grew out of Huntress research into the tool, linked below.</p>
+
+            <h2>hunt</h2>
+            <p>Match the Komari agent by name, by its C2 and install markers, or parenting a shell.</p>
+
+<pre><code><span class="tok-c">// hypothesis: Komari agent execution or operator command lineage.</span>
+<span class="tok-c">// schema:     Huntress Process Insights - process_events</span>
+
+<span class="tok-k">FROM</span> logs-edr-process_events
+| <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.name) == <span class="tok-s">&quot;komari-agent.exe&quot;</span>
+     <span class="tok-k">OR</span> <span class="tok-fn">TO_LOWER</span>(process.command_line) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*ignore-unsafe-cert*&quot;</span>
+     <span class="tok-k">OR</span> <span class="tok-fn">TO_LOWER</span>(process.command_line) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*uploadbasicinfo*&quot;</span>
+     <span class="tok-k">OR</span> <span class="tok-fn">TO_LOWER</span>(process.command_line) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*komari-monitor/komari-agent*&quot;</span>
+| <span class="tok-k">WHERE</span> process.parent.name IS <span class="tok-k">NOT</span> NULL
+| <span class="tok-k">KEEP</span> host.name, process.parent.name, process.name, process.command_line
+| <span class="tok-k">SORT</span> @timestamp <span class="tok-k">DESC</span>
+| <span class="tok-k">LIMIT</span> <span class="tok-n">100</span></code></pre>
+
+            <h2>findings &amp; discriminators</h2>
+            <ul>
+              <li><strong>Confirm intent, not just presence.</strong> Komari is a real tool. An install from a raw GitHub URL onto a server reached over RDP is the malicious shape, not a planned deployment.</li>
+              <li><strong>Lineage is the strongest hit.</strong> The agent parenting a shell is an operator at the keyboard, which the passive install never produces.</li>
+            </ul>
+
+            <h2>resulting sigma rule</h2>
+
+            <div class="callout rule">
+              <strong>Rule.</strong> Detects execution of the Komari monitoring agent, an open-source tool with a built-in reverse shell that adversaries deploy as an all-in-one C2 implant. Rated <em>high</em>.
+            </div>
+
+<pre><code><span class="tok-y">title:</span> <span class="tok-s">Komari Monitoring Agent Command-and-Control Execution</span>
+<span class="tok-y">id:</span> <span class="tok-s">3d3c444c-5ce1-497d-85ce-088c100de13e</span>
+<span class="tok-y">status:</span> <span class="tok-s">experimental</span>
+<span class="tok-y">description:</span> <span class="tok-s">|</span>
+<span class="tok-s">  Detects execution of the Komari monitoring agent, an open-source tool with a</span>
+<span class="tok-s">  built-in reverse shell that adversaries deploy as an all-in-one C2 implant.</span>
+<span class="tok-s">  The rule fires on the agent binary or its distinctive command-line and</span>
+<span class="tok-s">  install indicators (the komari-agent name, the komari-monitor GitHub install</span>
+<span class="tok-s">  path, the report/uploadBasicInfo API endpoints, or the --ignore-unsafe-cert</span>
+<span class="tok-s">  flag that accepts self-signed C2 certificates), and on the agent parenting a</span>
+<span class="tok-s">  shell, which is the on-host signature of an operator running exec or terminal</span>
+<span class="tok-s">  commands through it.</span>
+<span class="tok-y">references:</span>
+  - <span class="tok-s">https://www.huntress.com/blog/komari-c2-agent-abuse</span>
+  - <span class="tok-s">https://attack.mitre.org/techniques/T1219/</span>
+  - <span class="tok-s">https://attack.mitre.org/techniques/T1071/001/</span>
+<span class="tok-y">author:</span> <span class="tok-s">Josh Kiriakoff</span>
+<span class="tok-y">date:</span>        <span class="tok-s">2026/06/09</span>
+<span class="tok-y">tags:</span>
+  - <span class="tok-s">attack.command_and_control</span>
+  - <span class="tok-s">attack.execution</span>
+  - <span class="tok-s">attack.t1219</span>
+  - <span class="tok-s">attack.t1071.001</span>
+<span class="tok-y">logsource:</span>
+  <span class="tok-y">category:</span> <span class="tok-s">process_creation</span>
+  <span class="tok-y">product:</span> <span class="tok-s">windows</span>
+<span class="tok-y">detection:</span>
+  <span class="tok-y">selection_agent:</span>
+    - <span class="tok-s">Image|endswith: &#x27;\komari-agent.exe&#x27;</span>
+    - <span class="tok-s">OriginalFileName: &#x27;komari-agent.exe&#x27;</span>
+  <span class="tok-y">selection_c2:</span>
+    <span class="tok-y">CommandLine|contains:</span>
+      - <span class="tok-s">&#x27;ignore-unsafe-cert&#x27;</span>
+      - <span class="tok-s">&#x27;/api/clients/report&#x27;</span>
+      - <span class="tok-s">&#x27;uploadBasicInfo&#x27;</span>
+      - <span class="tok-s">&#x27;komari-monitor/komari-agent&#x27;</span>
+  <span class="tok-y">selection_install:</span>
+    <span class="tok-y">CommandLine|contains|all:</span>
+      - <span class="tok-s">&#x27;komari-agent&#x27;</span>
+      - <span class="tok-s">&#x27;install.ps1&#x27;</span>
+  <span class="tok-y">selection_lineage:</span>
+    <span class="tok-y">ParentImage|endswith:</span> <span class="tok-s">&#x27;\komari-agent.exe&#x27;</span>
+  <span class="tok-y">condition:</span> <span class="tok-s">selection_agent or selection_c2 or selection_install or selection_lineage</span>
+<span class="tok-y">fields:</span>
+  - <span class="tok-s">CommandLine</span>
+  - <span class="tok-s">ParentImage</span>
+  - <span class="tok-s">Image</span>
+<span class="tok-y">falsepositives:</span>
+  - <span class="tok-s">Komari is a legitimate open-source monitoring tool. Confirm whether the organisation deployed it deliberately; an install from a raw GitHub URL onto a server reached over RDP is the malicious shape.</span>
+<span class="tok-y">level:</span> <span class="tok-s">high</span></code></pre>
+
+            <h2>false positives, scoping notes</h2>
+            <div class="callout fp">
+              <strong>Known FPs.</strong> Komari is a legitimate open-source monitor. Confirm whether the organisation deployed it deliberately before acting broadly.
+            </div>
+
+            <h2>references</h2>
+            <ul>
+              <li><a href="https://www.huntress.com/blog/komari-c2-agent-abuse" rel="noopener noreferrer" target="_blank">Huntress research · komari c2 agent abuse</a></li>
+              <li><a href="https://attack.mitre.org/techniques/T1219/" rel="noopener noreferrer" target="_blank">MITRE ATT&amp;CK · T1219</a></li>
+              <li><a href="https://attack.mitre.org/techniques/T1071/001/" rel="noopener noreferrer" target="_blank">MITRE ATT&amp;CK · T1071.001</a></li>
+            </ul>
+
+            <p class="back-link">← <a href="../">back to detections</a> &nbsp; · &nbsp; <a href="../../">home</a></p>
+
+          </div>
+        </div>
+
+        <div class="block" id="b-2" hidden>
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="caret"></span>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <footer class="footer">
+      <span>© <a href="../../">Josh Kiriakoff</a> · <span data-year>2026</span></span>
+    </footer>
+
+  </div>
+
+  <noscript>
+    <style>
+      [hidden]      { display: revert !important; }
+      .caret        { display: none !important; }
+      .anchor-link,
+      .copy-btn     { display: none !important; }
+    </style>
+  </noscript>
+
+  <script src="../../js/terminal.js" defer></script>
+</body>
+</html>

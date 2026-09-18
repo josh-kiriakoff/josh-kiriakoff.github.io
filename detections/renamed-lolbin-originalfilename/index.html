@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Josh Kiriakoff" />
+  <meta name="theme-color" content="#1b1c25" />
+  <title>renamed LOLBIN caught by an OriginalFileName mismatch · josh.kiriakoff</title>
+  <meta name="description" content="A process whose embedded PE OriginalFileName is a well-known living-off-the-land binary while its on-disk name is something else is the classic rename used to slip a LOLBIN past na" />
+  <link rel="canonical" href="https://josh-kiriakoff.github.io/detections/renamed-lolbin-originalfilename/" />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="josh.kiriakoff" />
+  <meta property="og:title" content="renamed LOLBIN caught by an OriginalFileName mismatch" />
+  <meta property="og:description" content="A process whose embedded PE OriginalFileName is a well-known living-off-the-land binary while its on-disk name is something else is the classic rename used to slip a LOLBIN past na" />
+  <meta property="og:url" content="https://josh-kiriakoff.github.io/detections/renamed-lolbin-originalfilename/" />
+  <meta property="og:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+  <meta property="article:author" content="Josh Kiriakoff" />
+  <meta property="article:published_time" content="2026-03-24" />
+  <meta property="article:section" content="detections" />
+  <meta property="article:tag" content="attack.defense_evasion" />
+  <meta property="article:tag" content="attack.t1036.003" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="renamed LOLBIN caught by an OriginalFileName mismatch" />
+  <meta name="twitter:description" content="A process whose embedded PE OriginalFileName is a well-known living-off-the-land binary while its on-disk name is something else is the classic rename used to slip a LOLBIN past na" />
+  <meta name="twitter:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg" />
+  <link rel="stylesheet" href="../../css/style.css" />
+
+  <!-- Feeds -->
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — blog" href="../../feed-blog.xml" />
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — detections" href="../../feed-detections.xml" />
+</head>
+<body>
+
+  <a href="#main" class="skip-link">skip to content</a>
+
+  <div class="window">
+
+    <header class="chrome">
+      <div class="lights" aria-hidden="true">
+        <span class="l-close"></span>
+        <span class="l-min"></span>
+        <span class="l-max"></span>
+      </div>
+      <div class="chrome-title">josh@kiriakoff:~/detections/renamed-lolbin-originalfilename.md</div>
+    </header>
+
+    <nav class="tabs" aria-label="primary">
+      <a href="../../">josh.kiriakoff</a>
+      <a href="../../about/">about</a>
+      <a href="../../blog/">blog</a>
+      <a href="../" class="active">detections</a>
+      <a href="../../intel/">intel</a>
+      <a href="../../admin/" class="right">admin</a>
+    </nav>
+
+    <div class="body" id="main">
+      <section class="shell" id="shell" aria-label="terminal session">
+
+        <div class="block" id="b-1" data-cmd="cat " data-target="./renamed-lolbin-originalfilename.md" data-after="b-2">
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="cmd">cat </span><span class="target">./renamed-lolbin-originalfilename.md</span>
+          </div>
+
+          <div class="output article-body" hidden>
+
+            <h1>renamed LOLBIN caught by an OriginalFileName mismatch</h1>
+
+            <div class="chips" aria-label="MITRE ATT&amp;CK">
+              <span class="chip">ATT&amp;CK · T1036.003 (Rename System Utilities)</span>
+              <span class="chip">Tactic · Defense Evasion</span>
+            </div>
+
+            <div class="callout hypothesis">
+              <strong>Hypothesis.</strong>
+              A process whose embedded PE <code>OriginalFileName</code> is a well-known living-off-the-land binary while its on-disk name is something else is the classic rename used to slip a LOLBIN past name-based rules. The <code>OriginalFileName</code> lives in the version resource and does not change when the file is renamed, so the mismatch is a strong masquerade signal.
+            </div>
+
+            <h2>context</h2>
+            <p>The version resource is the anchor. Rename <code>powershell.exe</code> to <code>svchost-helper.exe</code> and the file still carries <code>PowerShell.EXE</code> as its <code>OriginalFileName</code>, because that field travels inside the binary. Name-based rules key on the on-disk name and miss the swap. This rule keys on the field that does not move.</p>
+            <p>It covers the usual interpreters and dual-use tools, PowerShell, cmd, reg, regsvr32, rundll32, mshta, the script hosts, certutil, bitsadmin, wmic, schtasks, and net. A match means the real tool is present under a cover name.</p>
+
+            <h2>hunt</h2>
+            <p>Match a LOLBIN OriginalFileName that disagrees with the on-disk image name.</p>
+
+<pre><code><span class="tok-c">// hypothesis: a LOLBIN OriginalFileName not matching the on-disk name.</span>
+<span class="tok-c">// schema:     Huntress Process Insights - process_events</span>
+
+<span class="tok-k">FROM</span> logs-edr-process_events
+| <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.pe.original_file_name) <span class="tok-k">IN</span> (<span class="tok-s">&quot;powershell.exe&quot;</span>, <span class="tok-s">&quot;cmd.exe&quot;</span>, <span class="tok-s">&quot;reg.exe&quot;</span>, <span class="tok-s">&quot;rundll32.exe&quot;</span>, <span class="tok-s">&quot;mshta.exe&quot;</span>, <span class="tok-s">&quot;certutil.exe&quot;</span>, <span class="tok-s">&quot;wmic.exe&quot;</span>)
+| <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.name) != <span class="tok-fn">TO_LOWER</span>(process.pe.original_file_name)
+| <span class="tok-k">KEEP</span> host.name, process.name, process.pe.original_file_name, process.command_line
+| <span class="tok-k">SORT</span> @timestamp <span class="tok-k">DESC</span>
+| <span class="tok-k">LIMIT</span> <span class="tok-n">100</span></code></pre>
+
+            <h2>findings &amp; discriminators</h2>
+            <ul>
+              <li><strong>The field that does not move.</strong> A renamed file keeps its original name in the version resource, so a mismatch is the rename itself.</li>
+              <li><strong>Read the command line.</strong> A renamed interpreter running scripted commands is the finding, not a deployment tool that copied a binary under a product name.</li>
+            </ul>
+
+            <h2>resulting sigma rule</h2>
+
+            <div class="callout rule">
+              <strong>Rule.</strong> Detects a process whose embedded PE OriginalFileName is a well-known living-off-the-land binary while the on-disk file name is something else - the classic rename used to slip a LOLBIN past name-based rules and casual review. Rated <em>high</em>.
+            </div>
+
+<pre><code><span class="tok-y">title:</span> <span class="tok-s">Renamed Living-off-the-Land Binary via PE OriginalFileName Mismatch</span>
+<span class="tok-y">id:</span> <span class="tok-s">b7fc2789-0ba4-494c-b92b-b287f12a07a1</span>
+<span class="tok-y">status:</span> <span class="tok-s">experimental</span>
+<span class="tok-y">description:</span> <span class="tok-s">|</span>
+<span class="tok-s">  Detects a process whose embedded PE OriginalFileName is a well-known</span>
+<span class="tok-s">  living-off-the-land binary while the on-disk file name is something else -</span>
+<span class="tok-s">  the classic rename used to slip a LOLBIN past name-based rules and casual</span>
+<span class="tok-s">  review. The OriginalFileName travels in the binary&#x27;s version resource and does</span>
+<span class="tok-s">  not change when the file is renamed, so a mismatch between it and the actual</span>
+<span class="tok-s">  image name is a high-confidence masquerade signal.</span>
+<span class="tok-y">references:</span>
+  - <span class="tok-s">https://attack.mitre.org/techniques/T1036/003/</span>
+  - <span class="tok-s">https://lolbas-project.github.io/</span>
+<span class="tok-y">author:</span> <span class="tok-s">Josh Kiriakoff</span>
+<span class="tok-y">date:</span>        <span class="tok-s">2026/03/24</span>
+<span class="tok-y">tags:</span>
+  - <span class="tok-s">attack.defense_evasion</span>
+  - <span class="tok-s">attack.t1036.003</span>
+<span class="tok-y">logsource:</span>
+  <span class="tok-y">category:</span> <span class="tok-s">process_creation</span>
+  <span class="tok-y">product:</span> <span class="tok-s">windows</span>
+<span class="tok-y">detection:</span>
+  <span class="tok-y">selection_orig:</span>
+    <span class="tok-y">OriginalFileName:</span>
+      - <span class="tok-s">&#x27;PowerShell.EXE&#x27;</span>
+      - <span class="tok-s">&#x27;powershell_ise.EXE&#x27;</span>
+      - <span class="tok-s">&#x27;Cmd.Exe&#x27;</span>
+      - <span class="tok-s">&#x27;reg.exe&#x27;</span>
+      - <span class="tok-s">&#x27;regsvr32.exe&#x27;</span>
+      - <span class="tok-s">&#x27;RUNDLL32.EXE&#x27;</span>
+      - <span class="tok-s">&#x27;MSHTA.EXE&#x27;</span>
+      - <span class="tok-s">&#x27;wscript.exe&#x27;</span>
+      - <span class="tok-s">&#x27;cscript.exe&#x27;</span>
+      - <span class="tok-s">&#x27;CertUtil.exe&#x27;</span>
+      - <span class="tok-s">&#x27;bitsadmin.exe&#x27;</span>
+      - <span class="tok-s">&#x27;wmic.exe&#x27;</span>
+      - <span class="tok-s">&#x27;schtasks.exe&#x27;</span>
+      - <span class="tok-s">&#x27;sc.exe&#x27;</span>
+      - <span class="tok-s">&#x27;net.exe&#x27;</span>
+      - <span class="tok-s">&#x27;netsh.exe&#x27;</span>
+  <span class="tok-y">filter_realname:</span>
+    <span class="tok-y">Image|endswith:</span>
+      - <span class="tok-s">&#x27;\powershell.exe&#x27;</span>
+      - <span class="tok-s">&#x27;\powershell_ise.exe&#x27;</span>
+      - <span class="tok-s">&#x27;\cmd.exe&#x27;</span>
+      - <span class="tok-s">&#x27;\reg.exe&#x27;</span>
+      - <span class="tok-s">&#x27;\regsvr32.exe&#x27;</span>
+      - <span class="tok-s">&#x27;\rundll32.exe&#x27;</span>
+      - <span class="tok-s">&#x27;\mshta.exe&#x27;</span>
+      - <span class="tok-s">&#x27;\wscript.exe&#x27;</span>
+      - <span class="tok-s">&#x27;\cscript.exe&#x27;</span>
+      - <span class="tok-s">&#x27;\certutil.exe&#x27;</span>
+      - <span class="tok-s">&#x27;\bitsadmin.exe&#x27;</span>
+      - <span class="tok-s">&#x27;\wmic.exe&#x27;</span>
+      - <span class="tok-s">&#x27;\schtasks.exe&#x27;</span>
+      - <span class="tok-s">&#x27;\sc.exe&#x27;</span>
+      - <span class="tok-s">&#x27;\net.exe&#x27;</span>
+      - <span class="tok-s">&#x27;\netsh.exe&#x27;</span>
+  <span class="tok-y">condition:</span> <span class="tok-s">selection_orig and not filter_realname</span>
+<span class="tok-y">fields:</span>
+  - <span class="tok-s">Image</span>
+  - <span class="tok-s">OriginalFileName</span>
+  - <span class="tok-s">CommandLine</span>
+  - <span class="tok-s">ParentImage</span>
+<span class="tok-y">falsepositives:</span>
+  - <span class="tok-s">A few deployment tools copy a LOLBIN under a product-specific name. Confirm the publisher and the command line; a renamed interpreter running scripted commands is the finding.</span>
+<span class="tok-y">level:</span> <span class="tok-s">high</span></code></pre>
+
+            <h2>false positives, scoping notes</h2>
+            <div class="callout fp">
+              <strong>Known FPs.</strong> A few deployment tools copy a LOLBIN under a product-specific name. Confirm the publisher and the command line before acting.
+            </div>
+
+            <h2>references</h2>
+            <ul>
+              <li><a href="https://attack.mitre.org/techniques/T1036/003/" rel="noopener noreferrer" target="_blank">MITRE ATT&amp;CK · T1036.003</a></li>
+              <li><a href="https://lolbas-project.github.io/" rel="noopener noreferrer" target="_blank">LOLBAS · lolbas-project.github.io</a></li>
+            </ul>
+
+            <p class="back-link">← <a href="../">back to detections</a> &nbsp; · &nbsp; <a href="../../">home</a></p>
+
+          </div>
+        </div>
+
+        <div class="block" id="b-2" hidden>
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="caret"></span>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <footer class="footer">
+      <span>© <a href="../../">Josh Kiriakoff</a> · <span data-year>2026</span></span>
+    </footer>
+
+  </div>
+
+  <noscript>
+    <style>
+      [hidden]      { display: revert !important; }
+      .caret        { display: none !important; }
+      .anchor-link,
+      .copy-btn     { display: none !important; }
+    </style>
+  </noscript>
+
+  <script src="../../js/terminal.js" defer></script>
+</body>
+</html>

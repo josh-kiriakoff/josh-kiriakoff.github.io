@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Josh Kiriakoff" />
+  <meta name="theme-color" content="#1b1c25" />
+  <title>shadow copy eviction via vssadmin resize · josh.kiriakoff</title>
+  <meta name="description" content="Shrinking the shadow-copy storage association to a small maximum size silently evicts existing Volume Shadow Copies without ever issuing a delete" />
+  <link rel="canonical" href="https://josh-kiriakoff.github.io/detections/vssadmin-resize-shadowstorage/" />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="josh.kiriakoff" />
+  <meta property="og:title" content="shadow copy eviction via vssadmin resize" />
+  <meta property="og:description" content="Shrinking the shadow-copy storage association to a small maximum size silently evicts existing Volume Shadow Copies without ever issuing a delete" />
+  <meta property="og:url" content="https://josh-kiriakoff.github.io/detections/vssadmin-resize-shadowstorage/" />
+  <meta property="og:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+  <meta property="article:author" content="Josh Kiriakoff" />
+  <meta property="article:published_time" content="2026-09-10" />
+  <meta property="article:section" content="detections" />
+  <meta property="article:tag" content="attack.impact" />
+  <meta property="article:tag" content="attack.t1490" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="shadow copy eviction via vssadmin resize" />
+  <meta name="twitter:description" content="Shrinking the shadow-copy storage association to a small maximum size silently evicts existing Volume Shadow Copies without ever issuing a delete" />
+  <meta name="twitter:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg" />
+  <link rel="stylesheet" href="../../css/style.css" />
+
+  <!-- Feeds -->
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — blog" href="../../feed-blog.xml" />
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — detections" href="../../feed-detections.xml" />
+</head>
+<body>
+
+  <a href="#main" class="skip-link">skip to content</a>
+
+  <div class="window">
+
+    <header class="chrome">
+      <div class="lights" aria-hidden="true">
+        <span class="l-close"></span>
+        <span class="l-min"></span>
+        <span class="l-max"></span>
+      </div>
+      <div class="chrome-title">josh@kiriakoff:~/detections/vssadmin-resize-shadowstorage.md</div>
+    </header>
+
+    <nav class="tabs" aria-label="primary">
+      <a href="../../">josh.kiriakoff</a>
+      <a href="../../about/">about</a>
+      <a href="../../blog/">blog</a>
+      <a href="../" class="active">detections</a>
+      <a href="../../intel/">intel</a>
+      <a href="../../admin/" class="right">admin</a>
+    </nav>
+
+    <div class="body" id="main">
+      <section class="shell" id="shell" aria-label="terminal session">
+
+        <div class="block" id="b-1" data-cmd="cat " data-target="./vssadmin-resize-shadowstorage.md" data-after="b-2">
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="cmd">cat </span><span class="target">./vssadmin-resize-shadowstorage.md</span>
+          </div>
+
+          <div class="output article-body" hidden>
+
+            <h1>shadow copy eviction via vssadmin resize</h1>
+
+            <div class="chips" aria-label="MITRE ATT&amp;CK">
+              <span class="chip">ATT&amp;CK · T1490 (Inhibit System Recovery)</span>
+              <span class="chip">Tactic · Impact</span>
+            </div>
+
+            <div class="callout hypothesis">
+              <strong>Hypothesis.</strong>
+              Shrinking the shadow-copy storage association to a small maximum size silently evicts existing Volume Shadow Copies without ever issuing a delete. It defeats file restore and recovery while sidestepping detections that only watch for <code>vssadmin delete shadows</code>.
+            </div>
+
+            <h2>context</h2>
+            <p>This is the quiet path to the same end. Everyone watches for <code>delete shadows</code>, so an operator who resizes the storage instead removes the copies without tripping the obvious rule. The shadow copies fall out because there is no longer room to keep them.</p>
+            <p>Ransomware crews and hands-on actors both use it as a recovery-inhibition step before or during encryption, which is why a resize to a very small maximum, or one run from a shell mid-intrusion, is worth surfacing.</p>
+
+            <h2>hunt</h2>
+            <p>Match <code>vssadmin</code> resizing shadow storage.</p>
+
+<pre><code><span class="tok-c">// hypothesis: vssadmin resize shadowstorage evicting shadow copies.</span>
+<span class="tok-c">// schema:     Huntress Process Insights - process_events</span>
+
+<span class="tok-k">FROM</span> logs-edr-process_events
+| <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.name) == <span class="tok-s">&quot;vssadmin.exe&quot;</span>
+| <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.command_line) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*resize*&quot;</span>
+     <span class="tok-k">AND</span> <span class="tok-fn">TO_LOWER</span>(process.command_line) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*shadowstorage*&quot;</span>
+| <span class="tok-k">KEEP</span> host.name, user.name, process.parent.name, process.command_line
+| <span class="tok-k">SORT</span> @timestamp <span class="tok-k">DESC</span>
+| <span class="tok-k">LIMIT</span> <span class="tok-n">100</span></code></pre>
+
+            <h2>findings &amp; discriminators</h2>
+            <ul>
+              <li><strong>Resize is the quiet delete.</strong> Evicting shadow copies by shrinking their storage reaches the same outcome as a delete while dodging the rule that watches for one.</li>
+              <li><strong>Weigh the size and the context.</strong> A resize to a very small maximum, or one run from a shell in an intrusion timeline, is the concern rather than a planned change.</li>
+            </ul>
+
+            <h2>resulting sigma rule</h2>
+
+            <div class="callout rule">
+              <strong>Rule.</strong> Detects vssadmin.exe resizing shadow-copy storage. Rated <em>high</em>.
+            </div>
+
+<pre><code><span class="tok-y">title:</span> <span class="tok-s">Shadow Copy Eviction via Vssadmin Resize ShadowStorage</span>
+<span class="tok-y">id:</span> <span class="tok-s">3fff6287-8208-452a-9993-53ccc1df6684</span>
+<span class="tok-y">status:</span> <span class="tok-s">experimental</span>
+<span class="tok-y">description:</span> <span class="tok-s">|</span>
+<span class="tok-s">  Detects vssadmin.exe resizing shadow-copy storage. Shrinking the shadow</span>
+<span class="tok-s">  storage association to a small maximum size silently evicts existing Volume</span>
+<span class="tok-s">  Shadow Copies without ever issuing a delete command, so it defeats recovery</span>
+<span class="tok-s">  and file-restore while sidestepping detections that only watch for</span>
+<span class="tok-s">  &quot;vssadmin delete shadows&quot;. Ransomware and hands-on actors use it as a quieter</span>
+<span class="tok-s">  path to inhibit recovery.</span>
+<span class="tok-y">references:</span>
+  - <span class="tok-s">https://attack.mitre.org/techniques/T1490/</span>
+  - <span class="tok-s">https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/vssadmin-resize-shadowstorage</span>
+<span class="tok-y">author:</span> <span class="tok-s">Josh Kiriakoff</span>
+<span class="tok-y">date:</span>        <span class="tok-s">2026/09/10</span>
+<span class="tok-y">tags:</span>
+  - <span class="tok-s">attack.impact</span>
+  - <span class="tok-s">attack.t1490</span>
+<span class="tok-y">logsource:</span>
+  <span class="tok-y">category:</span> <span class="tok-s">process_creation</span>
+  <span class="tok-y">product:</span> <span class="tok-s">windows</span>
+<span class="tok-y">detection:</span>
+  <span class="tok-y">selection_vss:</span>
+    - <span class="tok-s">Image|endswith: &#x27;\vssadmin.exe&#x27;</span>
+    - <span class="tok-s">OriginalFileName: &#x27;VSSADMIN.EXE&#x27;</span>
+  <span class="tok-y">selection_resize:</span>
+    <span class="tok-y">CommandLine|contains|all:</span>
+      - <span class="tok-s">&#x27;resize&#x27;</span>
+      - <span class="tok-s">&#x27;shadowstorage&#x27;</span>
+  <span class="tok-y">condition:</span> <span class="tok-s">selection_vss and selection_resize</span>
+<span class="tok-y">fields:</span>
+  - <span class="tok-s">CommandLine</span>
+  - <span class="tok-s">ParentImage</span>
+  - <span class="tok-s">User</span>
+<span class="tok-y">falsepositives:</span>
+  - <span class="tok-s">Backup administrators legitimately size shadow storage. A resize to a very small maxsize, or one run from a shell in an intrusion timeline, is the concern.</span>
+<span class="tok-y">level:</span> <span class="tok-s">high</span></code></pre>
+
+            <h2>false positives, scoping notes</h2>
+            <div class="callout fp">
+              <strong>Known FPs.</strong> Backup administrators legitimately size shadow storage. A resize to a very small maxsize, or one inside an intrusion timeline, is the concern.
+            </div>
+
+            <h2>references</h2>
+            <ul>
+              <li><a href="https://attack.mitre.org/techniques/T1490/" rel="noopener noreferrer" target="_blank">MITRE ATT&amp;CK · T1490</a></li>
+              <li><a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/vssadmin-resize-shadowstorage" rel="noopener noreferrer" target="_blank">Microsoft Learn · vssadmin resize shadowstorage</a></li>
+            </ul>
+
+            <p class="back-link">← <a href="../">back to detections</a> &nbsp; · &nbsp; <a href="../../">home</a></p>
+
+          </div>
+        </div>
+
+        <div class="block" id="b-2" hidden>
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="caret"></span>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <footer class="footer">
+      <span>© <a href="../../">Josh Kiriakoff</a> · <span data-year>2026</span></span>
+    </footer>
+
+  </div>
+
+  <noscript>
+    <style>
+      [hidden]      { display: revert !important; }
+      .caret        { display: none !important; }
+      .anchor-link,
+      .copy-btn     { display: none !important; }
+    </style>
+  </noscript>
+
+  <script src="../../js/terminal.js" defer></script>
+</body>
+</html>

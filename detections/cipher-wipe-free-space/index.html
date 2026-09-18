@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Josh Kiriakoff" />
+  <meta name="theme-color" content="#1b1c25" />
+  <title>cipher.exe wiping free disk space · josh.kiriakoff</title>
+  <meta name="description" content="cipher.exe /w overwrites the free space on a volume so previously deleted file content can no longer be carved back" />
+  <link rel="canonical" href="https://josh-kiriakoff.github.io/detections/cipher-wipe-free-space/" />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="josh.kiriakoff" />
+  <meta property="og:title" content="cipher.exe wiping free disk space" />
+  <meta property="og:description" content="cipher.exe /w overwrites the free space on a volume so previously deleted file content can no longer be carved back" />
+  <meta property="og:url" content="https://josh-kiriakoff.github.io/detections/cipher-wipe-free-space/" />
+  <meta property="og:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+  <meta property="article:author" content="Josh Kiriakoff" />
+  <meta property="article:published_time" content="2026-06-23" />
+  <meta property="article:section" content="detections" />
+  <meta property="article:tag" content="attack.defense_evasion" />
+  <meta property="article:tag" content="attack.impact" />
+  <meta property="article:tag" content="attack.t1070.004" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="cipher.exe wiping free disk space" />
+  <meta name="twitter:description" content="cipher.exe /w overwrites the free space on a volume so previously deleted file content can no longer be carved back" />
+  <meta name="twitter:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg" />
+  <link rel="stylesheet" href="../../css/style.css" />
+
+  <!-- Feeds -->
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — blog" href="../../feed-blog.xml" />
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — detections" href="../../feed-detections.xml" />
+</head>
+<body>
+
+  <a href="#main" class="skip-link">skip to content</a>
+
+  <div class="window">
+
+    <header class="chrome">
+      <div class="lights" aria-hidden="true">
+        <span class="l-close"></span>
+        <span class="l-min"></span>
+        <span class="l-max"></span>
+      </div>
+      <div class="chrome-title">josh@kiriakoff:~/detections/cipher-wipe-free-space.md</div>
+    </header>
+
+    <nav class="tabs" aria-label="primary">
+      <a href="../../">josh.kiriakoff</a>
+      <a href="../../about/">about</a>
+      <a href="../../blog/">blog</a>
+      <a href="../" class="active">detections</a>
+      <a href="../../intel/">intel</a>
+      <a href="../../admin/" class="right">admin</a>
+    </nav>
+
+    <div class="body" id="main">
+      <section class="shell" id="shell" aria-label="terminal session">
+
+        <div class="block" id="b-1" data-cmd="cat " data-target="./cipher-wipe-free-space.md" data-after="b-2">
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="cmd">cat </span><span class="target">./cipher-wipe-free-space.md</span>
+          </div>
+
+          <div class="output article-body" hidden>
+
+            <h1>cipher.exe wiping free disk space</h1>
+
+            <div class="chips" aria-label="MITRE ATT&amp;CK">
+              <span class="chip">ATT&amp;CK · T1070.004 (File Deletion)</span>
+              <span class="chip">Tactic · Defense Evasion</span>
+              <span class="chip">Tactic · Impact</span>
+            </div>
+
+            <div class="callout hypothesis">
+              <strong>Hypothesis.</strong>
+              <code>cipher.exe /w</code> overwrites the free space on a volume so previously deleted file content can no longer be carved back. It is signed and built in, which makes it an attractive anti-forensic and anti-recovery tool, and the <code>/w</code> switch is distinct from the routine <code>/e</code> and <code>/d</code> encrypt operations.
+            </div>
+
+            <h2>context</h2>
+            <p>The switch is the whole story. Everyday <code>cipher</code> use encrypts or decrypts files, and that is <code>/e</code> and <code>/d</code>. The wipe verb has one effect an intruder wants, which is to make deleted artefacts unrecoverable, so a defender can no longer carve back what was removed.</p>
+            <p>Because the binary is trusted, name-based and signature-based controls see nothing. The command line is the only place the intent shows.</p>
+
+            <h2>hunt</h2>
+            <p>Match <code>cipher.exe</code> invoked with the wipe switch.</p>
+
+<pre><code><span class="tok-c">// hypothesis: cipher.exe /w wiping free space.</span>
+<span class="tok-c">// schema:     Huntress Process Insights - process_events</span>
+
+<span class="tok-k">FROM</span> logs-edr-process_events
+| <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.name) == <span class="tok-s">&quot;cipher.exe&quot;</span>
+| <span class="tok-k">WHERE</span> <span class="tok-fn">TO_LOWER</span>(process.command_line) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*/w*&quot;</span>
+| <span class="tok-k">KEEP</span> host.name, user.name, process.parent.name, process.command_line
+| <span class="tok-k">SORT</span> @timestamp <span class="tok-k">DESC</span>
+| <span class="tok-k">LIMIT</span> <span class="tok-n">100</span></code></pre>
+
+            <h2>findings &amp; discriminators</h2>
+            <ul>
+              <li><strong>Separate the wipe from the encrypt.</strong> Scope to <code>/w</code> and the routine encrypt and decrypt traffic drops out. What is left is the anti-recovery use.</li>
+              <li><strong>Read it in timeline.</strong> A free-space wipe next to deletions or a ransom event is a cleanup step, not a privacy habit.</li>
+            </ul>
+
+            <h2>resulting sigma rule</h2>
+
+            <div class="callout rule">
+              <strong>Rule.</strong> Detects cipher.exe invoked with the /w (wipe) switch, which overwrites the free space on a volume so previously deleted file content can no longer be carved back. Rated <em>medium</em>.
+            </div>
+
+<pre><code><span class="tok-y">title:</span> <span class="tok-s">Cipher.exe Wiping Free Disk Space</span>
+<span class="tok-y">id:</span> <span class="tok-s">2e64d13c-234f-460f-939c-931576a65769</span>
+<span class="tok-y">status:</span> <span class="tok-s">experimental</span>
+<span class="tok-y">description:</span> <span class="tok-s">|</span>
+<span class="tok-s">  Detects cipher.exe invoked with the /w (wipe) switch, which overwrites the</span>
+<span class="tok-s">  free space on a volume so previously deleted file content can no longer be</span>
+<span class="tok-s">  carved back. It is a signed, built-in binary, which makes it an attractive</span>
+<span class="tok-s">  anti-forensic and anti-recovery tool. The /w switch is distinct from the</span>
+<span class="tok-s">  routine /e and /d encrypt and decrypt operations.</span>
+<span class="tok-y">references:</span>
+  - <span class="tok-s">https://attack.mitre.org/techniques/T1070/004/</span>
+  - <span class="tok-s">https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cipher</span>
+<span class="tok-y">author:</span> <span class="tok-s">Josh Kiriakoff</span>
+<span class="tok-y">date:</span>        <span class="tok-s">2026/06/23</span>
+<span class="tok-y">tags:</span>
+  - <span class="tok-s">attack.defense_evasion</span>
+  - <span class="tok-s">attack.impact</span>
+  - <span class="tok-s">attack.t1070.004</span>
+<span class="tok-y">logsource:</span>
+  <span class="tok-y">category:</span> <span class="tok-s">process_creation</span>
+  <span class="tok-y">product:</span> <span class="tok-s">windows</span>
+<span class="tok-y">detection:</span>
+  <span class="tok-y">selection_cipher:</span>
+    - <span class="tok-s">Image|endswith: &#x27;\cipher.exe&#x27;</span>
+    - <span class="tok-s">OriginalFileName: &#x27;CIPHER.EXE&#x27;</span>
+  <span class="tok-y">selection_wipe:</span>
+    <span class="tok-y">CommandLine|contains:</span> <span class="tok-s">&#x27;/w&#x27;</span>
+  <span class="tok-y">condition:</span> <span class="tok-s">selection_cipher and selection_wipe</span>
+<span class="tok-y">fields:</span>
+  - <span class="tok-s">CommandLine</span>
+  - <span class="tok-s">ParentImage</span>
+  - <span class="tok-s">User</span>
+<span class="tok-y">falsepositives:</span>
+  - <span class="tok-s">Privacy tools and diligent administrators occasionally wipe free space intentionally. Correlate with the surrounding session and the host&#x27;s role.</span>
+<span class="tok-y">level:</span> <span class="tok-s">medium</span></code></pre>
+
+            <h2>false positives, scoping notes</h2>
+            <div class="callout fp">
+              <strong>Known FPs.</strong> Privacy tools and diligent administrators occasionally wipe free space on purpose. Correlate with the session and the host role.
+            </div>
+
+            <h2>references</h2>
+            <ul>
+              <li><a href="https://attack.mitre.org/techniques/T1070/004/" rel="noopener noreferrer" target="_blank">MITRE ATT&amp;CK · T1070.004</a></li>
+              <li><a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cipher" rel="noopener noreferrer" target="_blank">Microsoft Learn · cipher</a></li>
+            </ul>
+
+            <p class="back-link">← <a href="../">back to detections</a> &nbsp; · &nbsp; <a href="../../">home</a></p>
+
+          </div>
+        </div>
+
+        <div class="block" id="b-2" hidden>
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="caret"></span>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <footer class="footer">
+      <span>© <a href="../../">Josh Kiriakoff</a> · <span data-year>2026</span></span>
+    </footer>
+
+  </div>
+
+  <noscript>
+    <style>
+      [hidden]      { display: revert !important; }
+      .caret        { display: none !important; }
+      .anchor-link,
+      .copy-btn     { display: none !important; }
+    </style>
+  </noscript>
+
+  <script src="../../js/terminal.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Josh Kiriakoff" />
+  <meta name="theme-color" content="#1b1c25" />
+  <title>system DLL name loaded from a non-system directory · josh.kiriakoff</title>
+  <meta name="description" content="Side-loading kits plant a look-alike copy of a frequently imported system DLL, such as version.dll or dbghelp.dll, next to a signed executable so the planted copy resolves first" />
+  <link rel="canonical" href="https://josh-kiriakoff.github.io/detections/system-dll-name-non-system-path/" />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="josh.kiriakoff" />
+  <meta property="og:title" content="system DLL name loaded from a non-system directory" />
+  <meta property="og:description" content="Side-loading kits plant a look-alike copy of a frequently imported system DLL, such as version.dll or dbghelp.dll, next to a signed executable so the planted copy resolves first" />
+  <meta property="og:url" content="https://josh-kiriakoff.github.io/detections/system-dll-name-non-system-path/" />
+  <meta property="og:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+  <meta property="article:author" content="Josh Kiriakoff" />
+  <meta property="article:published_time" content="2026-07-15" />
+  <meta property="article:section" content="detections" />
+  <meta property="article:tag" content="attack.defense_evasion" />
+  <meta property="article:tag" content="attack.persistence" />
+  <meta property="article:tag" content="attack.t1574.002" />
+  <meta property="article:tag" content="attack.t1036.005" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="system DLL name loaded from a non-system directory" />
+  <meta name="twitter:description" content="Side-loading kits plant a look-alike copy of a frequently imported system DLL, such as version.dll or dbghelp.dll, next to a signed executable so the planted copy resolves first" />
+  <meta name="twitter:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg" />
+  <link rel="stylesheet" href="../../css/style.css" />
+
+  <!-- Feeds -->
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — blog" href="../../feed-blog.xml" />
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — detections" href="../../feed-detections.xml" />
+</head>
+<body>
+
+  <a href="#main" class="skip-link">skip to content</a>
+
+  <div class="window">
+
+    <header class="chrome">
+      <div class="lights" aria-hidden="true">
+        <span class="l-close"></span>
+        <span class="l-min"></span>
+        <span class="l-max"></span>
+      </div>
+      <div class="chrome-title">josh@kiriakoff:~/detections/system-dll-name-non-system-path.md</div>
+    </header>
+
+    <nav class="tabs" aria-label="primary">
+      <a href="../../">josh.kiriakoff</a>
+      <a href="../../about/">about</a>
+      <a href="../../blog/">blog</a>
+      <a href="../" class="active">detections</a>
+      <a href="../../intel/">intel</a>
+      <a href="../../admin/" class="right">admin</a>
+    </nav>
+
+    <div class="body" id="main">
+      <section class="shell" id="shell" aria-label="terminal session">
+
+        <div class="block" id="b-1" data-cmd="cat " data-target="./system-dll-name-non-system-path.md" data-after="b-2">
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="cmd">cat </span><span class="target">./system-dll-name-non-system-path.md</span>
+          </div>
+
+          <div class="output article-body" hidden>
+
+            <h1>system DLL name loaded from a non-system directory</h1>
+
+            <div class="chips" aria-label="MITRE ATT&amp;CK">
+              <span class="chip">ATT&amp;CK · T1574.002 (DLL Side-Loading)</span>
+              <span class="chip">ATT&amp;CK · T1036.005 (Match Legitimate Name)</span>
+              <span class="chip">Tactic · Defense Evasion</span>
+              <span class="chip">Tactic · Persistence</span>
+            </div>
+
+            <div class="callout hypothesis">
+              <strong>Hypothesis.</strong>
+              Side-loading kits plant a look-alike copy of a frequently imported system DLL, such as <code>version.dll</code> or <code>dbghelp.dll</code>, next to a signed executable so the planted copy resolves first. A system DLL name loaded from outside the system and vendor directories surfaces that swap regardless of the host binary.
+            </div>
+
+            <h2>context</h2>
+            <p>This rule watches the module, not the process. Where the previous rule keys on an unsigned module under a signed loader, this one keys on the name. A file called <code>wininet.dll</code> loading from a Downloads folder is a planted copy standing in for the real one in System32.</p>
+            <p>Keying on the name catches the swap even when the attacker signs the planted DLL, which is why it sits alongside the unsigned-module rule rather than inside it. The allow-list is the real system and vendor paths.</p>
+
+            <h2>hunt</h2>
+            <p>Match a common system DLL name loading from outside system and vendor paths.</p>
+
+<pre><code><span class="tok-c">// hypothesis: a system DLL name loading from a non-system directory.</span>
+<span class="tok-c">// schema:     Huntress Process Insights - library_events (module load)</span>
+
+<span class="tok-k">FROM</span> logs-edr-library_events
+| <span class="tok-k">WHERE</span> <span class="tok-fn">ENDS_WITH</span>(<span class="tok-fn">TO_LOWER</span>(dll.path), <span class="tok-s">&quot;\\version.dll&quot;</span>)
+     <span class="tok-k">OR</span> <span class="tok-fn">ENDS_WITH</span>(<span class="tok-fn">TO_LOWER</span>(dll.path), <span class="tok-s">&quot;\\wininet.dll&quot;</span>)
+     <span class="tok-k">OR</span> <span class="tok-fn">ENDS_WITH</span>(<span class="tok-fn">TO_LOWER</span>(dll.path), <span class="tok-s">&quot;\\dbghelp.dll&quot;</span>)
+| <span class="tok-k">WHERE</span> <span class="tok-k">NOT</span> <span class="tok-fn">TO_LOWER</span>(dll.path) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*\\windows\\system32\\*&quot;</span>
+     <span class="tok-k">AND</span> <span class="tok-k">NOT</span> <span class="tok-fn">TO_LOWER</span>(dll.path) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*\\windows\\winsxs\\*&quot;</span>
+     <span class="tok-k">AND</span> <span class="tok-k">NOT</span> <span class="tok-fn">TO_LOWER</span>(dll.path) <span class="tok-k">LIKE</span> <span class="tok-s">&quot;*\\program files*&quot;</span>
+| <span class="tok-k">KEEP</span> host.name, process.executable, dll.path
+| <span class="tok-k">SORT</span> @timestamp <span class="tok-k">DESC</span>
+| <span class="tok-k">LIMIT</span> <span class="tok-n">100</span></code></pre>
+
+            <h2>findings &amp; discriminators</h2>
+            <ul>
+              <li><strong>The name plus the path is the swap.</strong> A system DLL name resolving from a user or temp directory is the planted copy winning the search order.</li>
+              <li><strong>Confirm the publisher.</strong> Portable apps sometimes ship private copies of these DLLs, so a copy beside a downloaded or temp-staged executable is the stronger signal.</li>
+            </ul>
+
+            <h2>resulting sigma rule</h2>
+
+            <div class="callout rule">
+              <strong>Rule.</strong> Detects a module carrying the file name of a common Windows system DLL being loaded from outside the system and vendor directories. Rated <em>high</em>.
+            </div>
+
+<pre><code><span class="tok-y">title:</span> <span class="tok-s">System DLL Name Loaded From a Non-System Directory</span>
+<span class="tok-y">id:</span> <span class="tok-s">dd44758d-5e30-4677-bca1-ff0902f79c50</span>
+<span class="tok-y">status:</span> <span class="tok-s">experimental</span>
+<span class="tok-y">description:</span> <span class="tok-s">|</span>
+<span class="tok-s">  Detects a module carrying the file name of a common Windows system DLL being</span>
+<span class="tok-s">  loaded from outside the system and vendor directories. Side-loading kits plant</span>
+<span class="tok-s">  a look-alike copy of a frequently imported system DLL (version.dll,</span>
+<span class="tok-s">  dbghelp.dll, wininet.dll and similar) next to a signed executable so the</span>
+<span class="tok-s">  planted copy resolves first. Alerting on a system DLL name loaded from a</span>
+<span class="tok-s">  user-writable or otherwise non-system path surfaces that swap regardless of</span>
+<span class="tok-s">  the host binary.</span>
+<span class="tok-y">references:</span>
+  - <span class="tok-s">https://attack.mitre.org/techniques/T1574/002/</span>
+  - <span class="tok-s">https://attack.mitre.org/techniques/T1036/005/</span>
+<span class="tok-y">author:</span> <span class="tok-s">Josh Kiriakoff</span>
+<span class="tok-y">date:</span>        <span class="tok-s">2026/07/15</span>
+<span class="tok-y">tags:</span>
+  - <span class="tok-s">attack.defense_evasion</span>
+  - <span class="tok-s">attack.persistence</span>
+  - <span class="tok-s">attack.t1574.002</span>
+  - <span class="tok-s">attack.t1036.005</span>
+<span class="tok-y">logsource:</span>
+  <span class="tok-y">category:</span> <span class="tok-s">image_load</span>
+  <span class="tok-y">product:</span> <span class="tok-s">windows</span>
+<span class="tok-y">detection:</span>
+  <span class="tok-y">selection_sysdll:</span>
+    <span class="tok-y">ImageLoaded|endswith:</span>
+      - <span class="tok-s">&#x27;\version.dll&#x27;</span>
+      - <span class="tok-s">&#x27;\wininet.dll&#x27;</span>
+      - <span class="tok-s">&#x27;\dbghelp.dll&#x27;</span>
+      - <span class="tok-s">&#x27;\dbgcore.dll&#x27;</span>
+      - <span class="tok-s">&#x27;\winhttp.dll&#x27;</span>
+      - <span class="tok-s">&#x27;\secur32.dll&#x27;</span>
+      - <span class="tok-s">&#x27;\userenv.dll&#x27;</span>
+      - <span class="tok-s">&#x27;\profapi.dll&#x27;</span>
+      - <span class="tok-s">&#x27;\cryptsp.dll&#x27;</span>
+      - <span class="tok-s">&#x27;\wtsapi32.dll&#x27;</span>
+      - <span class="tok-s">&#x27;\dwmapi.dll&#x27;</span>
+      - <span class="tok-s">&#x27;\propsys.dll&#x27;</span>
+      - <span class="tok-s">&#x27;\textinputframework.dll&#x27;</span>
+  <span class="tok-y">filter_system_paths:</span>
+    <span class="tok-y">ImageLoaded|contains:</span>
+      - <span class="tok-s">&#x27;\Windows\System32\&#x27;</span>
+      - <span class="tok-s">&#x27;\Windows\SysWOW64\&#x27;</span>
+      - <span class="tok-s">&#x27;\Windows\WinSxS\&#x27;</span>
+      - <span class="tok-s">&#x27;\Program Files\&#x27;</span>
+      - <span class="tok-s">&#x27;\Program Files (x86)\&#x27;</span>
+  <span class="tok-y">condition:</span> <span class="tok-s">selection_sysdll and not filter_system_paths</span>
+<span class="tok-y">fields:</span>
+  - <span class="tok-s">Image</span>
+  - <span class="tok-s">ImageLoaded</span>
+  - <span class="tok-s">Signed</span>
+<span class="tok-y">falsepositives:</span>
+  - <span class="tok-s">Portable applications occasionally ship private copies of these DLLs. Confirm the DLL publisher and the directory; a copy beside a downloaded or temp-staged executable is the stronger signal.</span>
+<span class="tok-y">level:</span> <span class="tok-s">high</span></code></pre>
+
+            <h2>false positives, scoping notes</h2>
+            <div class="callout fp">
+              <strong>Known FPs.</strong> Portable applications occasionally ship private copies of these DLLs. Confirm the publisher and the directory before alerting.
+            </div>
+
+            <h2>references</h2>
+            <ul>
+              <li><a href="https://attack.mitre.org/techniques/T1574/002/" rel="noopener noreferrer" target="_blank">MITRE ATT&amp;CK · T1574.002</a></li>
+              <li><a href="https://attack.mitre.org/techniques/T1036/005/" rel="noopener noreferrer" target="_blank">MITRE ATT&amp;CK · T1036.005</a></li>
+            </ul>
+
+            <p class="back-link">← <a href="../">back to detections</a> &nbsp; · &nbsp; <a href="../../">home</a></p>
+
+          </div>
+        </div>
+
+        <div class="block" id="b-2" hidden>
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="caret"></span>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <footer class="footer">
+      <span>© <a href="../../">Josh Kiriakoff</a> · <span data-year>2026</span></span>
+    </footer>
+
+  </div>
+
+  <noscript>
+    <style>
+      [hidden]      { display: revert !important; }
+      .caret        { display: none !important; }
+      .anchor-link,
+      .copy-btn     { display: none !important; }
+    </style>
+  </noscript>
+
+  <script src="../../js/terminal.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Josh Kiriakoff" />
+  <meta name="theme-color" content="#1b1c25" />
+  <title>member added to a rarely-audited privileged group · josh.kiriakoff</title>
+  <meta name="description" content="Everyone alerts on additions to Domain Admins" />
+  <link rel="canonical" href="https://josh-kiriakoff.github.io/detections/privileged-group-member-added/" />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="josh.kiriakoff" />
+  <meta property="og:title" content="member added to a rarely-audited privileged group" />
+  <meta property="og:description" content="Everyone alerts on additions to Domain Admins" />
+  <meta property="og:url" content="https://josh-kiriakoff.github.io/detections/privileged-group-member-added/" />
+  <meta property="og:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+  <meta property="article:author" content="Josh Kiriakoff" />
+  <meta property="article:published_time" content="2026-09-02" />
+  <meta property="article:section" content="detections" />
+  <meta property="article:tag" content="attack.persistence" />
+  <meta property="article:tag" content="attack.privilege_escalation" />
+  <meta property="article:tag" content="attack.t1098" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="member added to a rarely-audited privileged group" />
+  <meta name="twitter:description" content="Everyone alerts on additions to Domain Admins" />
+  <meta name="twitter:image" content="https://josh-kiriakoff.github.io/img/favicon.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="../../img/favicon.svg" />
+  <link rel="stylesheet" href="../../css/style.css" />
+
+  <!-- Feeds -->
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — blog" href="../../feed-blog.xml" />
+  <link rel="alternate" type="application/atom+xml" title="josh.kiriakoff — detections" href="../../feed-detections.xml" />
+</head>
+<body>
+
+  <a href="#main" class="skip-link">skip to content</a>
+
+  <div class="window">
+
+    <header class="chrome">
+      <div class="lights" aria-hidden="true">
+        <span class="l-close"></span>
+        <span class="l-min"></span>
+        <span class="l-max"></span>
+      </div>
+      <div class="chrome-title">josh@kiriakoff:~/detections/privileged-group-member-added.md</div>
+    </header>
+
+    <nav class="tabs" aria-label="primary">
+      <a href="../../">josh.kiriakoff</a>
+      <a href="../../about/">about</a>
+      <a href="../../blog/">blog</a>
+      <a href="../" class="active">detections</a>
+      <a href="../../intel/">intel</a>
+      <a href="../../admin/" class="right">admin</a>
+    </nav>
+
+    <div class="body" id="main">
+      <section class="shell" id="shell" aria-label="terminal session">
+
+        <div class="block" id="b-1" data-cmd="cat " data-target="./privileged-group-member-added.md" data-after="b-2">
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="cmd">cat </span><span class="target">./privileged-group-member-added.md</span>
+          </div>
+
+          <div class="output article-body" hidden>
+
+            <h1>member added to a rarely-audited privileged group</h1>
+
+            <div class="chips" aria-label="MITRE ATT&amp;CK">
+              <span class="chip">ATT&amp;CK · T1098 (Account Manipulation)</span>
+              <span class="chip">Tactic · Persistence</span>
+              <span class="chip">Tactic · Privilege Escalation</span>
+            </div>
+
+            <div class="callout hypothesis">
+              <strong>Hypothesis.</strong>
+              Everyone alerts on additions to Domain Admins. Far fewer watch the privilege-adjacent groups, the built-in operators, DnsAdmins, Cert Publishers, Group Policy Creator Owners, the Remote Desktop and Remote Management users, Distributed COM Users, and the Key Admins. Each grants a durable capability, and each is a favoured backdoor precisely because the change is rarely alerted on.
+            </div>
+
+            <h2>context</h2>
+            <p>This rule fills the blind spot beside the obvious one. An operator who cannot touch Domain Admins without setting off every alarm can often add themselves to a group that grants almost as much and watches almost nothing. DnsAdmins can load a DLL into the DNS service. Backup Operators can read the whole disk. The Key Admins reach the credential material.</p>
+            <p>It reads the group-membership events, 4728, 4732, and 4756, against a watchlist of those groups by SID and by name. Additions made by a machine account are excluded, because just-in-time tooling writes those as the computer account, and the loud groups are left to the rules that already cover them.</p>
+
+            <h2>hunt</h2>
+            <p>Match a member added to a watched privileged group by a human account.</p>
+
+<pre><code><span class="tok-c">// hypothesis: a human account adding a member to a watched privileged group.</span>
+<span class="tok-c">// schema:     Windows Security event log (4728 / 4732 / 4756)</span>
+
+<span class="tok-k">FROM</span> logs-windows-security
+| <span class="tok-k">WHERE</span> event.code <span class="tok-k">IN</span> (<span class="tok-n">4728</span>, <span class="tok-n">4732</span>, <span class="tok-n">4756</span>)
+| <span class="tok-k">WHERE</span> winlog.event_data.TargetUserName <span class="tok-k">IN</span> (<span class="tok-s">&quot;DnsAdmins&quot;</span>, <span class="tok-s">&quot;Backup Operators&quot;</span>, <span class="tok-s">&quot;Account Operators&quot;</span>, <span class="tok-s">&quot;Server Operators&quot;</span>, <span class="tok-s">&quot;Key Admins&quot;</span>)
+| <span class="tok-k">WHERE</span> <span class="tok-k">NOT</span> <span class="tok-fn">ENDS_WITH</span>(winlog.event_data.SubjectUserName, <span class="tok-s">&quot;$&quot;</span>)
+| <span class="tok-k">KEEP</span> host.name, winlog.event_data.SubjectUserName, winlog.event_data.TargetUserName, winlog.event_data.MemberSid
+| <span class="tok-k">SORT</span> @timestamp <span class="tok-k">DESC</span>
+| <span class="tok-k">LIMIT</span> <span class="tok-n">100</span></code></pre>
+
+            <h2>findings &amp; discriminators</h2>
+            <ul>
+              <li><strong>The quiet groups are the point.</strong> These grant durable capability and are rarely alerted on, which is exactly why an operator reaches for them instead of Domain Admins.</li>
+              <li><strong>A machine subject is noise.</strong> Just-in-time tooling writes these adds as the computer account, so excluding a subject ending in a dollar sign leaves the human-driven changes.</li>
+              <li><strong>Tie it to a change record.</strong> A human subject with no business reason and no ticket is the finding.</li>
+            </ul>
+
+            <h2>resulting sigma rule</h2>
+
+            <div class="callout rule">
+              <strong>Rule.</strong> Detects a member being added to a privileged or privilege-adjacent Windows group that sits outside the usual Domain Admins / Enterprise Admins watchlist: the built-in operator groups, DnsAdmins, Cert Publishers, Group Policy Creator Owners, Remote Desktop / Remote Management Users, Distributed COM Users, and the Key Admins. Rated <em>medium</em>.
+            </div>
+
+<pre><code><span class="tok-y">title:</span> <span class="tok-s">Member Added to a Rarely-Audited Privileged Windows Group</span>
+<span class="tok-y">id:</span> <span class="tok-s">a81bb18f-3f7c-415e-829d-c8724a7e17c1</span>
+<span class="tok-y">status:</span> <span class="tok-s">experimental</span>
+<span class="tok-y">description:</span> <span class="tok-s">|</span>
+<span class="tok-s">  Detects a member being added to a privileged or privilege-adjacent Windows</span>
+<span class="tok-s">  group that sits outside the usual Domain Admins / Enterprise Admins watchlist:</span>
+<span class="tok-s">  the built-in operator groups, DnsAdmins, Cert Publishers, Group Policy Creator</span>
+<span class="tok-s">  Owners, Remote Desktop / Remote Management Users, Distributed COM Users, and</span>
+<span class="tok-s">  the Key Admins. Each grants a durable capability and each is a favoured</span>
+<span class="tok-s">  backdoor precisely because membership changes here are rarely alerted on.</span>
+<span class="tok-s">  Additions performed by a machine account (subject ends in $) are excluded,</span>
+<span class="tok-s">  because just-in-time access tooling writes these as the computer account.</span>
+<span class="tok-s">  Adds to Domain / Enterprise / Schema Admins are intentionally out of scope.</span>
+<span class="tok-y">references:</span>
+  - <span class="tok-s">https://josh-kiriakoff.github.io/blog/dc-sslvpn-hok/</span>
+  - <span class="tok-s">https://attack.mitre.org/techniques/T1098/</span>
+  - <span class="tok-s">https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-identifiers</span>
+<span class="tok-y">author:</span> <span class="tok-s">Josh Kiriakoff</span>
+<span class="tok-y">date:</span>        <span class="tok-s">2026/09/02</span>
+<span class="tok-y">tags:</span>
+  - <span class="tok-s">attack.persistence</span>
+  - <span class="tok-s">attack.privilege_escalation</span>
+  - <span class="tok-s">attack.t1098</span>
+<span class="tok-y">logsource:</span>
+  <span class="tok-y">product:</span> <span class="tok-s">windows</span>
+  <span class="tok-y">service:</span> <span class="tok-s">security</span>
+<span class="tok-y">detection:</span>
+  <span class="tok-y">selection_eid:</span>
+    <span class="tok-y">EventID:</span>
+      - <span class="tok-s">4728</span>
+      - <span class="tok-s">4732</span>
+      - <span class="tok-s">4756</span>
+  <span class="tok-y">selection_group_sid:</span>
+    <span class="tok-y">TargetSid:</span>
+      - <span class="tok-s">&#x27;S-1-5-32-548&#x27;</span>
+      - <span class="tok-s">&#x27;S-1-5-32-549&#x27;</span>
+      - <span class="tok-s">&#x27;S-1-5-32-550&#x27;</span>
+      - <span class="tok-s">&#x27;S-1-5-32-551&#x27;</span>
+      - <span class="tok-s">&#x27;S-1-5-32-555&#x27;</span>
+      - <span class="tok-s">&#x27;S-1-5-32-562&#x27;</span>
+      - <span class="tok-s">&#x27;S-1-5-32-569&#x27;</span>
+      - <span class="tok-s">&#x27;S-1-5-32-580&#x27;</span>
+  <span class="tok-y">selection_group_name:</span>
+    <span class="tok-y">TargetUserName:</span>
+      - <span class="tok-s">&#x27;DnsAdmins&#x27;</span>
+      - <span class="tok-s">&#x27;Cert Publishers&#x27;</span>
+      - <span class="tok-s">&#x27;Group Policy Creator Owners&#x27;</span>
+      - <span class="tok-s">&#x27;Account Operators&#x27;</span>
+      - <span class="tok-s">&#x27;Server Operators&#x27;</span>
+      - <span class="tok-s">&#x27;Print Operators&#x27;</span>
+      - <span class="tok-s">&#x27;Backup Operators&#x27;</span>
+      - <span class="tok-s">&#x27;Remote Desktop Users&#x27;</span>
+      - <span class="tok-s">&#x27;Remote Management Users&#x27;</span>
+      - <span class="tok-s">&#x27;Distributed COM Users&#x27;</span>
+      - <span class="tok-s">&#x27;Key Admins&#x27;</span>
+      - <span class="tok-s">&#x27;Enterprise Key Admins&#x27;</span>
+  <span class="tok-y">filter_machine_subject:</span>
+    <span class="tok-y">SubjectUserName|endswith:</span> <span class="tok-s">&#x27;$&#x27;</span>
+  <span class="tok-y">condition:</span> <span class="tok-s">selection_eid and (selection_group_sid or selection_group_name) and not filter_machine_subject</span>
+<span class="tok-y">fields:</span>
+  - <span class="tok-s">TargetUserName</span>
+  - <span class="tok-s">MemberName</span>
+  - <span class="tok-s">SubjectUserName</span>
+<span class="tok-y">falsepositives:</span>
+  - <span class="tok-s">Delegated administration and onboarding legitimately add users to these groups. Correlate with a change record and the adding account; a human subject with no business reason is the finding.</span>
+<span class="tok-y">level:</span> <span class="tok-s">medium</span></code></pre>
+
+            <h2>false positives, scoping notes</h2>
+            <div class="callout fp">
+              <strong>Known FPs.</strong> Delegated administration and onboarding legitimately add users to these groups. Correlate with a change record and the adding account.
+            </div>
+
+            <h2>references</h2>
+            <ul>
+              <li><a href="https://josh-kiriakoff.github.io/blog/dc-sslvpn-hok/" rel="noopener noreferrer" target="_blank">related writeup · dc sslvpn hok</a></li>
+              <li><a href="https://attack.mitre.org/techniques/T1098/" rel="noopener noreferrer" target="_blank">MITRE ATT&amp;CK · T1098</a></li>
+              <li><a href="https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-identifiers" rel="noopener noreferrer" target="_blank">Microsoft Learn · understand security identifiers</a></li>
+            </ul>
+
+            <p class="back-link">← <a href="../">back to detections</a> &nbsp; · &nbsp; <a href="../../">home</a></p>
+
+          </div>
+        </div>
+
+        <div class="block" id="b-2" hidden>
+          <div class="line">
+            <span class="ps1"><span class="user">josh</span><span class="sep">@</span><span class="user">kiriakoff</span><span class="sep">:</span><span class="dir">~/detections</span><span class="sep">$</span></span><span class="caret"></span>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <footer class="footer">
+      <span>© <a href="../../">Josh Kiriakoff</a> · <span data-year>2026</span></span>
+    </footer>
+
+  </div>
+
+  <noscript>
+    <style>
+      [hidden]      { display: revert !important; }
+      .caret        { display: none !important; }
+      .anchor-link,
+      .copy-btn     { display: none !important; }
+    </style>
+  </noscript>
+
+  <script src="../../js/terminal.js" defer></script>
+</body>
+</html>
