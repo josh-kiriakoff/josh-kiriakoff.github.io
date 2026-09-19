@@ -1,8 +1,16 @@
 {
-  "updated": "2026-09-18T23:20:40Z",
-  "checked": "2026-09-18T23:20:40Z",
+  "updated": "2026-09-19T23:11:34Z",
+  "checked": "2026-09-19T23:11:34Z",
   "failed": [],
   "items": [
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "HTTP QUERY Method: The Grey Zone Between GET And POST.",
+      "url": "https://isc.sans.edu/diary/rss/33352",
+      "date": "2026-09-19",
+      "summary": "In June 2026 the IETF published RFC 10008[1], defining a new HTTP method: \"QUERY\". The HTTP protocol faced already by changes (HTTP/2, HTTP/3) but it's the first new standard HTTP verb since \"PATCH\" in 2010!"
+    },
     {
       "source": "kev",
       "label": "cisa kev",
@@ -18,14 +26,6 @@
       "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53266",
       "date": "2026-09-18",
       "summary": "Linux Kernel contains an out-of-bounds write vulnerability in the ebtables SNAT target which allows an ARP sender hardware address rewrite to write directly into a nonlinear socket-buffer fragment backed by a…"
-    },
-    {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "HTTP QUERY Method: The Grey Zone Between GET And POST.",
-      "url": "https://isc.sans.edu/diary/rss/33352",
-      "date": "2026-09-18",
-      "summary": "In June 2026 the IETF published RFC 10008[1], defining a new HTTP method: \"QUERY\". The HTTP protocol faced already by changes (HTTP/2, HTTP/2) but it's the first new standard HTTP verb since \"PATCH\" in 2010!"
     },
     {
       "source": "unit42",
