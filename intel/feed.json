@@ -1,23 +1,63 @@
 {
-  "updated": "2026-09-22T00:10:05Z",
-  "checked": "2026-09-22T00:10:05Z",
+  "updated": "2026-09-22T23:37:07Z",
+  "checked": "2026-09-22T23:37:07Z",
   "failed": [],
   "items": [
     {
       "source": "kev",
       "label": "cisa kev",
-      "title": "Zyxel GS1900 Series Switches Stack-Based Buffer Overflow Vulnerability (CVE-2026-7273)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-7273",
-      "date": "2026-09-21",
-      "summary": "Zyxel GS1900 series switches contain a stack-based buffer overflow vulnerability in the CGI program which could allow a LAN-based, unauthenticated attacker to exploit the flaw and potentially execute OS commands via a…"
+      "title": "Arista VeloCloud Orchestrator Improper Input Validation Vulnerability (CVE-2026-93952)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-93952",
+      "date": "2026-09-22",
+      "summary": "Arista VeloCloud Orchestrator (VCO) on-prem contains an improper input validation vulnerability that may allow a remote attacker to access privileged internal functionality and impact the VCO host. Successful…"
+    },
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "Check Point Multiple Products Improper Certificate Validation Vulnerability (CVE-2026-85102)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-85102",
+      "date": "2026-09-22",
+      "summary": "Check Point Security Gateway and Check Point Spark Firewall using Site to Site VPN or Remote Access VPN contain an improper certificate validation vulnerability which could allow an unauthenticated remote attacker to…"
     },
     {
       "source": "isc",
       "label": "sans isc",
-      "title": "TerminalFix: PNG Steganography",
-      "url": "https://isc.sans.edu/diary/rss/33318",
-      "date": "2026-09-21",
-      "summary": "Microsoft Security Research published an interesting blog post \"TerminalFix campaign deploys a reverse tunnel through multistage intrusion\" about a malware campaign. The aspect that I want to take a closer look at, is…"
+      "title": "LausivLoader analysis, or how to pass data between malware stages",
+      "url": "https://isc.sans.edu/diary/rss/33348",
+      "date": "2026-09-22",
+      "summary": "At the end of August, a malspam message was caught in the quarantine of a mail gateway operated by one of my customers. The message was not especially remarkable – it asked the recipient to review some attached…"
+    },
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "The Truth about GET and HTTP Standards",
+      "url": "https://isc.sans.edu/diary/rss/33358",
+      "date": "2026-09-22",
+      "summary": "On Friday, Xavier talked about the newly introduced HTTP Query method. This new method was introduced to allow \"GET\" requests that include a body. The main reason for this was that GET requests typically do not contain…"
+    },
+    {
+      "source": "talos",
+      "label": "talos",
+      "title": "Introducing CAIRN: Frontier tracking for AI-integrated malware",
+      "url": "https://blog.talosintelligence.com/introducing-cairn-frontier-tracking-for-ai-integrated-malware/",
+      "date": "2026-09-22",
+      "summary": "Talos is releasing CAIRN, a research toolkit for hunting, classifying, and tracking emerging AI-integrated malware."
+    },
+    {
+      "source": "talos",
+      "label": "talos",
+      "title": "The Closed Quorum: Inside the first reported autonomous AI C2 implant",
+      "url": "https://blog.talosintelligence.com/the-closed-quorum-inside-the-first-reported-autonomous-ai-c2-implant/",
+      "date": "2026-09-22",
+      "summary": "CLOSEDQUORUM, a malware binary discovered through Cisco Talos’ CAIRN project, exhibits fully autonomous command and control (C2). It represents a shift in effort displacement for attackers, in which expanding portions…"
+    },
+    {
+      "source": "msti",
+      "label": "microsoft ti",
+      "title": "Unmasking EvilTokens: Getting to the root of device code phishing",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/09/22/unmasking-eviltokens-getting-to-the-root-of-device-code-phishing/",
+      "date": "2026-09-22",
+      "summary": "EvilTokens has quickly become one of the top PhaaS platforms, enabling device code phishing attacks through AI-assisted lures, automated infrastructure, and token theft. In collaboration with partners, Microsoft Digital…"
     },
     {
       "source": "unit42",
@@ -52,22 +92,6 @@
       "summary": "On September 9, 2026, Volexity published a blog post detailing the simultaneous use of multiple chained zero-day exploits in Google Chrome (CVE-2026-85046, CVE-2026-87491) and Microsoft Windows (CVE-2026-85880) by two…"
     },
     {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "HTTP QUERY Method: The Grey Zone Between GET And POST.",
-      "url": "https://isc.sans.edu/diary/rss/33352",
-      "date": "2026-09-19",
-      "summary": "In June 2026 the IETF published RFC 10008[1], defining a new HTTP method: \"QUERY\". The HTTP protocol faced already by changes (HTTP/2, HTTP/3) but it's the first new standard HTTP verb since \"PATCH\" in 2010!"
-    },
-    {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "Linux Kernel Improper Check for Unusual or Exceptional Conditions Vulnerability (CVE-2025-39682)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-39682",
-      "date": "2026-09-18",
-      "summary": "Linux Kernel contains an improper check for unusual or exceptional conditions vulnerability in the TLS receive path which allows a zero-length record retrieved from the rx_list to bypass the intended recvmsg()…"
-    },
-    {
       "source": "unit42",
       "label": "unit 42",
       "title": "A Vault with a Heap-View: The Uncomfortable Space Between AgentCore Harness and Identity",
@@ -98,30 +122,6 @@
       "url": "https://www.cyber.gov.au/about-us/view-all-content/alerts-and-advisories/north-korean-waterplum-commonly-referred-to-as-contagious-interview-cyber-actor-group-targeting-it-professionals",
       "date": "2026-09-18",
       "summary": "A joint cyber security advisory on North Korean threat actors targeting IT professionals through fake jobs, malware, and cryptocurrency theft."
-    },
-    {
-      "source": "talos",
-      "label": "talos",
-      "title": "Ransomware incidents in Japan in the first half of 2026: Investigation of The Gentlemen’s infrastructure and evidence of Qilin's AI use",
-      "url": "https://blog.talosintelligence.com/ransomware-incidents-in-japan-in-the-first-half-of-2026/",
-      "date": "2026-09-17",
-      "summary": "Ransomware incidents in Japan rose 4.7% year over year. The Gentlemen was the most active group, with leak-site listings more than doubling from January to July. Qilin ranked second and appeared to use AI, while SMEs…"
-    },
-    {
-      "source": "talos",
-      "label": "talos",
-      "title": "Should you care about an “AI slowdown?”",
-      "url": "https://blog.talosintelligence.com/should-you-care-about-an-ai-slowdown/",
-      "date": "2026-09-17",
-      "summary": "In this week's Threat Source, David talks about why focusing on your security basics is still your best bet, even in a world with rapid AI advancements."
-    },
-    {
-      "source": "msti",
-      "label": "microsoft ti",
-      "title": "Protecting organizations from AI-assisted executive impersonation and invoice fraud",
-      "url": "https://www.microsoft.com/en-us/security/blog/2026/09/10/protecting-organizations-ai-assisted-executive-impersonation-invoice-fraud/",
-      "date": "2026-09-10",
-      "summary": "Microsoft examines an AI-assisted business email compromise campaign that used executive impersonation and fake invoices to target finance teams with ACH payment fraud."
     },
     {
       "source": "acsc",
