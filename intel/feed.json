@@ -1,8 +1,56 @@
 {
-  "updated": "2026-09-19T23:11:34Z",
-  "checked": "2026-09-19T23:11:34Z",
+  "updated": "2026-09-22T00:10:05Z",
+  "checked": "2026-09-22T00:10:05Z",
   "failed": [],
   "items": [
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "Zyxel GS1900 Series Switches Stack-Based Buffer Overflow Vulnerability (CVE-2026-7273)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-7273",
+      "date": "2026-09-21",
+      "summary": "Zyxel GS1900 series switches contain a stack-based buffer overflow vulnerability in the CGI program which could allow a LAN-based, unauthenticated attacker to exploit the flaw and potentially execute OS commands via a…"
+    },
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "TerminalFix: PNG Steganography",
+      "url": "https://isc.sans.edu/diary/rss/33318",
+      "date": "2026-09-21",
+      "summary": "Microsoft Security Research published an interesting blog post \"TerminalFix campaign deploys a reverse tunnel through multistage intrusion\" about a malware campaign. The aspect that I want to take a closer look at, is…"
+    },
+    {
+      "source": "unit42",
+      "label": "unit 42",
+      "title": "From Exposure to Lockdown: How AWS Neutralizes Compromised IAM Credentials through Managed Policies",
+      "url": "https://unit42.paloaltonetworks.com/detecting-exposed-aws-iam-credentials/",
+      "date": "2026-09-21",
+      "summary": "We explore how AWS neutralizes exposed IAM credentials using managed policies, detailing GitHub secret scanning and CloudTrail monitoring strategies."
+    },
+    {
+      "source": "elastic",
+      "label": "elastic labs",
+      "title": "Cloud Threat Emulation on Autopilot: Context is Everything",
+      "url": "https://www.elastic.co/security-labs/threat-command/cloud-threat-emulation-methodology",
+      "date": "2026-09-21",
+      "summary": "Cloud threat emulation is more than detonation. A plan-first methodology for cloud detection engineering: scope, victim model, telemetry, coverage, cleanup. Learn how to properly leverage AI to automate your emulations."
+    },
+    {
+      "source": "checkpoint",
+      "label": "check point",
+      "title": "21st September – Threat Intelligence Report",
+      "url": "https://research.checkpoint.com/2026/21st-september-threat-intelligence-report/",
+      "date": "2026-09-21",
+      "summary": "Japan’s Digital Agency, which operates the Government Solution Service used by multiple ministries, has confirmed a data breach after attackers exploited a vulnerability in a VPN appliance. Approximately 246,000 records…"
+    },
+    {
+      "source": "volexity",
+      "label": "volexity",
+      "title": "Mind the (Patch) Gap, Part 2: Fake Websites Used to Deploy Chrome & Windows 0-Day Exploits",
+      "url": "https://www.volexity.com/blog/2026/09/21/mind-the-patch-gap-part-2-fake-websites-used-to-deploy-chrome-windows-0-day-exploits/",
+      "date": "2026-09-21",
+      "summary": "On September 9, 2026, Volexity published a blog post detailing the simultaneous use of multiple chained zero-day exploits in Google Chrome (CVE-2026-85046, CVE-2026-87491) and Microsoft Windows (CVE-2026-85880) by two…"
+    },
     {
       "source": "isc",
       "label": "sans isc",
@@ -18,14 +66,6 @@
       "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-39682",
       "date": "2026-09-18",
       "summary": "Linux Kernel contains an improper check for unusual or exceptional conditions vulnerability in the TLS receive path which allows a zero-length record retrieved from the rx_list to bypass the intended recvmsg()…"
-    },
-    {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "Linux Kernel Out-of-Bounds Write Vulnerability (CVE-2026-53266)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53266",
-      "date": "2026-09-18",
-      "summary": "Linux Kernel contains an out-of-bounds write vulnerability in the ebtables SNAT target which allows an ARP sender hardware address rewrite to write directly into a nonlinear socket-buffer fragment backed by a…"
     },
     {
       "source": "unit42",
@@ -60,14 +100,6 @@
       "summary": "A joint cyber security advisory on North Korean threat actors targeting IT professionals through fake jobs, malware, and cryptocurrency theft."
     },
     {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "LausivLoader analysis, or how to pass data between malware stages",
-      "url": "https://isc.sans.edu/diary/rss/33348",
-      "date": "2026-09-17",
-      "summary": "At the end of August, a malspam message was caught in the quarantine of a mail gateway operated by one of my customers. The message was not especially remarkable – it asked the recipient to review some attached…"
-    },
-    {
       "source": "talos",
       "label": "talos",
       "title": "Ransomware incidents in Japan in the first half of 2026: Investigation of The Gentlemen’s infrastructure and evidence of Qilin's AI use",
@@ -84,44 +116,12 @@
       "summary": "In this week's Threat Source, David talks about why focusing on your security basics is still your best bet, even in a world with rapid AI advancements."
     },
     {
-      "source": "unit42",
-      "label": "unit 42",
-      "title": "Inside the Modern SOC: Defending the Cross-Environment Pivot",
-      "url": "https://unit42.paloaltonetworks.com/soc-cross-environment-pivot/",
-      "date": "2026-09-17",
-      "summary": "Cross-environment attacks demand a new approach to security operations. Learn how Unit 42 Managed XSIAM helps SOC teams investigate complete attack paths."
-    },
-    {
-      "source": "checkpoint",
-      "label": "check point",
-      "title": "AI Threat Landscape Digest: July–August 2026",
-      "url": "https://research.checkpoint.com/2026/ai-threat-landscape-digest-july-august-2026/",
-      "date": "2026-09-17",
-      "summary": "The defining development of the period came not from attackers but from the AI labs themselves, whose models broke out of controlled evaluations and reached real systems. In the wild, the criminal and state use of AI…"
-    },
-    {
-      "source": "sentinel",
-      "label": "sentinellabs",
-      "title": "Agents at Large | Tracing Illicit OpenAI Agent Activity on Hugging Face",
-      "url": "https://www.sentinelone.com/labs/agents-at-large-tracing-illicit-openai-agent-activity-on-hugging-face/",
-      "date": "2026-09-16",
-      "summary": "Two Hugging Face accounts reveal that OpenAI's agents staged relay code, internal probes and ChatGPT account registration beyond the published timeline."
-    },
-    {
       "source": "msti",
       "label": "microsoft ti",
       "title": "Protecting organizations from AI-assisted executive impersonation and invoice fraud",
       "url": "https://www.microsoft.com/en-us/security/blog/2026/09/10/protecting-organizations-ai-assisted-executive-impersonation-invoice-fraud/",
       "date": "2026-09-10",
       "summary": "Microsoft examines an AI-assisted business email compromise campaign that used executive impersonation and fake invoices to target finance teams with ACH payment fraud."
-    },
-    {
-      "source": "volexity",
-      "label": "volexity",
-      "title": "Mind the (Patch) Gap: Multiple Chinese Threat Actors Chain 0-day Exploits in Chrome & Windows",
-      "url": "https://www.volexity.com/blog/2026/09/09/mind-the-patch-gap-multiple-chinese-threat-actors-chain-0-day-exploits-in-chrome-windows/",
-      "date": "2026-09-09",
-      "summary": "On September 1, 2026, Volexity’s Network Security Monitoring (NSM) service detected a spear-phishing campaign from a Chinese threat actor it tracks as UTA0560 targeting customers at multiple non-governmental…"
     },
     {
       "source": "acsc",
