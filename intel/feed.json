@@ -1,8 +1,16 @@
 {
-  "updated": "2026-09-22T23:37:07Z",
-  "checked": "2026-09-22T23:37:07Z",
+  "updated": "2026-09-23T23:45:36Z",
+  "checked": "2026-09-23T23:45:36Z",
   "failed": [],
   "items": [
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "Macfinger ClickFix campaign",
+      "url": "https://isc.sans.edu/diary/rss/33360",
+      "date": "2026-09-23",
+      "summary": "Introduction"
+    },
     {
       "source": "kev",
       "label": "cisa kev",
@@ -26,14 +34,6 @@
       "url": "https://isc.sans.edu/diary/rss/33348",
       "date": "2026-09-22",
       "summary": "At the end of August, a malspam message was caught in the quarantine of a mail gateway operated by one of my customers. The message was not especially remarkable – it asked the recipient to review some attached…"
-    },
-    {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "The Truth about GET and HTTP Standards",
-      "url": "https://isc.sans.edu/diary/rss/33358",
-      "date": "2026-09-22",
-      "summary": "On Friday, Xavier talked about the newly introduced HTTP Query method. This new method was introduced to allow \"GET\" requests that include a body. The main reason for this was that GET requests typically do not contain…"
     },
     {
       "source": "talos",
