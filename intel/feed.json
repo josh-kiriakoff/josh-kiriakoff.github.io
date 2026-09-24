@@ -1,8 +1,64 @@
 {
-  "updated": "2026-09-23T23:45:36Z",
-  "checked": "2026-09-23T23:45:36Z",
+  "updated": "2026-09-24T23:53:54Z",
+  "checked": "2026-09-24T23:53:54Z",
   "failed": [],
   "items": [
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "Adobe Commerce and Magento Incorrect Authorization Vulnerability (CVE-2026-71362)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-71362",
+      "date": "2026-09-24",
+      "summary": "Adobe Commerce and Magento contains an incorrect authorization vulnerability that could allow an attacker to leverage this vulnerability to gain elevated access to sensitive resources without any user interaction."
+    },
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "WSO2 Multiple Products Path Traversal Vulnerability (CVE-2026-5430)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5430",
+      "date": "2026-09-24",
+      "summary": "WSO2 API Control Plane, API Manager, Traffic Manager & Universal Gateway contain a path traversal vulnerability that could allow for unrestricted file upload and lead to remote code execution."
+    },
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "One URL, Three Different Tricks",
+      "url": "https://isc.sans.edu/diary/rss/33366",
+      "date": "2026-09-24",
+      "summary": "Yesterday, we received a phishing email with an interesting link. At first sight, it looks like garbage, but every piece of it has been carefully crafted to confuse basic security controls. Here is the defanged link:"
+    },
+    {
+      "source": "talos",
+      "label": "talos",
+      "title": "Trust and the enticing consultancy offer",
+      "url": "https://blog.talosintelligence.com/trust-and-the-enticing-consultancy-offer/",
+      "date": "2026-09-24",
+      "summary": "In this week’s newsletter Martin muses over a very suspicious elicitation over social media and the true value of trust within the cyber ecosystem. Hubris might be the real vulnerability that the cyber industry must…"
+    },
+    {
+      "source": "gti",
+      "label": "google ti",
+      "title": "Proactive Defense: Hardening Code Pipelines and CI/CD Infrastructure",
+      "url": "https://cloud.google.com/blog/topics/threat-intelligence/hardening-code-pipelines-and-ci-cd-infrastructure/",
+      "date": "2026-09-24",
+      "summary": "The landscape of software supply chain security has undergone a significant shift. Recent campaigns demonstrate that sophisticated threat actors are systematically targeting the engineering lifecycle by compromising…"
+    },
+    {
+      "source": "msti",
+      "label": "microsoft ti",
+      "title": "Beyond the ransomware: Tracking Storm-2570’s consistent tradecraft across deployments",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/09/24/beyond-ransomware-tracking-storm-2570-consistent-tradecraft-across-deployments/",
+      "date": "2026-09-24",
+      "summary": "Storm-2570 is a ransomware affiliate that uses consistent post-compromise tools and techniques across deployments involving Qilin, DragonForce, Anubis, and BERT ransomware, and provides guidance to help defenders detect…"
+    },
+    {
+      "source": "acsc",
+      "label": "acsc alert",
+      "title": "HIGH ALERT: Risks of AI misalignment to Australian organisations",
+      "url": "https://www.cyber.gov.au/about-us/view-all-content/alerts-and-advisories/risks-of-ai-misalignment-to-australian-organisations",
+      "date": "2026-09-24",
+      "summary": "Alert on the risks of AI misalignment to Australian organisations, with mitigation advice and guidance on secure AI practices for organisations."
+    },
     {
       "source": "isc",
       "label": "sans isc",
@@ -12,44 +68,12 @@
       "summary": "Introduction"
     },
     {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "Arista VeloCloud Orchestrator Improper Input Validation Vulnerability (CVE-2026-93952)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-93952",
-      "date": "2026-09-22",
-      "summary": "Arista VeloCloud Orchestrator (VCO) on-prem contains an improper input validation vulnerability that may allow a remote attacker to access privileged internal functionality and impact the VCO host. Successful…"
-    },
-    {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "Check Point Multiple Products Improper Certificate Validation Vulnerability (CVE-2026-85102)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-85102",
-      "date": "2026-09-22",
-      "summary": "Check Point Security Gateway and Check Point Spark Firewall using Site to Site VPN or Remote Access VPN contain an improper certificate validation vulnerability which could allow an unauthenticated remote attacker to…"
-    },
-    {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "LausivLoader analysis, or how to pass data between malware stages",
-      "url": "https://isc.sans.edu/diary/rss/33348",
-      "date": "2026-09-22",
-      "summary": "At the end of August, a malspam message was caught in the quarantine of a mail gateway operated by one of my customers. The message was not especially remarkable – it asked the recipient to review some attached…"
-    },
-    {
       "source": "talos",
       "label": "talos",
       "title": "Introducing CAIRN: Frontier tracking for AI-integrated malware",
       "url": "https://blog.talosintelligence.com/introducing-cairn-frontier-tracking-for-ai-integrated-malware/",
       "date": "2026-09-22",
       "summary": "Talos is releasing CAIRN, a research toolkit for hunting, classifying, and tracking emerging AI-integrated malware."
-    },
-    {
-      "source": "talos",
-      "label": "talos",
-      "title": "The Closed Quorum: Inside the first reported autonomous AI C2 implant",
-      "url": "https://blog.talosintelligence.com/the-closed-quorum-inside-the-first-reported-autonomous-ai-c2-implant/",
-      "date": "2026-09-22",
-      "summary": "CLOSEDQUORUM, a malware binary discovered through Cisco Talos’ CAIRN project, exhibits fully autonomous command and control (C2). It represents a shift in effort displacement for attackers, in which expanding portions…"
     },
     {
       "source": "msti",
@@ -100,14 +124,6 @@
       "summary": "Analysis of how default configurations in AWS AgentCore Harness allow prompt injection to exfiltrate credentials, and key steps to secure your agents."
     },
     {
-      "source": "elastic",
-      "label": "elastic labs",
-      "title": "One SOC, 100 projects: running centralized alert triage on Elastic Security Serverless",
-      "url": "https://www.elastic.co/security-labs/blog/centralized-alert-triage-cross-project-search",
-      "date": "2026-09-18",
-      "summary": "We linked one Elastic Security project to 100 others and ran the full prebuilt detection catalog from the origin, with all the ingest landing in the linked projects. It held up, and where it deliberately does not reach…"
-    },
-    {
       "source": "sentinel",
       "label": "sentinellabs",
       "title": "Don’t Call Us, We’ll Call Your APIs | TraderTraitor Backdoors Resurface on Victim With No Crypto Ties",
@@ -122,22 +138,6 @@
       "url": "https://www.cyber.gov.au/about-us/view-all-content/alerts-and-advisories/north-korean-waterplum-commonly-referred-to-as-contagious-interview-cyber-actor-group-targeting-it-professionals",
       "date": "2026-09-18",
       "summary": "A joint cyber security advisory on North Korean threat actors targeting IT professionals through fake jobs, malware, and cryptocurrency theft."
-    },
-    {
-      "source": "acsc",
-      "label": "acsc alert",
-      "title": "CRITICAL ALERT: Active exploitation of Adobe Commerce and Magento Open Source vulnerability",
-      "url": "https://www.cyber.gov.au/about-us/view-all-content/alerts-and-advisories/active-exploitation-of-adobe-commerce-and-magento-open-source-vulnerability",
-      "date": "2026-09-09",
-      "summary": "Alert on active exploitation of a critical vulnerability in Adobe Commerce and Magento Open Source."
-    },
-    {
-      "source": "gti",
-      "label": "google ti",
-      "title": "GTIG AI Threat Tracker: From Prompting to Autonomy – The Evolution of Adversarial AI",
-      "url": "https://cloud.google.com/blog/topics/threat-intelligence/from-prompting-to-autonomy-the-evolution-of-adversarial-ai/",
-      "date": "2026-09-08",
-      "summary": "Since the release of our May 2026 report detailing adversarial misuse of artificial intelligence (AI), Google Threat Intelligence Group (GTIG) has observed forward leaning adversaries transition from basic prompting to…"
     },
     {
       "source": "cisa",
