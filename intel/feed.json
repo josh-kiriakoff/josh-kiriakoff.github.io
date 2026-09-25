@@ -1,23 +1,55 @@
 {
-  "updated": "2026-09-24T23:53:54Z",
-  "checked": "2026-09-24T23:53:54Z",
+  "updated": "2026-09-25T23:57:46Z",
+  "checked": "2026-09-25T23:57:46Z",
   "failed": [],
   "items": [
     {
       "source": "kev",
       "label": "cisa kev",
-      "title": "Adobe Commerce and Magento Incorrect Authorization Vulnerability (CVE-2026-71362)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-71362",
-      "date": "2026-09-24",
-      "summary": "Adobe Commerce and Magento contains an incorrect authorization vulnerability that could allow an attacker to leverage this vulnerability to gain elevated access to sensitive resources without any user interaction."
+      "title": "Microsoft SharePoint Code Injection Vulnerability (CVE-2026-65660)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-65660",
+      "date": "2026-09-25",
+      "summary": "Microsoft SharePoint contains a code injection vulnerability which could allow an authorized attacker to execute code over a network."
     },
     {
       "source": "kev",
       "label": "cisa kev",
-      "title": "WSO2 Multiple Products Path Traversal Vulnerability (CVE-2026-5430)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5430",
-      "date": "2026-09-24",
-      "summary": "WSO2 API Control Plane, API Manager, Traffic Manager & Universal Gateway contain a path traversal vulnerability that could allow for unrestricted file upload and lead to remote code execution."
+      "title": "WordPress Core Remote File Inclusion Vulnerability (CVE-2026-87902)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-87902",
+      "date": "2026-09-25",
+      "summary": "WordPress Core contains a remote file inclusion vulnerability which could allow an unauthenticated attacker to make page-template resolution include a chosen readable local `.php` file outside the active theme…"
+    },
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "A Closer Look at Malware From the Macfinger ClickFix Campaign",
+      "url": "https://isc.sans.edu/diary/rss/33368",
+      "date": "2026-09-25",
+      "summary": "Introduction"
+    },
+    {
+      "source": "unit42",
+      "label": "unit 42",
+      "title": "3 Consulting Myths Debunked by Unit 42 Experts",
+      "url": "https://unit42.paloaltonetworks.com/3-consulting-myths-debunked-by-unit-42-experts/",
+      "date": "2026-09-25",
+      "summary": "Unit 42 security experts address critical cybersecurity misconceptions, offering practical insights to help your organization reinforce its enterprise defenses."
+    },
+    {
+      "source": "gti",
+      "label": "google ti",
+      "title": "ShinyHunters Renewed Mass Exploitation Campaign Targeting Oracle PeopleSoft",
+      "url": "https://cloud.google.com/blog/topics/threat-intelligence/shinyhunters-renewed-mass-exploitation-campaign-targeting-oracle-peoplesoft/",
+      "date": "2026-09-25",
+      "summary": "As an update to the June 2026 post, ShinyHunters Targets Education Sector with Oracle PeopleSoft Exploit , Mandiant and Google Threat Intelligence Group (GTIG) have identified renewed mass exploitation of CVE-2026-35273…"
+    },
+    {
+      "source": "msti",
+      "label": "microsoft ti",
+      "title": "Storm-3168: Agentic-driven cloud attacks using compromised service principals",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/09/25/storm-3168-agentic-driven-cloud-attacks-using-compromised-service-principals/",
+      "date": "2026-09-25",
+      "summary": "Microsoft details JADEPUFFER-linked Azure reconnaissance, resource deletion, and credential access using compromised service principals, identifying the activity as associated with Storm-3168 and providing guidance for…"
     },
     {
       "source": "isc",
@@ -60,36 +92,12 @@
       "summary": "Alert on the risks of AI misalignment to Australian organisations, with mitigation advice and guidance on secure AI practices for organisations."
     },
     {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "Macfinger ClickFix campaign",
-      "url": "https://isc.sans.edu/diary/rss/33360",
-      "date": "2026-09-23",
-      "summary": "Introduction"
-    },
-    {
       "source": "talos",
       "label": "talos",
       "title": "Introducing CAIRN: Frontier tracking for AI-integrated malware",
       "url": "https://blog.talosintelligence.com/introducing-cairn-frontier-tracking-for-ai-integrated-malware/",
       "date": "2026-09-22",
       "summary": "Talos is releasing CAIRN, a research toolkit for hunting, classifying, and tracking emerging AI-integrated malware."
-    },
-    {
-      "source": "msti",
-      "label": "microsoft ti",
-      "title": "Unmasking EvilTokens: Getting to the root of device code phishing",
-      "url": "https://www.microsoft.com/en-us/security/blog/2026/09/22/unmasking-eviltokens-getting-to-the-root-of-device-code-phishing/",
-      "date": "2026-09-22",
-      "summary": "EvilTokens has quickly become one of the top PhaaS platforms, enabling device code phishing attacks through AI-assisted lures, automated infrastructure, and token theft. In collaboration with partners, Microsoft Digital…"
-    },
-    {
-      "source": "unit42",
-      "label": "unit 42",
-      "title": "From Exposure to Lockdown: How AWS Neutralizes Compromised IAM Credentials through Managed Policies",
-      "url": "https://unit42.paloaltonetworks.com/detecting-exposed-aws-iam-credentials/",
-      "date": "2026-09-21",
-      "summary": "We explore how AWS neutralizes exposed IAM credentials using managed policies, detailing GitHub secret scanning and CloudTrail monitoring strategies."
     },
     {
       "source": "elastic",
@@ -114,14 +122,6 @@
       "url": "https://www.volexity.com/blog/2026/09/21/mind-the-patch-gap-part-2-fake-websites-used-to-deploy-chrome-windows-0-day-exploits/",
       "date": "2026-09-21",
       "summary": "On September 9, 2026, Volexity published a blog post detailing the simultaneous use of multiple chained zero-day exploits in Google Chrome (CVE-2026-85046, CVE-2026-87491) and Microsoft Windows (CVE-2026-85880) by two…"
-    },
-    {
-      "source": "unit42",
-      "label": "unit 42",
-      "title": "A Vault with a Heap-View: The Uncomfortable Space Between AgentCore Harness and Identity",
-      "url": "https://unit42.paloaltonetworks.com/securing-aws-agentcore-harness-credentials/",
-      "date": "2026-09-18",
-      "summary": "Analysis of how default configurations in AWS AgentCore Harness allow prompt injection to exfiltrate credentials, and key steps to secure your agents."
     },
     {
       "source": "sentinel",
