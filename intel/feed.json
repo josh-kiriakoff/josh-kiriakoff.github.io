@@ -1,8 +1,48 @@
 {
-  "updated": "2026-09-27T23:49:54Z",
-  "checked": "2026-09-27T23:49:54Z",
+  "updated": "2026-09-29T01:01:48Z",
+  "checked": "2026-09-29T01:01:48Z",
   "failed": [],
   "items": [
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "Apple Emergency Patch for iOS 26, macOS26, macOS15 (CVE-2026-86950)",
+      "url": "https://isc.sans.edu/diary/rss/33376",
+      "date": "2026-09-28",
+      "summary": "Apple today released patches for all of its operating systems. However, only patches for older branches include a security fix. The vulnerability being addressed in iOS 26, macOS 26 and macOS 15 is already being…"
+    },
+    {
+      "source": "unit42",
+      "label": "unit 42",
+      "title": "Threat Brief: NetScaler Zero Days CVE-2026-88771 and CVE-2026-88772 Exploited in the Wild",
+      "url": "https://unit42.paloaltonetworks.com/netscaler-zero-days-exploited/",
+      "date": "2026-09-28",
+      "summary": "Unit 42 is aware of possible 0-day activity against NetScaler devices. Citrix reports CVE-2026-88771, CVE-2026-88772 have been exploited in the wild."
+    },
+    {
+      "source": "elastic",
+      "label": "elastic labs",
+      "title": "Quarantined isn't contained: Agentic phishing response with Elastic and Sublime",
+      "url": "https://www.elastic.co/security-labs/blog/phishing-incident-response-sublime-security",
+      "date": "2026-09-28",
+      "summary": "The native Sublime Security integration sends email detections into Elastic Security, where phishing incident response can tie a quarantined email to what happens next on the endpoint and pull the threat from every…"
+    },
+    {
+      "source": "msti",
+      "label": "microsoft ti",
+      "title": "NeedyMantis: Unpacking a post-compromise malware family used in targeted operations",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/09/28/needymantis-unpacking-a-post-compromise-malware-family-used-in-targeted-operations/",
+      "date": "2026-09-28",
+      "summary": "Microsoft Threat Intelligence identified NeedyMantis, a modular post-compromise malware framework used in targeted intrusions that combines custom loaders, encrypted archives, and extensible components to maintain…"
+    },
+    {
+      "source": "checkpoint",
+      "label": "check point",
+      "title": "28th September – Threat Intelligence Report",
+      "url": "https://research.checkpoint.com/2026/28th-september-threat-intelligence-report/",
+      "date": "2026-09-28",
+      "summary": "The FBI has confirmed unauthorized activity affecting FBIjobs.gov after the ShinyHunters group defaced the website. The group claimed to have stolen employee and applicant information and shared samples of purported FBI…"
+    },
     {
       "source": "kev",
       "label": "cisa kev",
@@ -36,14 +76,6 @@
       "summary": "Alert for organisations to implement a high-priority patch addressing new vulnerabilities, under active exploitation in Citrix NetScaler ADC and Citrix NetScaler Gateway products."
     },
     {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "A Closer Look at Malware From the Macfinger ClickFix Campaign",
-      "url": "https://isc.sans.edu/diary/rss/33368",
-      "date": "2026-09-25",
-      "summary": "Introduction"
-    },
-    {
       "source": "unit42",
       "label": "unit 42",
       "title": "3 Consulting Myths Debunked by Unit 42 Experts",
@@ -68,6 +100,14 @@
       "summary": "Microsoft details JADEPUFFER-linked Azure reconnaissance, resource deletion, and credential access using compromised service principals, identifying the activity as associated with Storm-3168 and providing guidance for…"
     },
     {
+      "source": "acscadv",
+      "label": "acsc advisory",
+      "title": "Protect your organisation's AI services",
+      "url": "https://www.cyber.gov.au/about-us/view-all-content/alerts-and-advisories/protect-your-organisations-ai-services",
+      "date": "2026-09-25",
+      "summary": "Protect access to AI services by securing accounts, credentials and connected systems to reduce the risk of unauthorised use, disruption and data exposure."
+    },
+    {
       "source": "talos",
       "label": "talos",
       "title": "Trust and the enticing consultancy offer",
@@ -84,38 +124,6 @@
       "summary": "The landscape of software supply chain security has undergone a significant shift. Recent campaigns demonstrate that sophisticated threat actors are systematically targeting the engineering lifecycle by compromising…"
     },
     {
-      "source": "msti",
-      "label": "microsoft ti",
-      "title": "Beyond the ransomware: Tracking Storm-2570’s consistent tradecraft across deployments",
-      "url": "https://www.microsoft.com/en-us/security/blog/2026/09/24/beyond-ransomware-tracking-storm-2570-consistent-tradecraft-across-deployments/",
-      "date": "2026-09-24",
-      "summary": "Storm-2570 is a ransomware affiliate that uses consistent post-compromise tools and techniques across deployments involving Qilin, DragonForce, Anubis, and BERT ransomware, and provides guidance to help defenders detect…"
-    },
-    {
-      "source": "acsc",
-      "label": "acsc alert",
-      "title": "HIGH ALERT: Risks of AI misalignment to Australian organisations",
-      "url": "https://www.cyber.gov.au/about-us/view-all-content/alerts-and-advisories/risks-of-ai-misalignment-to-australian-organisations",
-      "date": "2026-09-24",
-      "summary": "Alert on the risks of AI misalignment to Australian organisations, with mitigation advice and guidance on secure AI practices for organisations."
-    },
-    {
-      "source": "elastic",
-      "label": "elastic labs",
-      "title": "Cloud Threat Emulation on Autopilot: Context is Everything",
-      "url": "https://www.elastic.co/security-labs/threat-command/cloud-threat-emulation-methodology",
-      "date": "2026-09-21",
-      "summary": "Cloud threat emulation is more than detonation. A plan-first methodology for cloud detection engineering: scope, victim model, telemetry, coverage, cleanup. Learn how to properly leverage AI to automate your emulations."
-    },
-    {
-      "source": "checkpoint",
-      "label": "check point",
-      "title": "21st September – Threat Intelligence Report",
-      "url": "https://research.checkpoint.com/2026/21st-september-threat-intelligence-report/",
-      "date": "2026-09-21",
-      "summary": "Japan’s Digital Agency, which operates the Government Solution Service used by multiple ministries, has confirmed a data breach after attackers exploited a vulnerability in a VPN appliance. Approximately 246,000 records…"
-    },
-    {
       "source": "volexity",
       "label": "volexity",
       "title": "Mind the (Patch) Gap, Part 2: Fake Websites Used to Deploy Chrome & Windows 0-Day Exploits",
@@ -130,14 +138,6 @@
       "url": "https://www.sentinelone.com/labs/dont-call-us-well-call-your-apis-tradertraitor-backdoors-resurface-on-victim-with-no-crypto-ties/",
       "date": "2026-09-18",
       "summary": "North Korean operators built a foothold on a DevOps engineer's Mac in a campaign whose job interview lures deliver malware via Terraform lock files."
-    },
-    {
-      "source": "acscadv",
-      "label": "acsc advisory",
-      "title": "North Korean \"WaterPlum,\" commonly referred to as “Contagious Interview,” cyber actor group targeting IT professionals",
-      "url": "https://www.cyber.gov.au/about-us/view-all-content/alerts-and-advisories/north-korean-waterplum-commonly-referred-to-as-contagious-interview-cyber-actor-group-targeting-it-professionals",
-      "date": "2026-09-18",
-      "summary": "A joint cyber security advisory on North Korean threat actors targeting IT professionals through fake jobs, malware, and cryptocurrency theft."
     },
     {
       "source": "cisa",
