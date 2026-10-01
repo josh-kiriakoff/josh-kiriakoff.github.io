@@ -1,8 +1,48 @@
 {
-  "updated": "2026-09-30T00:32:11Z",
-  "checked": "2026-09-30T00:32:11Z",
+  "updated": "2026-10-01T00:35:42Z",
+  "checked": "2026-10-01T00:35:42Z",
   "failed": [],
   "items": [
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "Cisco Catalyst SD-WAN Manager Hex Encoding Vulnerability (CVE-2026-76504)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-76504",
+      "date": "2026-09-30",
+      "summary": "Cisco Catalyst SD-WAN Manager contains a hex encoding vulnerability that could allow an unauthenticated, remote attacker to access an affected system with privileges of the admin user due to improper handling of URI…"
+    },
+    {
+      "source": "talos",
+      "label": "talos",
+      "title": "China-nexus UAT-11587 targets government and policy organizations across Asia with Antino backdoor",
+      "url": "https://blog.talosintelligence.com/china-nexus-uat-11587-targets-government-and-policy-organizations-across-asia-with-antino-backdoor/",
+      "date": "2026-09-30",
+      "summary": "Cisco Talos uncovered a cluster of activity we track as UAT-11587 targeting government and policy organizations across Asia, including in Taiwan, India, the Philippines, and Cambodia, to deliver a previously…"
+    },
+    {
+      "source": "unit42",
+      "label": "unit 42",
+      "title": "Threat Brief: NetScaler Zero Days CVE-2026-88771 and CVE-2026-88772 Exploited in the Wild (Updated September 30)",
+      "url": "https://unit42.paloaltonetworks.com/netscaler-zero-days-exploited/",
+      "date": "2026-09-30",
+      "summary": "Unit 42 is aware of possible 0-day activity against NetScaler devices. Citrix reports CVE-2026-88771, CVE-2026-88772 have been exploited in the wild."
+    },
+    {
+      "source": "gti",
+      "label": "google ti",
+      "title": "Vulnerability Discovery and Exploitation Trends in the AI Era",
+      "url": "https://cloud.google.com/blog/topics/threat-intelligence/vulnerability-discovery-and-exploitation-trends-in-the-ai-era/",
+      "date": "2026-09-30",
+      "summary": "Written by: Robin Grunewald, Supriya Mazumdar, Kelli Vanderlee Introduction Google Threat Intelligence Group (GTIG) examines vulnerability disclosure and exploitation statistics to evaluate the impact of artificial…"
+    },
+    {
+      "source": "msti",
+      "label": "microsoft ti",
+      "title": "Unauthenticated command injection on internet-facing mail servers: tracking CVE-2026-73570",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
+      "date": "2026-09-30",
+      "summary": "Microsoft Threat Intelligence examines CVE-2026-73570 exploitation in Zimbra, including observed attack paths, detection opportunities, and mitigation guidance."
+    },
     {
       "source": "kev",
       "label": "cisa kev",
@@ -60,52 +100,12 @@
       "summary": "Microsoft observed phishing campaigns that abused MSP360 RMM to deploy ScreenConnect, creating redundant remote-access channels for follow-on activity"
     },
     {
-      "source": "msti",
-      "label": "microsoft ti",
-      "title": "Star Blizzard refines phishing and malware delivery with the RedFlick technique",
-      "url": "https://www.microsoft.com/en-us/security/blog/2026/09/29/star-blizzard-refines-phishing-and-malware-delivery-with-the-redflick-technique/",
-      "date": "2026-09-29",
-      "summary": "Since January 2026, Microsoft has observed Russian state threat actor Star Blizzard evolve their detection evasion capabilities through large-scale phishing campaigns, the use of accounts on compromised websites, and a…"
-    },
-    {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "Apple Emergency Patch for iOS 26, macOS26, macOS15 (CVE-2026-86950)",
-      "url": "https://isc.sans.edu/diary/rss/33376",
-      "date": "2026-09-28",
-      "summary": "Apple today released patches for all of its operating systems. However, only patches for older branches include a security fix. The vulnerability being addressed in iOS 26, macOS 26 and macOS 15 is already being…"
-    },
-    {
-      "source": "unit42",
-      "label": "unit 42",
-      "title": "Threat Brief: NetScaler Zero Days CVE-2026-88771 and CVE-2026-88772 Exploited in the Wild",
-      "url": "https://unit42.paloaltonetworks.com/netscaler-zero-days-exploited/",
-      "date": "2026-09-28",
-      "summary": "Unit 42 is aware of possible 0-day activity against NetScaler devices. Citrix reports CVE-2026-88771, CVE-2026-88772 have been exploited in the wild."
-    },
-    {
-      "source": "elastic",
-      "label": "elastic labs",
-      "title": "Quarantined isn't contained: Agentic phishing response with Elastic and Sublime",
-      "url": "https://www.elastic.co/security-labs/blog/phishing-incident-response-sublime-security",
-      "date": "2026-09-28",
-      "summary": "The native Sublime Security integration sends email detections into Elastic Security, where phishing incident response can tie a quarantined email to what happens next on the endpoint and pull the threat from every…"
-    },
-    {
       "source": "checkpoint",
       "label": "check point",
       "title": "28th September – Threat Intelligence Report",
       "url": "https://research.checkpoint.com/2026/28th-september-threat-intelligence-report/",
       "date": "2026-09-28",
       "summary": "The FBI has confirmed unauthorized activity affecting FBIjobs.gov after the ShinyHunters group defaced the website. The group claimed to have stolen employee and applicant information and shared samples of purported FBI…"
-    },
-    {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "Citrix NetScaler Improper Input Validation Vulnerability (CVE-2026-88771)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-88771",
-      "date": "2026-09-27",
-      "summary": "Citrix NetScaler ADC and NetScaler Gateway contain an improper input validation vulnerability that could allow an unauthenticated attacker to execute arbitrary commands."
     },
     {
       "source": "acsc",
