@@ -1,8 +1,40 @@
 {
-  "updated": "2026-10-01T00:35:42Z",
-  "checked": "2026-10-01T00:35:42Z",
+  "updated": "2026-10-02T00:51:02Z",
+  "checked": "2026-10-02T00:51:02Z",
   "failed": [],
   "items": [
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "Fortinet FortiMail Path Traversal Vulnerability (CVE-2026-104286)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-104286",
+      "date": "2026-10-01",
+      "summary": "Fortinet FortiMail contains a path traversal and an improper neutralization of NULL byte or NULL character vulnerability that may allow an unauthenticated attacker to write arbitrary files on the underlying system via…"
+    },
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "ScreenConnect Client (Ab)used by Attackers",
+      "url": "https://isc.sans.edu/diary/rss/33388",
+      "date": "2026-10-01",
+      "summary": "Threat Actors do not always use top-notch techniques or very complex malware to perform their attacks. Sometimes, they just abuse of existing applications..."
+    },
+    {
+      "source": "talos",
+      "label": "talos",
+      "title": "Give yourself room to be human",
+      "url": "https://blog.talosintelligence.com/give-yourself-room-to-be-human/",
+      "date": "2026-10-01",
+      "summary": "In this week’s edition, Amy reflects on the importance of prioritizing family and personal well-being over the pressure to remain constantly productive."
+    },
+    {
+      "source": "talos",
+      "label": "talos",
+      "title": "The Fine Art of Frustrating the Adversary",
+      "url": "https://blog.talosintelligence.com/the-fine-art-of-frustrating-the-adversary/",
+      "date": "2026-10-01",
+      "summary": "What really frustrates an adversary? Eight Cisco Talos researchers share practical ways to make their next move slower and riskier. From deception and behavioral detection to breaking attack dependencies and resisting…"
+    },
     {
       "source": "kev",
       "label": "cisa kev",
@@ -10,14 +42,6 @@
       "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-76504",
       "date": "2026-09-30",
       "summary": "Cisco Catalyst SD-WAN Manager contains a hex encoding vulnerability that could allow an unauthenticated, remote attacker to access an affected system with privileges of the admin user due to improper handling of URI…"
-    },
-    {
-      "source": "talos",
-      "label": "talos",
-      "title": "China-nexus UAT-11587 targets government and policy organizations across Asia with Antino backdoor",
-      "url": "https://blog.talosintelligence.com/china-nexus-uat-11587-targets-government-and-policy-organizations-across-asia-with-antino-backdoor/",
-      "date": "2026-09-30",
-      "summary": "Cisco Talos uncovered a cluster of activity we track as UAT-11587 targeting government and policy organizations across Asia, including in Taiwan, India, the Philippines, and Cambodia, to deliver a previously…"
     },
     {
       "source": "unit42",
@@ -44,28 +68,12 @@
       "summary": "Microsoft Threat Intelligence examines CVE-2026-73570 exploitation in Zimbra, including observed attack paths, detection opportunities, and mitigation guidance."
     },
     {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "Apple Multiple Products Out-of-Bounds Write Vulnerability (CVE-2026-86950)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-86950",
-      "date": "2026-09-29",
-      "summary": "Apple iOS, macOS, and iPadOS contain an out-of-bounds write vulnerability in CoreGraphics that may lead to arbitrary code execution."
-    },
-    {
       "source": "isc",
       "label": "sans isc",
       "title": "Scans for Wordfence Protected Websites",
       "url": "https://isc.sans.edu/diary/rss/33382",
       "date": "2026-09-29",
       "summary": "Starting yesterday, our sensors picked up a small number of scans for \"wordfence-waf.php\". This particular script is used by Wordfence, a solution to protect WordPress sites. During the Wordfence install, the…"
-    },
-    {
-      "source": "talos",
-      "label": "talos",
-      "title": "Securing the keys to the kingdom: Announcing Executive Threat Detection",
-      "url": "https://blog.talosintelligence.com/securing-the-keys-to-the-kingdom-announcing-executive-threat-detection/",
-      "date": "2026-09-29",
-      "summary": "This new proactive service joins the suite of retainer offerings to provide dedicated, intelligence-led hunting specifically for your organization’s most high-value IT assets."
     },
     {
       "source": "unit42",
@@ -90,14 +98,6 @@
       "url": "https://cloud.google.com/blog/topics/threat-intelligence/defending-against-active-exploitation-of-citrix-netscaler-adc-and-gateway-appliances/",
       "date": "2026-09-29",
       "summary": "In late September 2026, Mandiant Consulting and Google Threat Intelligence Group (GTIG) identified active, in-the-wild exploitation of a zero-day vulnerability (CVE-2026-88772) affecting Citrix NetScaler ADC and…"
-    },
-    {
-      "source": "msti",
-      "label": "microsoft ti",
-      "title": "Phishing Abuses RMM Tools for Persistent Access",
-      "url": "https://www.microsoft.com/en-us/security/blog/2026/09/29/phishing-abuses-rmm-tools-persistent-access/",
-      "date": "2026-09-29",
-      "summary": "Microsoft observed phishing campaigns that abused MSP360 RMM to deploy ScreenConnect, creating redundant remote-access channels for follow-on activity"
     },
     {
       "source": "checkpoint",
