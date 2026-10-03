@@ -1,8 +1,16 @@
 {
-  "updated": "2026-10-03T00:32:29Z",
-  "checked": "2026-10-03T00:32:29Z",
+  "updated": "2026-10-03T23:48:01Z",
+  "checked": "2026-10-03T23:48:01Z",
   "failed": [],
   "items": [
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "YARA-X 1.21.0 Release",
+      "url": "https://isc.sans.edu/diary/rss/33392",
+      "date": "2026-10-03",
+      "summary": "YARA-X&#;x26;#;39;s 1.21.0 release brings 5 improvements and 4 bugfixes."
+    },
     {
       "source": "kev",
       "label": "cisa kev",
@@ -66,14 +74,6 @@
       "url": "https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
       "date": "2026-09-30",
       "summary": "Microsoft Threat Intelligence examines CVE-2026-73570 exploitation in Zimbra, including observed attack paths, detection opportunities, and mitigation guidance."
-    },
-    {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "Scans for Wordfence Protected Websites",
-      "url": "https://isc.sans.edu/diary/rss/33382",
-      "date": "2026-09-29",
-      "summary": "Starting yesterday, our sensors picked up a small number of scans for \"wordfence-waf.php\". This particular script is used by Wordfence, a solution to protect WordPress sites. During the Wordfence install, the…"
     },
     {
       "source": "unit42",
