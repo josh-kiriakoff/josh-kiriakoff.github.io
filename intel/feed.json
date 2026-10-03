@@ -1,15 +1,23 @@
 {
-  "updated": "2026-10-02T00:51:02Z",
-  "checked": "2026-10-02T00:51:02Z",
+  "updated": "2026-10-03T00:32:29Z",
+  "checked": "2026-10-03T00:32:29Z",
   "failed": [],
   "items": [
     {
       "source": "kev",
       "label": "cisa kev",
-      "title": "Fortinet FortiMail Path Traversal Vulnerability (CVE-2026-104286)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-104286",
-      "date": "2026-10-01",
-      "summary": "Fortinet FortiMail contains a path traversal and an improper neutralization of NULL byte or NULL character vulnerability that may allow an unauthenticated attacker to write arbitrary files on the underlying system via…"
+      "title": "Zammad GmbH Zammad Improper Privilege Management Vulnerability (CVE-2026-102490)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-102490",
+      "date": "2026-10-02",
+      "summary": "Zammad GmbH Zammad contains an improper privilege management vulnerability that can allow the local zammad user to escalate privileges to root. This vulnerability can be chained with CVE-2026-102489."
+    },
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "Zammad GmbH Zammad Session Fixation Vulnerability (CVE-2026-102489)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-102489",
+      "date": "2026-10-02",
+      "summary": "Zammad GmbH Zammad contains a session fixation vulnerability that can lead to remote code execution as the zammad user. This vulnerability can be chained with CVE-2026-102490."
     },
     {
       "source": "isc",
@@ -34,14 +42,6 @@
       "url": "https://blog.talosintelligence.com/the-fine-art-of-frustrating-the-adversary/",
       "date": "2026-10-01",
       "summary": "What really frustrates an adversary? Eight Cisco Talos researchers share practical ways to make their next move slower and riskier. From deception and behavioral detection to breaking attack dependencies and resisting…"
-    },
-    {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "Cisco Catalyst SD-WAN Manager Hex Encoding Vulnerability (CVE-2026-76504)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-76504",
-      "date": "2026-09-30",
-      "summary": "Cisco Catalyst SD-WAN Manager contains a hex encoding vulnerability that could allow an unauthenticated, remote attacker to access an affected system with privileges of the admin user due to improper handling of URI…"
     },
     {
       "source": "unit42",
