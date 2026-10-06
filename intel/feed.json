@@ -1,8 +1,32 @@
 {
-  "updated": "2026-10-04T23:58:41Z",
-  "checked": "2026-10-04T23:58:41Z",
+  "updated": "2026-10-06T01:46:41Z",
+  "checked": "2026-10-06T01:46:41Z",
   "failed": [],
   "items": [
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "TTY Logs and the Data it Captures",
+      "url": "https://isc.sans.edu/diary/rss/33396",
+      "date": "2026-10-05",
+      "summary": "For an experiment, I created a script [1] that parses and send the TTY logs collected from actors or bots activity that run various commands after they successfully login the DShield sensor. Those TTY logs are sent…"
+    },
+    {
+      "source": "elastic",
+      "label": "elastic labs",
+      "title": "Behind the tags: How Elastic SIEM grades 1,781 detection rules on noise, speed, and threat coverage",
+      "url": "https://www.elastic.co/security-labs/threat-command/elastic-siem-detection-rule-tags",
+      "date": "2026-10-05",
+      "summary": "This article explains how Elastic SIEM uses a monthly automated telemetry pipeline to score prebuilt detection rules across noise, performance, threat, and profile dimensions, helping security teams decide which rules…"
+    },
+    {
+      "source": "checkpoint",
+      "label": "check point",
+      "title": "5th October – Threat Intelligence Report",
+      "url": "https://research.checkpoint.com/2026/5th-october-threat-intelligence-report/",
+      "date": "2026-10-05",
+      "summary": "Arizona’s state court system has suffered a phishing-led cyberattack after an employee clicked a malicious link. Attackers copied backup files containing protective-order records and more than 150,000 Foster Care Review…"
+    },
     {
       "source": "kev",
       "label": "cisa kev",
@@ -18,14 +42,6 @@
       "url": "https://isc.sans.edu/diary/rss/33394",
       "date": "2026-10-04",
       "summary": "Sometimes I have to smile, or my interest is triggered, when I review new User Agent Strings in the honeypot logs."
-    },
-    {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "YARA-X 1.21.0 Release",
-      "url": "https://isc.sans.edu/diary/rss/33392",
-      "date": "2026-10-03",
-      "summary": "YARA-X&#;x26;#;39;s 1.21.0 release brings 5 improvements and 4 bugfixes."
     },
     {
       "source": "kev",
@@ -90,22 +106,6 @@
       "url": "https://www.elastic.co/security-labs/blog/linux-endpoint-management-elastic-workflows",
       "date": "2026-09-29",
       "summary": "Elastic InfoSec runs Linux endpoint management through Elastic Defend with a scheduled workflow that gets Cursor and Codex config onto new laptops without piling up duplicate actions on offline hosts, and it works for…"
-    },
-    {
-      "source": "gti",
-      "label": "google ti",
-      "title": "Defending Against Active Exploitation of Citrix NetScaler ADC and Gateway Appliances",
-      "url": "https://cloud.google.com/blog/topics/threat-intelligence/defending-against-active-exploitation-of-citrix-netscaler-adc-and-gateway-appliances/",
-      "date": "2026-09-29",
-      "summary": "In late September 2026, Mandiant Consulting and Google Threat Intelligence Group (GTIG) identified active, in-the-wild exploitation of a zero-day vulnerability (CVE-2026-88772) affecting Citrix NetScaler ADC and…"
-    },
-    {
-      "source": "checkpoint",
-      "label": "check point",
-      "title": "28th September – Threat Intelligence Report",
-      "url": "https://research.checkpoint.com/2026/28th-september-threat-intelligence-report/",
-      "date": "2026-09-28",
-      "summary": "The FBI has confirmed unauthorized activity affecting FBIjobs.gov after the ShinyHunters group defaced the website. The group claimed to have stolen employee and applicant information and shared samples of purported FBI…"
     },
     {
       "source": "acsc",
