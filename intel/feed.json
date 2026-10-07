@@ -1,8 +1,27 @@
 {
-  "updated": "2026-10-06T01:46:41Z",
-  "checked": "2026-10-06T01:46:41Z",
-  "failed": [],
+  "updated": "2026-10-07T00:46:03Z",
+  "checked": "2026-10-07T00:46:03Z",
+  "failed": [
+    "acsc",
+    "acscadv"
+  ],
   "items": [
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "More RMM Tools In the Wild",
+      "url": "https://isc.sans.edu/diary/rss/33400",
+      "date": "2026-10-06",
+      "summary": "It seems that a trend started&#xe2;&#x80;&#xa6; I continue my journey discovering more RMM (\"Remote Management & Monitoring\") tools abused by threat actors! A few days ago, I wrote a diary[1] about ScreenConnect used in…"
+    },
+    {
+      "source": "unit42",
+      "label": "unit 42",
+      "title": "Blinder Tunnel Campaign Targets Iraqi Infrastructure",
+      "url": "https://unit42.paloaltonetworks.com/blinder-tunnel-targets-critical-infrastructure/",
+      "date": "2026-10-06",
+      "summary": "Analysis of Blinder Tunnel, an Iran-nexus campaign using fake Dubai Airports recruitment lures and GitHub C2 malware to target critical infrastructure."
+    },
     {
       "source": "isc",
       "label": "sans isc",
@@ -34,14 +53,6 @@
       "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-88779",
       "date": "2026-10-04",
       "summary": "Citrix NetScaler ADC (formerly Citrix ADC) and Citrix NetScaler Gateway (formerly Citrix Gateway) contain an improper restriction of operations within the bounds of a memory buffer vulnerability that could allow for a…"
-    },
-    {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "User Agent Strings Curiosities",
-      "url": "https://isc.sans.edu/diary/rss/33394",
-      "date": "2026-10-04",
-      "summary": "Sometimes I have to smile, or my interest is triggered, when I review new User Agent Strings in the honeypot logs."
     },
     {
       "source": "kev",
@@ -90,14 +101,6 @@
       "url": "https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
       "date": "2026-09-30",
       "summary": "Microsoft Threat Intelligence examines CVE-2026-73570 exploitation in Zimbra, including observed attack paths, detection opportunities, and mitigation guidance."
-    },
-    {
-      "source": "unit42",
-      "label": "unit 42",
-      "title": "OperTraitors: How Kubernetes Operators Betray Your Security Posture",
-      "url": "https://unit42.paloaltonetworks.com/agentic-ai-kubernetes-operator-risks/",
-      "date": "2026-09-29",
-      "summary": "We introduce OperTraitor, a tool to audit privileges of Kubernetes operators, identify excessive RBAC risks, and secure non-human identities."
     },
     {
       "source": "elastic",
