@@ -1,11 +1,59 @@
 {
-  "updated": "2026-10-08T01:03:04Z",
-  "checked": "2026-10-08T01:03:04Z",
+  "updated": "2026-10-09T01:15:29Z",
+  "checked": "2026-10-09T01:15:29Z",
   "failed": [
     "acsc",
     "acscadv"
   ],
   "items": [
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "Apache Struts Command Injection Vulnerability (CVE-2016-3081)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2016-3081",
+      "date": "2026-10-08",
+      "summary": "Apache Struts contains a command injection vulnerability that could allow remote attackers to execute arbitrary code via method:prefix when Dynamic Method Invocation is enabled."
+    },
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "ProFTPD Improper Access Control Vulnerability (CVE-2015-3306)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2015-3306",
+      "date": "2026-10-08",
+      "summary": "ProFTPD contains an improper access control vulnerability that could allow remote attackers to read and write to arbitrary files via the site cpfr and site cpto commands."
+    },
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "Reconstructing AI Agent Activity: Two New Scripts for Forensic Review",
+      "url": "https://isc.sans.edu/diary/rss/33410",
+      "date": "2026-10-08",
+      "summary": "We just did a major update to FOR577 and added a lot of new material on day 5 about investigating AI usage in incident response. In the new material we dicsuss 8&#;x26;#;xc2;&#;x26;#;xa0;of the most popular AI coding…"
+    },
+    {
+      "source": "talos",
+      "label": "talos",
+      "title": "Ignore all instructions and read this blog: The state of AI-analysis evasion in malware",
+      "url": "https://blog.talosintelligence.com/ignore-all-instructions-and-read-this-blog-the-state-of-ai-analysis-evasion-in-malware/",
+      "date": "2026-10-08",
+      "summary": "“AI-analysis evasion” encapsulates the real-world techniques malware authors are developing in attempt to obstruct or defeat any layers of automated AI analysis."
+    },
+    {
+      "source": "talos",
+      "label": "talos",
+      "title": "Making sure the checks get printed",
+      "url": "https://blog.talosintelligence.com/making-sure-the-checks-get-printed/",
+      "date": "2026-10-08",
+      "summary": "Pierre's debut newsletter explores the messy, real-world side of risk management and how to keep vital systems running when a perfect patch isn't an option."
+    },
+    {
+      "source": "elastic",
+      "label": "elastic labs",
+      "title": "Introducing AlertZero: Inbox zero for your alert queue",
+      "url": "https://www.elastic.co/security-labs/blog/ai-soc-automation-alertzero",
+      "date": "2026-10-08",
+      "summary": "AlertZero brings AI SOC automation to Elastic Security with four agents, one job each, so the queue stops setting your priorities. Nothing changes in your environment without your approval."
+    },
     {
       "source": "isc",
       "label": "sans isc",
@@ -13,22 +61,6 @@
       "url": "https://isc.sans.edu/diary/rss/33406",
       "date": "2026-10-07",
       "summary": "On October 5th, Atlassian published patches&#;x26;#;xc2;&#;x26;#;xa0;for multiple products to fix an \"Arbitrary File Access\" vulnerability &#;x26;#;x5b;CVE-2026-21589&#;x26;#;x5d;. An attacker can read arbitrary files…"
-    },
-    {
-      "source": "talos",
-      "label": "talos",
-      "title": "Microsoft, Adobe, Apple, and Foxit vulnerabilities",
-      "url": "https://blog.talosintelligence.com/microsoft-adobe-apple-and-foxit-vulnerabilities/",
-      "date": "2026-10-07",
-      "summary": "Cisco Talos’ Vulnerability Discovery & Research team recently disclosed vulnerabilities in Adobe, Apple, Foxit Reader, and Microsoft. The vulnerabilities mentioned in this blog post have been patched by their respective…"
-    },
-    {
-      "source": "talos",
-      "label": "talos",
-      "title": "One breach, please, and make no mistakes",
-      "url": "https://blog.talosintelligence.com/one-breach-please-and-make-no-mistakes/",
-      "date": "2026-10-07",
-      "summary": "The cybersecurity community has seen examples of autonomous agents, built inside AI labs, attacking public infrastructure. How you prepare for agentic threats is what makes the difference during real incidents."
     },
     {
       "source": "unit42",
@@ -39,12 +71,12 @@
       "summary": "Unit 42 details how threat actors leverage Web3 infrastructure and open-source supply chain attacks to breach enterprise cloud environments"
     },
     {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "More RMM Tools In the Wild",
-      "url": "https://isc.sans.edu/diary/rss/33400",
+      "source": "cisa",
+      "label": "cisa advisory",
+      "title": "Chinese Government-linked Cyber Threat Actors Combine Automated and Hands-on Hacking Tools to Steal Sensitive Data",
+      "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-281a",
       "date": "2026-10-06",
-      "summary": "It seems that a trend started&#xe2;&#x80;&#xa6; I continue my journey discovering more RMM (\"Remote Management & Monitoring\") tools abused by threat actors! A few days ago, I wrote a diary[1] about ScreenConnect used in…"
+      "summary": "Chinese government-linked cyber threat actors, enabled by the Integrity Technology Group, are combining automated scanning tools, large-scale botnets, and hands-on exploitation techniques to target and steal sensitive…"
     },
     {
       "source": "unit42",
@@ -71,22 +103,6 @@
       "summary": "Arizona’s state court system has suffered a phishing-led cyberattack after an employee clicked a malicious link. Attackers copied backup files containing protective-order records and more than 150,000 Foster Care Review…"
     },
     {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "Citrix NetScaler Improper Restriction of Operations within the Bounds of a Memory Buffer Vulnerability (CVE-2026-88779)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-88779",
-      "date": "2026-10-04",
-      "summary": "Citrix NetScaler ADC (formerly Citrix ADC) and Citrix NetScaler Gateway (formerly Citrix Gateway) contain an improper restriction of operations within the bounds of a memory buffer vulnerability that could allow for a…"
-    },
-    {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "Zammad GmbH Zammad Improper Privilege Management Vulnerability (CVE-2026-102490)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-102490",
-      "date": "2026-10-02",
-      "summary": "Zammad GmbH Zammad contains an improper privilege management vulnerability that can allow the local zammad user to escalate privileges to root. This vulnerability can be chained with CVE-2026-102489."
-    },
-    {
       "source": "gti",
       "label": "google ti",
       "title": "Vulnerability Discovery and Exploitation Trends in the AI Era",
@@ -101,14 +117,6 @@
       "url": "https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
       "date": "2026-09-30",
       "summary": "Microsoft Threat Intelligence examines CVE-2026-73570 exploitation in Zimbra, including observed attack paths, detection opportunities, and mitigation guidance."
-    },
-    {
-      "source": "elastic",
-      "label": "elastic labs",
-      "title": "No MDM for Linux? A 68-line Elastic workflow keeps every endpoint's config current",
-      "url": "https://www.elastic.co/security-labs/blog/linux-endpoint-management-elastic-workflows",
-      "date": "2026-09-29",
-      "summary": "Elastic InfoSec runs Linux endpoint management through Elastic Defend with a scheduled workflow that gets Cursor and Codex config onto new laptops without piling up duplicate actions on offline hosts, and it works for…"
     },
     {
       "source": "acsc",
@@ -141,14 +149,6 @@
       "url": "https://www.sentinelone.com/labs/dont-call-us-well-call-your-apis-tradertraitor-backdoors-resurface-on-victim-with-no-crypto-ties/",
       "date": "2026-09-18",
       "summary": "North Korean operators built a foothold on a DevOps engineer's Mac in a campaign whose job interview lures deliver malware via Terraform lock files."
-    },
-    {
-      "source": "cisa",
-      "label": "cisa advisory",
-      "title": "China-Based Artificial Intelligence Companies Conducting Industrial-Scale Distillation Campaigns Against U.S. AI Companies",
-      "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-251a",
-      "date": "2026-09-04",
-      "summary": "China-based artificial intelligence (AI) companies are conducting systematic extraction of proprietary functionalities and capabilities of U.S. AI companies’ models through industrial-scale knowledge distillation…"
     },
     {
       "source": "dfir",
