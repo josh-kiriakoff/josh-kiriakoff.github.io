@@ -1,11 +1,27 @@
 {
-  "updated": "2026-10-11T00:15:35Z",
-  "checked": "2026-10-11T00:15:35Z",
+  "updated": "2026-10-13T02:36:22Z",
+  "checked": "2026-10-13T02:36:22Z",
   "failed": [
     "acsc",
     "acscadv"
   ],
   "items": [
+    {
+      "source": "elastic",
+      "label": "elastic labs",
+      "title": "Auditing the auditor: Unmasking Apex Accelerator",
+      "url": "https://www.elastic.co/security-labs/threat-command/apex-accelerator-malicious-npm-packages",
+      "date": "2026-10-12",
+      "summary": "REF8801 exposes how Apex Accelerator combines convincing Web3 services with malicious npm packages, attacker-controlled AI infrastructure, and cross-platform malware delivery."
+    },
+    {
+      "source": "checkpoint",
+      "label": "check point",
+      "title": "12th October – Threat Intelligence Report",
+      "url": "https://research.checkpoint.com/2026/12th-october-threat-intelligence-report/",
+      "date": "2026-10-12",
+      "summary": "Denmark’s government has disclosed a breach involving its Central Register of Persons after unauthorized individuals exploited access provided to a private supplier. The incident reportedly exposed personal information…"
+    },
     {
       "source": "isc",
       "label": "sans isc",
@@ -85,22 +101,6 @@
       "url": "https://unit42.paloaltonetworks.com/blinder-tunnel-targets-critical-infrastructure/",
       "date": "2026-10-06",
       "summary": "Analysis of Blinder Tunnel, an Iran-nexus campaign using fake Dubai Airports recruitment lures and GitHub C2 malware to target critical infrastructure."
-    },
-    {
-      "source": "elastic",
-      "label": "elastic labs",
-      "title": "Behind the tags: How Elastic SIEM grades 1,781 detection rules on noise, speed, and threat coverage",
-      "url": "https://www.elastic.co/security-labs/threat-command/elastic-siem-detection-rule-tags",
-      "date": "2026-10-05",
-      "summary": "This article explains how Elastic SIEM uses a monthly automated telemetry pipeline to score prebuilt detection rules across noise, performance, threat, and profile dimensions, helping security teams decide which rules…"
-    },
-    {
-      "source": "checkpoint",
-      "label": "check point",
-      "title": "5th October – Threat Intelligence Report",
-      "url": "https://research.checkpoint.com/2026/5th-october-threat-intelligence-report/",
-      "date": "2026-10-05",
-      "summary": "Arizona’s state court system has suffered a phishing-led cyberattack after an employee clicked a malicious link. Attackers copied backup files containing protective-order records and more than 150,000 Foster Care Review…"
     },
     {
       "source": "gti",
