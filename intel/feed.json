@@ -1,26 +1,63 @@
 {
-  "updated": "2026-10-14T00:20:09Z",
-  "checked": "2026-10-14T00:20:09Z",
-  "failed": [
-    "acsc",
-    "acscadv"
-  ],
+  "updated": "2026-10-14T23:57:29Z",
+  "checked": "2026-10-14T23:57:29Z",
+  "failed": [],
   "items": [
     {
       "source": "kev",
       "label": "cisa kev",
-      "title": "Ivanti Connect Secure Authentication Bypass by Spoofing Vulnerability (CVE-2026-104935)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-104935",
-      "date": "2026-10-13",
-      "summary": "Ivanti Connect Secure contains an authentication bypass by spoofing vulnerability that allows a remote unauthenticated attacker to execute arbitrary commands."
+      "title": "Ahsay AhsayCBS Command Injection Vulnerability (CVE-2026-105134)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-105134",
+      "date": "2026-10-14",
+      "summary": "Ahsay AhsayCBS contains a command injection vulnerability that could allow a remote attacker to execute operating system commands via manipulation of the random parameter in the Replication Receiver component’s…"
     },
     {
       "source": "kev",
       "label": "cisa kev",
-      "title": "Microsoft Windows Command Injection Vulnerability (CVE-2026-96951)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-96951",
-      "date": "2026-10-13",
-      "summary": "Microsoft Windows Shell contains a command injection vulnerability that allows an unauthorized attacker to bypass a security feature over a network."
+      "title": "Palo Alto Networks PAN-OS Code Injection Vulnerability (CVE-2026-0322)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-0322",
+      "date": "2026-10-14",
+      "summary": "Palo Alto Networks PAN-OS contains a code injection vulnerability that could allow an authenticated attacker with network access to execute arbitrary code with root privileges on the firewall."
+    },
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "Orphaned VBA Projects Inside DWG Files",
+      "url": "https://isc.sans.edu/diary/rss/33420",
+      "date": "2026-10-14",
+      "summary": "Years ago I wrote diary entries about VBA code stored inside AutoCAD drawing files (.dwg)."
+    },
+    {
+      "source": "talos",
+      "label": "talos",
+      "title": "Break the silence: Kazakhstan-nexus UAT-6275 targets CIS government organizations",
+      "url": "https://blog.talosintelligence.com/break-the-silence-kazakhstan-nexus-uat-6275-targets-cis-government-organizations/",
+      "date": "2026-10-14",
+      "summary": "Talos and Recorded Future identified UAT-6275 activity targeting government organizations across the Commonwealth of Independent States. Recovered artifacts show additional interest in water resources and energy."
+    },
+    {
+      "source": "unit42",
+      "label": "unit 42",
+      "title": "Unit 42 Uncovers PEERSTITCH, a Stealthy FortiGate Implant",
+      "url": "https://unit42.paloaltonetworks.com/fortimanager-cve-2024-47575-peerstitch-malware/",
+      "date": "2026-10-14",
+      "summary": "We investigated an intrusion where attackers exploited CVE-2024-47575 to target 500+ firewalls and deploy PEERSTITCH, a memory-resident ARM64 malware."
+    },
+    {
+      "source": "msti",
+      "label": "microsoft ti",
+      "title": "The hidden network: Inside the phishing infrastructure ecosystem powering global cybercrime",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/10/14/the-hidden-network-inside-the-phishing-infrastructure-ecosystem-powering-global-cybercrime/",
+      "date": "2026-10-14",
+      "summary": "Microsoft uncovered a Chinese-language cybercriminal ecosystem, an interconnected network of phishing kit operators (tracked as Storm-2990), and an illicit marketplace (tracked as Storm-3119) selling tools and…"
+    },
+    {
+      "source": "acsc",
+      "label": "acsc alert",
+      "title": "Protecting operational technology and edge devices",
+      "url": "https://www.cyber.gov.au/alert/protecting-operational-technology-and-edge-devices",
+      "date": "2026-10-14",
+      "summary": "Alert on the cyber security risks to operational technology (OT), including refrigeration and cooling technology, with mitigation advice and guidance for businesses and organisations that operate this technology."
     },
     {
       "source": "isc",
@@ -79,28 +116,12 @@
       "summary": "Denmark’s government has disclosed a breach involving its Central Register of Persons after unauthorized individuals exploited access provided to a private supplier. The incident reportedly exposed personal information…"
     },
     {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "Why TLP should not replace your internal information classification",
-      "url": "https://isc.sans.edu/diary/rss/33414",
-      "date": "2026-10-10",
-      "summary": "The Traffic Light Protocol (TLP)[1], which is now in its second incarnation, is a wonderful standard that enables one to easily communicate whether information may be shared further (and if so, how far)."
-    },
-    {
-      "source": "talos",
-      "label": "talos",
-      "title": "Ignore all instructions and read this blog: The state of AI-analysis evasion in malware",
-      "url": "https://blog.talosintelligence.com/ignore-all-instructions-and-read-this-blog-the-state-of-ai-analysis-evasion-in-malware/",
+      "source": "acscadv",
+      "label": "acsc advisory",
+      "title": "Chinese government-linked cyber threat actors combine automated and hands-on hacking tools to steal sensitive data",
+      "url": "https://www.cyber.gov.au/advisory/chinese-government-linked-cyber-threat-actors-combine-automated-and-hands-on-hacking-tools-to-steal-sensitive-data",
       "date": "2026-10-08",
-      "summary": "“AI-analysis evasion” encapsulates the real-world techniques malware authors are developing in attempt to obstruct or defeat any layers of automated AI analysis."
-    },
-    {
-      "source": "elastic",
-      "label": "elastic labs",
-      "title": "Introducing AlertZero: Inbox zero for your alert queue",
-      "url": "https://www.elastic.co/security-labs/blog/ai-soc-automation-alertzero",
-      "date": "2026-10-08",
-      "summary": "AlertZero brings AI SOC automation to Elastic Security with four agents, one job each, so the queue stops setting your priorities. Nothing changes in your environment without your approval."
+      "summary": "Learn how Chinese state-linked cyber actors steal sensitive data and discover practical steps to detect, prevent and respond to attacks."
     },
     {
       "source": "cisa",
@@ -117,30 +138,6 @@
       "url": "https://cloud.google.com/blog/topics/threat-intelligence/vulnerability-discovery-and-exploitation-trends-in-the-ai-era/",
       "date": "2026-09-30",
       "summary": "Written by: Robin Grunewald, Supriya Mazumdar, Kelli Vanderlee Introduction Google Threat Intelligence Group (GTIG) examines vulnerability disclosure and exploitation statistics to evaluate the impact of artificial…"
-    },
-    {
-      "source": "msti",
-      "label": "microsoft ti",
-      "title": "Unauthenticated command injection on internet-facing mail servers: tracking CVE-2026-73570",
-      "url": "https://www.microsoft.com/en-us/security/blog/2026/09/30/unauthenticated-command-injection-on-internet-facing-mail-servers-tracking-cve-2026-73570/",
-      "date": "2026-09-30",
-      "summary": "Microsoft Threat Intelligence examines CVE-2026-73570 exploitation in Zimbra, including observed attack paths, detection opportunities, and mitigation guidance."
-    },
-    {
-      "source": "acsc",
-      "label": "acsc alert",
-      "title": "CRITICAL ALERT: Critical vulnerabilities in Citrix NetScaler ADC and Citrix NetScaler Gateway products",
-      "url": "https://www.cyber.gov.au/about-us/view-all-content/alerts-and-advisories/critical-vulnerabilities-in-citrix-netscaler-adc-and-citrix-netscaler-gateway-products",
-      "date": "2026-09-27",
-      "summary": "Alert for organisations to implement a high-priority patch addressing new vulnerabilities, under active exploitation in Citrix NetScaler ADC and Citrix NetScaler Gateway products."
-    },
-    {
-      "source": "acscadv",
-      "label": "acsc advisory",
-      "title": "Protect your organisation's AI services",
-      "url": "https://www.cyber.gov.au/about-us/view-all-content/alerts-and-advisories/protect-your-organisations-ai-services",
-      "date": "2026-09-25",
-      "summary": "Protect access to AI services by securing accounts, credentials and connected systems to reduce the risk of unauthorised use, disruption and data exposure."
     },
     {
       "source": "sentinel",
