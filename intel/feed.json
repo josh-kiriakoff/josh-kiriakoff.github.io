@@ -1,8 +1,48 @@
 {
-  "updated": "2026-10-14T23:57:29Z",
-  "checked": "2026-10-14T23:57:29Z",
+  "updated": "2026-10-15T23:42:09Z",
+  "checked": "2026-10-15T23:42:09Z",
   "failed": [],
   "items": [
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "Atlassian Multiple Products Files or Directories Accessible to External Parties Vulnerability (CVE-2026-21589)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-21589",
+      "date": "2026-10-15",
+      "summary": "Multiple Atlassian products (Bitbucket Data Center ,Confluence Data Center, Jira Service Management Data Center, Jira Software Data Center, Bamboo Data Center, Crowd Data Center, Crucible and Fisheye) contain a files or…"
+    },
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "Panchan's Mining Island [Guest Diary]",
+      "url": "https://isc.sans.edu/diary/rss/33426",
+      "date": "2026-10-15",
+      "summary": "[This is a Guest Diary by Zachary Norwood, an ISC intern as part of the SANS.edu BACS program]"
+    },
+    {
+      "source": "talos",
+      "label": "talos",
+      "title": "The Q3 Vulnerability Pulse: Discovery ≠ Exploitation",
+      "url": "https://blog.talosintelligence.com/the-q3-vulnerability-pulse-discovery-exploitation/",
+      "date": "2026-10-15",
+      "summary": "Is the cybersecurity world really facing a \"Bugmageddon?\" Thor breaks down the latest CVE and KEV trends in the latest Threat Source newsletter."
+    },
+    {
+      "source": "unit42",
+      "label": "unit 42",
+      "title": "AI-Powered Espionage Campaign Targets Government Linux Infrastructure",
+      "url": "https://unit42.paloaltonetworks.com/ai-campaign-targets-linux-infrastructure/",
+      "date": "2026-10-15",
+      "summary": "Our analysis an AI-powered espionage campaign targeting government Linux infrastructure with custom malware, web shells, and advanced credential theft."
+    },
+    {
+      "source": "gti",
+      "label": "google ti",
+      "title": "ARMORY CASTLE Exploits BeyondTrust",
+      "url": "https://cloud.google.com/blog/topics/threat-intelligence/armory-castle-exploits-beyondtrust/",
+      "date": "2026-10-15",
+      "summary": "Written by: Jayson Frost, Bryce Greathouse, Brian Meyer, John Palmisano, Rajesh Rajeshirke, Steve Rasch, John Wolfram Introduction On October 15, BeyondTrust disclosed a vulnerability, CVE-2026-102764, impacting…"
+    },
     {
       "source": "kev",
       "label": "cisa kev",
@@ -10,14 +50,6 @@
       "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-105134",
       "date": "2026-10-14",
       "summary": "Ahsay AhsayCBS contains a command injection vulnerability that could allow a remote attacker to execute operating system commands via manipulation of the random parameter in the Replication Receiver component’s…"
-    },
-    {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "Palo Alto Networks PAN-OS Code Injection Vulnerability (CVE-2026-0322)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-0322",
-      "date": "2026-10-14",
-      "summary": "Palo Alto Networks PAN-OS contains a code injection vulnerability that could allow an authenticated attacker with network access to execute arbitrary code with root privileges on the firewall."
     },
     {
       "source": "isc",
@@ -58,30 +90,6 @@
       "url": "https://www.cyber.gov.au/alert/protecting-operational-technology-and-edge-devices",
       "date": "2026-10-14",
       "summary": "Alert on the cyber security risks to operational technology (OT), including refrigeration and cooling technology, with mitigation advice and guidance for businesses and organisations that operate this technology."
-    },
-    {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "October 2026 Microsoft Patch Tuesday",
-      "url": "https://isc.sans.edu/diary/rss/33422",
-      "date": "2026-10-13",
-      "summary": "Microsoft today released patches for 1,417 vulnerabilities. 76 of these vulnerabilities are rated critical, with 7 critical vulnerabiilties requiring no customer actions. One vulnerability was disclosed before…"
-    },
-    {
-      "source": "talos",
-      "label": "talos",
-      "title": "Microsoft Patch Tuesday for October 2026 — Snort rules and prominent vulnerabilities",
-      "url": "https://blog.talosintelligence.com/microsoft-patch-tuesday-for-october-2026/",
-      "date": "2026-10-13",
-      "summary": "Blog post covering the vulnerabilities disclosed during Microsoft Patch Tuesday."
-    },
-    {
-      "source": "unit42",
-      "label": "unit 42",
-      "title": "The Noise Inside the Network: How an Unsophisticated Attack Exposed a Third-Party Risk",
-      "url": "https://unit42.paloaltonetworks.com/noise-inside-network-third-party-risk/",
-      "date": "2026-10-13",
-      "summary": "Unit 42 dissects a cyberattack targeting a European bank's IT infrastructure, delivering concrete defense strategies to help organizations detect and counter comparable threats."
     },
     {
       "source": "checkpoint",
@@ -130,14 +138,6 @@
       "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-281a",
       "date": "2026-10-06",
       "summary": "Chinese government-linked cyber threat actors, enabled by the Integrity Technology Group, are combining automated scanning tools, large-scale botnets, and hands-on exploitation techniques to target and steal sensitive…"
-    },
-    {
-      "source": "gti",
-      "label": "google ti",
-      "title": "Vulnerability Discovery and Exploitation Trends in the AI Era",
-      "url": "https://cloud.google.com/blog/topics/threat-intelligence/vulnerability-discovery-and-exploitation-trends-in-the-ai-era/",
-      "date": "2026-09-30",
-      "summary": "Written by: Robin Grunewald, Supriya Mazumdar, Kelli Vanderlee Introduction Google Threat Intelligence Group (GTIG) examines vulnerability disclosure and exploitation statistics to evaluate the impact of artificial…"
     },
     {
       "source": "sentinel",
