@@ -1,15 +1,55 @@
 {
-  "updated": "2026-10-20T00:24:59Z",
-  "checked": "2026-10-20T00:24:59Z",
+  "updated": "2026-10-20T23:56:30Z",
+  "checked": "2026-10-20T23:56:30Z",
   "failed": [],
   "items": [
     {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "EG Secure Solutions SiteGuard Server Edition OS Command Injection Vulnerability (CVE-2026-106931)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-106931",
+      "date": "2026-10-20",
+      "summary": "EG Secure Solutions SiteGuard Server Edition contains an OS command injection vulnerability which may allow an attacker to execute arbitrary OS commands with root or SYSTEM privileges on the system running the affected…"
+    },
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "Siemens Software Center Uncontrolled Search Path Element Vulnerability (CVE-2026-110936)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110936",
+      "date": "2026-10-20",
+      "summary": "Siemens Software Center contains an uncontrolled search path element vulnerability that could allow an authenticated local attacker to place a specially crafted DLL in a directory that the application searches, leading…"
+    },
+    {
+      "source": "talos",
+      "label": "talos",
+      "title": "There's only so much code: the rise in vulnerability numbers",
+      "url": "https://blog.talosintelligence.com/theres-only-so-much-code-the-rise-in-vulnerability-numbers/",
+      "date": "2026-10-20",
+      "summary": "The September Microsoft Patch Tuesday release included 975 vulnerability advisories. This month, 1,415 vulnerabilities were just dropped. Compared to a pre-June average of 100 a month, that increase is staggering. Where…"
+    },
+    {
       "source": "unit42",
       "label": "unit 42",
-      "title": "Threat Brief: Active Exploitation of PAN-OS CVE-2026-0257 (Updated October 19)",
+      "title": "Threat Brief: Active Exploitation of PAN-OS CVE-2026-0257 (Updated October 20)",
       "url": "https://unit42.paloaltonetworks.com/active-exploitation-of-pan-os-cve-2026-0257/",
-      "date": "2026-10-19",
+      "date": "2026-10-20",
       "summary": "Ransomware operators including Spikey Scorpius (aka Qilin) and Tarnished Scorpius (aka Inc) are exploiting PAN-OS vulnerability CVE-2026-0257."
+    },
+    {
+      "source": "checkpoint",
+      "label": "check point",
+      "title": "The Risk of AI-Powered Antidetect Browsers in Online Fraud and Influence Operations",
+      "url": "https://research.checkpoint.com/2026/the-risk-of-ai-powered-antidetect-browsers-in-online-fraud-and-influence-operations/",
+      "date": "2026-10-20",
+      "summary": "Key Findings Introduction Antidetect browsers conceal their users’ digital identities, enabling a single operator or small team to simultaneously run thousands of isolated accounts across multiple platforms such as…"
+    },
+    {
+      "source": "cisa",
+      "label": "cisa advisory",
+      "title": "#StopRansomware: SafePay Ransomware",
+      "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-293a",
+      "date": "2026-10-19",
+      "summary": "This advisory details recent activity by the SafePay ransomware group. SafePay actors have been highly active since August 2024, targeting businesses and critical infrastructure across North America, South America…"
     },
     {
       "source": "checkpoint",
@@ -26,22 +66,6 @@
       "url": "https://isc.sans.edu/diary/rss/33434",
       "date": "2026-10-18",
       "summary": "Here is the YARA rule I used to detect \"Orphaned VBA Projects Inside DWG Files\"."
-    },
-    {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "BeyondTrust Remote Support Authentication Bypass by Spoofing Vulnerability (CVE-2026-102764)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-102764",
-      "date": "2026-10-16",
-      "summary": "BeyondTrust Remote Support contains an authentication bypass by spoofing vulnerability that could allow a remote attacker to perform file operations on the appliance."
-    },
-    {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "Fortinet Multiple Products Path Traversal Vulnerability (CVE-2025-61624)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-61624",
-      "date": "2026-10-16",
-      "summary": "FortiOS, FortiPAM, FortiProxy, and FortiSwitchManager contain a path traversal vulnerability that may allow an authenticated attacker with admin profile and at least read-write permissions to write or delete arbitrary…"
     },
     {
       "source": "isc",
@@ -84,22 +108,6 @@
       "summary": "Written by: Jayson Frost, Bryce Greathouse, Brian Meyer, John Palmisano, Rajesh Rajeshirke, Steve Rasch, John Wolfram Introduction On October 15, BeyondTrust disclosed a vulnerability, CVE-2026-102764, impacting…"
     },
     {
-      "source": "gti",
-      "label": "google ti",
-      "title": "Investigating Ephemeral Supply Chain Tampering",
-      "url": "https://cloud.google.com/blog/topics/threat-intelligence/investigating-ephemeral-supply-chain-tampering/",
-      "date": "2026-10-15",
-      "summary": "Written by: Tyler McLellan Introduction Google Threat Intelligence Group (GTIG) and Mandiant investigated a software supply chain compromise campaign targeting the update infrastructure belonging to AOMEI Technology…"
-    },
-    {
-      "source": "talos",
-      "label": "talos",
-      "title": "Break the silence: Kazakhstan-nexus UAT-6275 targets CIS government organizations",
-      "url": "https://blog.talosintelligence.com/break-the-silence-kazakhstan-nexus-uat-6275-targets-cis-government-organizations/",
-      "date": "2026-10-14",
-      "summary": "Talos and Recorded Future identified UAT-6275 activity targeting government organizations across the Commonwealth of Independent States. Recovered artifacts show additional interest in water resources and energy."
-    },
-    {
       "source": "msti",
       "label": "microsoft ti",
       "title": "The hidden network: Inside the phishing infrastructure ecosystem powering global cybercrime",
@@ -130,14 +138,6 @@
       "url": "https://www.cyber.gov.au/advisory/chinese-government-linked-cyber-threat-actors-combine-automated-and-hands-on-hacking-tools-to-steal-sensitive-data",
       "date": "2026-10-08",
       "summary": "Learn how Chinese state-linked cyber actors steal sensitive data and discover practical steps to detect, prevent and respond to attacks."
-    },
-    {
-      "source": "cisa",
-      "label": "cisa advisory",
-      "title": "Chinese Government-linked Cyber Threat Actors Combine Automated and Hands-on Hacking Tools to Steal Sensitive Data",
-      "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-281a",
-      "date": "2026-10-06",
-      "summary": "Chinese government-linked cyber threat actors, enabled by the Integrity Technology Group, are combining automated scanning tools, large-scale botnets, and hands-on exploitation techniques to target and steal sensitive…"
     },
     {
       "source": "sentinel",
