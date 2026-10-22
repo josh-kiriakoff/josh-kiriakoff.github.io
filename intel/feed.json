@@ -1,8 +1,72 @@
 {
-  "updated": "2026-10-20T23:56:30Z",
-  "checked": "2026-10-20T23:56:30Z",
+  "updated": "2026-10-22T00:01:38Z",
+  "checked": "2026-10-22T00:01:38Z",
   "failed": [],
   "items": [
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "Critical PHP Vulnerability (CVE-2026-109618, CVE-2026-109619) [infocon yellow]",
+      "url": "https://isc.sans.edu/diary/rss/33440",
+      "date": "2026-10-21",
+      "summary": "PHP.net announced that it will release a critical update today. We decided to change the infoCon to YELLOW due to the widespread use of PHP, the expected severity of the flaw (CVSS 9.4), and the availability of early…"
+    },
+    {
+      "source": "talos",
+      "label": "talos",
+      "title": "Compromised eMudhra intermediate certificates",
+      "url": "https://blog.talosintelligence.com/compromised-intermediate-certificates/",
+      "date": "2026-10-21",
+      "summary": "Cisco Talos is aware of eight intermediate certificates belonging to the intermediate certificate authority, eMudhra."
+    },
+    {
+      "source": "talos",
+      "label": "talos",
+      "title": "Parasitizing trust: How legitimate infrastructure becomes a delivery pipeline for attackers",
+      "url": "https://blog.talosintelligence.com/parasitizing-trust-how-legitimate-infrastructure-becomes-a-delivery-pipeline-for-attackers/",
+      "date": "2026-10-21",
+      "summary": "Adversaries are turning the tools businesses trust into delivery mechanisms for malicious activity. Cisco Talos observed abuse of more than 25 legitimate platforms over the past year, exploiting the built-in trust of…"
+    },
+    {
+      "source": "unit42",
+      "label": "unit 42",
+      "title": "Threat Brief: Critical Vulnerabilities in PHP: CVE-2026-109618, CVE-2026-109619",
+      "url": "https://unit42.paloaltonetworks.com/cve-2026-109618-cve-2026-109619/",
+      "date": "2026-10-21",
+      "summary": "CVE-2026-109618 and CVE-2026-109619 are Critical vulnerabilities in PHP, a scripting language used globally for web servers and CMS systems."
+    },
+    {
+      "source": "unit42",
+      "label": "unit 42",
+      "title": "“Next Exploit Opportunities”: How a Threat Actor Used AI to Help Plan and Execute Multiple Types of Cybercrime Activities",
+      "url": "https://unit42.paloaltonetworks.com/ai-assisted-cybercrime-analysis/",
+      "date": "2026-10-21",
+      "summary": "An investigation into a threat actor bypassing AI safety controls to coordinate credential theft, VoIP fraud planning, and database exfiltration."
+    },
+    {
+      "source": "elastic",
+      "label": "elastic labs",
+      "title": "php2shell: Assessing Elastic detection coverage relevant to CVE-2026-109618 and CVE-2026-109619",
+      "url": "https://www.elastic.co/security-labs/threat-command/php2shell-php-rce-detection",
+      "date": "2026-10-21",
+      "summary": "CVE-2026-109618 and CVE-2026-109619 are critical PHP core RCE flaws that leaked ahead of disclosure. We cover what is verified, why exploitation converges on a web server spawning a shell, and the Elastic detections…"
+    },
+    {
+      "source": "msti",
+      "label": "microsoft ti",
+      "title": "AI-driven, large-scale nation-state campaign using ARTEX enables supply chain compromise",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
+      "date": "2026-10-21",
+      "summary": "Storm-0940 used ARTEX agentic AI to accelerate a ConnectWise supply chain compromise, enabling application credential abuse across Microsoft 365 environments."
+    },
+    {
+      "source": "acsc",
+      "label": "acsc alert",
+      "title": "Critical vulnerabilities in PHP",
+      "url": "https://www.cyber.gov.au/alert/critical-vulnerabilities-in-php",
+      "date": "2026-10-21",
+      "summary": "A security release for two critical PHP vulnerabilities is set for public disclosure on 22 October 2026. PHP is widely used to power web applications."
+    },
     {
       "source": "kev",
       "label": "cisa kev",
@@ -18,22 +82,6 @@
       "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110936",
       "date": "2026-10-20",
       "summary": "Siemens Software Center contains an uncontrolled search path element vulnerability that could allow an authenticated local attacker to place a specially crafted DLL in a directory that the application searches, leading…"
-    },
-    {
-      "source": "talos",
-      "label": "talos",
-      "title": "There's only so much code: the rise in vulnerability numbers",
-      "url": "https://blog.talosintelligence.com/theres-only-so-much-code-the-rise-in-vulnerability-numbers/",
-      "date": "2026-10-20",
-      "summary": "The September Microsoft Patch Tuesday release included 975 vulnerability advisories. This month, 1,415 vulnerabilities were just dropped. Compared to a pre-June average of 100 a month, that increase is staggering. Where…"
-    },
-    {
-      "source": "unit42",
-      "label": "unit 42",
-      "title": "Threat Brief: Active Exploitation of PAN-OS CVE-2026-0257 (Updated October 20)",
-      "url": "https://unit42.paloaltonetworks.com/active-exploitation-of-pan-os-cve-2026-0257/",
-      "date": "2026-10-20",
-      "summary": "Ransomware operators including Spikey Scorpius (aka Qilin) and Tarnished Scorpius (aka Inc) are exploiting PAN-OS vulnerability CVE-2026-0257."
     },
     {
       "source": "checkpoint",
@@ -68,22 +116,6 @@
       "summary": "Here is the YARA rule I used to detect \"Orphaned VBA Projects Inside DWG Files\"."
     },
     {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "Small Agents, Smaller Blast Radius: Controlling What AI Can Do",
-      "url": "https://isc.sans.edu/diary/rss/33430",
-      "date": "2026-10-16",
-      "summary": "I believe the cybersecurity industry may be approaching AI security the wrong way."
-    },
-    {
-      "source": "unit42",
-      "label": "unit 42",
-      "title": "Top 5 Initial Access Threat Vectors Observed by Unit 42 in September 2026",
-      "url": "https://unit42.paloaltonetworks.com/top-5-initial-access-vectors-september-2026/",
-      "date": "2026-10-16",
-      "summary": "Unit 42 details the top initial access vectors adversaries use to breach organizations, led by edge exploits, credential abuse and phishing"
-    },
-    {
       "source": "volexity",
       "label": "volexity",
       "title": "Mind the (Patch) Gap , Part 3: Analysis with Volexity Volcano, Threat Intel, and MCP",
@@ -92,44 +124,12 @@
       "summary": "Last month, Volexity published two blog posts in its Mind the (Patch) Gap series. The series details Volexity’s discovery of multiple Chinese threat actors simultaneously using zero-day exploits in Google…"
     },
     {
-      "source": "talos",
-      "label": "talos",
-      "title": "The Q3 Vulnerability Pulse: Discovery ≠ Exploitation",
-      "url": "https://blog.talosintelligence.com/the-q3-vulnerability-pulse-discovery-exploitation/",
-      "date": "2026-10-15",
-      "summary": "Is the cybersecurity world really facing a \"Bugmageddon?\" Thor breaks down the latest CVE and KEV trends in the latest Threat Source newsletter."
-    },
-    {
       "source": "gti",
       "label": "google ti",
       "title": "ARMORY CASTLE Exploits BeyondTrust",
       "url": "https://cloud.google.com/blog/topics/threat-intelligence/armory-castle-exploits-beyondtrust/",
       "date": "2026-10-15",
       "summary": "Written by: Jayson Frost, Bryce Greathouse, Brian Meyer, John Palmisano, Rajesh Rajeshirke, Steve Rasch, John Wolfram Introduction On October 15, BeyondTrust disclosed a vulnerability, CVE-2026-102764, impacting…"
-    },
-    {
-      "source": "msti",
-      "label": "microsoft ti",
-      "title": "The hidden network: Inside the phishing infrastructure ecosystem powering global cybercrime",
-      "url": "https://www.microsoft.com/en-us/security/blog/2026/10/14/the-hidden-network-inside-the-phishing-infrastructure-ecosystem-powering-global-cybercrime/",
-      "date": "2026-10-14",
-      "summary": "Microsoft uncovered a Chinese-language cybercriminal ecosystem, an interconnected network of phishing kit operators (tracked as Storm-2990), and an illicit marketplace (tracked as Storm-3119) selling tools and…"
-    },
-    {
-      "source": "acsc",
-      "label": "acsc alert",
-      "title": "Protecting operational technology and edge devices",
-      "url": "https://www.cyber.gov.au/alert/protecting-operational-technology-and-edge-devices",
-      "date": "2026-10-14",
-      "summary": "Alert on the cyber security risks to operational technology (OT), including refrigeration and cooling technology, with mitigation advice and guidance for businesses and organisations that operate this technology."
-    },
-    {
-      "source": "elastic",
-      "label": "elastic labs",
-      "title": "Auditing the auditor: Unmasking Apex Accelerator",
-      "url": "https://www.elastic.co/security-labs/threat-command/apex-accelerator-malicious-npm-packages",
-      "date": "2026-10-12",
-      "summary": "REF8801 exposes how Apex Accelerator combines convincing Web3 services with malicious npm packages, attacker-controlled AI infrastructure, and cross-platform malware delivery."
     },
     {
       "source": "acscadv",
