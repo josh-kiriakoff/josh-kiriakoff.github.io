@@ -1,8 +1,32 @@
 {
-  "updated": "2026-10-22T00:01:38Z",
-  "checked": "2026-10-22T00:01:38Z",
+  "updated": "2026-10-23T00:00:14Z",
+  "checked": "2026-10-23T00:00:14Z",
   "failed": [],
   "items": [
+    {
+      "source": "talos",
+      "label": "talos",
+      "title": "I had plans for that second",
+      "url": "https://blog.talosintelligence.com/i-had-plans-for-that-second/",
+      "date": "2026-10-22",
+      "summary": "The Earth is speeding up, the leap second is being abolished, oh, and there's critical vulnerabilities in PHP."
+    },
+    {
+      "source": "unit42",
+      "label": "unit 42",
+      "title": "EMudhra Intermediate CA Certificates Compromised",
+      "url": "https://unit42.paloaltonetworks.com/emudhra-certificate-compromise/",
+      "date": "2026-10-22",
+      "summary": "Eight compromised eMudhra intermediate CA private keys risk unauthorized TLS signing and MitM interception. Read our analysis and containment guide."
+    },
+    {
+      "source": "unit42",
+      "label": "unit 42",
+      "title": "The Current Landscape of OAuth Attacks",
+      "url": "https://unit42.paloaltonetworks.com/current-landscape-oauth-attacks/",
+      "date": "2026-10-22",
+      "summary": "Unit 42 explores modern OAuth threats and actionable steps organizations can take to protect their environments."
+    },
     {
       "source": "isc",
       "label": "sans isc",
@@ -18,30 +42,6 @@
       "url": "https://blog.talosintelligence.com/compromised-intermediate-certificates/",
       "date": "2026-10-21",
       "summary": "Cisco Talos is aware of eight intermediate certificates belonging to the intermediate certificate authority, eMudhra."
-    },
-    {
-      "source": "talos",
-      "label": "talos",
-      "title": "Parasitizing trust: How legitimate infrastructure becomes a delivery pipeline for attackers",
-      "url": "https://blog.talosintelligence.com/parasitizing-trust-how-legitimate-infrastructure-becomes-a-delivery-pipeline-for-attackers/",
-      "date": "2026-10-21",
-      "summary": "Adversaries are turning the tools businesses trust into delivery mechanisms for malicious activity. Cisco Talos observed abuse of more than 25 legitimate platforms over the past year, exploiting the built-in trust of…"
-    },
-    {
-      "source": "unit42",
-      "label": "unit 42",
-      "title": "Threat Brief: Critical Vulnerabilities in PHP: CVE-2026-109618, CVE-2026-109619",
-      "url": "https://unit42.paloaltonetworks.com/cve-2026-109618-cve-2026-109619/",
-      "date": "2026-10-21",
-      "summary": "CVE-2026-109618 and CVE-2026-109619 are Critical vulnerabilities in PHP, a scripting language used globally for web servers and CMS systems."
-    },
-    {
-      "source": "unit42",
-      "label": "unit 42",
-      "title": "“Next Exploit Opportunities”: How a Threat Actor Used AI to Help Plan and Execute Multiple Types of Cybercrime Activities",
-      "url": "https://unit42.paloaltonetworks.com/ai-assisted-cybercrime-analysis/",
-      "date": "2026-10-21",
-      "summary": "An investigation into a threat actor bypassing AI safety controls to coordinate credential theft, VoIP fraud planning, and database exfiltration."
     },
     {
       "source": "elastic",
