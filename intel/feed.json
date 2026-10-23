@@ -1,8 +1,72 @@
 {
-  "updated": "2026-10-23T00:00:14Z",
-  "checked": "2026-10-23T00:00:14Z",
+  "updated": "2026-10-23T23:52:27Z",
+  "checked": "2026-10-23T23:52:27Z",
   "failed": [],
   "items": [
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "Arista VeloCloud Orchestrator SQL Injection Vulnerability (CVE-2026-114625)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-114625",
+      "date": "2026-10-23",
+      "summary": "Arista VeloCloud Orchestrator on-prem contains a SQL injection vulnerability that may allow a remote attacker to access privileged internal functionality and impact the VCO host. Successful exploitation may compromise…"
+    },
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "Collabora Online – Built-in CODE Server OS Command Injection Vulnerability (CVE-2026-110447)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110447",
+      "date": "2026-10-23",
+      "summary": "Collabora Collabora Online – Built-in CODE Server when used within the NextCloud platform contains an OS command injection vulnerability that allows for remote code execution when the CODE server isn't running."
+    },
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "(Reliable)? php2shell exploitability",
+      "url": "https://isc.sans.edu/diary/rss/33452",
+      "date": "2026-10-23",
+      "summary": "Yesterday everyone was running around like crazy (me included :) because of the php2shell vulnerability."
+    },
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "PHP Vulnerability Wrap-Up",
+      "url": "https://isc.sans.edu/diary/rss/33450",
+      "date": "2026-10-23",
+      "summary": "This morning, we returned to Infocon Green. As usual, we are raising the Infocon to alert you to emerging situations requiring immediate attention. PHP fit that description. By now, you either know about it, or you…"
+    },
+    {
+      "source": "unit42",
+      "label": "unit 42",
+      "title": "Threat Brief: Critical Vulnerabilities in PHP: CVE-2026-109618, CVE-2026-109619 (Updated October 23)",
+      "url": "https://unit42.paloaltonetworks.com/cve-2026-109618-cve-2026-109619/",
+      "date": "2026-10-23",
+      "summary": "CVE-2026-109618 and CVE-2026-109619 are Critical vulnerabilities in PHP, a scripting language used globally for web servers and CMS systems."
+    },
+    {
+      "source": "elastic",
+      "label": "elastic labs",
+      "title": "How CVE-2026-73570 turns a Zimbra log file into remote code execution",
+      "url": "https://www.elastic.co/security-labs/threat-command/command-injection-zimbra-cve-2026-73570",
+      "date": "2026-10-23",
+      "summary": "We reproduced the Zimbra command injection vulnerability and found that several public PoCs write a payload Swatchdog never matches, so a failed test looks like a patched server."
+    },
+    {
+      "source": "checkpoint",
+      "label": "check point",
+      "title": "Infostealer riding the AI Train",
+      "url": "https://research.checkpoint.com/2026/infostealer-riding-the-ai-train/",
+      "date": "2026-10-23",
+      "summary": "Key Points Introduction Infostealers commonly target browser passwords, session cookies, and cryptocurrency wallets. This malware combines those established capabilities with dedicated collection routines for AI…"
+    },
+    {
+      "source": "acsc",
+      "label": "acsc alert",
+      "title": "Critical vulnerabilities in Fortinet products",
+      "url": "https://www.cyber.gov.au/alert/critical-vulnerabilities-in-fortinet-products",
+      "date": "2026-10-23",
+      "summary": "Fortinet have announced critical vulnerabilities in Fortinet products, and are releasing security updates which customers should implement as a priority."
+    },
     {
       "source": "talos",
       "label": "talos",
@@ -18,22 +82,6 @@
       "url": "https://unit42.paloaltonetworks.com/emudhra-certificate-compromise/",
       "date": "2026-10-22",
       "summary": "Eight compromised eMudhra intermediate CA private keys risk unauthorized TLS signing and MitM interception. Read our analysis and containment guide."
-    },
-    {
-      "source": "unit42",
-      "label": "unit 42",
-      "title": "The Current Landscape of OAuth Attacks",
-      "url": "https://unit42.paloaltonetworks.com/current-landscape-oauth-attacks/",
-      "date": "2026-10-22",
-      "summary": "Unit 42 explores modern OAuth threats and actionable steps organizations can take to protect their environments."
-    },
-    {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "Critical PHP Vulnerability (CVE-2026-109618, CVE-2026-109619) [infocon yellow]",
-      "url": "https://isc.sans.edu/diary/rss/33440",
-      "date": "2026-10-21",
-      "summary": "PHP.net announced that it will release a critical update today. We decided to change the infoCon to YELLOW due to the widespread use of PHP, the expected severity of the flaw (CVSS 9.4), and the availability of early…"
     },
     {
       "source": "talos",
@@ -60,60 +108,12 @@
       "summary": "Storm-0940 used ARTEX agentic AI to accelerate a ConnectWise supply chain compromise, enabling application credential abuse across Microsoft 365 environments."
     },
     {
-      "source": "acsc",
-      "label": "acsc alert",
-      "title": "Critical vulnerabilities in PHP",
-      "url": "https://www.cyber.gov.au/alert/critical-vulnerabilities-in-php",
-      "date": "2026-10-21",
-      "summary": "A security release for two critical PHP vulnerabilities is set for public disclosure on 22 October 2026. PHP is widely used to power web applications."
-    },
-    {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "EG Secure Solutions SiteGuard Server Edition OS Command Injection Vulnerability (CVE-2026-106931)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-106931",
-      "date": "2026-10-20",
-      "summary": "EG Secure Solutions SiteGuard Server Edition contains an OS command injection vulnerability which may allow an attacker to execute arbitrary OS commands with root or SYSTEM privileges on the system running the affected…"
-    },
-    {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "Siemens Software Center Uncontrolled Search Path Element Vulnerability (CVE-2026-110936)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110936",
-      "date": "2026-10-20",
-      "summary": "Siemens Software Center contains an uncontrolled search path element vulnerability that could allow an authenticated local attacker to place a specially crafted DLL in a directory that the application searches, leading…"
-    },
-    {
-      "source": "checkpoint",
-      "label": "check point",
-      "title": "The Risk of AI-Powered Antidetect Browsers in Online Fraud and Influence Operations",
-      "url": "https://research.checkpoint.com/2026/the-risk-of-ai-powered-antidetect-browsers-in-online-fraud-and-influence-operations/",
-      "date": "2026-10-20",
-      "summary": "Key Findings Introduction Antidetect browsers conceal their users’ digital identities, enabling a single operator or small team to simultaneously run thousands of isolated accounts across multiple platforms such as…"
-    },
-    {
       "source": "cisa",
       "label": "cisa advisory",
       "title": "#StopRansomware: SafePay Ransomware",
       "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-293a",
       "date": "2026-10-19",
       "summary": "This advisory details recent activity by the SafePay ransomware group. SafePay actors have been highly active since August 2024, targeting businesses and critical infrastructure across North America, South America…"
-    },
-    {
-      "source": "checkpoint",
-      "label": "check point",
-      "title": "19th October – Threat Intelligence Report",
-      "url": "https://research.checkpoint.com/2026/19th-october-threat-intelligence-report/",
-      "date": "2026-10-19",
-      "summary": "CenterPoint Energy, a US utility company serving Texas and several other states, has disclosed a data breach affecting more than 1 million Texas residents. Unauthorized access to an external system exposed names,…"
-    },
-    {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "Orphaned VBA Projects Inside DWG Files: YARA Rule",
-      "url": "https://isc.sans.edu/diary/rss/33434",
-      "date": "2026-10-18",
-      "summary": "Here is the YARA rule I used to detect \"Orphaned VBA Projects Inside DWG Files\"."
     },
     {
       "source": "volexity",
