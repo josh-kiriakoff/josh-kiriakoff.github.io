@@ -1,8 +1,16 @@
 {
-  "updated": "2026-10-23T23:52:27Z",
-  "checked": "2026-10-23T23:52:27Z",
+  "updated": "2026-10-25T23:19:04Z",
+  "checked": "2026-10-25T23:19:04Z",
   "failed": [],
   "items": [
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "YARA-X 1.22.0 Release",
+      "url": "https://isc.sans.edu/diary/rss/33454",
+      "date": "2026-10-25",
+      "summary": "YARA-X&#;x26;#;39;s 1.22.0 release brings 11 improvements and 9 bugfixes."
+    },
     {
       "source": "kev",
       "label": "cisa kev",
@@ -28,17 +36,9 @@
       "summary": "Yesterday everyone was running around like crazy (me included :) because of the php2shell vulnerability."
     },
     {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "PHP Vulnerability Wrap-Up",
-      "url": "https://isc.sans.edu/diary/rss/33450",
-      "date": "2026-10-23",
-      "summary": "This morning, we returned to Infocon Green. As usual, we are raising the Infocon to alert you to emerging situations requiring immediate attention. PHP fit that description. By now, you either know about it, or you…"
-    },
-    {
       "source": "unit42",
       "label": "unit 42",
-      "title": "Threat Brief: Critical Vulnerabilities in PHP: CVE-2026-109618, CVE-2026-109619 (Updated October 23)",
+      "title": "Threat Brief: Critical Vulnerabilities in PHP: CVE-2026-109618, CVE-2026-109619 (Updated October 25)",
       "url": "https://unit42.paloaltonetworks.com/cve-2026-109618-cve-2026-109619/",
       "date": "2026-10-23",
       "summary": "CVE-2026-109618 and CVE-2026-109619 are Critical vulnerabilities in PHP, a scripting language used globally for web servers and CMS systems."
