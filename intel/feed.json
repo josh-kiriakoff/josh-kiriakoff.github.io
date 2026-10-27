@@ -1,39 +1,55 @@
 {
-  "updated": "2026-10-25T23:19:04Z",
-  "checked": "2026-10-25T23:19:04Z",
+  "updated": "2026-10-27T00:31:25Z",
+  "checked": "2026-10-27T00:31:25Z",
   "failed": [],
   "items": [
     {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "YARA-X 1.22.0 Release",
-      "url": "https://isc.sans.edu/diary/rss/33454",
-      "date": "2026-10-25",
-      "summary": "YARA-X&#;x26;#;39;s 1.22.0 release brings 11 improvements and 9 bugfixes."
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "PHP Memory Corruption Vulnerability (CVE-2026-109618)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-109618",
+      "date": "2026-10-26",
+      "summary": "PHP contains an out-of-memory corruption vulnerability that allows for unauthenticated remote code execution."
     },
     {
       "source": "kev",
       "label": "cisa kev",
-      "title": "Arista VeloCloud Orchestrator SQL Injection Vulnerability (CVE-2026-114625)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-114625",
-      "date": "2026-10-23",
-      "summary": "Arista VeloCloud Orchestrator on-prem contains a SQL injection vulnerability that may allow a remote attacker to access privileged internal functionality and impact the VCO host. Successful exploitation may compromise…"
-    },
-    {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "Collabora Online – Built-in CODE Server OS Command Injection Vulnerability (CVE-2026-110447)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110447",
-      "date": "2026-10-23",
-      "summary": "Collabora Collabora Online – Built-in CODE Server when used within the NextCloud platform contains an OS command injection vulnerability that allows for remote code execution when the CODE server isn't running."
+      "title": "PHP Stale Internal Request-State Vulnerability (CVE-2026-109619)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-109619",
+      "date": "2026-10-26",
+      "summary": "PHP contains a stale internal request-state vulnerability that allows for unauthenticated remote code execution."
     },
     {
       "source": "isc",
       "label": "sans isc",
-      "title": "(Reliable)? php2shell exploitability",
-      "url": "https://isc.sans.edu/diary/rss/33452",
-      "date": "2026-10-23",
-      "summary": "Yesterday everyone was running around like crazy (me included :) because of the php2shell vulnerability."
+      "title": "Apple Patches for October 2026",
+      "url": "https://isc.sans.edu/diary/rss/33458",
+      "date": "2026-10-26",
+      "summary": "Apple today released patches for 304 vulnerabilties. This number is still in line with prior Apple updates, and comes just about a month after the last apple update."
+    },
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "Looking for a Language [Guest Diary]",
+      "url": "https://isc.sans.edu/diary/rss/33442",
+      "date": "2026-10-26",
+      "summary": "[This is a Guest Diary by Jeffray Spence, an ISC intern as part of the SANS.edu BACS program]"
+    },
+    {
+      "source": "elastic",
+      "label": "elastic labs",
+      "title": "Kernel eviction notice: What wesp.sys reveals about the Windows Endpoint Security Platform",
+      "url": "https://www.elastic.co/security-labs/blog/windows-endpoint-security-platform-wesp",
+      "date": "2026-10-26",
+      "summary": "Microsoft wants EDR out of the Windows kernel, and the preview binaries show wesp.sys telling a user-mode client that a process is starting, with nothing in its imports to let that client block it."
+    },
+    {
+      "source": "checkpoint",
+      "label": "check point",
+      "title": "26th October – Threat Intelligence Report",
+      "url": "https://research.checkpoint.com/2026/26th-october-threat-intelligence-report/",
+      "date": "2026-10-26",
+      "summary": "Japanese cloud hosting provider Onamae Desktop Cloud has confirmed a cyberattack in which intruders compromised its infrastructure and installed malware on customer servers. More than 26,000 servers were potentially…"
     },
     {
       "source": "unit42",
@@ -82,22 +98,6 @@
       "url": "https://unit42.paloaltonetworks.com/emudhra-certificate-compromise/",
       "date": "2026-10-22",
       "summary": "Eight compromised eMudhra intermediate CA private keys risk unauthorized TLS signing and MitM interception. Read our analysis and containment guide."
-    },
-    {
-      "source": "talos",
-      "label": "talos",
-      "title": "Compromised eMudhra intermediate certificates",
-      "url": "https://blog.talosintelligence.com/compromised-intermediate-certificates/",
-      "date": "2026-10-21",
-      "summary": "Cisco Talos is aware of eight intermediate certificates belonging to the intermediate certificate authority, eMudhra."
-    },
-    {
-      "source": "elastic",
-      "label": "elastic labs",
-      "title": "php2shell: Assessing Elastic detection coverage relevant to CVE-2026-109618 and CVE-2026-109619",
-      "url": "https://www.elastic.co/security-labs/threat-command/php2shell-php-rce-detection",
-      "date": "2026-10-21",
-      "summary": "CVE-2026-109618 and CVE-2026-109619 are critical PHP core RCE flaws that leaked ahead of disclosure. We cover what is verified, why exploitation converges on a web server spawning a shell, and the Elastic detections…"
     },
     {
       "source": "msti",
