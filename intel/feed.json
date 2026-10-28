@@ -1,31 +1,47 @@
 {
-  "updated": "2026-10-27T00:31:25Z",
-  "checked": "2026-10-27T00:31:25Z",
+  "updated": "2026-10-28T00:33:11Z",
+  "checked": "2026-10-28T00:33:11Z",
   "failed": [],
   "items": [
     {
       "source": "kev",
       "label": "cisa kev",
-      "title": "PHP Memory Corruption Vulnerability (CVE-2026-109618)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-109618",
-      "date": "2026-10-26",
-      "summary": "PHP contains an out-of-memory corruption vulnerability that allows for unauthenticated remote code execution."
+      "title": "Adobe Commerce and Magento Unrestricted Upload of File with Dangerous Type Vulnerability (CVE-2026-48356)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-48356",
+      "date": "2026-10-27",
+      "summary": "Adobe Commerce and Magento contain an unrestricted upload of file with dangerous type vulnerability that could result in arbitrary code execution in the context of the current user, potentially gaining elevated access…"
     },
     {
       "source": "kev",
       "label": "cisa kev",
-      "title": "PHP Stale Internal Request-State Vulnerability (CVE-2026-109619)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-109619",
-      "date": "2026-10-26",
-      "summary": "PHP contains a stale internal request-state vulnerability that allows for unauthenticated remote code execution."
+      "title": "Google Brotli Unchecked Return Value Vulnerability (CVE-2026-111497)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-111497",
+      "date": "2026-10-27",
+      "summary": "Google Brotli contains an unchecked return value vulnerability that allows a remote unauthenticated attacker to corrupt adjacent decoder state memory, disclose sensitive memory contents, cause a denial of service, or…"
     },
     {
       "source": "isc",
       "label": "sans isc",
       "title": "Apple Patches for October 2026",
       "url": "https://isc.sans.edu/diary/rss/33458",
-      "date": "2026-10-26",
+      "date": "2026-10-27",
       "summary": "Apple today released patches for 304 vulnerabilties. This number is still in line with prior Apple updates, and comes just about a month after the last apple update."
+    },
+    {
+      "source": "talos",
+      "label": "talos",
+      "title": "From federal SOCs to Talos: Ryan Fetterman on practical security research",
+      "url": "https://blog.talosintelligence.com/from-federal-socs-to-talos-ryan-fetterman-on-practical-security-research/",
+      "date": "2026-10-27",
+      "summary": "What does it mean to be \"blue collar\" for the blue team? Ryan Fetterman discusses the realities of detection engineering, and shares his philosophy on building a career in security without burning out."
+    },
+    {
+      "source": "checkpoint",
+      "label": "check point",
+      "title": "Tricks from the Past deployed via signed ChatGPT and Claude binaries",
+      "url": "https://research.checkpoint.com/2026/tricks-from-the-past-deployed-via-signed-chatgpt-and-claude-binaries/",
+      "date": "2026-10-27",
+      "summary": "Key Points Introduction Over the past two months, we have been tracking a campaign that abuses the popularity of AI tools such as ChatGPT and Claude to spread a custom malware chain we call Yoba. The attackers use fake…"
     },
     {
       "source": "isc",
@@ -68,14 +84,6 @@
       "summary": "We reproduced the Zimbra command injection vulnerability and found that several public PoCs write a payload Swatchdog never matches, so a failed test looks like a patched server."
     },
     {
-      "source": "checkpoint",
-      "label": "check point",
-      "title": "Infostealer riding the AI Train",
-      "url": "https://research.checkpoint.com/2026/infostealer-riding-the-ai-train/",
-      "date": "2026-10-23",
-      "summary": "Key Points Introduction Infostealers commonly target browser passwords, session cookies, and cryptocurrency wallets. This malware combines those established capabilities with dedicated collection routines for AI…"
-    },
-    {
       "source": "acsc",
       "label": "acsc alert",
       "title": "Critical vulnerabilities in Fortinet products",
@@ -90,14 +98,6 @@
       "url": "https://blog.talosintelligence.com/i-had-plans-for-that-second/",
       "date": "2026-10-22",
       "summary": "The Earth is speeding up, the leap second is being abolished, oh, and there's critical vulnerabilities in PHP."
-    },
-    {
-      "source": "unit42",
-      "label": "unit 42",
-      "title": "EMudhra Intermediate CA Certificates Compromised",
-      "url": "https://unit42.paloaltonetworks.com/emudhra-certificate-compromise/",
-      "date": "2026-10-22",
-      "summary": "Eight compromised eMudhra intermediate CA private keys risk unauthorized TLS signing and MitM interception. Read our analysis and containment guide."
     },
     {
       "source": "msti",
