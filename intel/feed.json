@@ -1,23 +1,55 @@
 {
-  "updated": "2026-10-28T00:33:11Z",
-  "checked": "2026-10-28T00:33:11Z",
+  "updated": "2026-10-29T01:01:16Z",
+  "checked": "2026-10-29T01:01:16Z",
   "failed": [],
   "items": [
     {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "Adobe Commerce and Magento Unrestricted Upload of File with Dangerous Type Vulnerability (CVE-2026-48356)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-48356",
-      "date": "2026-10-27",
-      "summary": "Adobe Commerce and Magento contain an unrestricted upload of file with dangerous type vulnerability that could result in arbitrary code execution in the context of the current user, potentially gaining elevated access…"
+      "source": "isc",
+      "label": "sans isc",
+      "title": "Yet Another ClickFix Campaign",
+      "url": "https://isc.sans.edu/diary/rss/33466",
+      "date": "2026-10-29",
+      "summary": "Introduction"
     },
     {
       "source": "kev",
       "label": "cisa kev",
-      "title": "Google Brotli Unchecked Return Value Vulnerability (CVE-2026-111497)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-111497",
-      "date": "2026-10-27",
-      "summary": "Google Brotli contains an unchecked return value vulnerability that allows a remote unauthenticated attacker to corrupt adjacent decoder state memory, disclose sensitive memory contents, cause a denial of service, or…"
+      "title": "Broadcom VMWare ESX Insufficient Logging Vulnerability (CVE-2026-41709)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-41709",
+      "date": "2026-10-28",
+      "summary": "Broadcom VMWare ESX contains an insufficient logging vulnerability that could allow a malicious actor with admin access to perform certain operations without being logged."
+    },
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "Linux Kernel Missing Initialization of a Variable Vulnerability (CVE-2026-46300)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-46300",
+      "date": "2026-10-28",
+      "summary": "Linux Kernel contains a missing initialization of a variable vulnerability that could allow for unintended modification of page-cache-backed data via failure to preserve the shared-fragment marker during socket buffer…"
+    },
+    {
+      "source": "talos",
+      "label": "talos",
+      "title": "Inside KeyDrift: Analyzing historical UAT-11473 activity on Cisco SD-WAN",
+      "url": "https://blog.talosintelligence.com/uat-11473-keydrift/",
+      "date": "2026-10-28",
+      "summary": "Talos has identified UAT-11473, a highly sophisticated APT, who exploited CVE-2026-20127, an authentication bypass vulnerability in Cisco SD-WAN Catalyst Controller instances to bypass authentication and gain…"
+    },
+    {
+      "source": "unit42",
+      "label": "unit 42",
+      "title": "Unwrapping Retail Peak Season Cyber Threats",
+      "url": "https://unit42.paloaltonetworks.com/unwrapping-retail-cyber-threats/",
+      "date": "2026-10-28",
+      "summary": "Unit 42 explores key peak shopping season retail cyber threats, from ransomware to AI attacks, and shares how to defend operations and customer trust."
+    },
+    {
+      "source": "sentinel",
+      "label": "sentinellabs",
+      "title": "LABScon26 Replay | Keynote: A Sober Analysis of AI Impact",
+      "url": "https://www.sentinelone.com/labs/labscon26-replay-keynote-a-sober-analysis-of-ai-impact/",
+      "date": "2026-10-28",
+      "summary": "Harvard Professor James Mickens weighs the promises of AI against its potential harms, arguing for hardware-based mechanisms to isolate frontier models."
     },
     {
       "source": "isc",
@@ -44,14 +76,6 @@
       "summary": "Key Points Introduction Over the past two months, we have been tracking a campaign that abuses the popularity of AI tools such as ChatGPT and Claude to spread a custom malware chain we call Yoba. The attackers use fake…"
     },
     {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "Looking for a Language [Guest Diary]",
-      "url": "https://isc.sans.edu/diary/rss/33442",
-      "date": "2026-10-26",
-      "summary": "[This is a Guest Diary by Jeffray Spence, an ISC intern as part of the SANS.edu BACS program]"
-    },
-    {
       "source": "elastic",
       "label": "elastic labs",
       "title": "Kernel eviction notice: What wesp.sys reveals about the Windows Endpoint Security Platform",
@@ -76,28 +100,12 @@
       "summary": "CVE-2026-109618 and CVE-2026-109619 are Critical vulnerabilities in PHP, a scripting language used globally for web servers and CMS systems."
     },
     {
-      "source": "elastic",
-      "label": "elastic labs",
-      "title": "How CVE-2026-73570 turns a Zimbra log file into remote code execution",
-      "url": "https://www.elastic.co/security-labs/threat-command/command-injection-zimbra-cve-2026-73570",
-      "date": "2026-10-23",
-      "summary": "We reproduced the Zimbra command injection vulnerability and found that several public PoCs write a payload Swatchdog never matches, so a failed test looks like a patched server."
-    },
-    {
       "source": "acsc",
       "label": "acsc alert",
       "title": "Critical vulnerabilities in Fortinet products",
       "url": "https://www.cyber.gov.au/alert/critical-vulnerabilities-in-fortinet-products",
       "date": "2026-10-23",
       "summary": "Fortinet have announced critical vulnerabilities in Fortinet products, and are releasing security updates which customers should implement as a priority."
-    },
-    {
-      "source": "talos",
-      "label": "talos",
-      "title": "I had plans for that second",
-      "url": "https://blog.talosintelligence.com/i-had-plans-for-that-second/",
-      "date": "2026-10-22",
-      "summary": "The Earth is speeding up, the leap second is being abolished, oh, and there's critical vulnerabilities in PHP."
     },
     {
       "source": "msti",
@@ -138,14 +146,6 @@
       "url": "https://www.cyber.gov.au/advisory/chinese-government-linked-cyber-threat-actors-combine-automated-and-hands-on-hacking-tools-to-steal-sensitive-data",
       "date": "2026-10-08",
       "summary": "Learn how Chinese state-linked cyber actors steal sensitive data and discover practical steps to detect, prevent and respond to attacks."
-    },
-    {
-      "source": "sentinel",
-      "label": "sentinellabs",
-      "title": "Don’t Call Us, We’ll Call Your APIs | TraderTraitor Backdoors Resurface on Victim With No Crypto Ties",
-      "url": "https://www.sentinelone.com/labs/dont-call-us-well-call-your-apis-tradertraitor-backdoors-resurface-on-victim-with-no-crypto-ties/",
-      "date": "2026-09-18",
-      "summary": "North Korean operators built a foothold on a DevOps engineer's Mac in a campaign whose job interview lures deliver malware via Terraform lock files."
     },
     {
       "source": "dfir",
