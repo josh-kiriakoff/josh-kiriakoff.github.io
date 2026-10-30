@@ -1,8 +1,32 @@
 {
-  "updated": "2026-10-29T01:01:16Z",
-  "checked": "2026-10-29T01:01:16Z",
+  "updated": "2026-10-30T01:06:21Z",
+  "checked": "2026-10-30T01:06:21Z",
   "failed": [],
   "items": [
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "Cisco Secure Firewall ASA Software and Cisco Secure FTD Software Unchecked Return Value to NULL Pointer Dereference Vulnerability (CVE-2026-76418)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-76418",
+      "date": "2026-10-29",
+      "summary": "Cisco Secure Firewall ASA Software and Cisco Secure FTD Software contains an unchecked return value to NULL pointer dereference vulnerability that could allow an unauthenticated, remote attacker to cause the device to…"
+    },
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "GitLab Community Edition and Enterprise Edition Integer Overflow or Wraparound Vulnerability (CVE-2026-97229)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-97229",
+      "date": "2026-10-29",
+      "summary": "GitLab Community Edition and Enterprise Edition contain a integer overflow or wraparound vulnerability that could allow an unauthenticated user to execute arbitrary code on the GitLab server via a specially crafted…"
+    },
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "Deploying a Local Ghidra Server for Your Malware Analysis Lab",
+      "url": "https://isc.sans.edu/diary/rss/33470",
+      "date": "2026-10-29",
+      "summary": "Building your malware analysis lab is a key point before playing with malware. Today, thanks to virtualization, it&#;x26;#;39;s convenient to play with snapshots in your lab. Start a new investigation from a clean…"
+    },
     {
       "source": "isc",
       "label": "sans isc",
@@ -12,28 +36,44 @@
       "summary": "Introduction"
     },
     {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "Broadcom VMWare ESX Insufficient Logging Vulnerability (CVE-2026-41709)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-41709",
-      "date": "2026-10-28",
-      "summary": "Broadcom VMWare ESX contains an insufficient logging vulnerability that could allow a malicious actor with admin access to perform certain operations without being logged."
-    },
-    {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "Linux Kernel Missing Initialization of a Variable Vulnerability (CVE-2026-46300)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-46300",
-      "date": "2026-10-28",
-      "summary": "Linux Kernel contains a missing initialization of a variable vulnerability that could allow for unintended modification of page-cache-backed data via failure to preserve the shared-fragment marker during socket buffer…"
+      "source": "talos",
+      "label": "talos",
+      "title": "A quiet week in infosec <.<",
+      "url": "https://blog.talosintelligence.com/a-quiet-week-in-infosec/",
+      "date": "2026-10-29",
+      "summary": "In this edition of the Threat Source newsletter, William explores how PHP has taken over the conversation, Node.js has joined in, but underneath it all, there are still good people doing good work."
     },
     {
       "source": "talos",
       "label": "talos",
-      "title": "Inside KeyDrift: Analyzing historical UAT-11473 activity on Cisco SD-WAN",
-      "url": "https://blog.talosintelligence.com/uat-11473-keydrift/",
-      "date": "2026-10-28",
-      "summary": "Talos has identified UAT-11473, a highly sophisticated APT, who exploited CVE-2026-20127, an authentication bypass vulnerability in Cisco SD-WAN Catalyst Controller instances to bypass authentication and gain…"
+      "title": "IR trends Q3 2026: Actors impersonate IT help desks in vishing attacks as ransomware activity increases",
+      "url": "https://blog.talosintelligence.com/ir-trends-q3-2026/",
+      "date": "2026-10-29",
+      "summary": "Phishing remained the leading initial access technique, while percentage of ransomware and pre-ransomware cases increased. Finance and public administration tied as the top-targeted industries."
+    },
+    {
+      "source": "unit42",
+      "label": "unit 42",
+      "title": "Threat Brief: Critical Vulnerabilities in PHP: CVE-2026-109618, CVE-2026-109619 (Updated October 29)",
+      "url": "https://unit42.paloaltonetworks.com/cve-2026-109618-cve-2026-109619/",
+      "date": "2026-10-29",
+      "summary": "CVE-2026-109618 and CVE-2026-109619 are Critical vulnerabilities in PHP, a scripting language used globally for web servers and CMS systems."
+    },
+    {
+      "source": "msti",
+      "label": "microsoft ti",
+      "title": "Tracking AI adoption in North Korean threat actor tradecraft",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/10/29/tracking-ai-adoption-in-north-korean-threat-actor-tradecraft/",
+      "date": "2026-10-29",
+      "summary": "As Microsoft Threat Intelligence continues to track how threat actors operationalize AI to increase the speed and efficiency of attacks, we’ve identified North Korean threat actors expanding their use of AI with varying…"
+    },
+    {
+      "source": "checkpoint",
+      "label": "check point",
+      "title": "Cohere’s Qwen Story: Looks More Like Model Jaggedness",
+      "url": "https://research.checkpoint.com/2026/coheres-qwen-story-looks-more-like-model-jaggedness/",
+      "date": "2026-10-29",
+      "summary": "Key findings On October 26, Cohere reported a puzzling incident involving Qwen3.8-Flash-Next, an open-weight model from Alibaba. The task was straightforward: write a detection rule for suspicious curl downloads…"
     },
     {
       "source": "unit42",
@@ -52,22 +92,6 @@
       "summary": "Harvard Professor James Mickens weighs the promises of AI against its potential harms, arguing for hardware-based mechanisms to isolate frontier models."
     },
     {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "Apple Patches for October 2026",
-      "url": "https://isc.sans.edu/diary/rss/33458",
-      "date": "2026-10-27",
-      "summary": "Apple today released patches for 304 vulnerabilties. This number is still in line with prior Apple updates, and comes just about a month after the last apple update."
-    },
-    {
-      "source": "talos",
-      "label": "talos",
-      "title": "From federal SOCs to Talos: Ryan Fetterman on practical security research",
-      "url": "https://blog.talosintelligence.com/from-federal-socs-to-talos-ryan-fetterman-on-practical-security-research/",
-      "date": "2026-10-27",
-      "summary": "What does it mean to be \"blue collar\" for the blue team? Ryan Fetterman discusses the realities of detection engineering, and shares his philosophy on building a career in security without burning out."
-    },
-    {
       "source": "checkpoint",
       "label": "check point",
       "title": "Tricks from the Past deployed via signed ChatGPT and Claude binaries",
@@ -84,36 +108,12 @@
       "summary": "Microsoft wants EDR out of the Windows kernel, and the preview binaries show wesp.sys telling a user-mode client that a process is starting, with nothing in its imports to let that client block it."
     },
     {
-      "source": "checkpoint",
-      "label": "check point",
-      "title": "26th October – Threat Intelligence Report",
-      "url": "https://research.checkpoint.com/2026/26th-october-threat-intelligence-report/",
-      "date": "2026-10-26",
-      "summary": "Japanese cloud hosting provider Onamae Desktop Cloud has confirmed a cyberattack in which intruders compromised its infrastructure and installed malware on customer servers. More than 26,000 servers were potentially…"
-    },
-    {
-      "source": "unit42",
-      "label": "unit 42",
-      "title": "Threat Brief: Critical Vulnerabilities in PHP: CVE-2026-109618, CVE-2026-109619 (Updated October 25)",
-      "url": "https://unit42.paloaltonetworks.com/cve-2026-109618-cve-2026-109619/",
-      "date": "2026-10-23",
-      "summary": "CVE-2026-109618 and CVE-2026-109619 are Critical vulnerabilities in PHP, a scripting language used globally for web servers and CMS systems."
-    },
-    {
       "source": "acsc",
       "label": "acsc alert",
       "title": "Critical vulnerabilities in Fortinet products",
       "url": "https://www.cyber.gov.au/alert/critical-vulnerabilities-in-fortinet-products",
       "date": "2026-10-23",
       "summary": "Fortinet have announced critical vulnerabilities in Fortinet products, and are releasing security updates which customers should implement as a priority."
-    },
-    {
-      "source": "msti",
-      "label": "microsoft ti",
-      "title": "AI-driven, large-scale nation-state campaign using ARTEX enables supply chain compromise",
-      "url": "https://www.microsoft.com/en-us/security/blog/2026/10/21/storm-0940-uses-artex-agentic-ai-connectwise-supply-chain-compromise/",
-      "date": "2026-10-21",
-      "summary": "Storm-0940 used ARTEX agentic AI to accelerate a ConnectWise supply chain compromise, enabling application credential abuse across Microsoft 365 environments."
     },
     {
       "source": "cisa",
