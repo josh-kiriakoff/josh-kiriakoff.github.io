@@ -1,23 +1,31 @@
 {
-  "updated": "2026-10-30T01:06:21Z",
-  "checked": "2026-10-30T01:06:21Z",
+  "updated": "2026-10-31T00:51:18Z",
+  "checked": "2026-10-31T00:51:18Z",
   "failed": [],
   "items": [
     {
       "source": "kev",
       "label": "cisa kev",
-      "title": "Cisco Secure Firewall ASA Software and Cisco Secure FTD Software Unchecked Return Value to NULL Pointer Dereference Vulnerability (CVE-2026-76418)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-76418",
-      "date": "2026-10-29",
-      "summary": "Cisco Secure Firewall ASA Software and Cisco Secure FTD Software contains an unchecked return value to NULL pointer dereference vulnerability that could allow an unauthenticated, remote attacker to cause the device to…"
+      "title": "Ivanti Connect Secure Generation of Predictable Numbers or Identifiers Vulnerability (CVE-2026-118527)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-118527",
+      "date": "2026-10-30",
+      "summary": "Ivanti Connect Secure contains a generation of predictable numbers or identifiers vulnerability that allows a remote authenticated attacker to upload files with attacker-controlled content to a known location on disk…"
     },
     {
       "source": "kev",
       "label": "cisa kev",
-      "title": "GitLab Community Edition and Enterprise Edition Integer Overflow or Wraparound Vulnerability (CVE-2026-97229)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-97229",
-      "date": "2026-10-29",
-      "summary": "GitLab Community Edition and Enterprise Edition contain a integer overflow or wraparound vulnerability that could allow an unauthenticated user to execute arbitrary code on the GitLab server via a specially crafted…"
+      "title": "Ivanti Connect Secure Missing Authentication for Critical Function Vulnerability (CVE-2026-111357)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-111357",
+      "date": "2026-10-30",
+      "summary": "Ivanti Connect Secure contains a missing authentication for critical function vulnerability that could allow a local authenticated attacker to escalate their privileges. This vulnerability can be chained with…"
+    },
+    {
+      "source": "msti",
+      "label": "microsoft ti",
+      "title": "From help desk impersonation to AD CS abuse: Investigating ESC1 and ESC8 intrusion paths",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/10/30/help-desk-impersonation-ad-cs-abuse-investigating-esc1-esc8-intrusion-paths/",
+      "date": "2026-10-30",
+      "summary": "Teams support impersonation led to remote access, malicious runtime execution, and Certificate Services abuse through authentication relay and Kerberos."
     },
     {
       "source": "isc",
@@ -90,14 +98,6 @@
       "url": "https://www.sentinelone.com/labs/labscon26-replay-keynote-a-sober-analysis-of-ai-impact/",
       "date": "2026-10-28",
       "summary": "Harvard Professor James Mickens weighs the promises of AI against its potential harms, arguing for hardware-based mechanisms to isolate frontier models."
-    },
-    {
-      "source": "checkpoint",
-      "label": "check point",
-      "title": "Tricks from the Past deployed via signed ChatGPT and Claude binaries",
-      "url": "https://research.checkpoint.com/2026/tricks-from-the-past-deployed-via-signed-chatgpt-and-claude-binaries/",
-      "date": "2026-10-27",
-      "summary": "Key Points Introduction Over the past two months, we have been tracking a campaign that abuses the popularity of AI tools such as ChatGPT and Claude to spread a custom malware chain we call Yoba. The attackers use fake…"
     },
     {
       "source": "elastic",
