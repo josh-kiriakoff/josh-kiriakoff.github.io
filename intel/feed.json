@@ -1,8 +1,40 @@
 {
-  "updated": "2026-10-31T00:51:18Z",
-  "checked": "2026-10-31T00:51:18Z",
+  "updated": "2026-11-01T00:10:54Z",
+  "checked": "2026-11-01T00:10:54Z",
   "failed": [],
   "items": [
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "Wireshark 5.0.0rc1 Release",
+      "url": "https://isc.sans.edu/diary/rss/33476",
+      "date": "2026-10-31",
+      "summary": "Wireshark Release Candidate 5.0.0 was published: soon we can expect a new major version of Wireshark."
+    },
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "YARA-X 1.22.0 Release",
+      "url": "https://isc.sans.edu/diary/rss/33454",
+      "date": "2026-10-31",
+      "summary": "YARA-X&#;x26;#;39;s 1.22.0 release brings 11 improvements and 9 bugfixes."
+    },
+    {
+      "source": "talos",
+      "label": "talos",
+      "title": "Appraisal by AI: Model-driven victim prioritization in the VOLTA infostealer",
+      "url": "https://blog.talosintelligence.com/appraisal-by-ai-model-driven-victim-prioritization-in-the-volta-infostealer/",
+      "date": "2026-10-31",
+      "summary": "The self-deleting VOLTA infostealer steals credentials, sessions, and cryptocurrency wallets. Then, it uses LLMs to profile victims and rank their most valuable assets."
+    },
+    {
+      "source": "msti",
+      "label": "microsoft ti",
+      "title": "Inside a malicious Claude Code-branded extension and its persistent SSH backdoor",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/10/30/inside-malicious-claude-code-branded-cursor-extension-persistent-ssh-backdoor/",
+      "date": "2026-10-31",
+      "summary": "Microsoft analyzes a malicious Claude Code–branded extension, its persistent SSH backdoor, and guidance to detect and remediate it."
+    },
     {
       "source": "kev",
       "label": "cisa kev",
@@ -28,22 +60,6 @@
       "summary": "Teams support impersonation led to remote access, malicious runtime execution, and Certificate Services abuse through authentication relay and Kerberos."
     },
     {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "Deploying a Local Ghidra Server for Your Malware Analysis Lab",
-      "url": "https://isc.sans.edu/diary/rss/33470",
-      "date": "2026-10-29",
-      "summary": "Building your malware analysis lab is a key point before playing with malware. Today, thanks to virtualization, it&#;x26;#;39;s convenient to play with snapshots in your lab. Start a new investigation from a clean…"
-    },
-    {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "Yet Another ClickFix Campaign",
-      "url": "https://isc.sans.edu/diary/rss/33466",
-      "date": "2026-10-29",
-      "summary": "Introduction"
-    },
-    {
       "source": "talos",
       "label": "talos",
       "title": "A quiet week in infosec <.<",
@@ -52,28 +68,12 @@
       "summary": "In this edition of the Threat Source newsletter, William explores how PHP has taken over the conversation, Node.js has joined in, but underneath it all, there are still good people doing good work."
     },
     {
-      "source": "talos",
-      "label": "talos",
-      "title": "IR trends Q3 2026: Actors impersonate IT help desks in vishing attacks as ransomware activity increases",
-      "url": "https://blog.talosintelligence.com/ir-trends-q3-2026/",
-      "date": "2026-10-29",
-      "summary": "Phishing remained the leading initial access technique, while percentage of ransomware and pre-ransomware cases increased. Finance and public administration tied as the top-targeted industries."
-    },
-    {
       "source": "unit42",
       "label": "unit 42",
       "title": "Threat Brief: Critical Vulnerabilities in PHP: CVE-2026-109618, CVE-2026-109619 (Updated October 29)",
       "url": "https://unit42.paloaltonetworks.com/cve-2026-109618-cve-2026-109619/",
       "date": "2026-10-29",
       "summary": "CVE-2026-109618 and CVE-2026-109619 are Critical vulnerabilities in PHP, a scripting language used globally for web servers and CMS systems."
-    },
-    {
-      "source": "msti",
-      "label": "microsoft ti",
-      "title": "Tracking AI adoption in North Korean threat actor tradecraft",
-      "url": "https://www.microsoft.com/en-us/security/blog/2026/10/29/tracking-ai-adoption-in-north-korean-threat-actor-tradecraft/",
-      "date": "2026-10-29",
-      "summary": "As Microsoft Threat Intelligence continues to track how threat actors operationalize AI to increase the speed and efficiency of attacks, we’ve identified North Korean threat actors expanding their use of AI with varying…"
     },
     {
       "source": "checkpoint",
