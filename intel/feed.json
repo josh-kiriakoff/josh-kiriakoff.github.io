@@ -1,8 +1,16 @@
 {
-  "updated": "2026-11-01T00:10:54Z",
-  "checked": "2026-11-01T00:10:54Z",
+  "updated": "2026-11-02T00:48:50Z",
+  "checked": "2026-11-02T00:48:50Z",
   "failed": [],
   "items": [
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "OneNote File Extraction",
+      "url": "https://isc.sans.edu/diary/rss/33478",
+      "date": "2026-11-01",
+      "summary": "Recently, I had to extract embedded files from a set of OneNote files (extension .one)."
+    },
     {
       "source": "isc",
       "label": "sans isc",
@@ -10,14 +18,6 @@
       "url": "https://isc.sans.edu/diary/rss/33476",
       "date": "2026-10-31",
       "summary": "Wireshark Release Candidate 5.0.0 was published: soon we can expect a new major version of Wireshark."
-    },
-    {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "YARA-X 1.22.0 Release",
-      "url": "https://isc.sans.edu/diary/rss/33454",
-      "date": "2026-10-31",
-      "summary": "YARA-X&#;x26;#;39;s 1.22.0 release brings 11 improvements and 9 bugfixes."
     },
     {
       "source": "talos",
@@ -50,6 +50,14 @@
       "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-111357",
       "date": "2026-10-30",
       "summary": "Ivanti Connect Secure contains a missing authentication for critical function vulnerability that could allow a local authenticated attacker to escalate their privileges. This vulnerability can be chained with…"
+    },
+    {
+      "source": "gti",
+      "label": "google ti",
+      "title": "ARTEX and Friends: Enter Agentic Offensive Frameworks",
+      "url": "https://cloud.google.com/blog/topics/threat-intelligence/artex-and-friends-enter-agentic-offensive-frameworks/",
+      "date": "2026-10-30",
+      "summary": "Written by: Aurora Blum, David Mainor, Rohit Nambiar, Omar ElAhdan, Matthew McWhirt, Will Silverstone, Bhavesh Dhake, Chris Busse Introduction Recent intrusions in which threat actors have been observed weaponizing…"
     },
     {
       "source": "msti",
@@ -130,14 +138,6 @@
       "url": "https://www.volexity.com/blog/2026/10/16/mind-the-patch-gap-part-3-analysis-with-volexity-volcano-threat-intel-and-mcp/",
       "date": "2026-10-16",
       "summary": "Last month, Volexity published two blog posts in its Mind the (Patch) Gap series. The series details Volexity’s discovery of multiple Chinese threat actors simultaneously using zero-day exploits in Google…"
-    },
-    {
-      "source": "gti",
-      "label": "google ti",
-      "title": "ARMORY CASTLE Exploits BeyondTrust",
-      "url": "https://cloud.google.com/blog/topics/threat-intelligence/armory-castle-exploits-beyondtrust/",
-      "date": "2026-10-15",
-      "summary": "Written by: Jayson Frost, Bryce Greathouse, Brian Meyer, John Palmisano, Rajesh Rajeshirke, Steve Rasch, John Wolfram Introduction On October 15, BeyondTrust disclosed a vulnerability, CVE-2026-102764, impacting…"
     },
     {
       "source": "acscadv",
