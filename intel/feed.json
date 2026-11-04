@@ -1,8 +1,40 @@
 {
-  "updated": "2026-11-03T02:56:33Z",
-  "checked": "2026-11-03T02:56:33Z",
+  "updated": "2026-11-04T01:26:43Z",
+  "checked": "2026-11-04T01:26:43Z",
   "failed": [],
   "items": [
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "WordPress WordPress Core Time-of-check Time-of-use (TOCTOU) Race Condition Vulnerability (CVE-2026-119977)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-119977",
+      "date": "2026-11-03",
+      "summary": "WordPress WordPress Core contains a time-of-check time-of-use (TOCTOU) race condition vulnerability that could allow unauthenticated attackers to execute code on the server during the upgrade window. This is due to…"
+    },
+    {
+      "source": "msti",
+      "label": "microsoft ti",
+      "title": "Fake-download campaign uses trojanized installers to deliver monetization payloads",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/03/fake-download-campaign-uses-trojanized-installers-deliver-monetization-payloads/",
+      "date": "2026-11-03",
+      "summary": "Microsoft Threat Intelligence tracks a fake-download campaign that uses trojanized Inno installers to deliver multiple monetization offers and provides detection and investigation guidance across the complete installer…"
+    },
+    {
+      "source": "checkpoint",
+      "label": "check point",
+      "title": "Free the Model, Sell the Gateway: Prompt Adware hidden in Jailbreak Bundles",
+      "url": "https://research.checkpoint.com/2026/free-the-model-sell-the-gateway-prompt-adware-hidden-in-jailbreak-bundles/",
+      "date": "2026-11-03",
+      "summary": "Key Points Free the Model, Sell the Gateway: Prompt Adware hidden in Jailbreak Bundles Check Point Research found a misconfigured webserver of a threat actor operating the Cobalt Strike framework. Besides an open Cobalt…"
+    },
+    {
+      "source": "sentinel",
+      "label": "sentinellabs",
+      "title": "Defrost and Disrupt | An Assessment of Europe’s Refrigeration Attacks",
+      "url": "https://www.sentinelone.com/labs/defrost-and-disrupt-an-assessment-of-europe-s-refrigeration-attacks/",
+      "date": "2026-11-03",
+      "summary": "Store fridges and freezers warmed overnight in six countries on November 2-3. Russian-aligned groups are credible suspects, but attribution remains open."
+    },
     {
       "source": "isc",
       "label": "sans isc",
@@ -68,44 +100,12 @@
       "summary": "The self-deleting VOLTA infostealer steals credentials, sessions, and cryptocurrency wallets. Then, it uses LLMs to profile victims and rank their most valuable assets."
     },
     {
-      "source": "msti",
-      "label": "microsoft ti",
-      "title": "Inside a malicious Claude Code-branded extension and its persistent SSH backdoor",
-      "url": "https://www.microsoft.com/en-us/security/blog/2026/10/30/inside-malicious-claude-code-branded-cursor-extension-persistent-ssh-backdoor/",
-      "date": "2026-10-31",
-      "summary": "Microsoft analyzes a malicious Claude Code–branded extension, its persistent SSH backdoor, and guidance to detect and remediate it."
-    },
-    {
       "source": "kev",
       "label": "cisa kev",
       "title": "Ivanti Connect Secure Generation of Predictable Numbers or Identifiers Vulnerability (CVE-2026-118527)",
       "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-118527",
       "date": "2026-10-30",
       "summary": "Ivanti Connect Secure contains a generation of predictable numbers or identifiers vulnerability that allows a remote authenticated attacker to upload files with attacker-controlled content to a known location on disk…"
-    },
-    {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "Ivanti Connect Secure Missing Authentication for Critical Function Vulnerability (CVE-2026-111357)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-111357",
-      "date": "2026-10-30",
-      "summary": "Ivanti Connect Secure contains a missing authentication for critical function vulnerability that could allow a local authenticated attacker to escalate their privileges. This vulnerability can be chained with…"
-    },
-    {
-      "source": "talos",
-      "label": "talos",
-      "title": "A quiet week in infosec <.<",
-      "url": "https://blog.talosintelligence.com/a-quiet-week-in-infosec/",
-      "date": "2026-10-29",
-      "summary": "In this edition of the Threat Source newsletter, William explores how PHP has taken over the conversation, Node.js has joined in, but underneath it all, there are still good people doing good work."
-    },
-    {
-      "source": "sentinel",
-      "label": "sentinellabs",
-      "title": "LABScon26 Replay | Keynote: A Sober Analysis of AI Impact",
-      "url": "https://www.sentinelone.com/labs/labscon26-replay-keynote-a-sober-analysis-of-ai-impact/",
-      "date": "2026-10-28",
-      "summary": "Harvard Professor James Mickens weighs the promises of AI against its potential harms, arguing for hardware-based mechanisms to isolate frontier models."
     },
     {
       "source": "elastic",
