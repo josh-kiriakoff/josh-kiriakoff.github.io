@@ -1,8 +1,48 @@
 {
-  "updated": "2026-11-04T01:26:43Z",
-  "checked": "2026-11-04T01:26:43Z",
+  "updated": "2026-11-05T01:29:39Z",
+  "checked": "2026-11-05T01:29:39Z",
   "failed": [],
   "items": [
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "Apple Multiple Products Improper Authentication Vulnerability (CVE-2024-27834)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-27834",
+      "date": "2026-11-04",
+      "summary": "Apple iOS, iPadOS, macOS, Safari, tvOS and watchOS 10.5 contain an improper authentication vulnerability which could allow an attacker with arbitrary read and write capability to bypass pointer authentication."
+    },
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "The Classics Return: Vulnerable E-Mail Scripts",
+      "url": "https://isc.sans.edu/diary/rss/33488",
+      "date": "2026-11-04",
+      "summary": "One of the early web application vulnerabilities I remember was CVE-2000-0411 [CVE]. This was a simple vulnerability in a CGI-bin script used to send e-mail. The vulnerability was pretty straightforward: Adding…"
+    },
+    {
+      "source": "elastic",
+      "label": "elastic labs",
+      "title": "Monitoring AI agent sessions: Leveraging embedding models to aid threat hunting and attack discovery workflows",
+      "url": "https://www.elastic.co/security-labs/blog/ai-agent-session-monitoring-embedding-models",
+      "date": "2026-11-04",
+      "summary": "I tested vector search on 7,454 turns of my own agent sessions. One in seven sessions needed review, the agent’s reasoning carried more signal than the prompt, and the stored vectors answer questions nobody thought to…"
+    },
+    {
+      "source": "elastic",
+      "label": "elastic labs",
+      "title": "When trust becomes the payload: Inside the threats, etc quarterly report",
+      "url": "https://www.elastic.co/security-labs/reports/threats-etc-report-november-2026-trouble-with-trust",
+      "date": "2026-11-04",
+      "summary": "The newest threats, etc report details how adversaries are weaponizing trust across the entire enterprise stack, abusing everything from AI assistants and npm supply chains to identity flows and legitimate management…"
+    },
+    {
+      "source": "sentinel",
+      "label": "sentinellabs",
+      "title": "VerifiedIDA | Making LLM-Driven Reverse Engineering Inspectable, Continuable and Reusable",
+      "url": "https://www.sentinelone.com/labs/verifiedida-making-llm-driven-reverse-engineering-inspectable-continuable-and-reusable/",
+      "date": "2026-11-04",
+      "summary": "LLM reverse engineering scales only if analysis stays inspectable. A new standard and its open-source IDA Pro implementation tie annotations to evidence."
+    },
     {
       "source": "kev",
       "label": "cisa kev",
@@ -68,52 +108,12 @@
       "summary": "Written by: Christopher Romano, Codi Starks, Garrett Mahoney, John Wolfram, Josh Murchie, K Singh, Mathew Potaczek, Mike Lombardi, Rik Dolfing Introduction Mandiant responded to multiple incidents in 2026 in which…"
     },
     {
-      "source": "msti",
-      "label": "microsoft ti",
-      "title": "What exploited vulnerabilities have in common: A data-driven analysis of real-world attacks",
-      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/02/exploited-vulnerabilities-common-data-driven-analysis-real-world-attacks/",
-      "date": "2026-11-02",
-      "summary": "Real-world exploitation concentrates in a small, high-impact subset of CVEs. Learn how defenders can prioritize vulnerabilities based on exploitation likelihood, exposure, and potential blast radius."
-    },
-    {
-      "source": "checkpoint",
-      "label": "check point",
-      "title": "2nd November – Threat Intelligence Report",
-      "url": "https://research.checkpoint.com/2026/2nd-november-threat-intelligence-report/",
-      "date": "2026-11-02",
-      "summary": "Binance, a global cryptocurrency exchange, has suffered a cyberattack resulting in the theft of approximately $6.3 billion in digital assets. Attackers reportedly compromised a DevOps engineer’s laptop and abused…"
-    },
-    {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "OneNote File Extraction",
-      "url": "https://isc.sans.edu/diary/rss/33478",
-      "date": "2026-11-01",
-      "summary": "Recently, I had to extract embedded files from a set of OneNote files (extension .one)."
-    },
-    {
       "source": "talos",
       "label": "talos",
       "title": "Appraisal by AI: Model-driven victim prioritization in the VOLTA infostealer",
       "url": "https://blog.talosintelligence.com/appraisal-by-ai-model-driven-victim-prioritization-in-the-volta-infostealer/",
       "date": "2026-10-31",
       "summary": "The self-deleting VOLTA infostealer steals credentials, sessions, and cryptocurrency wallets. Then, it uses LLMs to profile victims and rank their most valuable assets."
-    },
-    {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "Ivanti Connect Secure Generation of Predictable Numbers or Identifiers Vulnerability (CVE-2026-118527)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-118527",
-      "date": "2026-10-30",
-      "summary": "Ivanti Connect Secure contains a generation of predictable numbers or identifiers vulnerability that allows a remote authenticated attacker to upload files with attacker-controlled content to a known location on disk…"
-    },
-    {
-      "source": "elastic",
-      "label": "elastic labs",
-      "title": "Kernel eviction notice: What wesp.sys reveals about the Windows Endpoint Security Platform",
-      "url": "https://www.elastic.co/security-labs/blog/windows-endpoint-security-platform-wesp",
-      "date": "2026-10-26",
-      "summary": "Microsoft wants EDR out of the Windows kernel, and the preview binaries show wesp.sys telling a user-mode client that a process is starting, with nothing in its imports to let that client block it."
     },
     {
       "source": "acsc",
