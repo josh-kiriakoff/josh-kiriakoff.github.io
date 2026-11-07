@@ -1,8 +1,24 @@
 {
-  "updated": "2026-11-06T01:35:48Z",
-  "checked": "2026-11-06T01:35:48Z",
+  "updated": "2026-11-07T00:57:39Z",
+  "checked": "2026-11-07T00:57:39Z",
   "failed": [],
   "items": [
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "SonicWall SonicOS SSLVPN Use of Single-factor Authentication Vulnerability (CVE-2026-19868)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19868",
+      "date": "2026-11-06",
+      "summary": "SonicWall SonicOS SSLVPN contains a use of single-factor authentication vulnerability that may allow a user with valid credentials for an alternate authentication method to bypass SAML authentication controls…"
+    },
+    {
+      "source": "unit42",
+      "label": "unit 42",
+      "title": "Turning Up the Heat: Inside the Attacks on Europe’s Refrigeration System",
+      "url": "https://unit42.paloaltonetworks.com/europes-refrigeration-systems-attacks/",
+      "date": "2026-11-06",
+      "summary": "Unit 42 examines recent cyberattacks targeting European refrigeration systems and outlines defense and mitigation strategies."
+    },
     {
       "source": "isc",
       "label": "sans isc",
@@ -90,22 +106,6 @@
       "url": "https://www.sentinelone.com/labs/verifiedida-making-llm-driven-reverse-engineering-inspectable-continuable-and-reusable/",
       "date": "2026-11-04",
       "summary": "LLM reverse engineering scales only if analysis stays inspectable. A new standard and its open-source IDA Pro implementation tie annotations to evidence."
-    },
-    {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "WordPress WordPress Core Time-of-check Time-of-use (TOCTOU) Race Condition Vulnerability (CVE-2026-119977)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-119977",
-      "date": "2026-11-03",
-      "summary": "WordPress WordPress Core contains a time-of-check time-of-use (TOCTOU) race condition vulnerability that could allow unauthenticated attackers to execute code on the server during the upgrade window. This is due to…"
-    },
-    {
-      "source": "unit42",
-      "label": "unit 42",
-      "title": "Unit 42 Threat Intelligence Highlights - Nov. 2, 2026",
-      "url": "https://unit42.paloaltonetworks.com/u42-threat-intelligence-highlights-oct-2026/",
-      "date": "2026-11-02",
-      "summary": "Unit 42 details recent threat intelligence, highlighting cyberespionage, financial extortion, and the rapid adoption of AI across offensive workflows."
     },
     {
       "source": "gti",
