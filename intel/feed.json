@@ -1,8 +1,16 @@
 {
-  "updated": "2026-11-07T00:57:39Z",
-  "checked": "2026-11-07T00:57:39Z",
+  "updated": "2026-11-08T00:42:33Z",
+  "checked": "2026-11-08T00:42:33Z",
   "failed": [],
   "items": [
+    {
+      "source": "msti",
+      "label": "microsoft ti",
+      "title": "ARTEX abuse expands as cybercriminals target financial sector",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/06/artex-abuse-expands-as-cybercriminals-target-financial-sector/",
+      "date": "2026-11-07",
+      "summary": "In October 2026, the financially motivated threat actor Storm-3358 began targeting organizations in the financial sector using the agentic AI offensive framework ARTEX."
+    },
     {
       "source": "kev",
       "label": "cisa kev",
@@ -42,14 +50,6 @@
       "url": "https://www.microsoft.com/en-us/security/blog/2026/11/05/email-threat-landscape-q3-2026-trends-and-insights/",
       "date": "2026-11-05",
       "summary": "Microsoft Threat Intelligence observed a sharp rise in email-based phishing activity at the end of Q3 2026 (July – September), even as QR code phishing declined, CAPTCHA-gated phishing recovered, and malicious messages…"
-    },
-    {
-      "source": "msti",
-      "label": "microsoft ti",
-      "title": "Threat actors use agentic AI tooling to find and abuse exposed secrets",
-      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/05/threat-actors-use-agentic-ai-tooling-to-find-and-abuse-exposed-secrets/",
-      "date": "2026-11-05",
-      "summary": "Microsoft Threat Intelligence has observed threat actors using the agentic offensive security framework ARTEX to search GitHub for OAuth application secrets, which can be used to compromise the associated OAuth…"
     },
     {
       "source": "checkpoint",
