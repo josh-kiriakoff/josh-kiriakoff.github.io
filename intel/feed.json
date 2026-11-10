@@ -1,8 +1,40 @@
 {
-  "updated": "2026-11-09T00:57:33Z",
-  "checked": "2026-11-09T00:57:33Z",
+  "updated": "2026-11-10T03:37:10Z",
+  "checked": "2026-11-10T03:37:10Z",
   "failed": [],
   "items": [
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "GPUStack Improper Authentication Vulnerability (CVE-2026-102895)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-102895",
+      "date": "2026-11-09",
+      "summary": "GPUStack contains an improper authentication vulnerability which could allow unauthenticated administrative access, including user and model changes, persistent administrator API-key creation, disclosure of worker and…"
+    },
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "IBM Aspera Faspex Incorrect Authorization Vulnerability (CVE-2026-123218)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-123218",
+      "date": "2026-11-09",
+      "summary": "IBM Aspera Faspex contains an incorrect authorization vulnerability that could allow an authenticated user to craft a specific message to bypass authorization, causing privilege escalations."
+    },
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "Attackers Searching for SAP Netweaver Webshells",
+      "url": "https://isc.sans.edu/diary/rss/33502",
+      "date": "2026-11-09",
+      "summary": "Just saw a new (to me) URL in our honeypot data today:"
+    },
+    {
+      "source": "checkpoint",
+      "label": "check point",
+      "title": "9th November – Threat Intelligence Report",
+      "url": "https://research.checkpoint.com/2026/9th-november-threat-intelligence-report/",
+      "date": "2026-11-09",
+      "summary": "Queens Public Library, a New York City public library system serving approximately 2.3 million residents, was struck by a ransomware attack that encrypted its systems. The incident disrupted public computers, Wi-Fi…"
+    },
     {
       "source": "isc",
       "label": "sans isc",
@@ -20,28 +52,12 @@
       "summary": "In October 2026, the financially motivated threat actor Storm-3358 began targeting organizations in the financial sector using the agentic AI offensive framework ARTEX."
     },
     {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "SonicWall SonicOS SSLVPN Use of Single-factor Authentication Vulnerability (CVE-2026-19868)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19868",
-      "date": "2026-11-06",
-      "summary": "SonicWall SonicOS SSLVPN contains a use of single-factor authentication vulnerability that may allow a user with valid credentials for an alternate authentication method to bypass SAML authentication controls…"
-    },
-    {
       "source": "unit42",
       "label": "unit 42",
-      "title": "Turning Up the Heat: Inside the Attacks on Europe’s Refrigeration System",
+      "title": "Turning Up the Heat: Inside the Attacks on Europe’s Refrigeration Systems",
       "url": "https://unit42.paloaltonetworks.com/europes-refrigeration-systems-attacks/",
       "date": "2026-11-06",
       "summary": "Unit 42 examines recent cyberattacks targeting European refrigeration systems and outlines defense and mitigation strategies."
-    },
-    {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "Vulnerability Scans for Older Cisco IOS Vulnerability / Opt-Out Headers",
-      "url": "https://isc.sans.edu/diary/rss/33492",
-      "date": "2026-11-05",
-      "summary": "This morning, I was browsing our honeypot data for any new and existing PHP exploit attempts. Instead, I first ran into some GeoServer exploits, but found them to be too boring to write up. This Cisco IOS exploit…"
     },
     {
       "source": "talos",
@@ -66,22 +82,6 @@
       "url": "https://research.checkpoint.com/2026/chatgpt-lockdown-mode-bypass-phishing-malware-delivery-and-silent-data-exfiltration/",
       "date": "2026-11-05",
       "summary": "Research by: Alexey Bukhteyev Key Takeaways Introduction Earlier this year, Check Point Research disclosed a security flaw in ChatGPT’s code-execution runtime that allowed sensitive conversation data to be silently…"
-    },
-    {
-      "source": "checkpoint",
-      "label": "check point",
-      "title": "Hacking on Autopilot: Inside ARTEX Cybercrime Campaigns",
-      "url": "https://research.checkpoint.com/2026/hacking-on-autopilot-inside-artex-cybercrime-campaigns/",
-      "date": "2026-11-05",
-      "summary": "Key Points Introduction ARTEX is a Chinese open-source, AI-powered penetration testing platform designed to help security teams assess systems they own or are authorized to test. It uses large language models (LLMs) to…"
-    },
-    {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "Apple Multiple Products Improper Authentication Vulnerability (CVE-2024-27834)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-27834",
-      "date": "2026-11-04",
-      "summary": "Apple iOS, iPadOS, macOS, Safari, tvOS and watchOS 10.5 contain an improper authentication vulnerability which could allow an attacker with arbitrary read and write capability to bypass pointer authentication."
     },
     {
       "source": "elastic",
