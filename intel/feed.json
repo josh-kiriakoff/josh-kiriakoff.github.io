@@ -1,31 +1,55 @@
 {
-  "updated": "2026-11-10T03:37:10Z",
-  "checked": "2026-11-10T03:37:10Z",
+  "updated": "2026-11-11T01:16:34Z",
+  "checked": "2026-11-11T01:16:34Z",
   "failed": [],
   "items": [
     {
       "source": "kev",
       "label": "cisa kev",
-      "title": "GPUStack Improper Authentication Vulnerability (CVE-2026-102895)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-102895",
-      "date": "2026-11-09",
-      "summary": "GPUStack contains an improper authentication vulnerability which could allow unauthenticated administrative access, including user and model changes, persistent administrator API-key creation, disclosure of worker and…"
+      "title": "Barracuda Networks Email Security Gateway (ESG) Authentication Bypass Using an Alternate Path or Channel Vulnerability (CVE-2026-116606)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-116606",
+      "date": "2026-11-10",
+      "summary": "Barracuda Networks Email Security Gateway (ESG) contains an authentication bypass using an alternate path or channel that could allow an unauthenticated remote attacker to invoke a configuration-import function and…"
     },
     {
       "source": "kev",
       "label": "cisa kev",
-      "title": "IBM Aspera Faspex Incorrect Authorization Vulnerability (CVE-2026-123218)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-123218",
-      "date": "2026-11-09",
-      "summary": "IBM Aspera Faspex contains an incorrect authorization vulnerability that could allow an authenticated user to craft a specific message to bypass authorization, causing privilege escalations."
+      "title": "Google Chromium Use-After-Free Vulnerability (CVE-2026-125350)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-125350",
+      "date": "2026-11-10",
+      "summary": "Google Chromium contains a use-after-free vulnerability in the XML component that could allow a remote attacker to execute arbitrary code inside the sandbox via a specially crafted webpage. This vulnerability could…"
     },
     {
       "source": "isc",
       "label": "sans isc",
-      "title": "Attackers Searching for SAP Netweaver Webshells",
-      "url": "https://isc.sans.edu/diary/rss/33502",
-      "date": "2026-11-09",
-      "summary": "Just saw a new (to me) URL in our honeypot data today:"
+      "title": "Apple Patches Everyting: November 2026 Edition",
+      "url": "https://isc.sans.edu/diary/rss/33506",
+      "date": "2026-11-10",
+      "summary": ""
+    },
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "Microsoft Patch Tuesday November 2027",
+      "url": "https://isc.sans.edu/diary/rss/33508",
+      "date": "2026-11-10",
+      "summary": "Microsoft continues its AI-induced patch surge, addressing 1,260 different vulnerabilities this month. 68 of these vulnerabilities are considered critical. 167 of the vulnerabilities are Chromium issues affecting…"
+    },
+    {
+      "source": "msti",
+      "label": "microsoft ti",
+      "title": "Detecting sleeper agents hiding in AI model neurons",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/10/detecting-sleeper-agents-hiding-in-ai-model-neurons/",
+      "date": "2026-11-10",
+      "summary": "Microsoft Research has released new threat research detailing how a capable agent model could be turned into a sleeper agent by editing fewer than ten neurons to inject a short payload; Microsoft Research has also found…"
+    },
+    {
+      "source": "checkpoint",
+      "label": "check point",
+      "title": "Not All That Glitters Is Gold: Tracking CopperDragon’s Sparrow Framework Around the Globe",
+      "url": "https://research.checkpoint.com/2026/not-all-that-glitters-is-gold-tracking-copperdragons-sparrow-framework-around-the-globe/",
+      "date": "2026-11-10",
+      "summary": "Key Points Introduction Over the past year, Check Point Research investigated a series of intrusion campaigns targeting several dozens of high-profile organizations across Latin America, Asia, and Europe. These…"
     },
     {
       "source": "checkpoint",
@@ -34,14 +58,6 @@
       "url": "https://research.checkpoint.com/2026/9th-november-threat-intelligence-report/",
       "date": "2026-11-09",
       "summary": "Queens Public Library, a New York City public library system serving approximately 2.3 million residents, was struck by a ransomware attack that encrypted its systems. The incident disrupted public computers, Wi-Fi…"
-    },
-    {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "Scans for Sshole Vulnerability (CVE-2026-123158)",
-      "url": "https://isc.sans.edu/diary/rss/33498",
-      "date": "2026-11-08",
-      "summary": "Our honeypots use \"Cowrie\" to collect SSH data. With the emergence of the \"sshole\" vulnerability last week, we are now seeing an increase in attempts to exploit the vulnerability. Our data is a bit limited in this…"
     },
     {
       "source": "msti",
@@ -66,22 +82,6 @@
       "url": "https://blog.talosintelligence.com/bring-a-tent-ive-got-the-coffee-lessons-from-it-sa/",
       "date": "2026-11-05",
       "summary": "Thorsten may have had to camp out in Nuremberg to attend it-sa, but the real story is the initiative to add a formal IT Security apprenticeship program in Germany for the thousands of young hackers ready to join our…"
-    },
-    {
-      "source": "msti",
-      "label": "microsoft ti",
-      "title": "Email threat landscape: Q3 2026 trends and insights",
-      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/05/email-threat-landscape-q3-2026-trends-and-insights/",
-      "date": "2026-11-05",
-      "summary": "Microsoft Threat Intelligence observed a sharp rise in email-based phishing activity at the end of Q3 2026 (July – September), even as QR code phishing declined, CAPTCHA-gated phishing recovered, and malicious messages…"
-    },
-    {
-      "source": "checkpoint",
-      "label": "check point",
-      "title": "ChatGPT Lockdown Mode Bypass: Phishing, Malware Delivery, and Silent Data Exfiltration",
-      "url": "https://research.checkpoint.com/2026/chatgpt-lockdown-mode-bypass-phishing-malware-delivery-and-silent-data-exfiltration/",
-      "date": "2026-11-05",
-      "summary": "Research by: Alexey Bukhteyev Key Takeaways Introduction Earlier this year, Check Point Research disclosed a security flaw in ChatGPT’s code-execution runtime that allowed sensitive conversation data to be silently…"
     },
     {
       "source": "elastic",
