@@ -1,8 +1,48 @@
 {
-  "updated": "2026-11-11T01:16:34Z",
-  "checked": "2026-11-11T01:16:34Z",
+  "updated": "2026-11-12T02:17:57Z",
+  "checked": "2026-11-12T02:17:57Z",
   "failed": [],
   "items": [
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "Microsoft Patch Tuesday November 2026",
+      "url": "https://isc.sans.edu/diary/rss/33508",
+      "date": "2026-11-11",
+      "summary": "Microsoft continues its AI-induced patch surge, addressing 1,260 different vulnerabilities this month. 68 of these vulnerabilities are considered critical. 167 of the vulnerabilities are Chromium issues affecting…"
+    },
+    {
+      "source": "talos",
+      "label": "talos",
+      "title": "Microsoft Patch Tuesday for November 2026 — Snort rules and prominent vulnerabilities",
+      "url": "https://blog.talosintelligence.com/microsoft-patch-tuesday-for-november-2026/",
+      "date": "2026-11-11",
+      "summary": "Microsoft has released its monthly security update for November 2026, which includes 1328 vulnerabilities affecting a range of products, including 60 that Microsoft marked as \"critical.\" Out of 60 \"critical\"…"
+    },
+    {
+      "source": "unit42",
+      "label": "unit 42",
+      "title": "ARTEX and AI-Powered Red Teaming Tools: What Defenders Need to Know",
+      "url": "https://unit42.paloaltonetworks.com/artex-and-ai-powered-red-teaming-tools/",
+      "date": "2026-11-11",
+      "summary": "Learn what Unit 42 discovered about attacker use of AI-powered red team tools, and how to mitigate these attacks."
+    },
+    {
+      "source": "unit42",
+      "label": "unit 42",
+      "title": "The XG Files: Falcon C2 Flying Under The (Browser) Radar",
+      "url": "https://unit42.paloaltonetworks.com/falcon-c2-browser-compromise/",
+      "date": "2026-11-11",
+      "summary": "We uncover Falcon C2, a browser-based threat framework targeting governments via malicious scripts, extensions, and the Antino implant."
+    },
+    {
+      "source": "msti",
+      "label": "microsoft ti",
+      "title": "The global socket: how threat actors are weaponizing GSocket for stealthy C2",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/11/global-socket-how-threat-actors-weaponizing-gsocket-stealthy-c2/",
+      "date": "2026-11-11",
+      "summary": "Threat actors are deploying GSocket on compromised Linux servers to keep encrypted remote access after the original vulnerability is patched. Learn how to detect, investigate, and remediate this activity."
+    },
     {
       "source": "kev",
       "label": "cisa kev",
@@ -26,14 +66,6 @@
       "url": "https://isc.sans.edu/diary/rss/33506",
       "date": "2026-11-10",
       "summary": ""
-    },
-    {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "Microsoft Patch Tuesday November 2027",
-      "url": "https://isc.sans.edu/diary/rss/33508",
-      "date": "2026-11-10",
-      "summary": "Microsoft continues its AI-induced patch surge, addressing 1,260 different vulnerabilities this month. 68 of these vulnerabilities are considered critical. 167 of the vulnerabilities are Chromium issues affecting…"
     },
     {
       "source": "msti",
@@ -60,44 +92,12 @@
       "summary": "Queens Public Library, a New York City public library system serving approximately 2.3 million residents, was struck by a ransomware attack that encrypted its systems. The incident disrupted public computers, Wi-Fi…"
     },
     {
-      "source": "msti",
-      "label": "microsoft ti",
-      "title": "ARTEX abuse expands as cybercriminals target financial sector",
-      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/06/artex-abuse-expands-as-cybercriminals-target-financial-sector/",
-      "date": "2026-11-07",
-      "summary": "In October 2026, the financially motivated threat actor Storm-3358 began targeting organizations in the financial sector using the agentic AI offensive framework ARTEX."
-    },
-    {
-      "source": "unit42",
-      "label": "unit 42",
-      "title": "Turning Up the Heat: Inside the Attacks on Europe’s Refrigeration Systems",
-      "url": "https://unit42.paloaltonetworks.com/europes-refrigeration-systems-attacks/",
-      "date": "2026-11-06",
-      "summary": "Unit 42 examines recent cyberattacks targeting European refrigeration systems and outlines defense and mitigation strategies."
-    },
-    {
-      "source": "talos",
-      "label": "talos",
-      "title": "Bring a tent, I've got the coffee: Lessons from it-sa",
-      "url": "https://blog.talosintelligence.com/bring-a-tent-ive-got-the-coffee-lessons-from-it-sa/",
-      "date": "2026-11-05",
-      "summary": "Thorsten may have had to camp out in Nuremberg to attend it-sa, but the real story is the initiative to add a formal IT Security apprenticeship program in Germany for the thousands of young hackers ready to join our…"
-    },
-    {
       "source": "elastic",
       "label": "elastic labs",
       "title": "Modernising threat hunting: Using Semantic Search to Find Risky AI Agent Behavior",
       "url": "https://www.elastic.co/security-labs/blog/ai-agent-session-monitoring-embedding-models",
       "date": "2026-11-04",
       "summary": "I tested vector search on 7,454 turns of my own agent sessions. One in seven sessions needed review, the agent’s reasoning carried more signal than the prompt, and the stored vectors answer questions nobody thought to…"
-    },
-    {
-      "source": "elastic",
-      "label": "elastic labs",
-      "title": "When trust becomes the payload: Inside the threats, etc quarterly report",
-      "url": "https://www.elastic.co/security-labs/reports/threats-etc-report-november-2026-trouble-with-trust",
-      "date": "2026-11-04",
-      "summary": "The newest threats, etc report details how adversaries are weaponizing trust across the entire enterprise stack, abusing everything from AI assistants and npm supply chains to identity flows and legitimate management…"
     },
     {
       "source": "sentinel",
