@@ -1,8 +1,64 @@
 {
-  "updated": "2026-11-12T02:17:57Z",
-  "checked": "2026-11-12T02:17:57Z",
+  "updated": "2026-11-13T01:53:20Z",
+  "checked": "2026-11-13T01:53:20Z",
   "failed": [],
   "items": [
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "Exploit Attempts for GPUStack Authentication Bypass (CVE-2026-102895)",
+      "url": "https://isc.sans.edu/diary/rss/33514",
+      "date": "2026-11-12",
+      "summary": "CVE-2026-102895 is a trivial authentication-bypass vulnerability. GPUStack is also an attractive target. It is open-source software that manages clusters of GPUs, which are typically used to run AI workloads. All…"
+    },
+    {
+      "source": "talos",
+      "label": "talos",
+      "title": "Never be afraid to ask questions",
+      "url": "https://blog.talosintelligence.com/never-be-afraid-to-ask-questions/",
+      "date": "2026-11-12",
+      "summary": "Amy reflects on a formative college anthropology course that taught her the power of asking questions to bridge cultural gaps."
+    },
+    {
+      "source": "unit42",
+      "label": "unit 42",
+      "title": "Attackers Use Autonomous AI to Target Semiconductor, Defense and Civil Society Sectors",
+      "url": "https://unit42.paloaltonetworks.com/cairn-framework-ai-autonomous-attacks/",
+      "date": "2026-11-12",
+      "summary": "Our analysis of how attackers used the open-source Cairn AI agent framework to autonomously breach semiconductor, defense and civic targets."
+    },
+    {
+      "source": "elastic",
+      "label": "elastic labs",
+      "title": "0% GPU utilization: How SANSAR hides Linux cryptomining",
+      "url": "https://www.elastic.co/security-labs/threat-command/sansar-linux-cryptomining-malware",
+      "date": "2026-11-12",
+      "summary": "Elastic Security Labs analyzes SANSAR, a Linux cryptomining orchestrator that manages miners over Tor, alongside a kernel rootkit, GPU monitoring hooks and a backdoor that retrieves its C2 address from Ethereum."
+    },
+    {
+      "source": "msti",
+      "label": "microsoft ti",
+      "title": "Trained to betray: How post-training supply chain attacks hijack coding agents",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/12/trained-to-betray-how-post-training-supply-chain-attacks-hijack-coding-agents/",
+      "date": "2026-11-12",
+      "summary": "Microsoft Defender Research and the AI Red Team discuss how poisoned datasets and poisoned model checkpoints can trigger remote code execution and other malicious activities."
+    },
+    {
+      "source": "checkpoint",
+      "label": "check point",
+      "title": "PHP2Shell Exploitation on Check Point Gateway",
+      "url": "https://research.checkpoint.com/2026/php2shell-exploitation-on-check-point-gateway/",
+      "date": "2026-11-12",
+      "summary": "Key findings Introduction We have now confirmed that, in late October 2026, approximately one week after a security fix became available, activity originating from 130.94.19[.]204 targeted Israeli organizations through…"
+    },
+    {
+      "source": "sentinel",
+      "label": "sentinellabs",
+      "title": "LABScon26 Replay | Let’s Get Physical: Why Cybersecurity Needs Hardware-Based Security to Survive AI",
+      "url": "https://www.sentinelone.com/labs/labscon26-replay-let-s-get-physical-why-cybersecurity-needs-hardware-based-security-to-survive-ai/",
+      "date": "2026-11-12",
+      "summary": "Adyen’s Dino Dai Zovi shows how hardware security proven in payments can contain AI-driven attacks, even when vulnerabilities cannot be patched."
+    },
     {
       "source": "isc",
       "label": "sans isc",
@@ -28,14 +84,6 @@
       "summary": "Learn what Unit 42 discovered about attacker use of AI-powered red team tools, and how to mitigate these attacks."
     },
     {
-      "source": "unit42",
-      "label": "unit 42",
-      "title": "The XG Files: Falcon C2 Flying Under The (Browser) Radar",
-      "url": "https://unit42.paloaltonetworks.com/falcon-c2-browser-compromise/",
-      "date": "2026-11-11",
-      "summary": "We uncover Falcon C2, a browser-based threat framework targeting governments via malicious scripts, extensions, and the Antino implant."
-    },
-    {
       "source": "msti",
       "label": "microsoft ti",
       "title": "The global socket: how threat actors are weaponizing GSocket for stealthy C2",
@@ -58,54 +106,6 @@
       "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-125350",
       "date": "2026-11-10",
       "summary": "Google Chromium contains a use-after-free vulnerability in the XML component that could allow a remote attacker to execute arbitrary code inside the sandbox via a specially crafted webpage. This vulnerability could…"
-    },
-    {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "Apple Patches Everyting: November 2026 Edition",
-      "url": "https://isc.sans.edu/diary/rss/33506",
-      "date": "2026-11-10",
-      "summary": ""
-    },
-    {
-      "source": "msti",
-      "label": "microsoft ti",
-      "title": "Detecting sleeper agents hiding in AI model neurons",
-      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/10/detecting-sleeper-agents-hiding-in-ai-model-neurons/",
-      "date": "2026-11-10",
-      "summary": "Microsoft Research has released new threat research detailing how a capable agent model could be turned into a sleeper agent by editing fewer than ten neurons to inject a short payload; Microsoft Research has also found…"
-    },
-    {
-      "source": "checkpoint",
-      "label": "check point",
-      "title": "Not All That Glitters Is Gold: Tracking CopperDragon’s Sparrow Framework Around the Globe",
-      "url": "https://research.checkpoint.com/2026/not-all-that-glitters-is-gold-tracking-copperdragons-sparrow-framework-around-the-globe/",
-      "date": "2026-11-10",
-      "summary": "Key Points Introduction Over the past year, Check Point Research investigated a series of intrusion campaigns targeting several dozens of high-profile organizations across Latin America, Asia, and Europe. These…"
-    },
-    {
-      "source": "checkpoint",
-      "label": "check point",
-      "title": "9th November – Threat Intelligence Report",
-      "url": "https://research.checkpoint.com/2026/9th-november-threat-intelligence-report/",
-      "date": "2026-11-09",
-      "summary": "Queens Public Library, a New York City public library system serving approximately 2.3 million residents, was struck by a ransomware attack that encrypted its systems. The incident disrupted public computers, Wi-Fi…"
-    },
-    {
-      "source": "elastic",
-      "label": "elastic labs",
-      "title": "Modernising threat hunting: Using Semantic Search to Find Risky AI Agent Behavior",
-      "url": "https://www.elastic.co/security-labs/blog/ai-agent-session-monitoring-embedding-models",
-      "date": "2026-11-04",
-      "summary": "I tested vector search on 7,454 turns of my own agent sessions. One in seven sessions needed review, the agent’s reasoning carried more signal than the prompt, and the stored vectors answer questions nobody thought to…"
-    },
-    {
-      "source": "sentinel",
-      "label": "sentinellabs",
-      "title": "VerifiedIDA | Making LLM-Driven Reverse Engineering Inspectable, Continuable and Reusable",
-      "url": "https://www.sentinelone.com/labs/verifiedida-making-llm-driven-reverse-engineering-inspectable-continuable-and-reusable/",
-      "date": "2026-11-04",
-      "summary": "LLM reverse engineering scales only if analysis stays inspectable. A new standard and its open-source IDA Pro implementation tie annotations to evidence."
     },
     {
       "source": "gti",
