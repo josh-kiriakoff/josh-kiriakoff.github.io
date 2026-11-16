@@ -1,8 +1,16 @@
 {
-  "updated": "2026-11-14T01:28:32Z",
-  "checked": "2026-11-14T01:28:32Z",
+  "updated": "2026-11-16T01:06:03Z",
+  "checked": "2026-11-16T01:06:03Z",
   "failed": [],
   "items": [
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "YARA-X 1.23.0 Release",
+      "url": "https://isc.sans.edu/diary/rss/33496",
+      "date": "2026-11-15",
+      "summary": "YARA-X&#;x26;#;39;s 1.23.0 release brings 4 improvements and 16 bugfixes."
+    },
     {
       "source": "kev",
       "label": "cisa kev",
@@ -58,14 +66,6 @@
       "url": "https://www.microsoft.com/en-us/security/blog/2026/11/13/sckit-abuses-screenconnect-deploy-remote-access-target-technician-sessions/",
       "date": "2026-11-13",
       "summary": "SCKit abuses ScreenConnect to deploy unauthorized remote access and target technicians. Explore the attack chain, mitigations, and Microsoft Defender XDR hunting."
-    },
-    {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "Exploit Attempts for GPUStack Authentication Bypass (CVE-2026-102895)",
-      "url": "https://isc.sans.edu/diary/rss/33514",
-      "date": "2026-11-12",
-      "summary": "CVE-2026-102895 is a trivial authentication-bypass vulnerability. GPUStack is also an attractive target. It is open-source software that manages clusters of GPUs, which are typically used to run AI workloads. All…"
     },
     {
       "source": "talos",
