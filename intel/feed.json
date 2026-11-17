@@ -1,8 +1,56 @@
 {
-  "updated": "2026-11-16T01:06:03Z",
-  "checked": "2026-11-16T01:06:03Z",
+  "updated": "2026-11-17T03:57:30Z",
+  "checked": "2026-11-17T03:57:30Z",
   "failed": [],
   "items": [
+    {
+      "source": "msti",
+      "label": "microsoft ti",
+      "title": "High volume phishing campaign uses Microsoft 365 outage lures to target multiple industry sectors",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/16/high-volume-phishing-campaign-uses-microsoft-365-outage-lures-target-multiple-industry-sectors-2/",
+      "date": "2026-11-17",
+      "summary": "Microsoft Threat Intelligence observed a high-volume phishing campaign using Microsoft 365 outage-themed lures to target organizations across multiple sectors worldwide."
+    },
+    {
+      "source": "acsc",
+      "label": "acsc alert",
+      "title": "Vulnerabilities are moving quickly, so patch, protect, prevent",
+      "url": "https://www.cyber.gov.au/alert/vulnerabilities-are-moving-quickly-so-patch-protect-prevent",
+      "date": "2026-11-17",
+      "summary": "Actions organisations can take to identify internet-exposed systems, address vulnerabilities and reduce cyber security risk."
+    },
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "Scans for LiteLLM/Starlette (CVE-2026-42271, CVE-2026-48710)",
+      "url": "https://isc.sans.edu/diary/rss/33522",
+      "date": "2026-11-16",
+      "summary": "This weekend, we started seeing requests for /mcp-rest/test/tools/list hitting our honeypots. These requests appear to attempt to exploit CVE-2026-42271 and CVE-2026-48710. Horizon3.ai published a short write-up about…"
+    },
+    {
+      "source": "unit42",
+      "label": "unit 42",
+      "title": "QUIC and Covert: Novel HTTP/3-Powered RATs Target Southeast Asian Governments",
+      "url": "https://unit42.paloaltonetworks.com/custom-rats-target-southeast-asia-governments/",
+      "date": "2026-11-16",
+      "summary": "We uncover a Southeast Asian cyberespionage campaign deploying PerfectPioneer RAT, modular KUKURAT and stealth HTTP/3 C2 communication channels."
+    },
+    {
+      "source": "gti",
+      "label": "google ti",
+      "title": "GTIG AI Threat Tracker: Agentic Threat Activity Crosses a Significant Threshold",
+      "url": "https://cloud.google.com/blog/topics/threat-intelligence/agentic-threat-activity-crosses-a-significant-threshold/",
+      "date": "2026-11-16",
+      "summary": "Written by: Aurora Blum, Kelli Vanderlee, Jess Xia, David Mainor Executive Summary As threat actors increasingly move beyond basic prompting to deploying autonomous multi-agent frameworks , automated vulnerability…"
+    },
+    {
+      "source": "checkpoint",
+      "label": "check point",
+      "title": "16th November – Threat Intelligence Report",
+      "url": "https://research.checkpoint.com/2026/16th-november-threat-intelligence-report/",
+      "date": "2026-11-16",
+      "summary": "TSMC, a major Taiwanese semiconductor manufacturer, has confirmed a data breach at an unnamed cloud provider that exposed information about current and former employees. A hacker advertised 6.9 GB of allegedly stolen…"
+    },
     {
       "source": "isc",
       "label": "sans isc",
@@ -26,14 +74,6 @@
       "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-114713",
       "date": "2026-11-13",
       "summary": "UnrealIRCd UnrealIRCd contains an improper neutralization of delimiters vulnerability that allows any user on a network with two or more linked servers to inject server-to-server commands that are executed with server…"
-    },
-    {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "Macfinger ClickFix campaign sends DownTheDRAIN infostealer for macOS",
-      "url": "https://isc.sans.edu/diary/rss/33518",
-      "date": "2026-11-13",
-      "summary": "Introduction"
     },
     {
       "source": "talos",
@@ -76,52 +116,12 @@
       "summary": "Amy reflects on a formative college anthropology course that taught her the power of asking questions to bridge cultural gaps."
     },
     {
-      "source": "unit42",
-      "label": "unit 42",
-      "title": "Attackers Use Autonomous AI to Target Semiconductor, Defense and Civil Society Sectors",
-      "url": "https://unit42.paloaltonetworks.com/cairn-framework-ai-autonomous-attacks/",
-      "date": "2026-11-12",
-      "summary": "Our analysis of how attackers used the open-source Cairn AI agent framework to autonomously breach semiconductor, defense and civic targets."
-    },
-    {
-      "source": "msti",
-      "label": "microsoft ti",
-      "title": "Trained to betray: How post-training supply chain attacks hijack coding agents",
-      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/12/trained-to-betray-how-post-training-supply-chain-attacks-hijack-coding-agents/",
-      "date": "2026-11-12",
-      "summary": "Microsoft Defender Research and the AI Red Team discuss how poisoned datasets and poisoned model checkpoints can trigger remote code execution and other malicious activities."
-    },
-    {
-      "source": "checkpoint",
-      "label": "check point",
-      "title": "PHP2Shell Exploitation on Check Point Gateway",
-      "url": "https://research.checkpoint.com/2026/php2shell-exploitation-on-check-point-gateway/",
-      "date": "2026-11-12",
-      "summary": "Key findings Introduction We have now confirmed that, in late October 2026, approximately one week after a security fix became available, activity originating from 130.94.19[.]204 targeted Israeli organizations through…"
-    },
-    {
       "source": "sentinel",
       "label": "sentinellabs",
       "title": "LABScon26 Replay | Let’s Get Physical: Why Cybersecurity Needs Hardware-Based Security to Survive AI",
       "url": "https://www.sentinelone.com/labs/labscon26-replay-let-s-get-physical-why-cybersecurity-needs-hardware-based-security-to-survive-ai/",
       "date": "2026-11-12",
       "summary": "Adyen’s Dino Dai Zovi shows how hardware security proven in payments can contain AI-driven attacks, even when vulnerabilities cannot be patched."
-    },
-    {
-      "source": "gti",
-      "label": "google ti",
-      "title": "Shutting the Door on the XCPE Botnet",
-      "url": "https://cloud.google.com/blog/topics/threat-intelligence/shutting-the-door-on-the-xcpe-botnet/",
-      "date": "2026-11-02",
-      "summary": "Last week, Google and industry partners dismantled the XCPE backdoor which enrolled more than 1.3 million set-top boxes into a botnet. We assess with high confidence that the backdoor and botnet were intentionally…"
-    },
-    {
-      "source": "acsc",
-      "label": "acsc alert",
-      "title": "Critical vulnerabilities in Fortinet products",
-      "url": "https://www.cyber.gov.au/alert/critical-vulnerabilities-in-fortinet-products",
-      "date": "2026-10-23",
-      "summary": "Fortinet have announced critical vulnerabilities in Fortinet products, and are releasing security updates which customers should implement as a priority."
     },
     {
       "source": "cisa",
