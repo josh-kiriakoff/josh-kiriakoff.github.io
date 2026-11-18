@@ -1,8 +1,48 @@
 {
-  "updated": "2026-11-17T03:57:30Z",
-  "checked": "2026-11-17T03:57:30Z",
+  "updated": "2026-11-18T02:56:17Z",
+  "checked": "2026-11-18T02:56:17Z",
   "failed": [],
   "items": [
+    {
+      "source": "talos",
+      "label": "talos",
+      "title": "CVE-2026-114938: Critical vulnerability in OpenJDK JAVA",
+      "url": "https://blog.talosintelligence.com/java4shell/",
+      "date": "2026-11-18",
+      "summary": "Cisco Talos is tracking the disclosure of a critical vulnerability in OpenJDK Java (CVE-2026-114938), dubbed “Java4Shell,” with a CVSS 4.0 score of 9.2 that may lead to unauthenticated remote code execution (RCE)."
+    },
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "Perforce Puppet Enterprise Deserialization of Untrusted Data Vulnerability (CVE-2026-115731)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-115731",
+      "date": "2026-11-17",
+      "summary": "Perforce Puppet Enterprise contains a deserialization of untrusted data vulnerability in Puppet’s report-processing code that allows a client with any CA-signed agent certificate to execute arbitrary code on the Puppet…"
+    },
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "A phishing page interested in MX records",
+      "url": "https://isc.sans.edu/diary/rss/33526",
+      "date": "2026-11-17",
+      "summary": "I&#;x26;#;xe2;&#;x26;#;x80;&#;x26;#;x99;ve mentioned before in some of my diaries that it can be instructive to look at what appear to be…"
+    },
+    {
+      "source": "unit42",
+      "label": "unit 42",
+      "title": "Borrowed Code, Real Consequences: What OPTIMJACK Teaches Us",
+      "url": "https://unit42.paloaltonetworks.com/optimjack-supply-chain-attack/",
+      "date": "2026-11-17",
+      "summary": "The OPTIMJACK supply chain attack demonstrates how a compromised vendor script can expose websites, highlighting the need for strict segmentation."
+    },
+    {
+      "source": "gti",
+      "label": "google ti",
+      "title": "COLD RELIC: A Case Study in Impersonation and Compromise",
+      "url": "https://cloud.google.com/blog/topics/threat-intelligence/cold-relic-a-case-study-in-impersonation-and-compromise/",
+      "date": "2026-11-17",
+      "summary": "Written by: Josh Murchie, John Wolfram, Joseph Spero, Peter Ukhanov, Fernando Tomlinson, Jr., Wesley Shields Introduction Over the past year, Mandiant has responded to a series of linked intrusions demonstrating how…"
+    },
     {
       "source": "msti",
       "label": "microsoft ti",
@@ -10,6 +50,14 @@
       "url": "https://www.microsoft.com/en-us/security/blog/2026/11/16/high-volume-phishing-campaign-uses-microsoft-365-outage-lures-target-multiple-industry-sectors-2/",
       "date": "2026-11-17",
       "summary": "Microsoft Threat Intelligence observed a high-volume phishing campaign using Microsoft 365 outage-themed lures to target organizations across multiple sectors worldwide."
+    },
+    {
+      "source": "msti",
+      "label": "microsoft ti",
+      "title": "The risks of device code authentication for AI coding agents",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/17/the-risks-of-device-code-authentication-for-ai-coding-agents/",
+      "date": "2026-11-17",
+      "summary": "Lab research shows how device code phishing, a technique that applies to any device-flow client, can extend to AI coding agents, using GitHub Copilot CLI as an illustrative example."
     },
     {
       "source": "acsc",
@@ -52,14 +100,6 @@
       "summary": "TSMC, a major Taiwanese semiconductor manufacturer, has confirmed a data breach at an unnamed cloud provider that exposed information about current and former employees. A hacker advertised 6.9 GB of allegedly stolen…"
     },
     {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "YARA-X 1.23.0 Release",
-      "url": "https://isc.sans.edu/diary/rss/33496",
-      "date": "2026-11-15",
-      "summary": "YARA-X&#;x26;#;39;s 1.23.0 release brings 4 improvements and 16 bugfixes."
-    },
-    {
       "source": "kev",
       "label": "cisa kev",
       "title": "Check Point Multiple Products Incorrect Permission Assignment for Critical Resource Vulnerability (CVE-2026-123039)",
@@ -68,52 +108,12 @@
       "summary": "Check Point Firewall, Multi-Domain Security Management Server, Scalable Platforms, Security Gateway, and Security Management Server contain an incorrect permissions assignment for critical resources vulnerability when…"
     },
     {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "UnrealIRCd Improper Neutralization of Delimiters Vulnerability (CVE-2026-114713)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-114713",
-      "date": "2026-11-13",
-      "summary": "UnrealIRCd UnrealIRCd contains an improper neutralization of delimiters vulnerability that allows any user on a network with two or more linked servers to inject server-to-server commands that are executed with server…"
-    },
-    {
-      "source": "talos",
-      "label": "talos",
-      "title": "ARTEX and beyond: AI-enabled penetration testing platforms",
-      "url": "https://blog.talosintelligence.com/artex-and-beyond/",
-      "date": "2026-11-13",
-      "summary": "AI-enabled penetration testing and red team frameworks can automate and chain reconnaissance, vulnerability testing, and follow-on actions, lowering the skill threshold for attackers and accelerating intrusions when the…"
-    },
-    {
-      "source": "elastic",
-      "label": "elastic labs",
-      "title": "56 AWS API calls in 141 milliseconds: Inside an AI-run intrusion",
-      "url": "https://www.elastic.co/security-labs/threat-command/cyberstrikeai-aws-cloudtrail-intrusion",
-      "date": "2026-11-13",
-      "summary": "A CyberStrikeAI server spent 16 days in four AWS accounts using eight identities, and the CloudTrail record shows why six detection rules each caught only part of it."
-    },
-    {
       "source": "elastic",
       "label": "elastic labs",
       "title": "Inside the loop: Five AI attack frameworks that never ask permission",
       "url": "https://www.elastic.co/security-labs/threat-command/agentic-offensive-frameworks-detection-artex",
       "date": "2026-11-13",
       "summary": "Five agentic offensive frameworks act in bursts of two to 25 seconds, and none enforces authorization in code. What ARTEX, CyberStrikeAI, Cairn, PentAGI, and HexStrike leave in your telemetry, and the ES|QL hunt that…"
-    },
-    {
-      "source": "msti",
-      "label": "microsoft ti",
-      "title": "SCKit abuses ScreenConnect to deploy remote access and target technician sessions",
-      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/13/sckit-abuses-screenconnect-deploy-remote-access-target-technician-sessions/",
-      "date": "2026-11-13",
-      "summary": "SCKit abuses ScreenConnect to deploy unauthorized remote access and target technicians. Explore the attack chain, mitigations, and Microsoft Defender XDR hunting."
-    },
-    {
-      "source": "talos",
-      "label": "talos",
-      "title": "Never be afraid to ask questions",
-      "url": "https://blog.talosintelligence.com/never-be-afraid-to-ask-questions/",
-      "date": "2026-11-12",
-      "summary": "Amy reflects on a formative college anthropology course that taught her the power of asking questions to bridge cultural gaps."
     },
     {
       "source": "sentinel",
