@@ -1,31 +1,73 @@
 {
-  "updated": "2026-11-18T02:56:17Z",
-  "checked": "2026-11-18T02:56:17Z",
-  "failed": [],
+  "updated": "2026-11-19T02:37:17Z",
+  "checked": "2026-11-19T02:37:17Z",
+  "failed": [
+    "gti"
+  ],
   "items": [
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "Treat Your Honeypot Analysis Like Code: Git, Pull Requests and a Human Gate for AI [Guest Diary]",
+      "url": "https://isc.sans.edu/diary/rss/33534",
+      "date": "2026-11-19",
+      "summary": "[This is a Guest Diary by Kevin Truong, an ISC intern as part of the SANS.edu BACS program]"
+    },
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "Apache Axis Unsafe Reflection Vulnerability (CVE-2026-90436)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-90436",
+      "date": "2026-11-18",
+      "summary": "Apache Axis contains an unsafe reflection vulnerability that could allow an unauthenticated remote attacker to execute arbitrary code via a crafted SOAP fault message that causes Axis to load and instantiate an…"
+    },
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "BerriAI LiteLLM Unprotected Alternate Channel Vulnerability (CVE-2026-40217)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40217",
+      "date": "2026-11-18",
+      "summary": "BerriAI LiteLLM contains an unprotected alternate channel vulnerability that could allow remote attackers to execute arbitrary code via bytecode rewriting at the /guardrails/test_custom_code URI."
+    },
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "Java4Shell, NGINX2Shell and more: Why we are not at \"Yellow\"",
+      "url": "https://isc.sans.edu/diary/rss/33532",
+      "date": "2026-11-18",
+      "summary": "About a month ago, we went to Infocon Yellow for the first time in a few years. We decided to address the php2shell vulnerability and alert our readers to its significant impact. Following php2shell, we had a number of…"
+    },
     {
       "source": "talos",
       "label": "talos",
-      "title": "CVE-2026-114938: Critical vulnerability in OpenJDK JAVA",
+      "title": "CVE-2026-114938: Critical vulnerability in OpenJDK Java",
       "url": "https://blog.talosintelligence.com/java4shell/",
       "date": "2026-11-18",
       "summary": "Cisco Talos is tracking the disclosure of a critical vulnerability in OpenJDK Java (CVE-2026-114938), dubbed “Java4Shell,” with a CVSS 4.0 score of 9.2 that may lead to unauthenticated remote code execution (RCE)."
     },
     {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "Perforce Puppet Enterprise Deserialization of Untrusted Data Vulnerability (CVE-2026-115731)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-115731",
-      "date": "2026-11-17",
-      "summary": "Perforce Puppet Enterprise contains a deserialization of untrusted data vulnerability in Puppet’s report-processing code that allows a client with any CA-signed agent certificate to execute arbitrary code on the Puppet…"
+      "source": "talos",
+      "label": "talos",
+      "title": "The challenge of defending against bulletproof dead drops on public blockchains",
+      "url": "https://blog.talosintelligence.com/the-challenge-of-defending-against-bulletproof-dead-drops-on-public-blockchains/",
+      "date": "2026-11-18",
+      "summary": "The evolution of malware command-and-control (C2) infrastructure has shifted away from fragile, centralized servers and hardcoded domains toward resilient, decentralized blockchain networks that eliminate single points…"
     },
     {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "A phishing page interested in MX records",
-      "url": "https://isc.sans.edu/diary/rss/33526",
-      "date": "2026-11-17",
-      "summary": "I&#;x26;#;xe2;&#;x26;#;x80;&#;x26;#;x99;ve mentioned before in some of my diaries that it can be instructive to look at what appear to be…"
+      "source": "elastic",
+      "label": "elastic labs",
+      "title": "We caught the agent-framework PyPI compromise six minutes after it published",
+      "url": "https://www.elastic.co/security-labs/threat-command/we-caught-the-agent-framework-pypi-compromise-six-minutes-after-it-published",
+      "date": "2026-11-18",
+      "summary": "Versions 1.26.1 and 1.26.2 stole Azure, Azure DevOps and GitHub Actions tokens from a .pth hook that ran on every Python launch, so if either one touched a build agent or a laptop, assume every secret on that host is…"
+    },
+    {
+      "source": "sentinel",
+      "label": "sentinellabs",
+      "title": "LABScon26 Replay | Governing Just-in-Time Intelligence: AI, Dual-Use Capabilities, and the Limits of Guardrails",
+      "url": "https://www.sentinelone.com/labs/labscon26-replay-governing-just-in-time-intelligence-ai-dual-use-capabilities-and-the-limits-of-guardrails/",
+      "date": "2026-11-18",
+      "summary": "ICRC’s Mauro Vignati argues AI guardrails can’t fix a deeper problem: a 70-year-old distribution model now applied to dual-use cognitive capabilities."
     },
     {
       "source": "unit42",
@@ -60,6 +102,14 @@
       "summary": "Lab research shows how device code phishing, a technique that applies to any device-flow client, can extend to AI coding agents, using GitHub Copilot CLI as an illustrative example."
     },
     {
+      "source": "checkpoint",
+      "label": "check point",
+      "title": "The State of Ransomware Q3 2026",
+      "url": "https://research.checkpoint.com/2026/the-state-of-ransomware-q3-2026/",
+      "date": "2026-11-17",
+      "summary": "Ransomware reached record levels in Q3 2026, but the scale of activity is only part of what changed. The ecosystem producing those attacks is becoming increasingly fragmented: more ransomware brands are claiming…"
+    },
+    {
       "source": "acsc",
       "label": "acsc alert",
       "title": "Vulnerabilities are moving quickly, so patch, protect, prevent",
@@ -68,60 +118,12 @@
       "summary": "Actions organisations can take to identify internet-exposed systems, address vulnerabilities and reduce cyber security risk."
     },
     {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "Scans for LiteLLM/Starlette (CVE-2026-42271, CVE-2026-48710)",
-      "url": "https://isc.sans.edu/diary/rss/33522",
-      "date": "2026-11-16",
-      "summary": "This weekend, we started seeing requests for /mcp-rest/test/tools/list hitting our honeypots. These requests appear to attempt to exploit CVE-2026-42271 and CVE-2026-48710. Horizon3.ai published a short write-up about…"
-    },
-    {
       "source": "unit42",
       "label": "unit 42",
       "title": "QUIC and Covert: Novel HTTP/3-Powered RATs Target Southeast Asian Governments",
       "url": "https://unit42.paloaltonetworks.com/custom-rats-target-southeast-asia-governments/",
       "date": "2026-11-16",
       "summary": "We uncover a Southeast Asian cyberespionage campaign deploying PerfectPioneer RAT, modular KUKURAT and stealth HTTP/3 C2 communication channels."
-    },
-    {
-      "source": "gti",
-      "label": "google ti",
-      "title": "GTIG AI Threat Tracker: Agentic Threat Activity Crosses a Significant Threshold",
-      "url": "https://cloud.google.com/blog/topics/threat-intelligence/agentic-threat-activity-crosses-a-significant-threshold/",
-      "date": "2026-11-16",
-      "summary": "Written by: Aurora Blum, Kelli Vanderlee, Jess Xia, David Mainor Executive Summary As threat actors increasingly move beyond basic prompting to deploying autonomous multi-agent frameworks , automated vulnerability…"
-    },
-    {
-      "source": "checkpoint",
-      "label": "check point",
-      "title": "16th November – Threat Intelligence Report",
-      "url": "https://research.checkpoint.com/2026/16th-november-threat-intelligence-report/",
-      "date": "2026-11-16",
-      "summary": "TSMC, a major Taiwanese semiconductor manufacturer, has confirmed a data breach at an unnamed cloud provider that exposed information about current and former employees. A hacker advertised 6.9 GB of allegedly stolen…"
-    },
-    {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "Check Point Multiple Products Incorrect Permission Assignment for Critical Resource Vulnerability (CVE-2026-123039)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-123039",
-      "date": "2026-11-13",
-      "summary": "Check Point Firewall, Multi-Domain Security Management Server, Scalable Platforms, Security Gateway, and Security Management Server contain an incorrect permissions assignment for critical resources vulnerability when…"
-    },
-    {
-      "source": "elastic",
-      "label": "elastic labs",
-      "title": "Inside the loop: Five AI attack frameworks that never ask permission",
-      "url": "https://www.elastic.co/security-labs/threat-command/agentic-offensive-frameworks-detection-artex",
-      "date": "2026-11-13",
-      "summary": "Five agentic offensive frameworks act in bursts of two to 25 seconds, and none enforces authorization in code. What ARTEX, CyberStrikeAI, Cairn, PentAGI, and HexStrike leave in your telemetry, and the ES|QL hunt that…"
-    },
-    {
-      "source": "sentinel",
-      "label": "sentinellabs",
-      "title": "LABScon26 Replay | Let’s Get Physical: Why Cybersecurity Needs Hardware-Based Security to Survive AI",
-      "url": "https://www.sentinelone.com/labs/labscon26-replay-let-s-get-physical-why-cybersecurity-needs-hardware-based-security-to-survive-ai/",
-      "date": "2026-11-12",
-      "summary": "Adyen’s Dino Dai Zovi shows how hardware security proven in payments can contain AI-driven attacks, even when vulnerabilities cannot be patched."
     },
     {
       "source": "cisa",
