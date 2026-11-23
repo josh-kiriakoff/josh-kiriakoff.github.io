@@ -1,8 +1,16 @@
 {
-  "updated": "2026-11-21T02:24:21Z",
-  "checked": "2026-11-21T02:24:21Z",
+  "updated": "2026-11-23T01:47:11Z",
+  "checked": "2026-11-23T01:47:11Z",
   "failed": [],
   "items": [
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "A brief history of syslog timestamps",
+      "url": "https://isc.sans.edu/diary/rss/33530",
+      "date": "2026-11-22",
+      "summary": "BLUF: Debian and Ubuntu dropped a config directive in the rsyslogd package in early 2023."
+    },
     {
       "source": "kev",
       "label": "cisa kev",
@@ -74,14 +82,6 @@
       "url": "https://research.checkpoint.com/2026/30-years-of-gatekeeper-asymmetry-doom-the-paradox-that-makes-powerful-llms-more-vulnerable/",
       "date": "2026-11-19",
       "summary": "Abstract We give an exposition for a principle of gatekeeper asymmetry doom in information security, which states that “If the system vetting adversarial input has strictly less power than the system processing that…"
-    },
-    {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "Java4Shell, NGINX2Shell and more: Why we are not at \"Yellow\"",
-      "url": "https://isc.sans.edu/diary/rss/33532",
-      "date": "2026-11-18",
-      "summary": "About a month ago, we went to Infocon Yellow for the first time in a few years. We decided to address the php2shell vulnerability and alert our readers to its significant impact. Following php2shell, we had a number of…"
     },
     {
       "source": "talos",
