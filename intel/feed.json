@@ -1,8 +1,56 @@
 {
-  "updated": "2026-11-23T01:47:11Z",
-  "checked": "2026-11-23T01:47:11Z",
+  "updated": "2026-11-24T05:21:03Z",
+  "checked": "2026-11-24T05:21:03Z",
   "failed": [],
   "items": [
+    {
+      "source": "isc",
+      "label": "sans isc",
+      "title": "Scanning from Subnet 109.160.32.0/24",
+      "url": "https://isc.sans.edu/diary/rss/33550",
+      "date": "2026-11-24",
+      "summary": "This subnet is assigned to a web hosting and virtual private server (VPS) provider BANATSYNC SRL with AS198364, located in Timisoara, Romania. This graph shows the DShield sensor activity over the past 90 days for this…"
+    },
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "N-able MailAssure (SpamExperts) Server-Side Request Forgery (SSRF) Vulnerability (CVE-2026-134624)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-134624",
+      "date": "2026-11-23",
+      "summary": "N-able MailAssure (SpamExperts) contains a server-side request forgery vulnerability in the LDAP synchronization connection check that allows an authenticated API user to connect to arbitrary internal hosts and ports…"
+    },
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "Project MONAI MONAI Label Path Traversal Vulnerability (CVE-2026-133968)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-133968",
+      "date": "2026-11-23",
+      "summary": "Project MONAI MONAI Label contains a path traversal vulnerability that allows an unauthenticated remote attacker to write arbitrary files outside the intended datastore directory, potentially resulting in remote code…"
+    },
+    {
+      "source": "elastic",
+      "label": "elastic labs",
+      "title": "AlertZero in Elastic Security: Every alert answered. Every decision yours",
+      "url": "https://www.elastic.co/security-labs/blog/ai-soc-agents-alertzero-workers",
+      "date": "2026-11-23",
+      "summary": "Agents triage alerts, hunt threats, tune noisy rules and reconstruct what happened on a host. Each hands you a proposed action with the evidence behind it, and you set how far it goes alone and which model it uses."
+    },
+    {
+      "source": "elastic",
+      "label": "elastic labs",
+      "title": "Press play on Elastic Security 9.6, banger after banger",
+      "url": "https://www.elastic.co/security-labs/blog/elastic-security-9-6-release-highlights",
+      "date": "2026-11-23",
+      "summary": "AlertZero works your alert queue in the background and nothing consequential it proposes runs until you approve it. 9.6 also brings entity resolution, MITRE ATLAS mappings, 143 AI detection rules, and Linux ransomware…"
+    },
+    {
+      "source": "checkpoint",
+      "label": "check point",
+      "title": "23rd November – Threat Intelligence Report",
+      "url": "https://research.checkpoint.com/2026/23rd-november-threat-intelligence-report/",
+      "date": "2026-11-23",
+      "summary": "The FBI has reportedly experienced a second cyber incident in recent months, this time targeting its National Crime Information Center (NCIC). The database shares records on fugitives, warrants, criminal histories, and…"
+    },
     {
       "source": "isc",
       "label": "sans isc",
@@ -10,22 +58,6 @@
       "url": "https://isc.sans.edu/diary/rss/33530",
       "date": "2026-11-22",
       "summary": "BLUF: Debian and Ubuntu dropped a config directive in the rsyslogd package in early 2023."
-    },
-    {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "Apache Roller Deserialization of Untrusted Data Vulnerability (CVE-2026-129448)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-129448",
-      "date": "2026-11-20",
-      "summary": "Apache Roller contains a deserialization of untrusted data vulnerability that allows an unauthenticated remote attacker to execute arbitrary code via the XML-RPC endpoint, which accepts and deserializes vendor extension…"
-    },
-    {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "Cisco Expressway Series Use of Hard-coded Credentials Vulnerability (CVE-2026-76466)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-76466",
-      "date": "2026-11-20",
-      "summary": "Cisco Expressway Series contains a use of hard-coded credentials vulnerability that allows an unauthenticated, remote attacker with persistent cookies and network access to execute commands as root on a clustered device…"
     },
     {
       "source": "unit42",
@@ -36,36 +68,12 @@
       "summary": "Our analysis of Com affiliate vishing attacks, cloud data theft and extortion campaigns targeting healthcare and finance, with actionable defense guidance."
     },
     {
-      "source": "elastic",
-      "label": "elastic labs",
-      "title": "Mapping the AI threat landscape: MITRE ATLAS comes to Elastic Security",
-      "url": "https://www.elastic.co/security-labs/blog/mitre-atlas-elastic-security-detection-coverage",
-      "date": "2026-11-20",
-      "summary": "Elastic Security 9.6 adds MITRE ATLAS to our detection rules and the tools you use to manage them, so you can see which AI attacks your rules already cover."
-    },
-    {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "Treat Your Honeypot Analysis Like Code: Git, Pull Requests and a Human Gate for AI [Guest Diary]",
-      "url": "https://isc.sans.edu/diary/rss/33534",
-      "date": "2026-11-19",
-      "summary": "[This is a Guest Diary by Kevin Truong, an ISC intern as part of the SANS.edu BACS program]"
-    },
-    {
       "source": "talos",
       "label": "talos",
       "title": "The internet needs a nap (and you do, too)",
       "url": "https://blog.talosintelligence.com/the-internet-needs-a-nap-and-you-do-too/",
       "date": "2026-11-19",
       "summary": "Bill takes a break from the non-stop breaking news to promote prioritizing environmental awareness and team stability over reactive patching."
-    },
-    {
-      "source": "elastic",
-      "label": "elastic labs",
-      "title": "From posture to root cause: Investigate OpenShift compliance with Elastic Agent Builder",
-      "url": "https://www.elastic.co/security-labs/blog/openshift-compliance-elastic-agent-builder",
-      "date": "2026-11-19",
-      "summary": "When an OpenShift compliance control fails, Elastic Agent Builder traces the root cause, from Compliance Operator scans centralized in Elasticsearch and CEL checks for the rules the scanner marks manual."
     },
     {
       "source": "gti",
@@ -98,14 +106,6 @@
       "url": "https://www.sentinelone.com/labs/labscon26-replay-governing-just-in-time-intelligence-ai-dual-use-capabilities-and-the-limits-of-guardrails/",
       "date": "2026-11-18",
       "summary": "ICRC’s Mauro Vignati argues AI guardrails can’t fix a deeper problem: a 70-year-old distribution model now applied to dual-use cognitive capabilities."
-    },
-    {
-      "source": "unit42",
-      "label": "unit 42",
-      "title": "Borrowed Code, Real Consequences: What OPTIMJACK Teaches Us",
-      "url": "https://unit42.paloaltonetworks.com/optimjack-supply-chain-attack/",
-      "date": "2026-11-17",
-      "summary": "The OPTIMJACK supply chain attack demonstrates how a compromised vendor script can expose websites, highlighting the need for strict segmentation."
     },
     {
       "source": "msti",
