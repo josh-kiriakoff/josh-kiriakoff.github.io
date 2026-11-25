@@ -1,8 +1,24 @@
 {
-  "updated": "2026-11-24T05:21:03Z",
-  "checked": "2026-11-24T05:21:03Z",
+  "updated": "2026-11-25T04:16:20Z",
+  "checked": "2026-11-25T04:16:20Z",
   "failed": [],
   "items": [
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "Drupal Core Remote Code Execution Vulnerability (CVE-2026-132165)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-132165",
+      "date": "2026-11-24",
+      "summary": "Drupal Core contains a not failing securely vulnerability that could allow an unauthenticated attacker to take over an existing site or execute arbitrary code via the Drupal installer. Under specific conditions, the…"
+    },
+    {
+      "source": "kev",
+      "label": "cisa kev",
+      "title": "Idunno AntiCsrf Deserialization of Untrusted Data Vulnerability (CVE-2026-131914)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-131914",
+      "date": "2026-11-24",
+      "summary": "Idunno AntiCsrf contains a deserialization of untrusted data vulnerability that allows an unauthenticated remote attacker to execute arbitrary code via object injection. The impacted product(s) could be end-of-life…"
+    },
     {
       "source": "isc",
       "label": "sans isc",
@@ -12,20 +28,28 @@
       "summary": "This subnet is assigned to a web hosting and virtual private server (VPS) provider BANATSYNC SRL with AS198364, located in Timisoara, Romania. This graph shows the DShield sensor activity over the past 90 days for this…"
     },
     {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "N-able MailAssure (SpamExperts) Server-Side Request Forgery (SSRF) Vulnerability (CVE-2026-134624)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-134624",
-      "date": "2026-11-23",
-      "summary": "N-able MailAssure (SpamExperts) contains a server-side request forgery vulnerability in the LDAP synchronization connection check that allows an authenticated API user to connect to arbitrary internal hosts and ports…"
+      "source": "unit42",
+      "label": "unit 42",
+      "title": "NGINX HTTP/2 Use-After-Free: CVE-2026-123633",
+      "url": "https://unit42.paloaltonetworks.com/cve-2026-123633-nginx-http2-vulnerability/",
+      "date": "2026-11-24",
+      "summary": "Technical analysis of CVE-2026-123633, an NGINX HTTP/2 use-after-free flaw, with details on affected versions, sanitizer tests, and patch guidance."
     },
     {
-      "source": "kev",
-      "label": "cisa kev",
-      "title": "Project MONAI MONAI Label Path Traversal Vulnerability (CVE-2026-133968)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-133968",
-      "date": "2026-11-23",
-      "summary": "Project MONAI MONAI Label contains a path traversal vulnerability that allows an unauthenticated remote attacker to write arbitrary files outside the intended datastore directory, potentially resulting in remote code…"
+      "source": "unit42",
+      "label": "unit 42",
+      "title": "Recent Trends and Tactics of Agentic AI Attacks",
+      "url": "https://unit42.paloaltonetworks.com/autonomous-ai-agent-threat-campaigns/",
+      "date": "2026-11-24",
+      "summary": "We tracked campaigns where attackers deployed autonomous AI agents to automate multi-platform intrusions, using standard tools while leaving distinct operational traces."
+    },
+    {
+      "source": "checkpoint",
+      "label": "check point",
+      "title": "Volant Manticore: Flying Under the Radar",
+      "url": "https://research.checkpoint.com/2026/volant-manticore-flying-under-the-radar/",
+      "date": "2026-11-24",
+      "summary": "Key Points Introduction Check Point Research is tracking a previously undocumented Iran-nexus threat group who we named Volant Manticore. What started in July 2026 as a single backdoor delivered to a Cyprus-based…"
     },
     {
       "source": "elastic",
@@ -60,14 +84,6 @@
       "summary": "BLUF: Debian and Ubuntu dropped a config directive in the rsyslogd package in early 2023."
     },
     {
-      "source": "unit42",
-      "label": "unit 42",
-      "title": "Dialing for Data: Inside the Com’s High-Profile Heists",
-      "url": "https://unit42.paloaltonetworks.com/com-affiliate-vishing-attacks/",
-      "date": "2026-11-20",
-      "summary": "Our analysis of Com affiliate vishing attacks, cloud data theft and extortion campaigns targeting healthcare and finance, with actionable defense guidance."
-    },
-    {
       "source": "talos",
       "label": "talos",
       "title": "The internet needs a nap (and you do, too)",
@@ -82,22 +98,6 @@
       "url": "https://cloud.google.com/blog/topics/threat-intelligence/armory-castle-exploits-vsphere/",
       "date": "2026-11-19",
       "summary": "Written by: Jayson Frost, Bryce Greathouse, Dhanesh Kizhakkinan, John Palmisano, Steve Rasch, Daniel Sislo, John Wolfram Introduction On Oct. 15, 2026, Mandiant and Google Threat Intelligence Group (GTIG) published a…"
-    },
-    {
-      "source": "checkpoint",
-      "label": "check point",
-      "title": "30 Years of Gatekeeper Asymmetry Doom: The Paradox that Makes Powerful LLMs More Vulnerable",
-      "url": "https://research.checkpoint.com/2026/30-years-of-gatekeeper-asymmetry-doom-the-paradox-that-makes-powerful-llms-more-vulnerable/",
-      "date": "2026-11-19",
-      "summary": "Abstract We give an exposition for a principle of gatekeeper asymmetry doom in information security, which states that “If the system vetting adversarial input has strictly less power than the system processing that…"
-    },
-    {
-      "source": "talos",
-      "label": "talos",
-      "title": "CVE-2026-114938: Critical vulnerability in OpenJDK Java",
-      "url": "https://blog.talosintelligence.com/java4shell/",
-      "date": "2026-11-18",
-      "summary": "Cisco Talos is tracking the disclosure of a critical vulnerability in OpenJDK Java (CVE-2026-114938), dubbed “Java4Shell,” with a CVSS 4.0 score of 9.2 that may lead to unauthenticated remote code execution (RCE)."
     },
     {
       "source": "sentinel",
