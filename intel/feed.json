@@ -1,23 +1,55 @@
 {
-  "updated": "2026-11-25T04:16:20Z",
-  "checked": "2026-11-25T04:16:20Z",
+  "updated": "2026-11-26T03:37:08Z",
+  "checked": "2026-11-26T03:37:08Z",
   "failed": [],
   "items": [
     {
       "source": "kev",
       "label": "cisa kev",
-      "title": "Drupal Core Remote Code Execution Vulnerability (CVE-2026-132165)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-132165",
-      "date": "2026-11-24",
-      "summary": "Drupal Core contains a not failing securely vulnerability that could allow an unauthenticated attacker to take over an existing site or execute arbitrary code via the Drupal installer. Under specific conditions, the…"
+      "title": "Danfoss AK-SM 800A Series Improper Authentication Vulnerability (CVE-2025-41450)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-41450",
+      "date": "2026-11-25",
+      "summary": "Danfoss AK-SM 800A Series contains an improper authentication vulnerability that could allow an attacker to generate a web report exposing sensitive information, including internal IP addresses, usernames, and store…"
     },
     {
       "source": "kev",
       "label": "cisa kev",
-      "title": "Idunno AntiCsrf Deserialization of Untrusted Data Vulnerability (CVE-2026-131914)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-131914",
-      "date": "2026-11-24",
-      "summary": "Idunno AntiCsrf contains a deserialization of untrusted data vulnerability that allows an unauthenticated remote attacker to execute arbitrary code via object injection. The impacted product(s) could be end-of-life…"
+      "title": "Mitel MiCollab OS Command Injection Vulnerability (CVE-2026-133323)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-133323",
+      "date": "2026-11-25",
+      "summary": "Mitel MiCollab contains an improper neutralization of special elements used in an OS command (OS command injection) vulnerability in its Audio, Web, and Video Conferencing (AWV) component that could allow an…"
+    },
+    {
+      "source": "talos",
+      "label": "talos",
+      "title": "Oh, is it Thanksgiving? I hadn’t noticed!",
+      "url": "https://blog.talosintelligence.com/oh-is-it-thanksgiving-i-hadnt-noticed/",
+      "date": "2026-11-25",
+      "summary": "In true Thanksgiving fashion, David has a few thank-yous to give to the cybersecurity community (and a few choice words for threat actors)."
+    },
+    {
+      "source": "talos",
+      "label": "talos",
+      "title": "Securing Grandma's groceries with Pierre Cadieux",
+      "url": "https://blog.talosintelligence.com/securing-grandmas-groceries-with-pierre-cadieux/",
+      "date": "2026-11-25",
+      "summary": "Pierre takes us back to his early days on help desks in the 90s, where learning to correlate logs between Windows and Unix systems sparked the curiosity that eventually led him to security."
+    },
+    {
+      "source": "unit42",
+      "label": "unit 42",
+      "title": "The AI Threat Horizon: Why Speed, Edge AI and Baselines Are Our Best Defense",
+      "url": "https://unit42.paloaltonetworks.com/ai-threat-horizon/",
+      "date": "2026-11-25",
+      "summary": "Unit 42 examines the evolution of AI-driven cyberattacks and outlines proactive defense strategies for security teams."
+    },
+    {
+      "source": "msti",
+      "label": "microsoft ti",
+      "title": "What defenders need to know about ARTEX, the agentic AI framework threat actors abuse",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/25/what-defenders-need-to-know-artex-agentic-ai-framework-threat-actors-abuse/",
+      "date": "2026-11-25",
+      "summary": "The AI-powered penetration testing framework ARTEX has been abused by threat actors like Storm-0940, Storm-3358, Onyx Sleet, Pearl Sleet, Crystal Typhoon, and Salt Typhoon to accelerate their existing workflows related…"
     },
     {
       "source": "isc",
@@ -34,14 +66,6 @@
       "url": "https://unit42.paloaltonetworks.com/cve-2026-123633-nginx-http2-vulnerability/",
       "date": "2026-11-24",
       "summary": "Technical analysis of CVE-2026-123633, an NGINX HTTP/2 use-after-free flaw, with details on affected versions, sanitizer tests, and patch guidance."
-    },
-    {
-      "source": "unit42",
-      "label": "unit 42",
-      "title": "Recent Trends and Tactics of Agentic AI Attacks",
-      "url": "https://unit42.paloaltonetworks.com/autonomous-ai-agent-threat-campaigns/",
-      "date": "2026-11-24",
-      "summary": "We tracked campaigns where attackers deployed autonomous AI agents to automate multi-platform intrusions, using standard tools while leaving distinct operational traces."
     },
     {
       "source": "checkpoint",
@@ -76,22 +100,6 @@
       "summary": "The FBI has reportedly experienced a second cyber incident in recent months, this time targeting its National Crime Information Center (NCIC). The database shares records on fugitives, warrants, criminal histories, and…"
     },
     {
-      "source": "isc",
-      "label": "sans isc",
-      "title": "A brief history of syslog timestamps",
-      "url": "https://isc.sans.edu/diary/rss/33530",
-      "date": "2026-11-22",
-      "summary": "BLUF: Debian and Ubuntu dropped a config directive in the rsyslogd package in early 2023."
-    },
-    {
-      "source": "talos",
-      "label": "talos",
-      "title": "The internet needs a nap (and you do, too)",
-      "url": "https://blog.talosintelligence.com/the-internet-needs-a-nap-and-you-do-too/",
-      "date": "2026-11-19",
-      "summary": "Bill takes a break from the non-stop breaking news to promote prioritizing environmental awareness and team stability over reactive patching."
-    },
-    {
       "source": "gti",
       "label": "google ti",
       "title": "ARMORY CASTLE Exploits vSphere",
@@ -106,14 +114,6 @@
       "url": "https://www.sentinelone.com/labs/labscon26-replay-governing-just-in-time-intelligence-ai-dual-use-capabilities-and-the-limits-of-guardrails/",
       "date": "2026-11-18",
       "summary": "ICRC’s Mauro Vignati argues AI guardrails can’t fix a deeper problem: a 70-year-old distribution model now applied to dual-use cognitive capabilities."
-    },
-    {
-      "source": "msti",
-      "label": "microsoft ti",
-      "title": "The risks of device code authentication for AI coding agents",
-      "url": "https://www.microsoft.com/en-us/security/blog/2026/11/17/the-risks-of-device-code-authentication-for-ai-coding-agents/",
-      "date": "2026-11-17",
-      "summary": "Lab research shows how device code phishing, a technique that applies to any device-flow client, can extend to AI coding agents, using GitHub Copilot CLI as an illustrative example."
     },
     {
       "source": "acsc",
