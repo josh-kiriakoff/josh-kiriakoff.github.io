@@ -1,23 +1,23 @@
 {
-  "updated": "2026-11-26T03:37:08Z",
-  "checked": "2026-11-26T03:37:08Z",
+  "updated": "2026-11-28T03:20:25Z",
+  "checked": "2026-11-28T03:20:25Z",
   "failed": [],
   "items": [
     {
       "source": "kev",
       "label": "cisa kev",
-      "title": "Danfoss AK-SM 800A Series Improper Authentication Vulnerability (CVE-2025-41450)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-41450",
-      "date": "2026-11-25",
-      "summary": "Danfoss AK-SM 800A Series contains an improper authentication vulnerability that could allow an attacker to generate a web report exposing sensitive information, including internal IP addresses, usernames, and store…"
+      "title": "Drupal Core Improper Check for Unusual or Exceptional Conditions Vulnerability (CVE-2026-136716)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-136716",
+      "date": "2026-11-27",
+      "summary": "Drupal Core contains an improper check for unusual or exceptional conditions vulnerability that allows an unauthenticated remote attacker to take over a site via the exposed Drupal installer when the site is in one of…"
     },
     {
       "source": "kev",
       "label": "cisa kev",
-      "title": "Mitel MiCollab OS Command Injection Vulnerability (CVE-2026-133323)",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-133323",
-      "date": "2026-11-25",
-      "summary": "Mitel MiCollab contains an improper neutralization of special elements used in an OS command (OS command injection) vulnerability in its Audio, Web, and Video Conferencing (AWV) component that could allow an…"
+      "title": "OSGeo GeoServer Incorrect Authorization Vulnerability (CVE-2026-129243)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-129243",
+      "date": "2026-11-27",
+      "summary": "GeoServer contains an incorrect authorization vulnerability that allows an unauthenticated remote attacker to bypass service-level role checks and invoke operations protected solely by those checks via a request with a…"
     },
     {
       "source": "talos",
